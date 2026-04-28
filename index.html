@@ -70,10 +70,13 @@
   <!-- ─── NAV ─────────────────────────────────────────────────────────────── -->
   <nav class="fixed top-0 inset-x-0 z-50 bg-navy/95 backdrop-blur border-b border-white/10">
     <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <img src="logo2.png" alt="Challengers Ranking" class="h-10 w-10 rounded-full object-cover" />
-        <span class="text-white font-serif font-bold text-lg leading-tight hidden sm:block">Challengers<br><span class="text-gold text-sm font-sans font-semibold tracking-widest uppercase">Ranking</span></span>
-      </div>
+      <a href="#" class="flex items-center gap-3.5 group">
+        <img src="logo2.png" alt="Challengers Ranking" class="h-11 w-11 rounded-full object-cover ring-2 ring-gold/40 group-hover:ring-gold/70 shadow-lg shadow-black/30 transition-all duration-300" />
+        <div class="hidden sm:flex flex-col leading-none">
+          <span class="font-serif text-white font-bold text-[1.15rem] tracking-tight leading-none">Challengers <span class="text-gold">Ranking</span></span>
+          <span class="text-white/35 text-[9px] font-sans font-medium tracking-[0.28em] uppercase mt-[5px]">Tennis Ladder Software</span>
+        </div>
+      </a>
       <div class="flex items-center gap-4">
         <a href="#pricing" class="text-white/70 hover:text-white text-sm font-medium transition hidden sm:block">Pricing</a>
         <a href="#features" class="text-white/70 hover:text-white text-sm font-medium transition hidden sm:block">Features</a>
