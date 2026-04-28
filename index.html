@@ -395,25 +395,32 @@
       <p class="text-white/60 mb-10">Book a free 20-minute demo. We'll show you a live ranking in action and answer any questions.</p>
 
       <form class="space-y-4 max-w-md mx-auto" onsubmit="handleSubmit(event)">
+        <input type="hidden" name="access_key" value="94474b8f-8477-42bd-8912-bdf277f5ce29" />
+        <input type="hidden" name="subject" value="New Demo Request — Challengers Ranking" />
+        <input type="hidden" name="from_name" value="Challengers Ranking Landing" />
         <input
           type="text"
+          name="name"
           placeholder="Your name"
           required
           class="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-xl px-5 py-3.5 text-sm focus:outline-none focus:border-gold transition"
         />
         <input
           type="email"
+          name="email"
           placeholder="Club email address"
           required
           class="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-xl px-5 py-3.5 text-sm focus:outline-none focus:border-gold transition"
         />
         <input
           type="text"
+          name="club_name"
           placeholder="Club name"
           required
           class="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-xl px-5 py-3.5 text-sm focus:outline-none focus:border-gold transition"
         />
         <select
+          name="players"
           required
           class="w-full bg-white/10 border border-white/20 text-white/70 rounded-xl px-5 py-3.5 text-sm focus:outline-none focus:border-gold transition"
         >
@@ -450,14 +457,32 @@
   </footer>
 
   <script>
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
       e.preventDefault();
-      const btn = e.target.querySelector('button[type="submit"]');
-      btn.textContent = '✓ Request received — we\'ll be in touch!';
-      btn.classList.remove('bg-gold', 'hover:bg-gold-light');
-      btn.classList.add('bg-green-500');
+      const form = e.target;
+      const btn = form.querySelector('button[type="submit"]');
+      btn.textContent = 'Sending...';
       btn.disabled = true;
-      // In production: send form data to your backend / email service
+
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: new FormData(form)
+        });
+        const data = await res.json();
+        if (data.success) {
+          btn.textContent = '✓ Request received — we\'ll be in touch!';
+          btn.classList.remove('bg-gold', 'hover:bg-gold-light');
+          btn.classList.add('bg-green-500');
+        } else {
+          throw new Error('Submission failed');
+        }
+      } catch {
+        btn.textContent = 'Something went wrong — please email us directly.';
+        btn.classList.remove('bg-gold', 'hover:bg-gold-light');
+        btn.classList.add('bg-red-500');
+        btn.disabled = false;
+      }
     }
   </script>
 
