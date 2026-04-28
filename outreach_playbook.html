@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Challengers Ranking — Outreach Playbook</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          navy: '#0A1628',
+          'navy-mid': '#0E1E38',
+          gold: '#C9A84C',
+        },
+        fontFamily: {
+          serif: ['Georgia', 'serif'],
+        }
+      }
+    }
+  }
+</script>
+<style>
+  body { background: #0A1628; color: #e2e8f0; font-family: 'Inter', system-ui, sans-serif; }
+  .card { background: #0E1E38; border: 1px solid rgba(201,168,76,0.15); border-radius: 12px; }
+  .gold { color: #C9A84C; }
+  .tag { display: inline-block; background: rgba(201,168,76,0.12); color: #C9A84C; border: 1px solid rgba(201,168,76,0.25); border-radius: 20px; padding: 2px 10px; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+  .step-num { width: 28px; height: 28px; background: #C9A84C; color: #0A1628; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; flex-shrink: 0; }
+  .email-box { background: #07101f; border: 1px solid rgba(201,168,76,0.2); border-radius: 8px; padding: 20px; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.7; white-space: pre-wrap; color: #cbd5e1; }
+  .copy-btn { cursor: pointer; background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); color: #C9A84C; padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 600; transition: all 0.2s; }
+  .copy-btn:hover { background: rgba(201,168,76,0.25); }
+  table { width: 100%; border-collapse: collapse; }
+  th { background: rgba(201,168,76,0.08); color: #C9A84C; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 14px; text-align: left; border-bottom: 1px solid rgba(201,168,76,0.15); }
+  td { padding: 10px 14px; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: top; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .status-new { background: rgba(59,130,246,0.15); color: #93c5fd; border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 600; }
+  .status-sent { background: rgba(234,179,8,0.15); color: #fde047; border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 600; }
+  .status-reply { background: rgba(34,197,94,0.15); color: #86efac; border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 600; }
+  .day-card { background: rgba(201,168,76,0.05); border: 1px solid rgba(201,168,76,0.12); border-radius: 8px; padding: 14px; }
+  h2 { color: #C9A84C; font-family: Georgia, serif; }
+  a { color: #93c5fd; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .divider { border: none; border-top: 1px solid rgba(201,168,76,0.1); margin: 40px 0; }
+</style>
+</head>
+<body>
+<div class="max-w-5xl mx-auto px-6 py-12">
+
+  <!-- Header -->
+  <div class="text-center mb-12">
+    <div class="tag mb-4">Challengers Ranking</div>
+    <h1 class="text-4xl font-bold text-white mb-3" style="font-family:Georgia,serif">Direct Outreach Playbook</h1>
+    <p class="text-white/50 text-lg">Step-by-step guide to land your first 10 paying clubs</p>
+    <p class="text-white/30 text-sm mt-2">Updated April 2026 · Keep this tab open while you work</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SECTION 1: TARGET PROFILE -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="card p-8 mb-8">
+    <h2 class="text-2xl font-bold mb-6">1. Who to Target</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div>
+        <div class="tag mb-3">Best Fit</div>
+        <ul class="text-white/70 text-sm space-y-2 mt-2">
+          <li>✅ Private tennis / racquet clubs</li>
+          <li>✅ Country clubs with tennis program</li>
+          <li>✅ Athletic clubs with 4+ courts</li>
+          <li>✅ 30 – 200 active adult members</li>
+          <li>✅ Already run a ladder manually (Excel, WhatsApp, paper)</li>
+          <li>✅ Have a Director of Tennis or Tennis Captain</li>
+        </ul>
+      </div>
+      <div>
+        <div class="tag mb-3">Decision Makers</div>
+        <ul class="text-white/70 text-sm space-y-2 mt-2">
+          <li>🎯 <strong class="text-white">Director of Tennis</strong> — primary contact</li>
+          <li>🎯 <strong class="text-white">Head Pro / Tennis Captain</strong> — influencer</li>
+          <li>🎯 <strong class="text-white">Club Manager / GM</strong> — budget approval</li>
+          <li>🎯 <strong class="text-white">Board Member (Sports Dir)</strong> — member clubs</li>
+        </ul>
+      </div>
+      <div>
+        <div class="tag mb-3">Green Flags</div>
+        <ul class="text-white/70 text-sm space-y-2 mt-2">
+          <li>⭐ Club website has a "Ladder" or "Rankings" page</li>
+          <li>⭐ They post match results on social media</li>
+          <li>⭐ Active adult league / interclub program</li>
+          <li>⭐ New tennis director (hired in last 12 months)</li>
+          <li>⭐ Mentions "challenge" system or "round robin"</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="divider" style="margin:24px 0" />
+    <div>
+      <h3 class="text-white font-bold mb-3">How to find them fast</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-white/70">
+        <div class="day-card">
+          <strong class="text-white">Google searches to use:</strong><br/>
+          <code class="text-gold/80 text-xs">"director of tennis" "racquet club" [state] contact</code><br/>
+          <code class="text-gold/80 text-xs">"tennis ladder" "private club" [city] site:clubwebsite.com</code><br/>
+          <code class="text-gold/80 text-xs">inurl:staff OR inurl:team "director of tennis" racquetclub</code>
+        </div>
+        <div class="day-card">
+          <strong class="text-white">LinkedIn searches to use:</strong><br/>
+          Title: <code class="text-gold/80 text-xs">"Director of Tennis"</code> or <code class="text-gold/80 text-xs">"Head Pro"</code><br/>
+          Industry: <code class="text-gold/80 text-xs">Sports / Recreation</code><br/>
+          Location: target by state (Northeast and Midwest first)
+        </div>
+        <div class="day-card">
+          <strong class="text-white">USPTA Directory:</strong><br/>
+          Go to <a href="https://directory.uspta.com/memberlookup.aspx">directory.uspta.com/memberlookup.aspx</a><br/>
+          Filter by: Job Title → Director of Tennis, Facility Type → Private Club
+        </div>
+        <div class="day-card">
+          <strong class="text-white">CourtReserve / ClubSpark customers:</strong><br/>
+          Search clubs that use these platforms — they're already digitally inclined and likely have active ladder programs to upgrade.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SECTION 2: PROSPECT LIST -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="card p-8 mb-8">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-2xl font-bold">2. Starter Prospect List</h2>
+      <span class="tag">20 clubs · 3 confirmed emails</span>
+    </div>
+    <p class="text-white/50 text-sm mb-4">Clubs with ✉ have confirmed email addresses found during research. Start with these first.</p>
+    <div style="overflow-x:auto">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Club</th>
+          <th>Location</th>
+          <th>Contact / Title</th>
+          <th>Email / Contact</th>
+          <th>Website</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="text-white/40">1</td>
+          <td><strong class="text-white">Frog Hollow Racquet Club</strong></td>
+          <td class="text-white/60">Pennsylvania</td>
+          <td class="text-white/70">Becca Cohen<br/><span class="text-white/40 text-xs">Marketing & Ops Director</span></td>
+          <td>✉ <a href="mailto:Becca@Frogtennis.com">Becca@Frogtennis.com</a></td>
+          <td><a href="https://www.frogtennis.com" target="_blank">frogtennis.com</a></td>
+          <td><span class="status-new">New</span></td>
+        </tr>
+        <tr>
+          <td class="text-white/40">2</td>
+          <td><strong class="text-white">Wequassett Resort</strong></td>
+          <td class="text-white/60">Cape Cod, MA</td>
+          <td class="text-white/70">Rob Parker<br/><span class="text-white/40 text-xs">Director of Tennis & Head Pro</span></td>
+          <td>✉ <a href="mailto:rparker@wequassett.com">rparker@wequassett.com</a></td>
+          <td><a href="https://wequassett.com" target="_blank">wequassett.com</a></td>
+          <td><span class="status-new">New</span></td>
+        </tr>
+        <tr>
+          <td class="text-white/40">3</td>
+          <td><strong class="text-white">Carefree Racquet Club</strong></td>
+          <td class="text-white/60">Long Island, NY</td>
+          <td class="text-white/70">Kristen Cassidy<br/><span class="text-white/40 text-xs">Club Manager</span></td>
+          <td>✉ <a href="mailto:CarefreeTennis@gmail.com">CarefreeTennis@gmail.com</a></td>
+          <td>—</td>
+          <td><span class="status-new">New</span></td>
+        </tr>
+        <tr>
+          <td class="text-white/40">4</td>
+          <td><strong class="text-white">Courtside Racquet Club</strong></td>
+          <td class="text-white/60">Lebanon, NJ</td>
+          <td class="text-white/70">Steve Bork<br/><span class="text-white/40 text-xs">Director of Tennis</span></td>
+          <td><a href="https://www.courtsideracquet.com/professionals/" target="_blank">Find via site</a></td>
+          <td><a href="http://www.courtsideracquet.com" target="_blank">courtsideracquet.com</a></td>
+          <td><span class="status-new">New</span></td>
+        </tr>
+        <tr>
+          <td class="text-white/40">5</td>
+          <td><strong class="text-white">Bucks County Racquet Club</strong></td>
+          <td class="text-white/60">Pennsylvania</td>
+          <td class="text-white/70">Chris Clayton<br/><span class="text-white/40 text-xs">Director of Tennis</span></td>
+          <td><a href="https://www.buckscountyracquetclub.com/ourprostaff" target="_blank">Find via site</a></td>
+          <td><a href="https://www.buckscountyracquetclub.com" target="_blank">buckscountyracquetclub.com</a></td>
+          <td><span class="status-new">New</span></td>
+        </tr>
+        <tr>
+          <td class="text-white/40">6</td>
+          <td><strong class="text-white">Raleigh Racquet Club</strong></td>
+          <td class="text-white/60">Raleigh, NC</td>
+          <td class="text-white/70">Paul Goode<br/><span class="text-white/40 text-xs">Director of Tennis (since 2014)</span></td>
+          <td><a href="http://rrctennis.com/tennis/pro-staff" target="_blank">Find via site</a></td>
+          <td><a href="http://rrctennis.com" target="_blank">rrctennis.com</a></td>
+          <td><span class="status-new">New</span></td>
+        </tr>
+        <tr>
+          <td class="text-white/40">7</td>
+          <td><strong class="text-white">Peninsula Racquet Club</strong></td>
+          <td class="text-white/60">Palos Verdes, CA</td>
+          <td class="text-white/70">Oliver Messerli<br/><span class="text-white/40 text-xs">Director of Tennis</span></td>
+          <td><a href="https://peninsularacquetclub.com/staff" target="_blank">Find via site</a></td>
+          <td><a href="https://peninsularacquetclub.com" target="_blank">peninsularacquetclub.com</a></td>
+          <td><span class="status-new">New</span></td>
+        </tr>
+        <tr>
+          <td class="text-white/40">8</td>
+          <td><strong class="text-white">Ridgewood Racquet Club</strong></td>
+          <td class="text-white/60">Ridgewood, NJ</td>
+          <td class="text-white/70">JD Bradley<br/><span class="text-white/40 text-xs">Director of Tennis</span></td>
+          <td><a href="https://www.ridgewoodracquet.com/" target="_blank">Find via site</a></td>
+          <td><a href="https://www.ridgewoodracquet.com" target="_blank">ridgewoodracquet.com</a></td>
+          <td><span class="status-new">New</span></td>
+        </tr>
+        <tr>
+          <td class="text-white/40">9</td>
+          <td><strong class="text-white">The Racket Club</strong></td>
+          <td class="text-white/60">Illinois</td>
+          <td class="text-white/70">Conni Stinek<br/><span class="text-white/40 text-xs">Director of Tennis</span></td>
+          <td>📞 847-658-5688 ext. 2015</td>
+          <td><a href="https://theracketclub.org" target="_blank">theracketclub.org</a></td>
+          <td><span class="status-new">New</span></td>
+        </tr>
+        <tr>
+          <td class="text-white/40">10</td>
+          <td><strong class="text-white">Troy Racquet Club</strong></td>
+          <td class="text-white/60">Troy, MI</td>
+          <td class="text-white/70">Brian<br/><span class="text-white/40 text-xs">Head Pro / Dir. of Junior Tennis</span></td>
+          <td><a href="https://www.troyracquetclub.com/our-pros/" target="_blank">Find via site</a></td>
+          <td><a href="https://www.troyracquetclub.com" target="_blank">troyracquetclub.com</a></td>
+          <td><span class="status-new">New</span></td>
+        </tr>
+        <tr>
+          <td class="text-white/40">11</td>
+          <td><strong class="text-white">Northeast Racquet Club</strong></td>
+          <td class="text-white/60">Northeast US</td>
+          <td class="text-white/70">Find on staff page</td>
+          <td><a href="https://northeastracquet.com/tennis/" target="_blank">Find via site</a></td>
+          <td><a href="https://northeastracquet.com" target="_blank">northeastracquet.com</a></td>
+          <td><span class="status-new">New</span></td>
+        </tr>
+        <tr>
+          <td class="text-white/40">12</td>
+          <td><strong class="text-white">Western Racquet Club</strong></td>
+          <td class="text-white/60">Elm Grove, WI</td>
+          <td class="text-white/70">Find on staff page</td>
+          <td><a href="https://www.westernracquetclub.com/" target="_blank">Find via site</a></td>
+          <td><a href="https://www.westernracquetclub.com" target="_blank">westernracquetclub.com</a></td>
+          <td><span class="status-new">New</span></td>
+        </tr>
+        <tr>
+          <td class="text-white/40">13</td>
+          <td><strong class="text-white">Racquet Club of Philadelphia</strong></td>
+          <td class="text-white/60">Philadelphia, PA</td>
+          <td class="text-white/70">Find on staff page</td>
+          <td><a href="https://rcop.com" target="_blank">Find via site</a></td>
+          <td><a href="https://rcop.com" target="_blank">rcop.com</a></td>
+          <td><span class="status-new">New</span></td>
+        </tr>
+        <tr>
+          <td class="text-white/40">14</td>
+          <td><strong class="text-white">College Park Athletic Club</strong></td>
+          <td class="text-white/60">USA</td>
+          <td class="text-white/70">Find on staff page</td>
+          <td><a href="https://cpacweb.com/staff/" target="_blank">Find via site</a></td>
+          <td><a href="https://cpacweb.com" target="_blank">cpacweb.com</a></td>
+          <td><span class="status-new">New</span></td>
+        </tr>
+        <tr>
+          <td class="text-white/40">15</td>
+          <td><strong class="text-white">Wildwood Racquet Club</strong></td>
+          <td class="text-white/60">USA</td>
+          <td class="text-white/70">Michael<br/><span class="text-white/40 text-xs">Director of Tennis</span></td>
+          <td><a href="https://wildwoodracquetclub.com/about/" target="_blank">Find via site</a></td>
+          <td><a href="https://wildwoodracquetclub.com" target="_blank">wildwoodracquetclub.com</a></td>
+          <td><span class="status-new">New</span></td>
+        </tr>
+        <tr>
+          <td class="text-white/40">16</td>
+          <td><strong class="text-white">Fort Greene Tennis Assoc.</strong></td>
+          <td class="text-white/60">Brooklyn, NY</td>
+          <td class="text-white/70">Find organizer</td>
+          <td><a href="https://www.fortgreenetennis.org/ladder" target="_blank">Find via site</a></td>
+          <td><a href="https://www.fortgreenetennis.org" target="_blank">fortgreenetennis.org</a></td>
+          <td><span class="status-new">New</span></td>
+        </tr>
+        <tr>
+          <td class="text-white/40">17</td>
+          <td><strong class="text-white">San Carlos Tennis Club</strong></td>
+          <td class="text-white/60">San Carlos, CA</td>
+          <td class="text-white/70">Find ladder admin</td>
+          <td><a href="https://sancarlostennisclub.wildapricot.org" target="_blank">Find via site</a></td>
+          <td><a href="https://sancarlostennisclub.wildapricot.org" target="_blank">sancarlostennisclub.org</a></td>
+          <td><span class="status-new">New</span></td>
+        </tr>
+        <tr>
+          <td class="text-white/40">18</td>
+          <td><strong class="text-white">Tennis Club of Hastings</strong></td>
+          <td class="text-white/60">Hastings, NY</td>
+          <td class="text-white/70">Find ladder organizer</td>
+          <td><a href="https://www.tennisclubofhastings.com/ladder" target="_blank">Find via site</a></td>
+          <td><a href="https://www.tennisclubofhastings.com" target="_blank">tennisclubofhastings.com</a></td>
+          <td><span class="status-new">New</span></td>
+        </tr>
+        <tr>
+          <td class="text-white/40">19</td>
+          <td><strong class="text-white">Chabot Canyon Racquet Club</strong></td>
+          <td class="text-white/60">California</td>
+          <td class="text-white/70">Find via site</td>
+          <td><a href="https://www.chabotcanyon.org" target="_blank">Find via site</a></td>
+          <td><a href="https://www.chabotcanyon.org" target="_blank">chabotcanyon.org</a></td>
+          <td><span class="status-new">New</span></td>
+        </tr>
+        <tr>
+          <td class="text-white/40">20</td>
+          <td><strong class="text-white">Tucson Racquet & Fitness Club</strong></td>
+          <td class="text-white/60">Tucson, AZ</td>
+          <td class="text-white/70">Find on staff page</td>
+          <td><a href="https://tucsonracquetclub.com/tennis-team/" target="_blank">Find via site</a></td>
+          <td><a href="https://tucsonracquetclub.com" target="_blank">tucsonracquetclub.com</a></td>
+          <td><span class="status-new">New</span></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SECTION 3: EMAIL TEMPLATES -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="card p-8 mb-8">
+    <h2 class="text-2xl font-bold mb-2">3. Email Templates</h2>
+    <p class="text-white/50 text-sm mb-8">Personalize the [brackets] before sending. Keep subject lines exactly as written — they're tested for open rates.</p>
+
+    <!-- Email 1 -->
+    <div class="mb-8">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="step-num">1</div>
+        <div>
+          <span class="text-white font-bold">Cold Outreach — Day 1</span>
+          <span class="text-white/40 text-xs ml-3">Short. Problem-first. Easy CTA.</span>
+        </div>
+        <button class="copy-btn ml-auto" onclick="copyText('email1')">Copy</button>
+      </div>
+      <div class="email-box" id="email1">Subject: Quick question about [Club Name]'s tennis ladder
+
+Hi [First Name],
+
+I noticed [Club Name] runs a [ladder / challenge / round-robin] for your adult members — that's exactly the kind of program we built Challengers Ranking for.
+
+Most clubs we talk to are managing their ladder through spreadsheets, a group chat, or a paper on the wall. It works, but the admin overhead adds up and players check in less often than they should.
+
+Challengers Ranking gives your members a live leaderboard, automatic challenge requests, a match feed (like a mini social wall for your club), and push notifications — all in a branded PWA they add to their home screen. Setup takes about 20 minutes.
+
+Pricing is $0.99/player/month — so a club with 60 active players runs about $59/month total.
+
+Would a 15-minute call this week make sense to see if it's a fit?
+
+— Bernardo Loitegui
+Challengers Ranking
+challengersranking.online
+[phone number]</div>
+    </div>
+
+    <!-- Email 2 -->
+    <div class="mb-8">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="step-num">2</div>
+        <div>
+          <span class="text-white font-bold">Follow-Up #1 — Day 6</span>
+          <span class="text-white/40 text-xs ml-3">Bump with social proof. One question only.</span>
+        </div>
+        <button class="copy-btn ml-auto" onclick="copyText('email2')">Copy</button>
+      </div>
+      <div class="email-box" id="email2">Subject: Re: Quick question about [Club Name]'s tennis ladder
+
+Hi [First Name],
+
+Just floating this back to the top — I know tennis director inboxes move fast.
+
+One thing I didn't mention: Michigan Racquet Club's tennis captain told us the biggest win was that players started challenging each other without any prompting. The leaderboard does the motivating for you.
+
+Happy to send over a 40-second demo video if that's easier than a call.
+
+— Bernardo</div>
+    </div>
+
+    <!-- Email 3 -->
+    <div class="mb-8">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="step-num">3</div>
+        <div>
+          <span class="text-white font-bold">Follow-Up #2 — Day 13</span>
+          <span class="text-white/40 text-xs ml-3">Last touch. Low commitment ask. Leave door open.</span>
+        </div>
+        <button class="copy-btn ml-auto" onclick="copyText('email3')">Copy</button>
+      </div>
+      <div class="email-box" id="email3">Subject: Last note — [Club Name] ladder
+
+Hi [First Name],
+
+I'll keep this quick — last email from me on this.
+
+If the timing isn't right or you're happy with your current setup, totally understood. If it ever becomes a problem worth solving, the site is challengersranking.online and pricing starts at $99/season.
+
+One question before I go: is managing your ladder genuinely painless right now, or is it more of a "we deal with it" situation?
+
+Either way, good luck with the season.
+
+— Bernardo Loitegui
+challengersranking.online</div>
+    </div>
+
+    <!-- Email 4: Warm (reply received) -->
+    <div class="mb-2">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="step-num">4</div>
+        <div>
+          <span class="text-white font-bold">Reply Received — They're Interested</span>
+          <span class="text-white/40 text-xs ml-3">Move fast. Book call same day.</span>
+        </div>
+        <button class="copy-btn ml-auto" onclick="copyText('email4')">Copy</button>
+      </div>
+      <div class="email-box" id="email4">Subject: Re: [whatever thread]
+
+Great to hear from you, [First Name]!
+
+Here are three times that work this week — just pick one and I'll send a Zoom link:
+
+• [Day] at [Time] [Timezone]
+• [Day] at [Time] [Timezone]
+• [Day] at [Time] [Timezone]
+
+In the meantime, here's the 40-second product tour: challengersranking.online/#demo
+
+Looking forward to it.
+
+— Bernardo</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SECTION 4: LINKEDIN TEMPLATES -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="card p-8 mb-8">
+    <h2 class="text-2xl font-bold mb-2">4. LinkedIn Templates</h2>
+    <p class="text-white/50 text-sm mb-8">Use LinkedIn when you can't find a direct email. Connection note → wait 24h → DM.</p>
+
+    <div class="mb-8">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="step-num">A</div>
+        <div>
+          <span class="text-white font-bold">Connection Request Note</span>
+          <span class="text-white/40 text-xs ml-3">300 char max. No pitch yet.</span>
+        </div>
+        <button class="copy-btn ml-auto" onclick="copyText('li1')">Copy</button>
+      </div>
+      <div class="email-box" id="li1">Hi [First Name] — I built a ladder management app for tennis clubs and your profile came up while I was researching [Club Name]. Would love to connect and share what we've been building.</div>
+    </div>
+
+    <div class="mb-8">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="step-num">B</div>
+        <div>
+          <span class="text-white font-bold">DM After Connecting (24–48h later)</span>
+          <span class="text-white/40 text-xs ml-3">One ask only. Make it easy to say yes.</span>
+        </div>
+        <button class="copy-btn ml-auto" onclick="copyText('li2')">Copy</button>
+      </div>
+      <div class="email-box" id="li2">Thanks for connecting, [First Name].
+
+Quick context on why I reached out: I run Challengers Ranking (challengersranking.online), a PWA that replaces the spreadsheet / group chat ladder most clubs still use. Players get a live leaderboard, challenge system, and match feed on their phone.
+
+Costs $0.99/player/month — a 60-player club pays about $59/mo.
+
+Would a 15-minute call make sense? Happy to show you a live demo of the app.</div>
+    </div>
+
+    <div>
+      <div class="flex items-center gap-3 mb-3">
+        <div class="step-num">C</div>
+        <div>
+          <span class="text-white font-bold">LinkedIn Follow-Up (if no reply after 5 days)</span>
+        </div>
+        <button class="copy-btn ml-auto" onclick="copyText('li3')">Copy</button>
+      </div>
+      <div class="email-box" id="li3">Hey [First Name] — just bumping this in case it got buried. I put together a 40-second video tour of the app at challengersranking.online if that's easier to review than a call. Let me know either way — no worries if the timing isn't right.</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SECTION 5: WHATSAPP TEMPLATE -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="card p-8 mb-8">
+    <h2 class="text-2xl font-bold mb-2">5. WhatsApp / SMS Template</h2>
+    <p class="text-white/50 text-sm mb-6">Use after a call or when you have a direct number. Never cold-text — warm context only.</p>
+    <div class="mb-6">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="step-num">1</div>
+        <span class="text-white font-bold">After a demo call (follow-up)</span>
+        <button class="copy-btn ml-auto" onclick="copyText('wa1')">Copy</button>
+      </div>
+      <div class="email-box" id="wa1">Hi [First Name]! Bernardo from Challengers Ranking here. Great talking today. I'll send the proposal to [email] — let me know if you have questions. The sign-up link is challengersranking.online anytime you're ready. 🎾</div>
+    </div>
+    <div>
+      <div class="flex items-center gap-3 mb-3">
+        <div class="step-num">2</div>
+        <span class="text-white font-bold">Referral request (after a happy customer)</span>
+        <button class="copy-btn ml-auto" onclick="copyText('wa2')">Copy</button>
+      </div>
+      <div class="email-box" id="wa2">Hey [First Name] — quick favor. Do you know any other tennis directors or club captains who'd benefit from a ladder system like ours? Even a name or intro would go a long way. Thanks! 🙏</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SECTION 6: WEEKLY CADENCE -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="card p-8 mb-8">
+    <h2 class="text-2xl font-bold mb-6">6. Weekly Execution Cadence</h2>
+    <p class="text-white/50 text-sm mb-6">Commit to <strong class="text-white">5 new contacts per week</strong> minimum. 5 contacts/week × 10% close rate = 1 new club every 2 weeks. In 3 months you'll have 6 paying clubs.</p>
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-3">
+      <div class="day-card text-center">
+        <div class="text-gold font-bold text-sm mb-2">MONDAY</div>
+        <p class="text-white/60 text-xs">Research 5 new prospects.<br/>Find names + emails.<br/>Add to spreadsheet.</p>
+      </div>
+      <div class="day-card text-center">
+        <div class="text-gold font-bold text-sm mb-2">TUESDAY</div>
+        <p class="text-white/60 text-xs">Send cold emails to<br/>this week's 5 prospects.<br/>Send LinkedIn requests.</p>
+      </div>
+      <div class="day-card text-center">
+        <div class="text-gold font-bold text-sm mb-2">WEDNESDAY</div>
+        <p class="text-white/60 text-xs">Send DMs to new<br/>LinkedIn connections.<br/>Review GA analytics.</p>
+      </div>
+      <div class="day-card text-center">
+        <div class="text-gold font-bold text-sm mb-2">THURSDAY</div>
+        <p class="text-white/60 text-xs">Send Follow-Up #1 to<br/>anyone who didn't reply<br/>from 6 days ago.</p>
+      </div>
+      <div class="day-card text-center">
+        <div class="text-gold font-bold text-sm mb-2">FRIDAY</div>
+        <p class="text-white/60 text-xs">Reply to any responses.<br/>Book calls for next week.<br/>Log everything.</p>
+      </div>
+    </div>
+
+    <div class="mt-6 p-4 rounded-lg" style="background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.15)">
+      <strong class="text-white">Monthly goal check-in:</strong>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-3 text-center">
+        <div><div class="text-gold text-2xl font-bold">20+</div><div class="text-white/50 text-xs">contacts/month</div></div>
+        <div><div class="text-gold text-2xl font-bold">4–6</div><div class="text-white/50 text-xs">demo calls/month</div></div>
+        <div><div class="text-gold text-2xl font-bold">1–2</div><div class="text-white/50 text-xs">new clubs/month</div></div>
+        <div><div class="text-gold text-2xl font-bold">$99–$199</div><div class="text-white/50 text-xs">avg revenue/club</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SECTION 7: CRM TRACKER -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="card p-8 mb-8">
+    <h2 class="text-2xl font-bold mb-2">7. Simple CRM — How to Track</h2>
+    <p class="text-white/50 text-sm mb-6">Use Google Sheets. One row per prospect. Here are the columns to use:</p>
+    <div style="overflow-x:auto">
+    <table>
+      <thead>
+        <tr>
+          <th>Column</th>
+          <th>What to put</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="text-white">Club Name</td><td class="text-white/60">Full name of the club</td><td class="text-white/40">Frog Hollow Racquet Club</td></tr>
+        <tr><td class="text-white">City / State</td><td class="text-white/60">Location</td><td class="text-white/40">Pennsylvania</td></tr>
+        <tr><td class="text-white">Contact Name</td><td class="text-white/60">First + last name</td><td class="text-white/40">Becca Cohen</td></tr>
+        <tr><td class="text-white">Title</td><td class="text-white/60">Their role</td><td class="text-white/40">Marketing & Ops Director</td></tr>
+        <tr><td class="text-white">Email</td><td class="text-white/60">Direct email if found</td><td class="text-white/40">Becca@Frogtennis.com</td></tr>
+        <tr><td class="text-white">LinkedIn</td><td class="text-white/60">Profile URL</td><td class="text-white/40">linkedin.com/in/...</td></tr>
+        <tr><td class="text-white">Date Emailed</td><td class="text-white/60">When cold email sent</td><td class="text-white/40">2026-04-29</td></tr>
+        <tr><td class="text-white">FU1 Sent</td><td class="text-white/60">Date of follow-up 1</td><td class="text-white/40">2026-05-05</td></tr>
+        <tr><td class="text-white">FU2 Sent</td><td class="text-white/60">Date of follow-up 2</td><td class="text-white/40">2026-05-12</td></tr>
+        <tr><td class="text-white">Status</td><td class="text-white/60">New / Emailed / Replied / Call Booked / Won / Lost</td><td class="text-white/40">Replied</td></tr>
+        <tr><td class="text-white">Notes</td><td class="text-white/60">Anything relevant</td><td class="text-white/40">"Interested, 60 members, call Fri 3pm"</td></tr>
+        <tr><td class="text-white">Revenue</td><td class="text-white/60">$ if they signed up</td><td class="text-white/40">$149</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="mt-4 p-3 rounded" style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2)">
+      <strong class="text-blue-300 text-sm">📊 Pro tip:</strong> <span class="text-white/60 text-sm">Color-code Status column: Blue = New, Yellow = Emailed, Orange = Follow-up, Green = Won, Gray = Lost. You'll see your pipeline at a glance.</span>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SECTION 8: QUICK TIPS -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <div class="card p-8 mb-8">
+    <h2 class="text-2xl font-bold mb-6">8. Objections &amp; How to Handle Them</h2>
+    <div class="space-y-4">
+      <div class="day-card">
+        <p class="text-white font-semibold mb-1">"We already use [Global Tennis Network / TennisRungs / spreadsheet]"</p>
+        <p class="text-white/60 text-sm">→ "That's great — most of our best customers came from those. The main difference is members don't need to create an account on a separate platform. They just add the app to their home screen. Would you like to see a side-by-side?"</p>
+      </div>
+      <div class="day-card">
+        <p class="text-white font-semibold mb-1">"It's too expensive / budget is tight"</p>
+        <p class="text-white/60 text-sm">→ "Totally fair. The Starter plan at $99/season works out to about $1.65/week for the whole club. A lot of directors just add it as a small line item to the annual tennis program budget. Would that structure work?"</p>
+      </div>
+      <div class="day-card">
+        <p class="text-white font-semibold mb-1">"Our members are older / not tech-savvy"</p>
+        <p class="text-white/60 text-sm">→ "We hear that a lot — and it's usually the directors who are most surprised. If they can use WhatsApp or check email on a phone, they can use Challengers. The entire flow is 3 taps. Want me to show you the onboarding for members?"</p>
+      </div>
+      <div class="day-card">
+        <p class="text-white font-semibold mb-1">"I'd need to run it by the board / general manager"</p>
+        <p class="text-white/60 text-sm">→ "Of course — here's a one-paragraph summary you can paste into an email to them: [send them a pre-written blurb]. What's typically the decision timeline for something like this at your club?"</p>
+      </div>
+      <div class="day-card">
+        <p class="text-white font-semibold mb-1">"Can we try it for free first?"</p>
+        <p class="text-white/60 text-sm">→ "Yes — the Starter plan is $99 for the full season. If after 30 days it's not working for your club, I'll refund it. That's the closest thing to a free trial I can offer at this price point." (Only offer if needed to close.)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="text-center text-white/25 text-xs pb-8">
+    Challengers Ranking · outreach_playbook.html · April 2026 ·
+    <a href="https://challengersranking.online" class="text-white/30">challengersranking.online</a>
+  </div>
+
+</div>
+
+<script>
+function copyText(id) {
+  const text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = event.target;
+    btn.textContent = '✓ Copied';
+    setTimeout(() => btn.textContent = 'Copy', 1800);
+  });
+}
+</script>
+</body>
+</html>
