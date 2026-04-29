@@ -71,6 +71,10 @@
     .fade-up-delay-1 { animation-delay: 0.15s; }
     .fade-up-delay-2 { animation-delay: 0.3s; }
     .fade-up-delay-3 { animation-delay: 0.45s; }
+
+    /* Lang toggle */
+    .lang-btn { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; }
+    .lang-btn.active { color: #c9a84c; border-color: rgba(201,168,76,0.6); }
   </style>
 </head>
 
@@ -83,13 +87,27 @@
         <img src="logo2.png" alt="Challengers Ranking" class="h-11 w-11 rounded-full object-cover ring-2 ring-gold/40 group-hover:ring-gold/70 shadow-lg shadow-black/30 transition-all duration-300" />
         <div class="hidden sm:flex flex-col leading-none">
           <span class="font-serif text-white font-bold text-[1.15rem] tracking-tight leading-none">Challengers <span class="text-gold">Ranking</span></span>
-          <span class="text-white/35 text-[9px] font-sans font-medium tracking-[0.28em] uppercase mt-[5px]">Tennis Ladder Software</span>
+          <span class="text-white/35 text-[9px] font-sans font-medium tracking-[0.28em] uppercase mt-[5px]"
+                data-en="Tennis Ladder Software"
+                data-es="Software de Ranking de Tenis">Tennis Ladder Software</span>
         </div>
       </a>
-      <div class="flex items-center gap-4">
-        <a href="#pricing" class="text-white/70 hover:text-white text-sm font-medium transition hidden sm:block">Pricing</a>
-        <a href="#features" class="text-white/70 hover:text-white text-sm font-medium transition hidden sm:block">Features</a>
-        <a href="#demo" class="bg-gold hover:bg-gold-light text-navy font-bold text-sm px-5 py-2.5 rounded-full transition">Get a Demo</a>
+      <div class="flex items-center gap-3">
+        <!-- Language toggle -->
+        <div class="flex items-center rounded-full border border-white/15 overflow-hidden mr-1">
+          <button id="btn-en" onclick="setLang('en')" class="lang-btn px-2.5 py-1 text-white/50 hover:text-white transition-colors">EN</button>
+          <div class="w-px h-3 bg-white/20"></div>
+          <button id="btn-es" onclick="setLang('es')" class="lang-btn px-2.5 py-1 text-white/50 hover:text-white transition-colors">ES</button>
+        </div>
+        <a href="#pricing"
+           class="text-white/70 hover:text-white text-sm font-medium transition hidden sm:block"
+           data-en="Pricing" data-es="Precios">Pricing</a>
+        <a href="#features"
+           class="text-white/70 hover:text-white text-sm font-medium transition hidden sm:block"
+           data-en="Features" data-es="Funciones">Features</a>
+        <a href="#demo"
+           class="bg-gold hover:bg-gold-light text-navy font-bold text-sm px-5 py-2.5 rounded-full transition"
+           data-en="Get a Demo" data-es="Pedir Demo">Get a Demo</a>
       </div>
     </div>
   </nav>
@@ -98,32 +116,42 @@
   <section class="hero-bg min-h-screen flex items-start sm:items-center justify-center text-center px-6 pt-28 sm:pt-16">
     <div class="max-w-4xl mx-auto">
       <img src="logo2.png" alt="Logo" class="h-28 w-28 rounded-full mx-auto mb-8 shadow-2xl fade-up" />
-      <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl text-white font-bold leading-tight mb-6 fade-up fade-up-delay-1">
+      <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl text-white font-bold leading-tight mb-6 fade-up fade-up-delay-1"
+          data-en="Your club deserves<br />a <span class='text-gold'>live ladder ranking.</span>"
+          data-es="Tu club merece<br />un <span class='text-gold'>ranking en vivo.</span>">
         Your club deserves<br />a <span class="text-gold">live ladder ranking.</span>
       </h1>
-      <p class="text-white/75 text-lg sm:text-xl max-w-2xl mx-auto mb-10 fade-up fade-up-delay-2">
+      <p class="text-white/75 text-lg sm:text-xl max-w-2xl mx-auto mb-10 fade-up fade-up-delay-2"
+         data-en="Challengers Ranking gives your members real-time standings, automated challenge management, match reporting, and a community feed — all from their phone. No apps to install. Works instantly."
+         data-es="Challengers Ranking le da a tus socios un ranking en tiempo real, gestión automática de desafíos, registro de partidos y un feed comunitario — todo desde el celular. Sin instalaciones. Funciona al instante.">
         Challengers Ranking gives your members real-time standings, automated challenge management, match reporting, and a community feed — all from their phone. No apps to install. Works instantly.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center fade-up fade-up-delay-3">
-        <a href="#demo" class="bg-gold hover:bg-gold-light text-navy font-bold text-base px-8 py-4 rounded-full transition shadow-lg">
+        <a href="#demo" class="bg-gold hover:bg-gold-light text-navy font-bold text-base px-8 py-4 rounded-full transition shadow-lg"
+           data-en="Request a Free Demo" data-es="Solicitar una Demo Gratis">
           Request a Free Demo
         </a>
-        <a href="#how-it-works" class="border border-white/40 hover:border-white text-white font-semibold text-base px-8 py-4 rounded-full transition">
+        <a href="#how-it-works" class="border border-white/40 hover:border-white text-white font-semibold text-base px-8 py-4 rounded-full transition"
+           data-en="See How It Works ↓" data-es="Ver cómo funciona ↓">
           See How It Works ↓
         </a>
       </div>
-      <p class="text-white/40 text-sm mt-8 fade-up fade-up-delay-3">No setup fee · Set up in under 30 minutes</p>
+      <p class="text-white/40 text-sm mt-8 fade-up fade-up-delay-3"
+         data-en="No setup fee · Set up in under 30 minutes"
+         data-es="Sin costo de alta · Listo en menos de 30 minutos">
+        No setup fee · Set up in under 30 minutes
+      </p>
     </div>
   </section>
 
   <!-- ─── SOCIAL PROOF BAR ──────────────────────────────────────────────────── -->
   <div class="bg-navy-dark py-5 px-6">
     <div class="max-w-4xl mx-auto flex flex-wrap justify-center gap-x-10 gap-y-2 text-white/50 text-sm font-medium tracking-wide uppercase text-center">
-      <span>🎾 Live Rankings</span>
-      <span>⚔️ Automated Challenges</span>
-      <span>📊 Player Stats</span>
-      <span>🏟️ Community Feed</span>
-      <span>📱 Mobile-First PWA</span>
+      <span data-en="🎾 Live Rankings"         data-es="🎾 Rankings en Vivo">🎾 Live Rankings</span>
+      <span data-en="⚔️ Automated Challenges"  data-es="⚔️ Desafíos Automáticos">⚔️ Automated Challenges</span>
+      <span data-en="📊 Player Stats"          data-es="📊 Estadísticas">📊 Player Stats</span>
+      <span data-en="🏟️ Community Feed"        data-es="🏟️ Feed Comunitario">🏟️ Community Feed</span>
+      <span data-en="📱 Mobile-First PWA"      data-es="📱 PWA para Celular">📱 Mobile-First PWA</span>
     </div>
   </div>
 
@@ -131,9 +159,15 @@
   <section id="features" class="py-24 px-6 bg-sand">
     <div class="max-w-6xl mx-auto">
       <div class="text-center mb-16">
-        <p class="text-gold font-semibold tracking-widest uppercase text-sm mb-3">Everything you need</p>
-        <h2 class="font-serif text-4xl sm:text-5xl text-navy font-bold">Built for competitive clubs.</h2>
-        <p class="text-gray-500 mt-4 max-w-xl mx-auto">From the ladder rankings to the post-match chat — every feature your members will actually use.</p>
+        <p class="text-gold font-semibold tracking-widest uppercase text-sm mb-3"
+           data-en="Everything you need" data-es="Todo lo que necesitás">Everything you need</p>
+        <h2 class="font-serif text-4xl sm:text-5xl text-navy font-bold"
+            data-en="Built for competitive clubs." data-es="Diseñado para clubs competitivos.">Built for competitive clubs.</h2>
+        <p class="text-gray-500 mt-4 max-w-xl mx-auto"
+           data-en="From the ladder rankings to the post-match chat — every feature your members will actually use."
+           data-es="Desde el ranking hasta el chat post-partido — cada función que tus socios van a usar de verdad.">
+          From the ladder rankings to the post-match chat — every feature your members will actually use.
+        </p>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -141,43 +175,73 @@
         <!-- Feature 1 -->
         <div class="feature-card bg-white rounded-2xl p-8 shadow-sm border border-gray-100 transition-all duration-300">
           <div class="w-12 h-12 bg-navy/10 rounded-xl flex items-center justify-center text-2xl mb-5">🏆</div>
-          <h3 class="font-bold text-navy text-lg mb-2">Live Ladder Ranking</h3>
-          <p class="text-gray-500 text-sm leading-relaxed">Real-time standings that update automatically after every match. Members always know where they stand.</p>
+          <h3 class="font-bold text-navy text-lg mb-2"
+              data-en="Live Ladder Ranking" data-es="Ranking en Vivo">Live Ladder Ranking</h3>
+          <p class="text-gray-500 text-sm leading-relaxed"
+             data-en="Real-time standings that update automatically after every match. Members always know where they stand."
+             data-es="El ranking se actualiza automáticamente después de cada partido. Los socios siempre saben dónde están.">
+            Real-time standings that update automatically after every match. Members always know where they stand.
+          </p>
         </div>
 
         <!-- Feature 2 -->
         <div class="feature-card bg-white rounded-2xl p-8 shadow-sm border border-gray-100 transition-all duration-300">
           <div class="w-12 h-12 bg-navy/10 rounded-xl flex items-center justify-center text-2xl mb-5">⚔️</div>
-          <h3 class="font-bold text-navy text-lg mb-2">Smart Challenge System</h3>
-          <p class="text-gray-500 text-sm leading-relaxed">Players challenge opponents within their range. The system handles deadlines, reminders, and expiration automatically.</p>
+          <h3 class="font-bold text-navy text-lg mb-2"
+              data-en="Smart Challenge System" data-es="Sistema de Desafíos">Smart Challenge System</h3>
+          <p class="text-gray-500 text-sm leading-relaxed"
+             data-en="Players challenge opponents within their range. The system handles deadlines, reminders, and expiration automatically."
+             data-es="Los jugadores desafían a rivales cercanos en el ranking. El sistema gestiona plazos, recordatorios y vencimientos automáticamente.">
+            Players challenge opponents within their range. The system handles deadlines, reminders, and expiration automatically.
+          </p>
         </div>
 
         <!-- Feature 3 -->
         <div class="feature-card bg-white rounded-2xl p-8 shadow-sm border border-gray-100 transition-all duration-300">
           <div class="w-12 h-12 bg-navy/10 rounded-xl flex items-center justify-center text-2xl mb-5">📊</div>
-          <h3 class="font-bold text-navy text-lg mb-2">Match History & Stats</h3>
-          <p class="text-gray-500 text-sm leading-relaxed">Win/loss record, streaks, head-to-head history. Players stay engaged tracking their own progress.</p>
+          <h3 class="font-bold text-navy text-lg mb-2"
+              data-en="Match History &amp; Stats" data-es="Historial y Estadísticas">Match History &amp; Stats</h3>
+          <p class="text-gray-500 text-sm leading-relaxed"
+             data-en="Win/loss record, streaks, head-to-head history. Players stay engaged tracking their own progress."
+             data-es="Registro de victorias/derrotas, rachas, historial de enfrentamientos. Los jugadores siguen su propio progreso.">
+            Win/loss record, streaks, head-to-head history. Players stay engaged tracking their own progress.
+          </p>
         </div>
 
         <!-- Feature 4 -->
         <div class="feature-card bg-white rounded-2xl p-8 shadow-sm border border-gray-100 transition-all duration-300">
           <div class="w-12 h-12 bg-navy/10 rounded-xl flex items-center justify-center text-2xl mb-5">🏟️</div>
-          <h3 class="font-bold text-navy text-lg mb-2">Community Tribune</h3>
-          <p class="text-gray-500 text-sm leading-relaxed">A social feed where players post match photos, share results, and cheer each other on. Builds club culture.</p>
+          <h3 class="font-bold text-navy text-lg mb-2"
+              data-en="Community Tribune" data-es="Tribuna Comunitaria">Community Tribune</h3>
+          <p class="text-gray-500 text-sm leading-relaxed"
+             data-en="A social feed where players post match photos, share results, and cheer each other on. Builds club culture."
+             data-es="Un feed social donde los jugadores comparten fotos, resultados y se alientan entre sí. Construye cultura de club.">
+            A social feed where players post match photos, share results, and cheer each other on. Builds club culture.
+          </p>
         </div>
 
         <!-- Feature 5 -->
         <div class="feature-card bg-white rounded-2xl p-8 shadow-sm border border-gray-100 transition-all duration-300">
           <div class="w-12 h-12 bg-navy/10 rounded-xl flex items-center justify-center text-2xl mb-5">📱</div>
-          <h3 class="font-bold text-navy text-lg mb-2">No App to Install</h3>
-          <p class="text-gray-500 text-sm leading-relaxed">A Progressive Web App — members add it to their home screen in one tap. Works on iOS and Android instantly.</p>
+          <h3 class="font-bold text-navy text-lg mb-2"
+              data-en="No App to Install" data-es="Sin Descargas">No App to Install</h3>
+          <p class="text-gray-500 text-sm leading-relaxed"
+             data-en="A Progressive Web App — members add it to their home screen in one tap. Works on iOS and Android instantly."
+             data-es="Una Progressive Web App — los socios la agregan a su inicio con un toque. Funciona en iOS y Android al instante.">
+            A Progressive Web App — members add it to their home screen in one tap. Works on iOS and Android instantly.
+          </p>
         </div>
 
         <!-- Feature 6 -->
         <div class="feature-card bg-white rounded-2xl p-8 shadow-sm border border-gray-100 transition-all duration-300">
           <div class="w-12 h-12 bg-navy/10 rounded-xl flex items-center justify-center text-2xl mb-5">⚙️</div>
-          <h3 class="font-bold text-navy text-lg mb-2">Multiple Rankings</h3>
-          <p class="text-gray-500 text-sm leading-relaxed">Run separate ladders for Men's Singles, Women's Singles, Mixed Doubles — all from one admin panel.</p>
+          <h3 class="font-bold text-navy text-lg mb-2"
+              data-en="Multiple Rankings" data-es="Rankings Múltiples">Multiple Rankings</h3>
+          <p class="text-gray-500 text-sm leading-relaxed"
+             data-en="Run separate ladders for Men's Singles, Women's Singles, Mixed Doubles — all from one admin panel."
+             data-es="Gestioná rankings separados para Hombres, Mujeres y Dobles Mixtos — todo desde un solo panel.">
+            Run separate ladders for Men's Singles, Women's Singles, Mixed Doubles — all from one admin panel.
+          </p>
         </div>
 
       </div>
@@ -195,9 +259,15 @@
   <section class="py-24 px-6 bg-navy-dark">
     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-10">
-        <p class="text-gold font-semibold tracking-widest uppercase text-sm mb-3">See it in action</p>
-        <h2 class="font-serif text-4xl sm:text-5xl text-white font-bold">Watch it in action.</h2>
-        <p class="text-white/40 mt-3 text-sm">Live rankings · Challenges · Stats · Community feed</p>
+        <p class="text-gold font-semibold tracking-widest uppercase text-sm mb-3"
+           data-en="See it in action" data-es="Velo en acción">See it in action</p>
+        <h2 class="font-serif text-4xl sm:text-5xl text-white font-bold"
+            data-en="Watch it in action." data-es="Mirá el producto en acción.">Watch it in action.</h2>
+        <p class="text-white/40 mt-3 text-sm"
+           data-en="Live rankings · Challenges · Stats · Community feed"
+           data-es="Rankings · Desafíos · Stats · Feed comunitario">
+          Live rankings · Challenges · Stats · Community feed
+        </p>
       </div>
 
       <!-- 16:9 iframe container -->
@@ -215,7 +285,8 @@
           onclick="document.getElementById('promoFrame').src='promo.html'"
           class="inline-flex items-center gap-2 text-white/40 hover:text-gold text-sm font-medium transition-colors duration-200"
         >
-          <span style="font-size:1rem;">↺</span> Replay
+          <span style="font-size:1rem;">↺</span>
+          <span data-en="Replay" data-es="Repetir">Replay</span>
         </button>
       </div>
     </div>
@@ -225,25 +296,42 @@
   <section id="how-it-works" class="py-24 px-6 bg-white">
     <div class="max-w-5xl mx-auto">
       <div class="text-center mb-16">
-        <p class="text-gold font-semibold tracking-widest uppercase text-sm mb-3">Simple by design</p>
-        <h2 class="font-serif text-4xl sm:text-5xl text-navy font-bold">Up and running in 3 steps.</h2>
+        <p class="text-gold font-semibold tracking-widest uppercase text-sm mb-3"
+           data-en="Simple by design" data-es="Simple por diseño">Simple by design</p>
+        <h2 class="font-serif text-4xl sm:text-5xl text-navy font-bold"
+            data-en="Up and running in 3 steps." data-es="Listo en 3 pasos.">Up and running in 3 steps.</h2>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
         <div>
           <div class="w-14 h-14 bg-navy rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-5">1</div>
-          <h3 class="font-bold text-navy text-lg mb-2">We set up your ranking</h3>
-          <p class="text-gray-500 text-sm leading-relaxed">Send us your player list. We configure your club's branded ranking app — usually within 24 hours.</p>
+          <h3 class="font-bold text-navy text-lg mb-2"
+              data-en="We set up your ranking" data-es="Configuramos tu ranking">We set up your ranking</h3>
+          <p class="text-gray-500 text-sm leading-relaxed"
+             data-en="Send us your player list. We configure your club's branded ranking app — usually within 24 hours."
+             data-es="Mandanos tu lista de jugadores. Configuramos el ranking de tu club — generalmente en 24 horas.">
+            Send us your player list. We configure your club's branded ranking app — usually within 24 hours.
+          </p>
         </div>
         <div>
           <div class="w-14 h-14 bg-navy rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-5">2</div>
-          <h3 class="font-bold text-navy text-lg mb-2">Players register themselves</h3>
-          <p class="text-gray-500 text-sm leading-relaxed">Share a link via WhatsApp or email. Each player registers with their phone number — no passwords, no friction.</p>
+          <h3 class="font-bold text-navy text-lg mb-2"
+              data-en="Players register themselves" data-es="Los jugadores se registran solos">Players register themselves</h3>
+          <p class="text-gray-500 text-sm leading-relaxed"
+             data-en="Share a link via WhatsApp or email. Each player registers with their phone number — no passwords, no friction."
+             data-es="Compartís un link por WhatsApp o email. Cada jugador se registra con su celular — sin contraseñas, sin fricción.">
+            Share a link via WhatsApp or email. Each player registers with their phone number — no passwords, no friction.
+          </p>
         </div>
         <div>
           <div class="w-14 h-14 bg-navy rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-5">3</div>
-          <h3 class="font-bold text-navy text-lg mb-2">The ranking runs itself</h3>
-          <p class="text-gray-500 text-sm leading-relaxed">Players challenge, play, and report results. The ranking updates automatically. You just watch the competition.</p>
+          <h3 class="font-bold text-navy text-lg mb-2"
+              data-en="The ranking runs itself" data-es="El ranking se maneja solo">The ranking runs itself</h3>
+          <p class="text-gray-500 text-sm leading-relaxed"
+             data-en="Players challenge, play, and report results. The ranking updates automatically. You just watch the competition."
+             data-es="Los jugadores desafían, juegan e informan resultados. El ranking se actualiza solo. Vos solo disfrutás la competencia.">
+            Players challenge, play, and report results. The ranking updates automatically. You just watch the competition.
+          </p>
         </div>
       </div>
     </div>
@@ -253,17 +341,28 @@
   <section id="pricing" class="py-24 px-6 bg-navy">
     <div class="max-w-5xl mx-auto">
       <div class="text-center mb-16">
-        <p class="text-gold font-semibold tracking-widest uppercase text-sm mb-3">Transparent pricing</p>
-        <h2 class="font-serif text-4xl sm:text-5xl text-white font-bold">Scales with your club.</h2>
-        <p class="text-white/50 mt-4 max-w-xl mx-auto">One simple rule: <strong class="text-white/80">$99/month per ranking</strong> for up to 100 players. Add $50 for every additional 50 players. No setup fee. No contracts. Cancel anytime.</p>
+        <p class="text-gold font-semibold tracking-widest uppercase text-sm mb-3"
+           data-en="Transparent pricing" data-es="Precios transparentes">Transparent pricing</p>
+        <h2 class="font-serif text-4xl sm:text-5xl text-white font-bold"
+            data-en="Scales with your club." data-es="Crece con tu club.">Scales with your club.</h2>
+        <p class="text-white/50 mt-4 max-w-xl mx-auto"
+           data-en="One simple rule: &lt;strong class='text-white/80'&gt;$99/month per ranking&lt;/strong&gt; for up to 100 players. Add $50 for every additional 50 players. No setup fee. No contracts. Cancel anytime."
+           data-es="Una regla simple: &lt;strong class='text-white/80'&gt;$99/mes por ranking&lt;/strong&gt; para hasta 100 jugadores. Sumá $50 por cada 50 jugadores adicionales. Sin costo de alta. Sin contratos. Cancelá cuando quieras.">
+          One simple rule: <strong class="text-white/80">$99/month per ranking</strong> for up to 100 players. Add $50 for every additional 50 players. No setup fee. No contracts. Cancel anytime.
+        </p>
         <!-- Per-player callout -->
         <div class="inline-flex items-center gap-4 bg-gold/15 border border-gold/35 rounded-2xl px-8 py-4 mt-8">
           <div class="text-left">
             <p class="text-gold font-serif text-4xl font-bold leading-none">$0.99</p>
-            <p class="text-gold/70 text-xs font-semibold tracking-widest uppercase mt-1">per player / month</p>
+            <p class="text-gold/70 text-xs font-semibold tracking-widest uppercase mt-1"
+               data-en="per player / month" data-es="por jugador / mes">per player / month</p>
           </div>
           <div class="w-px h-10 bg-white/10"></div>
-          <p class="text-white/60 text-sm text-left max-w-[180px] leading-snug">The most cost-effective way to run your club's competition</p>
+          <p class="text-white/60 text-sm text-left max-w-[180px] leading-snug"
+             data-en="The most cost-effective way to run your club's competition"
+             data-es="La forma más económica de gestionar la competencia de tu club">
+            The most cost-effective way to run your club's competition
+          </p>
         </div>
       </div>
 
@@ -271,76 +370,106 @@
       <div class="bg-navy-light rounded-2xl p-8 border border-white/10 mb-8">
         <div class="grid grid-cols-1 sm:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
           <div class="py-6 sm:py-0 sm:px-6 text-center">
-            <p class="text-gold text-xs font-bold tracking-widest uppercase mb-2">up to 100 players</p>
+            <p class="text-gold text-xs font-bold tracking-widest uppercase mb-2"
+               data-en="up to 100 players" data-es="hasta 100 jugadores">up to 100 players</p>
             <p class="text-white font-serif text-4xl font-bold">$99</p>
-            <p class="text-white/40 text-xs mt-1">per ranking / month</p>
+            <p class="text-white/40 text-xs mt-1"
+               data-en="per ranking / month" data-es="por ranking / mes">per ranking / month</p>
           </div>
           <div class="py-6 sm:py-0 sm:px-6 text-center">
-            <p class="text-gold text-xs font-bold tracking-widest uppercase mb-2">101 – 150 players</p>
+            <p class="text-gold text-xs font-bold tracking-widest uppercase mb-2"
+               data-en="101 – 150 players" data-es="101 – 150 jugadores">101 – 150 players</p>
             <p class="text-white font-serif text-4xl font-bold">$149</p>
-            <p class="text-white/40 text-xs mt-1">per ranking / month</p>
+            <p class="text-white/40 text-xs mt-1"
+               data-en="per ranking / month" data-es="por ranking / mes">per ranking / month</p>
           </div>
           <div class="py-6 sm:py-0 sm:px-6 text-center">
-            <p class="text-gold text-xs font-bold tracking-widest uppercase mb-2">151 – 200 players</p>
+            <p class="text-gold text-xs font-bold tracking-widest uppercase mb-2"
+               data-en="151 – 200 players" data-es="151 – 200 jugadores">151 – 200 players</p>
             <p class="text-white font-serif text-4xl font-bold">$199</p>
-            <p class="text-white/40 text-xs mt-1">per ranking / month</p>
+            <p class="text-white/40 text-xs mt-1"
+               data-en="per ranking / month" data-es="por ranking / mes">per ranking / month</p>
           </div>
           <div class="py-6 sm:py-0 sm:px-6 text-center">
-            <p class="text-gold text-xs font-bold tracking-widest uppercase mb-2">200+ players</p>
+            <p class="text-gold text-xs font-bold tracking-widest uppercase mb-2"
+               data-en="200+ players" data-es="200+ jugadores">200+ players</p>
             <p class="text-white font-serif text-4xl font-bold">+$50</p>
-            <p class="text-white/40 text-xs mt-1">per 50 players / month</p>
+            <p class="text-white/40 text-xs mt-1"
+               data-en="per 50 players / month" data-es="por 50 jugadores / mes">per 50 players / month</p>
           </div>
         </div>
       </div>
 
       <!-- Example configs -->
-      <p class="text-white/40 text-xs font-semibold tracking-widest uppercase text-center mb-5">Common configurations</p>
+      <p class="text-white/40 text-xs font-semibold tracking-widest uppercase text-center mb-5"
+         data-en="Common configurations" data-es="Configuraciones comunes">Common configurations</p>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
 
         <div class="bg-navy-light rounded-xl p-6 border border-white/10 text-center flex flex-col">
-          <p class="text-white font-semibold mb-1">1 ranking · up to 100 players</p>
-          <p class="text-white/50 text-sm mb-3">e.g. Men's Singles</p>
+          <p class="text-white font-semibold mb-1"
+             data-en="1 ranking · up to 100 players" data-es="1 ranking · hasta 100 jugadores">1 ranking · up to 100 players</p>
+          <p class="text-white/50 text-sm mb-3"
+             data-en="e.g. Men's Singles" data-es="ej. Singles Masculino">e.g. Men's Singles</p>
           <p class="text-gold font-serif text-3xl font-bold">$99<span class="text-white/30 text-base font-sans font-normal">/mo</span></p>
-          <p class="text-white/30 text-xs mt-2 mb-4">≈ $1 per player / month</p>
-          <a href="https://buy.stripe.com/6oU00jfFMdg287G0eHcbC00" target="_blank" class="mt-auto inline-block bg-gold/15 hover:bg-gold/25 text-gold border border-gold/30 font-bold text-sm px-5 py-2.5 rounded-full transition">Start Now →</a>
+          <p class="text-white/30 text-xs mt-2 mb-4"
+             data-en="≈ $1 per player / month" data-es="≈ $1 por jugador / mes">≈ $1 per player / month</p>
+          <a href="https://buy.stripe.com/6oU00jfFMdg287G0eHcbC00" target="_blank"
+             class="mt-auto inline-block bg-gold/15 hover:bg-gold/25 text-gold border border-gold/30 font-bold text-sm px-5 py-2.5 rounded-full transition"
+             data-en="Start Now →" data-es="Comenzar →">Start Now →</a>
         </div>
 
         <div class="bg-gold rounded-xl p-6 text-center relative shadow-xl flex flex-col">
-          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-navy text-gold text-xs font-bold px-4 py-1 rounded-full tracking-widest uppercase">Most Popular</div>
-          <p class="text-navy font-semibold mb-1">2 rankings · up to 100 each</p>
-          <p class="text-navy/60 text-sm mb-3">e.g. Men's + Women's Singles</p>
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-navy text-gold text-xs font-bold px-4 py-1 rounded-full tracking-widest uppercase"
+               data-en="Most Popular" data-es="Más Popular">Most Popular</div>
+          <p class="text-navy font-semibold mb-1"
+             data-en="2 rankings · up to 100 each" data-es="2 rankings · hasta 100 c/u">2 rankings · up to 100 each</p>
+          <p class="text-navy/60 text-sm mb-3"
+             data-en="e.g. Men's + Women's Singles" data-es="ej. Masculino + Femenino">e.g. Men's + Women's Singles</p>
           <p class="text-navy font-serif text-3xl font-bold">$198<span class="text-navy/40 text-base font-sans font-normal">/mo</span></p>
-          <p class="text-navy/40 text-xs mt-2 mb-4">≈ $1 per player / month</p>
-          <a href="https://buy.stripe.com/8x25kDeBIb7U0Fef9BcbC03" target="_blank" class="mt-auto inline-block bg-navy hover:bg-navy-dark text-gold font-bold text-sm px-5 py-2.5 rounded-full transition shadow-md">Start Now →</a>
+          <p class="text-navy/40 text-xs mt-2 mb-4"
+             data-en="≈ $1 per player / month" data-es="≈ $1 por jugador / mes">≈ $1 per player / month</p>
+          <a href="https://buy.stripe.com/8x25kDeBIb7U0Fef9BcbC03" target="_blank"
+             class="mt-auto inline-block bg-navy hover:bg-navy-dark text-gold font-bold text-sm px-5 py-2.5 rounded-full transition shadow-md"
+             data-en="Start Now →" data-es="Comenzar →">Start Now →</a>
         </div>
 
         <div class="bg-navy-light rounded-xl p-6 border border-white/10 text-center flex flex-col">
-          <p class="text-white font-semibold mb-1">2 rankings · up to 150 each</p>
-          <p class="text-white/50 text-sm mb-3">e.g. larger club</p>
+          <p class="text-white font-semibold mb-1"
+             data-en="2 rankings · up to 150 each" data-es="2 rankings · hasta 150 c/u">2 rankings · up to 150 each</p>
+          <p class="text-white/50 text-sm mb-3"
+             data-en="e.g. larger club" data-es="ej. club grande">e.g. larger club</p>
           <p class="text-gold font-serif text-3xl font-bold">$298<span class="text-white/30 text-base font-sans font-normal">/mo</span></p>
-          <p class="text-white/30 text-xs mt-2 mb-4">≈ $1 per player / month</p>
-          <a href="https://buy.stripe.com/aFa7sL8dk7VI87G5z1cbC04" target="_blank" class="mt-auto inline-block bg-gold/15 hover:bg-gold/25 text-gold border border-gold/30 font-bold text-sm px-5 py-2.5 rounded-full transition">Start Now →</a>
+          <p class="text-white/30 text-xs mt-2 mb-4"
+             data-en="≈ $1 per player / month" data-es="≈ $1 por jugador / mes">≈ $1 per player / month</p>
+          <a href="https://buy.stripe.com/aFa7sL8dk7VI87G5z1cbC04" target="_blank"
+             class="mt-auto inline-block bg-gold/15 hover:bg-gold/25 text-gold border border-gold/30 font-bold text-sm px-5 py-2.5 rounded-full transition"
+             data-en="Start Now →" data-es="Comenzar →">Start Now →</a>
         </div>
 
       </div>
 
       <!-- Features included -->
       <div class="bg-navy-light rounded-2xl p-8 border border-white/10">
-        <p class="text-gold text-xs font-bold tracking-widest uppercase text-center mb-6">Everything included in every plan</p>
+        <p class="text-gold text-xs font-bold tracking-widest uppercase text-center mb-6"
+           data-en="Everything included in every plan" data-es="Todo incluido en todos los planes">Everything included in every plan</p>
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm text-white/70">
-          <div class="flex gap-2"><span class="text-gold">✓</span> Live ladder ranking</div>
-          <div class="flex gap-2"><span class="text-gold">✓</span> Smart challenge system</div>
-          <div class="flex gap-2"><span class="text-gold">✓</span> Match reporting</div>
-          <div class="flex gap-2"><span class="text-gold">✓</span> Player stats & history</div>
-          <div class="flex gap-2"><span class="text-gold">✓</span> Community tribune feed</div>
-          <div class="flex gap-2"><span class="text-gold">✓</span> Photo uploads</div>
-          <div class="flex gap-2"><span class="text-gold">✓</span> Mobile PWA (no install)</div>
-          <div class="flex gap-2"><span class="text-gold">✓</span> Setup & onboarding</div>
-          <div class="flex gap-2"><span class="text-gold">✓</span> No long-term contracts</div>
+          <div class="flex gap-2"><span class="text-gold">✓</span> <span data-en="Live ladder ranking"        data-es="Ranking en vivo">Live ladder ranking</span></div>
+          <div class="flex gap-2"><span class="text-gold">✓</span> <span data-en="Smart challenge system"     data-es="Sistema de desafíos">Smart challenge system</span></div>
+          <div class="flex gap-2"><span class="text-gold">✓</span> <span data-en="Match reporting"            data-es="Registro de partidos">Match reporting</span></div>
+          <div class="flex gap-2"><span class="text-gold">✓</span> <span data-en="Player stats &amp; history" data-es="Stats e historial">Player stats &amp; history</span></div>
+          <div class="flex gap-2"><span class="text-gold">✓</span> <span data-en="Community tribune feed"     data-es="Feed de tribuna">Community tribune feed</span></div>
+          <div class="flex gap-2"><span class="text-gold">✓</span> <span data-en="Photo uploads"              data-es="Subida de fotos">Photo uploads</span></div>
+          <div class="flex gap-2"><span class="text-gold">✓</span> <span data-en="Mobile PWA (no install)"   data-es="PWA móvil (sin instalar)">Mobile PWA (no install)</span></div>
+          <div class="flex gap-2"><span class="text-gold">✓</span> <span data-en="Setup &amp; onboarding"     data-es="Configuración incluida">Setup &amp; onboarding</span></div>
+          <div class="flex gap-2"><span class="text-gold">✓</span> <span data-en="No long-term contracts"     data-es="Sin contratos">No long-term contracts</span></div>
         </div>
         <div class="text-center mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-          <a href="https://buy.stripe.com/6oU00jfFMdg287G0eHcbC00" target="_blank" class="inline-block bg-gold hover:bg-gold-light text-navy font-bold px-10 py-4 rounded-full transition shadow-lg">Start Now — $99/mo →</a>
-          <a href="#demo" class="inline-block border border-white/30 hover:border-white text-white font-semibold px-10 py-4 rounded-full transition">Book a Free Demo first</a>
+          <a href="https://buy.stripe.com/6oU00jfFMdg287G0eHcbC00" target="_blank"
+             class="inline-block bg-gold hover:bg-gold-light text-navy font-bold px-10 py-4 rounded-full transition shadow-lg"
+             data-en="Start Now — $99/mo →" data-es="Comenzar — $99/mes →">Start Now — $99/mo →</a>
+          <a href="#demo"
+             class="inline-block border border-white/30 hover:border-white text-white font-semibold px-10 py-4 rounded-full transition"
+             data-en="Book a Free Demo first" data-es="Primero reservá una Demo gratis">Book a Free Demo first</a>
         </div>
       </div>
 
@@ -351,7 +480,9 @@
   <section class="py-20 px-6 bg-sand">
     <div class="max-w-3xl mx-auto text-center">
       <div class="text-5xl mb-6">🎾</div>
-      <blockquote class="font-serif text-2xl sm:text-3xl text-navy font-bold leading-snug mb-6">
+      <blockquote class="font-serif text-2xl sm:text-3xl text-navy font-bold leading-snug mb-6"
+                  data-en="&quot;Our members went from checking a whiteboard in the locker room to checking the app every day. Match activity tripled in two months.&quot;"
+                  data-es="&quot;Nuestros socios pasaron de revisar la pizarra del vestuario a revisar la app todos los días. La actividad de partidos se triplicó en dos meses.&quot;">
         "Our members went from checking a whiteboard in the locker room to checking the app every day. Match activity tripled in two months."
       </blockquote>
       <p class="text-gray-400 text-sm font-medium">— Tennis Captain, Michigan Racquet Club</p>
@@ -361,36 +492,71 @@
   <!-- ─── PHOTO BREAK 2 ─────────────────────────────────────────────────────── -->
   <div class="h-64 sm:h-80 relative flex items-center justify-center"
        style="background-image: linear-gradient(rgba(11,37,69,0.58), rgba(11,37,69,0.58)), url('https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=1800&q=80'); background-size: cover; background-position: center 40%; background-color: #0b2545;">
-    <p class="font-serif text-white text-3xl sm:text-4xl font-bold text-center px-6 relative z-10">More matches. More engagement.<br /><span class="text-gold">Happier members.</span></p>
+    <p class="font-serif text-white text-3xl sm:text-4xl font-bold text-center px-6 relative z-10"
+       data-en="More matches. More engagement.&lt;br /&gt;&lt;span class='text-gold'&gt;Happier members.&lt;/span&gt;"
+       data-es="Más partidos. Más participación.&lt;br /&gt;&lt;span class='text-gold'&gt;Socios más contentos.&lt;/span&gt;">
+      More matches. More engagement.<br /><span class="text-gold">Happier members.</span>
+    </p>
   </div>
 
   <!-- ─── FAQ ───────────────────────────────────────────────────────────────── -->
   <section class="py-24 px-6 bg-white">
     <div class="max-w-3xl mx-auto">
       <div class="text-center mb-14">
-        <p class="text-gold font-semibold tracking-widest uppercase text-sm mb-3">Common questions</p>
+        <p class="text-gold font-semibold tracking-widest uppercase text-sm mb-3"
+           data-en="Common questions" data-es="Preguntas frecuentes">Common questions</p>
         <h2 class="font-serif text-4xl text-navy font-bold">FAQ</h2>
       </div>
       <div class="space-y-6">
         <div class="border-b border-gray-100 pb-6">
-          <h3 class="font-bold text-navy mb-2">Do players need to download anything?</h3>
-          <p class="text-gray-500 text-sm leading-relaxed">No. Challengers Ranking is a Progressive Web App. Players open a link in their browser and add it to their home screen in one tap — it looks and works just like a native app.</p>
+          <h3 class="font-bold text-navy mb-2"
+              data-en="Do players need to download anything?"
+              data-es="¿Los jugadores tienen que descargar algo?">Do players need to download anything?</h3>
+          <p class="text-gray-500 text-sm leading-relaxed"
+             data-en="No. Challengers Ranking is a Progressive Web App. Players open a link in their browser and add it to their home screen in one tap — it looks and works just like a native app."
+             data-es="No. Challengers Ranking es una Progressive Web App. Los jugadores abren un link en su navegador y la agregan al inicio con un toque — funciona igual que una app nativa.">
+            No. Challengers Ranking is a Progressive Web App. Players open a link in their browser and add it to their home screen in one tap — it looks and works just like a native app.
+          </p>
         </div>
         <div class="border-b border-gray-100 pb-6">
-          <h3 class="font-bold text-navy mb-2">How long does setup take?</h3>
-          <p class="text-gray-500 text-sm leading-relaxed">We handle the setup for you. Send us your player list and we have your club's ranking live within 24 hours. After that, players register themselves.</p>
+          <h3 class="font-bold text-navy mb-2"
+              data-en="How long does setup take?"
+              data-es="¿Cuánto tarda la configuración?">How long does setup take?</h3>
+          <p class="text-gray-500 text-sm leading-relaxed"
+             data-en="We handle the setup for you. Send us your player list and we have your club's ranking live within 24 hours. After that, players register themselves."
+             data-es="Nos encargamos de la configuración. Mandanos tu lista de jugadores y tenemos el ranking de tu club en vivo en 24 horas. Después, los jugadores se registran solos.">
+            We handle the setup for you. Send us your player list and we have your club's ranking live within 24 hours. After that, players register themselves.
+          </p>
         </div>
         <div class="border-b border-gray-100 pb-6">
-          <h3 class="font-bold text-navy mb-2">Can we run separate rankings for men and women?</h3>
-          <p class="text-gray-500 text-sm leading-relaxed">Yes. Every plan supports multiple independent rankings — Men's Singles, Women's Singles, Mixed Doubles, or any category you need. Each ranking is billed separately at $99/month for up to 100 players.</p>
+          <h3 class="font-bold text-navy mb-2"
+              data-en="Can we run separate rankings for men and women?"
+              data-es="¿Podemos tener rankings separados para hombres y mujeres?">Can we run separate rankings for men and women?</h3>
+          <p class="text-gray-500 text-sm leading-relaxed"
+             data-en="Yes. Every plan supports multiple independent rankings — Men's Singles, Women's Singles, Mixed Doubles, or any category you need. Each ranking is billed separately at $99/month for up to 100 players."
+             data-es="Sí. Todos los planes soportan múltiples rankings independientes — Singles Masculino, Femenino, Dobles Mixtos, o cualquier categoría que necesites. Cada ranking se factura por separado a $99/mes para hasta 100 jugadores.">
+            Yes. Every plan supports multiple independent rankings — Men's Singles, Women's Singles, Mixed Doubles, or any category you need. Each ranking is billed separately at $99/month for up to 100 players.
+          </p>
         </div>
         <div class="border-b border-gray-100 pb-6">
-          <h3 class="font-bold text-navy mb-2">What happens when a player leaves the club?</h3>
-          <p class="text-gray-500 text-sm leading-relaxed">The admin can remove or deactivate any player instantly. The rest of the ranking adjusts automatically.</p>
+          <h3 class="font-bold text-navy mb-2"
+              data-en="What happens when a player leaves the club?"
+              data-es="¿Qué pasa cuando un jugador se va del club?">What happens when a player leaves the club?</h3>
+          <p class="text-gray-500 text-sm leading-relaxed"
+             data-en="The admin can remove or deactivate any player instantly. The rest of the ranking adjusts automatically."
+             data-es="El administrador puede eliminar o desactivar a cualquier jugador al instante. El resto del ranking se ajusta automáticamente.">
+            The admin can remove or deactivate any player instantly. The rest of the ranking adjusts automatically.
+          </p>
         </div>
         <div>
-          <h3 class="font-bold text-navy mb-2">Is there a contract?</h3>
-          <p class="text-gray-500 text-sm leading-relaxed">No long-term contracts. Month-to-month billing. Cancel anytime — your data is always yours to export.</p>
+          <h3 class="font-bold text-navy mb-2"
+              data-en="Is there a contract?"
+              data-es="¿Hay contrato?">Is there a contract?</h3>
+          <p class="text-gray-500 text-sm leading-relaxed"
+             data-en="No long-term contracts. Month-to-month billing. Cancel anytime — your data is always yours to export."
+             data-es="Sin contratos a largo plazo. Facturación mensual. Cancelá cuando quieras — tus datos siempre son tuyos para exportar.">
+            No long-term contracts. Month-to-month billing. Cancel anytime — your data is always yours to export.
+          </p>
         </div>
       </div>
     </div>
@@ -400,8 +566,13 @@
   <section id="demo" class="py-24 px-6 bg-navy">
     <div class="max-w-2xl mx-auto text-center">
       <img src="logo2.png" alt="Logo" class="h-20 w-20 rounded-full mx-auto mb-8 shadow-xl" />
-      <h2 class="font-serif text-4xl sm:text-5xl text-white font-bold mb-4">Ready to energize your club?</h2>
-      <p class="text-white/60 mb-10">Book a free 20-minute demo. We'll show you a live ranking in action and answer any questions.</p>
+      <h2 class="font-serif text-4xl sm:text-5xl text-white font-bold mb-4"
+          data-en="Ready to energize your club?" data-es="¿Listo para activar tu club?">Ready to energize your club?</h2>
+      <p class="text-white/60 mb-10"
+         data-en="Book a free 20-minute demo. We'll show you a live ranking in action and answer any questions."
+         data-es="Agendá una demo gratuita de 20 minutos. Te mostramos un ranking en vivo y respondemos todas tus preguntas.">
+        Book a free 20-minute demo. We'll show you a live ranking in action and answer any questions.
+      </p>
 
       <form class="space-y-4 max-w-md mx-auto" onsubmit="handleSubmit(event)">
         <input type="hidden" name="access_key" value="94474b8f-8477-42bd-8912-bdf277f5ce29" />
@@ -410,6 +581,8 @@
         <input
           type="text"
           name="name"
+          data-en-ph="Your name"
+          data-es-ph="Tu nombre"
           placeholder="Your name"
           required
           class="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-xl px-5 py-3.5 text-sm focus:outline-none focus:border-gold transition"
@@ -417,6 +590,8 @@
         <input
           type="email"
           name="email"
+          data-en-ph="Club email address"
+          data-es-ph="Email del club"
           placeholder="Club email address"
           required
           class="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-xl px-5 py-3.5 text-sm focus:outline-none focus:border-gold transition"
@@ -424,6 +599,8 @@
         <input
           type="text"
           name="club_name"
+          data-en-ph="Club name"
+          data-es-ph="Nombre del club"
           placeholder="Club name"
           required
           class="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-xl px-5 py-3.5 text-sm focus:outline-none focus:border-gold transition"
@@ -433,20 +610,33 @@
           required
           class="w-full bg-white/10 border border-white/20 text-white/70 rounded-xl px-5 py-3.5 text-sm focus:outline-none focus:border-gold transition"
         >
-          <option value="" disabled selected>Approximate number of players</option>
-          <option class="text-gray-800">Under 30</option>
-          <option class="text-gray-800">30 – 100</option>
-          <option class="text-gray-800">100 – 300</option>
-          <option class="text-gray-800">300+</option>
+          <option value="" disabled selected
+                  data-en="Approximate number of players"
+                  data-es="Cantidad aproximada de jugadores">Approximate number of players</option>
+          <option class="text-gray-800"
+                  data-en="Under 30" data-es="Menos de 30">Under 30</option>
+          <option class="text-gray-800"
+                  data-en="30 – 100" data-es="30 – 100">30 – 100</option>
+          <option class="text-gray-800"
+                  data-en="100 – 300" data-es="100 – 300">100 – 300</option>
+          <option class="text-gray-800"
+                  data-en="300+" data-es="300+">300+</option>
         </select>
         <button
+          id="submit-btn"
           type="submit"
           class="w-full bg-gold hover:bg-gold-light text-navy font-bold py-4 rounded-full transition text-base shadow-lg"
+          data-en="Request My Free Demo →"
+          data-es="Solicitar mi Demo Gratis →"
         >
           Request My Free Demo →
         </button>
       </form>
-      <p class="text-white/30 text-xs mt-4">No setup fee · No long-term contracts · Cancel anytime</p>
+      <p class="text-white/30 text-xs mt-4"
+         data-en="No setup fee · No long-term contracts · Cancel anytime"
+         data-es="Sin costo de alta · Sin contratos · Cancelá cuando quieras">
+        No setup fee · No long-term contracts · Cancel anytime
+      </p>
     </div>
   </section>
 
@@ -458,36 +648,94 @@
         <span class="text-white/50 text-sm">Challengers Ranking © 2026</span>
       </div>
       <div class="flex gap-6 text-white/40 text-sm">
-        <a href="#features" class="hover:text-white transition">Features</a>
-        <a href="#pricing" class="hover:text-white transition">Pricing</a>
-        <a href="#demo" class="hover:text-white transition">Contact</a>
+        <a href="#features" class="hover:text-white transition"
+           data-en="Features" data-es="Funciones">Features</a>
+        <a href="#pricing" class="hover:text-white transition"
+           data-en="Pricing" data-es="Precios">Pricing</a>
+        <a href="#demo" class="hover:text-white transition"
+           data-en="Contact" data-es="Contacto">Contact</a>
       </div>
     </div>
   </footer>
 
   <script>
+    /* ─── i18n ────────────────────────────────────────────────────────────── */
+    var currentLang = 'en';
+
+    function setLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('cr-lang', lang);
+      document.documentElement.lang = lang;
+
+      // Swap innerHTML for all [data-en] / [data-es] elements
+      document.querySelectorAll('[data-en]').forEach(function(el) {
+        el.innerHTML = lang === 'es' ? el.dataset.es : el.dataset.en;
+      });
+
+      // Swap placeholders
+      document.querySelectorAll('[data-en-ph]').forEach(function(el) {
+        el.placeholder = lang === 'es' ? el.dataset.esPh : el.dataset.enPh;
+      });
+
+      // Update toggle button active state
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+
+      // Update page title & meta description
+      if (lang === 'es') {
+        document.title = 'Challengers Ranking — Software de Ranking de Tenis para Clubs';
+        document.querySelector('meta[name="description"]').setAttribute('content',
+          'Dale a tus socios un ranking en vivo, gestión automática de desafíos y un feed comunitario. Listo en minutos. Sin IT.');
+      } else {
+        document.title = 'Challengers Ranking — Tennis Ladder Software for Clubs';
+        document.querySelector('meta[name="description"]').setAttribute('content',
+          'Give your members a live ladder ranking, automatic challenge management, and a community feed. Set up in minutes. No IT required.');
+      }
+    }
+
+    // Detect language on load — country-based (AR → es, everything else → en)
+    (function() {
+      var saved = localStorage.getItem('cr-lang');
+      if (saved) { setLang(saved); return; }
+
+      // Start with English while the geo request is in flight
+      setLang('en');
+
+      fetch('https://cloudflare.com/cdn-cgi/trace')
+        .then(function(r) { return r.text(); })
+        .then(function(text) {
+          var match = text.match(/loc=([A-Z]{2})/);
+          var country = match ? match[1] : '';
+          if (country === 'AR') setLang('es');
+          // USA and every other country stays English
+        })
+        .catch(function() {
+          // Network error — stay with default English
+        });
+    })();
+
+    /* ─── Form submit ─────────────────────────────────────────────────────── */
     async function handleSubmit(e) {
       e.preventDefault();
-      const form = e.target;
-      const btn = form.querySelector('button[type="submit"]');
-      btn.textContent = 'Sending...';
+      var form = e.target;
+      var btn  = document.getElementById('submit-btn');
+      btn.textContent = currentLang === 'es' ? 'Enviando...' : 'Sending...';
       btn.disabled = true;
 
       try {
-        const res = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          body: new FormData(form)
-        });
-        const data = await res.json();
+        var res  = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: new FormData(form) });
+        var data = await res.json();
         if (data.success) {
-          btn.textContent = '✓ Request received — we\'ll be in touch!';
+          btn.textContent = currentLang === 'es'
+            ? '✓ Solicitud recibida — te contactamos pronto!'
+            : '✓ Request received — we\'ll be in touch!';
           btn.classList.remove('bg-gold', 'hover:bg-gold-light');
           btn.classList.add('bg-green-500');
-        } else {
-          throw new Error('Submission failed');
-        }
+        } else { throw new Error('fail'); }
       } catch {
-        btn.textContent = 'Something went wrong — please email us directly.';
+        btn.textContent = currentLang === 'es'
+          ? 'Algo salió mal — escribinos directamente.'
+          : 'Something went wrong — please email us directly.';
         btn.classList.remove('bg-gold', 'hover:bg-gold-light');
         btn.classList.add('bg-red-500');
         btn.disabled = false;
