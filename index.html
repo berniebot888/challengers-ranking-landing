@@ -223,10 +223,10 @@
         <a href="#features"
            class="text-white/70 hover:text-white text-sm font-medium transition hidden sm:block"
            data-en="Features" data-es="Funciones">Features</a>
-        <a href="https://challengers-ranking-demo.vercel.app/login"
+        <a href="https://app.challengersranking.online/login"
            class="text-white/70 hover:text-white text-sm font-medium transition hidden sm:block"
            data-en="Sign in" data-es="Iniciar sesión">Sign in</a>
-        <a href="https://challengers-ranking-demo.vercel.app/signup"
+        <a href="https://app.challengersranking.online/signup"
            class="bg-gold hover:bg-gold-light text-navy font-bold text-sm px-5 py-2.5 rounded-full transition"
            data-en="Start free" data-es="Empezá gratis">Start free</a>
       </div>
@@ -256,7 +256,7 @@
         Replace the locker-room whiteboard with a live ranking your members open every day. Automated challenges, real-time standings and a community feed — built to turn 'who can I play?' into 'I've got three challenges lined up.'
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center fade-up fade-up-delay-3">
-        <a href="https://challengers-ranking-demo.vercel.app/signup"
+        <a href="https://app.challengersranking.online/signup"
            class="bg-gold hover:bg-gold-light text-navy font-bold text-base px-8 py-4 rounded-full transition shadow-lg"
            data-en="Start free trial →" data-es="Empezá gratis →">
           Start free trial →
@@ -607,7 +607,7 @@
           <p class="text-gold font-serif text-3xl font-bold">$49<span class="text-white/30 text-base font-sans font-normal">/mo</span></p>
           <p class="text-white/30 text-xs mt-2 mb-4"
              data-en="≈ $1 per player / month" data-es="≈ $1 por jugador / mes">≈ $1 per player / month</p>
-          <a href="https://challengers-ranking-demo.vercel.app/signup"
+          <a href="https://app.challengersranking.online/signup"
              class="mt-auto inline-block bg-gold/15 hover:bg-gold/25 text-gold border border-gold/30 font-bold text-sm px-5 py-2.5 rounded-full transition"
              data-en="Start free trial →" data-es="Empezar trial →">Start free trial →</a>
         </div>
@@ -623,7 +623,7 @@
           <p class="text-navy/40 text-xs mt-2 mb-4"
              data-en="$79 per ranking · 200 players total"
              data-es="$79 por ranking · 200 jugadores total">$79 per ranking · 200 players total</p>
-          <a href="https://challengers-ranking-demo.vercel.app/signup"
+          <a href="https://app.challengersranking.online/signup"
              class="mt-auto inline-block bg-navy hover:bg-navy-dark text-gold font-bold text-sm px-5 py-2.5 rounded-full transition shadow-md"
              data-en="Start free trial →" data-es="Empezar trial →">Start free trial →</a>
         </div>
@@ -636,7 +636,7 @@
           <p class="text-gold font-serif text-3xl font-bold">$258<span class="text-white/30 text-base font-sans font-normal">/mo</span></p>
           <p class="text-white/30 text-xs mt-2 mb-4"
              data-en="≈ $0.86 per player / month" data-es="≈ $0.86 por jugador / mes">≈ $0.86 per player / month</p>
-          <a href="https://challengers-ranking-demo.vercel.app/signup"
+          <a href="https://app.challengersranking.online/signup"
              class="mt-auto inline-block bg-gold/15 hover:bg-gold/25 text-gold border border-gold/30 font-bold text-sm px-5 py-2.5 rounded-full transition"
              data-en="Start free trial →" data-es="Empezar trial →">Start free trial →</a>
         </div>
@@ -659,7 +659,7 @@
           <div class="flex gap-2"><span class="text-gold">✓</span> <span data-en="No long-term contracts"     data-es="Sin contratos">No long-term contracts</span></div>
         </div>
         <div class="text-center mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-          <a href="https://challengers-ranking-demo.vercel.app/signup"
+          <a href="https://app.challengersranking.online/signup"
              class="inline-block bg-gold hover:bg-gold-light text-navy font-bold px-10 py-4 rounded-full transition shadow-lg"
              data-en="Start 30-day free trial →" data-es="Empezá tu trial de 30 días →">Start 30-day free trial →</a>
           <a href="#demo"
@@ -856,9 +856,9 @@
            data-en="Features" data-es="Funciones">Features</a>
         <a href="#pricing" class="hover:text-white transition"
            data-en="Pricing" data-es="Precios">Pricing</a>
-        <a href="https://challengers-ranking-demo.vercel.app/signup" class="hover:text-white transition"
+        <a href="https://app.challengersranking.online/signup" class="hover:text-white transition"
            data-en="Sign up" data-es="Crear cuenta">Sign up</a>
-        <a href="https://challengers-ranking-demo.vercel.app/login" class="hover:text-white transition"
+        <a href="https://app.challengersranking.online/login" class="hover:text-white transition"
            data-en="Sign in" data-es="Iniciar sesión">Sign in</a>
         <a href="#demo" class="hover:text-white transition"
            data-en="Contact" data-es="Contacto">Contact</a>
@@ -889,21 +889,18 @@
       document.getElementById('btn-en').classList.toggle('active', lang === 'en');
       document.getElementById('btn-es').classList.toggle('active', lang === 'es');
 
-      // Propagar el idioma a la app (cross-domain: la landing está en
-      // challengersranking.online y la app en challengers-ranking-demo.vercel.app,
-      // así que las cookies no se comparten — pasamos ?lang= en la URL).
-      // Cualquier link a /signup, /login o cualquier ruta de la app recibe el
-      // query param. La app (middleware) lee ?lang= con prioridad sobre cookie
-      // y Accept-Language, y lo persiste en su propia cookie para el resto del flow.
+      // Propagar el idioma a la app (la landing es estática en
+      // www.challengersranking.online, la app vive en
+      // app.challengersranking.online; aunque comparten apex, hasta que el
+      // usuario visite el subdominio app.* la cookie 'locale' con
+      // domain=.challengersranking.online no llegó a su browser, así que
+      // pasamos ?lang= en la URL para arrancar el flow en el idioma elegido).
+      // El middleware lee ?lang= con prioridad sobre cookie y Accept-Language.
       document.querySelectorAll('a[href]').forEach(function(a) {
         var href = a.getAttribute('href');
         if (!href) return;
-        if (href.indexOf('challengers-ranking-demo.vercel.app') === -1
-            && href.indexOf('challengersranking.online') === -1) return;
-        // No tocar links que apunten a la propia landing (anchors o root)
-        if (/^https?:\/\/(www\.)?challengersranking\.online\/?(#|$|\?)/.test(href)
-            && href.indexOf('/signup') === -1
-            && href.indexOf('/login') === -1) return;
+        if (href.indexOf('app.challengersranking.online') === -1
+            && href.indexOf('challengers-ranking-demo.vercel.app') === -1) return;
         // Strip cualquier lang= previo y appendear el actual
         var url;
         try { url = new URL(href); } catch (e) { return; }
