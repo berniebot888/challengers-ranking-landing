@@ -889,6 +889,28 @@
       document.getElementById('btn-en').classList.toggle('active', lang === 'en');
       document.getElementById('btn-es').classList.toggle('active', lang === 'es');
 
+      // Propagar el idioma a la app (cross-domain: la landing está en
+      // challengersranking.online y la app en challengers-ranking-demo.vercel.app,
+      // así que las cookies no se comparten — pasamos ?lang= en la URL).
+      // Cualquier link a /signup, /login o cualquier ruta de la app recibe el
+      // query param. La app (middleware) lee ?lang= con prioridad sobre cookie
+      // y Accept-Language, y lo persiste en su propia cookie para el resto del flow.
+      document.querySelectorAll('a[href]').forEach(function(a) {
+        var href = a.getAttribute('href');
+        if (!href) return;
+        if (href.indexOf('challengers-ranking-demo.vercel.app') === -1
+            && href.indexOf('challengersranking.online') === -1) return;
+        // No tocar links que apunten a la propia landing (anchors o root)
+        if (/^https?:\/\/(www\.)?challengersranking\.online\/?(#|$|\?)/.test(href)
+            && href.indexOf('/signup') === -1
+            && href.indexOf('/login') === -1) return;
+        // Strip cualquier lang= previo y appendear el actual
+        var url;
+        try { url = new URL(href); } catch (e) { return; }
+        url.searchParams.set('lang', lang);
+        a.setAttribute('href', url.toString());
+      });
+
       // Update page title & meta description
       if (lang === 'es') {
         document.title = 'Challengers Ranking — App de Ranking de Tenis para Clubes';
