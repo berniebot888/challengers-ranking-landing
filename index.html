@@ -545,14 +545,10 @@
             <ellipse cx="24" cy="42" rx="13" ry="2" fill="#000" opacity="0.18"/>
             <!-- cuerpo de la pelota -->
             <circle cx="24" cy="22" r="16" fill="url(#g-tennis)" filter="url(#ds)"/>
-            <!-- Seam principal: U-curve grande que cruza la pelota — entra
-                 por upper-left, dippea profundo al center-bottom, sale por
-                 upper-right. ESTA es la curva visible más prominente. -->
-            <path d="M 10 16 C 12 30, 28 32, 38 18" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" opacity="0.95"/>
-            <!-- Seam secundario: pequeño arco arriba que muestra el seam
-                 wrappeando hacia el back. Más fino y con menos opacidad
-                 para que no compita con la curva principal. -->
-            <path d="M 14 10 Q 24 7 33 11" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+            <!-- Seam: ONE diagonal S-curve de upper-left a lower-right.
+                 Versión "Option A" — más limpia y stylized que la doble curva
+                 anterior, mantiene 100% del flow visual sin perder identidad. -->
+            <path d="M 10 13 C 8 25, 30 30, 38 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" opacity="0.95"/>
             <!-- highlight especular -->
             <ellipse cx="17" cy="14" rx="5" ry="3" fill="#fff" opacity="0.35"/>
           </svg>
