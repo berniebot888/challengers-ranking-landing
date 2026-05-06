@@ -254,17 +254,24 @@
 <body class="font-sans text-gray-800 bg-white">
 
   <!-- ─── NAV ─────────────────────────────────────────────────────────────── -->
-  <nav class="fixed top-0 inset-x-0 z-50 bg-navy/95 backdrop-blur border-b border-white/10">
-    <div class="max-w-6xl mx-auto px-6 h-[76px] flex items-center justify-between">
-      <a href="#" class="flex items-center group" aria-label="Challengers Ranking">
-        <!-- Brand v2: lockup horizontal blanco (badge + wordmark juntos en SVG).
-             Sin texto secundario al lado para que el lockup tenga toda la
-             presencia del header. h-12 desktop / h-10 mobile. -->
-        <img src="brand-kit/lockup-horizontal-white.svg"
+  <!-- Header rediseñado para dar PRESENCIA al brand:
+       - Más alto (h-24 = 96px) para que el badge respire
+       - Badge orange separado del wordmark (cada uno dimensionado a propósito,
+         en vez del lockup all-in-one que tiene whitespace y se ve chico)
+       - Badge h-14 (56px) — bien presente, color contrasta contra navy
+       - Wordmark white grande al lado (h-9 = 36px) con letterspacing apretado
+       - Bottom border más visible con gradient terracotta → fade -->
+  <nav class="fixed top-0 inset-x-0 z-50 bg-navy/95 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 h-20 sm:h-24 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3 sm:gap-4 group" aria-label="Challengers Ranking">
+        <img src="brand-kit/mark-orange.svg"
+             alt=""
+             class="h-12 sm:h-14 w-auto transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_4px_12px_rgba(200,69,28,0.35)]" />
+        <img src="brand-kit/wordmark-white.svg"
              alt="Challengers Ranking"
-             class="h-10 sm:h-12 w-auto group-hover:opacity-90 transition-opacity" />
+             class="h-7 sm:h-9 w-auto transition-opacity group-hover:opacity-90" />
       </a>
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 sm:gap-3">
         <!-- Language toggle -->
         <div class="flex items-center rounded-full border border-white/15 overflow-hidden mr-1">
           <button id="btn-en" onclick="setLang('en')" class="lang-btn px-2.5 py-1 text-white/50 hover:text-white transition-colors">EN</button>
@@ -272,23 +279,25 @@
           <button id="btn-es" onclick="setLang('es')" class="lang-btn px-2.5 py-1 text-white/50 hover:text-white transition-colors">ES</button>
         </div>
         <a href="#pricing"
-           class="text-white/70 hover:text-white text-sm font-medium transition hidden sm:block"
+           class="text-white/70 hover:text-white text-sm font-medium transition hidden md:block"
            data-en="Pricing" data-es="Precios">Pricing</a>
         <a href="#features"
-           class="text-white/70 hover:text-white text-sm font-medium transition hidden sm:block"
+           class="text-white/70 hover:text-white text-sm font-medium transition hidden md:block"
            data-en="Features" data-es="Funciones">Features</a>
         <a href="https://app.challengersranking.online/login"
-           class="text-white/70 hover:text-white text-sm font-medium transition hidden sm:block"
+           class="text-white/70 hover:text-white text-sm font-medium transition hidden md:block"
            data-en="Sign in" data-es="Iniciar sesión">Sign in</a>
         <a href="https://app.challengersranking.online/signup"
-           class="bg-terracotta hover:bg-terracotta-hover text-white font-bold text-sm px-5 py-2.5 rounded-full transition shadow-md"
+           class="bg-terracotta hover:bg-terracotta-hover text-white font-bold text-sm px-5 py-2.5 rounded-full transition shadow-md shadow-terracotta/30"
            data-en="Start free" data-es="Empezá gratis">Start free</a>
       </div>
     </div>
+    <!-- Línea decorativa terracotta → fade — le da una "huella" sutil del brand -->
+    <div class="h-px bg-gradient-to-r from-terracotta/0 via-terracotta/40 to-terracotta/0"></div>
   </nav>
 
   <!-- ─── HERO ─────────────────────────────────────────────────────────────── -->
-  <section class="hero-bg min-h-screen flex items-start sm:items-center justify-center text-center px-6 pt-28 sm:pt-16">
+  <section class="hero-bg min-h-screen flex items-start sm:items-center justify-center text-center px-6 pt-32 sm:pt-24">
     <div class="max-w-4xl mx-auto">
       <!-- Brand v2: badge orange del nuevo brand kit (reemplaza logo2.png) -->
       <img src="brand-kit/png/badge-orange-1024.png"
