@@ -640,9 +640,9 @@
             <li>✓ <span data-en="Multi-location · multi-admin" data-es="Multi-location · multi-admin">Multi-location · multi-admin</span></li>
             <li>✓ <span data-en="Dedicated onboarding" data-es="Onboarding dedicado">Dedicated onboarding</span></li>
           </ul>
-          <a href="mailto:hello@challengersranking.online?subject=Enterprise inquiry"
-             class="text-center inline-block bg-gold hover:bg-gold-light text-navy font-bold text-sm px-5 py-2.5 rounded-full transition"
-             data-en="Contact Sales" data-es="Contactar ventas">Contact Sales</a>
+          <button type="button" onclick="openEnterpriseModal()"
+             class="text-center inline-block bg-gold hover:bg-gold-light text-navy font-bold text-sm px-5 py-2.5 rounded-full transition cursor-pointer"
+             data-en="Contact Sales" data-es="Contactar ventas">Contact Sales</button>
         </div>
 
       </div>
@@ -1006,7 +1006,221 @@
         btn.disabled = false;
       }
     }
+
+    /* ─── Enterprise Contact modal ─────────────────────────────────────── */
+    function openEnterpriseModal() {
+      document.getElementById('ent-modal').classList.remove('hidden');
+      // Focus al primer field
+      setTimeout(function() { document.getElementById('ent-name').focus(); }, 50);
+    }
+    function closeEnterpriseModal() {
+      document.getElementById('ent-modal').classList.add('hidden');
+      // Reset form si estaba en estado "done"
+      var form = document.getElementById('ent-form');
+      var success = document.getElementById('ent-success');
+      if (success.classList.contains('hidden') === false) {
+        success.classList.add('hidden');
+        form.classList.remove('hidden');
+        form.reset();
+      }
+      // Reset error
+      document.getElementById('ent-error').textContent = '';
+    }
+
+    async function submitEnterpriseInquiry(e) {
+      e.preventDefault();
+      var btn = document.getElementById('ent-submit');
+      var errEl = document.getElementById('ent-error');
+      errEl.textContent = '';
+      btn.disabled = true;
+      btn.textContent = currentLang === 'es' ? 'Enviando…' : 'Sending…';
+
+      // Recolectar deportes seleccionados
+      var sports = [];
+      document.querySelectorAll('.ent-sport-chip[data-active="true"]').forEach(function(b) {
+        sports.push(b.getAttribute('data-sport'));
+      });
+
+      var payload = {
+        name: document.getElementById('ent-name').value.trim(),
+        email: document.getElementById('ent-email').value.trim().toLowerCase(),
+        phone: document.getElementById('ent-phone').value.trim() || undefined,
+        org: document.getElementById('ent-org').value.trim(),
+        players: parseInt(document.getElementById('ent-players').value, 10) || undefined,
+        locations: parseInt(document.getElementById('ent-locations').value, 10) || undefined,
+        sports: sports,
+        message: document.getElementById('ent-message').value.trim() || undefined,
+        // honeypot — campo invisible. Bots lo completan, humanos no.
+        website: document.getElementById('ent-website').value,
+      };
+
+      if (!payload.name || !payload.email || !payload.org) {
+        errEl.textContent = currentLang === 'es'
+          ? 'Faltan datos: nombre, email y nombre del club son obligatorios.'
+          : 'Missing data: name, email and organization name are required.';
+        btn.disabled = false;
+        btn.textContent = currentLang === 'es' ? 'Enviar consulta' : 'Send inquiry';
+        return;
+      }
+
+      try {
+        var res = await fetch('https://app.challengersranking.online/api/enterprise-inquiry', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        var data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'submit failed');
+        document.getElementById('ent-form').classList.add('hidden');
+        document.getElementById('ent-success-email').textContent = payload.email;
+        document.getElementById('ent-success').classList.remove('hidden');
+      } catch (e) {
+        errEl.textContent = currentLang === 'es'
+          ? 'Hubo un error al enviar. Probá de nuevo en un rato.'
+          : 'Something went wrong. Try again in a bit.';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = currentLang === 'es' ? 'Enviar consulta' : 'Send inquiry';
+      }
+    }
+
+    function toggleEntSport(btn) {
+      var active = btn.getAttribute('data-active') === 'true';
+      if (active) {
+        btn.setAttribute('data-active', 'false');
+        btn.classList.remove('bg-navy', 'text-gold', 'border-navy');
+        btn.classList.add('bg-white', 'text-navy/60', 'border-navy/20');
+      } else {
+        btn.setAttribute('data-active', 'true');
+        btn.classList.add('bg-navy', 'text-gold', 'border-navy');
+        btn.classList.remove('bg-white', 'text-navy/60', 'border-navy/20');
+      }
+    }
   </script>
+
+  <!-- ─── Enterprise contact modal ──────────────────────────────────────── -->
+  <div id="ent-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center px-4">
+    <div class="absolute inset-0 bg-navy-dark/80" onclick="closeEnterpriseModal()"></div>
+    <div class="relative bg-sand rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+      <div class="p-6 sm:p-8">
+        <!-- Form view -->
+        <div id="ent-form-wrap">
+          <div class="flex items-start justify-between gap-3 mb-4">
+            <div>
+              <h3 class="font-serif text-2xl text-navy font-bold leading-tight"
+                  data-en="Contact Sales — Enterprise" data-es="Contactar ventas — Enterprise">Contact Sales — Enterprise</h3>
+              <p class="text-navy/60 text-sm mt-1"
+                 data-en="Tell us about your organization and we will reply within 24 business hours."
+                 data-es="Contanos sobre tu organización y te respondemos en menos de 24h hábiles.">Tell us about your organization and we will reply within 24 business hours.</p>
+            </div>
+            <button onclick="closeEnterpriseModal()" class="text-navy/40 hover:text-navy text-xl leading-none">✕</button>
+          </div>
+
+          <form id="ent-form" onsubmit="submitEnterpriseInquiry(event)" class="space-y-3">
+            <!-- honeypot — invisible al usuario; bots lo completan -->
+            <input id="ent-website" name="website" type="text" tabindex="-1" autocomplete="off"
+                   style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" aria-hidden="true" />
+
+            <label class="block text-xs">
+              <span class="block text-navy/60 mb-1"
+                    data-en="Your name *" data-es="Tu nombre *">Your name *</span>
+              <input id="ent-name" type="text" required class="w-full bg-white border border-navy/20 rounded-lg px-3 py-2 text-sm text-navy" />
+            </label>
+
+            <label class="block text-xs">
+              <span class="block text-navy/60 mb-1"
+                    data-en="Email *" data-es="Email *">Email *</span>
+              <input id="ent-email" type="email" required class="w-full bg-white border border-navy/20 rounded-lg px-3 py-2 text-sm text-navy" />
+            </label>
+
+            <label class="block text-xs">
+              <span class="block text-navy/60 mb-1"
+                    data-en="Phone / WhatsApp (optional)" data-es="Teléfono / WhatsApp (opcional)">Phone / WhatsApp (optional)</span>
+              <input id="ent-phone" type="tel" class="w-full bg-white border border-navy/20 rounded-lg px-3 py-2 text-sm text-navy" />
+            </label>
+
+            <label class="block text-xs">
+              <span class="block text-navy/60 mb-1"
+                    data-en="Club or organization name *" data-es="Nombre del club u organización *">Club or organization name *</span>
+              <input id="ent-org" type="text" required class="w-full bg-white border border-navy/20 rounded-lg px-3 py-2 text-sm text-navy" />
+            </label>
+
+            <div class="grid grid-cols-2 gap-3">
+              <label class="block text-xs">
+                <span class="block text-navy/60 mb-1"
+                      data-en="Approx. players" data-es="Jugadores aprox">Approx. players</span>
+                <input id="ent-players" type="number" min="0" class="w-full bg-white border border-navy/20 rounded-lg px-3 py-2 text-sm text-navy" />
+              </label>
+              <label class="block text-xs">
+                <span class="block text-navy/60 mb-1"
+                      data-en="Locations / clubs" data-es="Sedes / clubes">Locations / clubs</span>
+                <input id="ent-locations" type="number" min="1" value="1" class="w-full bg-white border border-navy/20 rounded-lg px-3 py-2 text-sm text-navy" />
+              </label>
+            </div>
+
+            <div>
+              <span class="block text-xs text-navy/60 mb-1.5"
+                    data-en="Sports" data-es="Deportes">Sports</span>
+              <div class="flex flex-wrap gap-1.5">
+                <button type="button" onclick="toggleEntSport(this)" data-sport="tennis" data-active="true"
+                        class="ent-sport-chip text-xs px-3 py-1.5 rounded-full border transition bg-navy text-gold border-navy"
+                        data-en="Tennis" data-es="Tenis">Tennis</button>
+                <button type="button" onclick="toggleEntSport(this)" data-sport="padel" data-active="false"
+                        class="ent-sport-chip text-xs px-3 py-1.5 rounded-full border transition bg-white text-navy/60 border-navy/20"
+                        data-en="Padel" data-es="Pádel">Padel</button>
+                <button type="button" onclick="toggleEntSport(this)" data-sport="squash" data-active="false"
+                        class="ent-sport-chip text-xs px-3 py-1.5 rounded-full border transition bg-white text-navy/60 border-navy/20"
+                        data-en="Squash" data-es="Squash">Squash</button>
+                <button type="button" onclick="toggleEntSport(this)" data-sport="pickleball" data-active="false"
+                        class="ent-sport-chip text-xs px-3 py-1.5 rounded-full border transition bg-white text-navy/60 border-navy/20"
+                        data-en="Pickleball" data-es="Pickleball">Pickleball</button>
+                <button type="button" onclick="toggleEntSport(this)" data-sport="other" data-active="false"
+                        class="ent-sport-chip text-xs px-3 py-1.5 rounded-full border transition bg-white text-navy/60 border-navy/20"
+                        data-en="Other" data-es="Otros">Other</button>
+              </div>
+            </div>
+
+            <label class="block text-xs">
+              <span class="block text-navy/60 mb-1"
+                    data-en="Anything else (optional)" data-es="Algo más (opcional)">Anything else (optional)</span>
+              <textarea id="ent-message" rows="3" class="w-full bg-white border border-navy/20 rounded-lg px-3 py-2 text-sm text-navy"
+                        data-en-ph="Categories you need, timeline, integrations, etc."
+                        data-es-ph="Categorías que necesitás, tiempos, integraciones, etc."
+                        placeholder="Categories you need, timeline, integrations, etc."></textarea>
+            </label>
+
+            <p id="ent-error" class="text-xs text-red-600 min-h-[16px]"></p>
+
+            <div class="flex gap-2 pt-1">
+              <button type="button" onclick="closeEnterpriseModal()"
+                      class="text-sm px-4 py-2 border border-navy/20 rounded-full text-navy/70 hover:bg-navy/5"
+                      data-en="Cancel" data-es="Cancelar">Cancel</button>
+              <button id="ent-submit" type="submit"
+                      class="flex-1 bg-gold hover:bg-gold-light text-navy font-bold text-sm px-5 py-2.5 rounded-full transition disabled:opacity-50"
+                      data-en="Send inquiry" data-es="Enviar consulta">Send inquiry</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Success view (oculto hasta submit OK) -->
+        <div id="ent-success" class="hidden text-center py-6">
+          <div class="text-5xl mb-3">✉️</div>
+          <h3 class="font-serif text-2xl text-navy font-bold"
+              data-en="Inquiry sent!" data-es="¡Consulta enviada!">Inquiry sent!</h3>
+          <p class="text-navy/70 text-sm mt-2">
+            <span data-en="We received your inquiry. We will reply to "
+                  data-es="Recibimos tu consulta. Te respondemos a ">We received your inquiry. We will reply to </span>
+            <strong id="ent-success-email" class="text-navy"></strong>
+            <span data-en=" within 24 business hours."
+                  data-es=" en menos de 24h hábiles."> within 24 business hours.</span>
+          </p>
+          <button onclick="closeEnterpriseModal()"
+                  class="mt-5 inline-block bg-navy hover:bg-navy-dark text-gold font-bold text-sm px-6 py-2.5 rounded-full transition"
+                  data-en="Close" data-es="Cerrar">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
