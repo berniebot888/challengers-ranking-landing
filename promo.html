@@ -18,7 +18,6 @@
       justify-content: center;
     }
 
-    /* Fixed-size stage — scales to any viewport via JS */
     #stage {
       width: 1280px;
       height: 720px;
@@ -28,7 +27,6 @@
       flex-shrink: 0;
     }
 
-    /* Cinematic background */
     .bg {
       position: absolute; inset: 0;
       background:
@@ -45,7 +43,6 @@
       pointer-events: none;
     }
 
-    /* Gold accent top line */
     .topline {
       position: absolute; top: 0; left: 0; right: 0; height: 2px;
       background: linear-gradient(to right, transparent, #c9a84c 30%, #e8c96a 50%, #c9a84c 70%, transparent);
@@ -53,20 +50,17 @@
       opacity: 0.7;
     }
 
-    /* Progress bar */
     .progress {
       position: absolute; bottom: 0; left: 0;
       height: 3px;
       background: linear-gradient(to right, #c9a84c, #e8c96a, #c9a84c);
-      animation: progressBar 43s linear forwards;
+      animation: progressBar 50s linear forwards;
       z-index: 200;
     }
     @keyframes progressBar { from { width: 0; } to { width: 100%; } }
 
-    /* Scene */
     .scene { position: absolute; inset: 0; z-index: 1; }
 
-    /* Slide base */
     .slide {
       position: absolute; inset: 0;
       display: flex; align-items: center; justify-content: center;
@@ -83,7 +77,6 @@
     @keyframes showSlideLast {
       0%   { opacity: 0; }
       6%   { opacity: 1; }
-      88%  { opacity: 1; }
       100% { opacity: 1; }
     }
 
@@ -95,14 +88,17 @@
     @keyframes pulse     { 0%,100%{opacity:0.4;transform:scale(1);}  50%{opacity:0.7;transform:scale(1.05);} }
     @keyframes scaleIn   { from { opacity:0; transform:scale(0.88); } to { opacity:1; transform:scale(1); } }
 
-    .s1 { animation: showSlide 5.5s ease forwards 0s; }
-    .s2 { animation: showSlide 5.5s ease forwards 5s; }
-    .s3 { animation: showSlide 5.5s ease forwards 10s; }
-    .s4 { animation: showSlide 5.5s ease forwards 15s; }
-    .s5 { animation: showSlide 5.5s ease forwards 20s; }
-    .s6 { animation: showSlide 5.5s ease forwards 25s; }
-    .s7 { animation: showSlide 5.5s ease forwards 30s; }
-    .s8 { animation: showSlideLast 8s ease forwards 35s; }
+    /* === TIMING ===
+       Total: 50s. Cada slide ~6.25s except hero (5.5s) y closing (sticky).
+    */
+    .s1 { animation: showSlide 6s   ease forwards 0s; }   /* Hero */
+    .s2 { animation: showSlide 5s   ease forwards 5s; }   /* Problem */
+    .s3 { animation: showSlide 6.5s ease forwards 10s; }  /* Live ranking + swap */
+    .s4 { animation: showSlide 6.5s ease forwards 16.5s; }/* Challenge + push */
+    .s5 { animation: showSlide 6s   ease forwards 23s; }  /* Feed + likes counter */
+    .s6 { animation: showSlide 6s   ease forwards 29s; }  /* Stats + counters */
+    .s7 { animation: showSlide 7s   ease forwards 35s; }  /* Multi-sport + Pricing */
+    .s8 { animation: showSlideLast 8s ease forwards 42s; }/* Closing */
 
     .display { font-family: 'Playfair Display', serif; }
     .gold    { color: #c9a84c; }
@@ -112,6 +108,7 @@
 
     .glow { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
 
+    /* ─── Phone mockup ─── */
     .phone {
       width: 198px; height: 400px;
       background: #0a1a32;
@@ -160,6 +157,131 @@
     .player-record { font-size: 9px; color: #aaa; }
     .pill { border-radius: 999px; font-size: 9px; font-weight: 700; padding: 3px 8px; }
     .vdivider { width: 1px; background: rgba(255,255,255,0.1); align-self: stretch; }
+
+    /* ─── Ranking swap animation (slide 3) ─── */
+    /* Player Carlos M. arranca en pos 5, sube a pos 1 al activarse */
+    @keyframes swapUp {
+      0%, 30%   { transform: translateY(0); }
+      50%, 100% { transform: translateY(-180px); }
+    }
+    @keyframes swapDown {
+      0%, 30%   { transform: translateY(0); }
+      50%, 100% { transform: translateY(45px); }
+    }
+    @keyframes swapHighlight {
+      0%, 30%   { box-shadow: 0 1px 4px rgba(0,0,0,0.07); background: #f5f5f3; }
+      45%, 60%  { box-shadow: 0 0 0 2px #c9a84c, 0 4px 16px rgba(201,168,76,0.5); background: #fef9e7; transform: scale(1.04); }
+      75%, 100% { box-shadow: 0 1px 4px rgba(0,0,0,0.07); background: white; }
+    }
+    .swap-row-rising  { animation: swapUp 4s ease 11.5s forwards, swapHighlight 4s ease 11.5s forwards; position: relative; z-index: 5; }
+    .swap-row-falling { animation: swapDown 4s ease 11.5s forwards; position: relative; }
+
+    /* ─── Push notification toast (slide 4) ─── */
+    /* IMPORTANTE: las keyframes deben preservar translateX(-50%) en cada
+       state, sino la animación pisa el centering horizontal y el toast
+       aparece corrido hacia la izquierda. */
+    @keyframes toastIn {
+      0%   { opacity: 0; transform: translate(-50%, -30px); }
+      15%, 80% { opacity: 1; transform: translate(-50%, 0); }
+      100% { opacity: 0; transform: translate(-50%, -30px); }
+    }
+    .toast {
+      position: absolute; top: 14px; left: 50%; transform: translate(-50%, -30px);
+      width: 180px;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(8px);
+      border-radius: 12px;
+      padding: 8px 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      display: flex; align-items: center; gap: 7px;
+      animation: toastIn 5s ease 17.5s forwards;
+      opacity: 0;
+      z-index: 30;
+    }
+
+    /* ─── Counter animation (likes, wins, streak) ─── */
+    /* Counters use a "scrolling tape" — multiple numbers stacked vertically, animated to slide up */
+    .counter {
+      display: inline-block; height: 1em; overflow: hidden;
+      vertical-align: middle;
+    }
+    .counter-tape { display: flex; flex-direction: column; }
+    .counter-tape > span { height: 1em; line-height: 1; }
+
+    /* Likes 0 → 12 animation (slide 5) */
+    @keyframes likesUp {
+      0%   { transform: translateY(0em); }
+      100% { transform: translateY(-12em); }
+    }
+    .likes-tape {
+      animation: likesUp 3s ease 24.5s forwards;
+    }
+
+    /* Wins 0 → 7 animation (slide 6) */
+    @keyframes winsUp {
+      0%   { transform: translateY(0em); }
+      100% { transform: translateY(-7em); }
+    }
+    .wins-tape { animation: winsUp 2s ease 30.5s forwards; }
+
+    /* Win rate 0 → 87 animation (slide 6) — más rápido + acelerado */
+    @keyframes wrUp {
+      0%   { transform: translateY(0em); }
+      40%  { transform: translateY(-50em); }
+      80%  { transform: translateY(-80em); }
+      100% { transform: translateY(-87em); }
+    }
+    .wr-tape { animation: wrUp 2.2s ease 30.5s forwards; }
+
+    /* Streak fire — shake + glow */
+    @keyframes fireGrow {
+      0%, 30% { transform: scale(0.6); opacity: 0; }
+      50%   { transform: scale(1.2); opacity: 1; }
+      55%   { transform: scale(0.95); }
+      60%   { transform: scale(1.05); }
+      100%  { transform: scale(1); opacity: 1; }
+    }
+    .fire-icon { animation: fireGrow 2s ease 31s forwards; opacity: 0; display: inline-block; }
+
+    /* ─── Multi-sport pills (slide 7) ─── */
+    .sport-pill {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 99px;
+      padding: 8px 14px;
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 12px; font-weight: 700;
+      color: rgba(255,255,255,0.85);
+    }
+
+    /* ─── Pricing cards (slide 7) ─── */
+    .price-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 14px;
+      padding: 18px 16px;
+      width: 200px;
+      display: flex; flex-direction: column; gap: 10px;
+      backdrop-filter: blur(8px);
+    }
+    .price-card.popular {
+      background: rgba(201,168,76,0.10);
+      border-color: rgba(201,168,76,0.50);
+      box-shadow: 0 0 30px rgba(201,168,76,0.15);
+      position: relative;
+    }
+    .price-card.popular::before {
+      content: 'Most popular';
+      position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+      background: #c9a84c; color: #0b2545;
+      font-size: 8px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 3px 10px; border-radius: 99px;
+      white-space: nowrap;
+    }
+    .price-card .name { color: #c9a84c; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+    .price-card .amount { color: white; font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 800; line-height: 1; }
+    .price-card .amount sub { font-size: 0.7rem; color: rgba(255,255,255,0.5); font-weight: 500; vertical-align: baseline; margin-left: 3px; font-family: 'Inter', sans-serif; }
+    .price-card .feature { color: rgba(255,255,255,0.7); font-size: 11px; line-height: 1.5; }
   </style>
 </head>
 <body>
@@ -171,9 +293,9 @@
   <div class="scene">
 
     <!-- ══════════════════════════════════════════════════════
-         SLIDE 1 — Brand opening
+         SLIDE 1 — Hero: Logo + tagline multi-sport + social proof
     ══════════════════════════════════════════════════════ -->
-    <div class="slide s1" style="flex-direction:column;align-items:center;text-align:center;gap:26px;">
+    <div class="slide s1" style="flex-direction:column;align-items:center;text-align:center;gap:22px;">
       <div class="glow" style="width:520px;height:520px;background:rgba(201,168,76,0.07);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
       <div style="position:relative;width:108px;height:108px;animation:scaleIn 0.7s ease forwards 0.2s;opacity:0;">
         <div style="position:absolute;inset:-8px;border-radius:50%;border:1.5px solid rgba(201,168,76,0.45);animation:spin 10s linear infinite;"></div>
@@ -182,7 +304,16 @@
       </div>
       <div style="animation:fadeUp 0.7s ease forwards 0.5s;opacity:0;">
         <h1 class="display white" style="font-size:3.4rem;letter-spacing:-1.5px;line-height:1.08;">Challengers <span class="gold">Ranking</span></h1>
-        <p class="muted" style="font-size:0.82rem;letter-spacing:0.28em;text-transform:uppercase;margin-top:14px;">Tennis Ladder Software for Clubs</p>
+        <p class="muted" data-en="Tennis · Padel · Pickleball · Squash" data-es="Tenis · Pádel · Pickleball · Squash" style="font-size:0.78rem;letter-spacing:0.28em;text-transform:uppercase;margin-top:12px;">Tennis · Padel · Pickleball · Squash</p>
+      </div>
+      <!-- Social proof badge -->
+      <div style="margin-top:14px;animation:fadeUp 0.6s ease forwards 1.2s;opacity:0;">
+        <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(201,168,76,0.10);border:1px solid rgba(201,168,76,0.30);border-radius:999px;padding:7px 18px;">
+          <span style="font-size:14px;">🎾</span>
+          <p class="white" data-en="3× match activity in 2 months" data-es="3× actividad de partidos en 2 meses" style="font-size:0.8rem;font-weight:600;">3× match activity in 2 months</p>
+          <span class="muted" style="font-size:0.7rem;">·</span>
+          <p class="muted" data-en="Real club, real numbers" data-es="Club real, números reales" style="font-size:0.72rem;">Real club, real numbers</p>
+        </div>
       </div>
     </div>
 
@@ -193,26 +324,26 @@
     <div class="slide s2" style="flex-direction:column;align-items:center;text-align:center;gap:22px;padding:0 80px;">
       <div class="glow" style="width:600px;height:350px;background:rgba(11,37,69,0.6);top:40%;left:50%;transform:translate(-50%,-50%);"></div>
       <p style="font-size:3.6rem;animation:fadeIn 0.5s ease forwards 5.15s;opacity:0;">📋</p>
-      <h2 class="display white" style="font-size:2.6rem;line-height:1.18;max-width:640px;animation:fadeUp 0.6s ease forwards 5.3s;opacity:0;">
+      <h2 class="display white" data-en="Your club ranking still lives<br>on a <span class='gold'>whiteboard</span>." data-es="El ranking de tu club todavía vive<br>en una <span class='gold'>pizarra</span>." style="font-size:2.6rem;line-height:1.18;max-width:640px;animation:fadeUp 0.6s ease forwards 5.3s;opacity:0;">
         Your club ranking still lives<br>on a <span class="gold">whiteboard</span>.
       </h2>
-      <p class="muted" style="font-size:1.05rem;max-width:500px;line-height:1.72;animation:fadeUp 0.6s ease forwards 5.6s;opacity:0;">
+      <p class="muted" data-en="No live standings. No challenge tracking. No engagement.<br>Your members deserve much better." data-es="Sin posiciones en vivo. Sin seguimiento de desafíos. Sin engagement.<br>Tus socios merecen mucho más." style="font-size:1.05rem;max-width:500px;line-height:1.72;animation:fadeUp 0.6s ease forwards 5.6s;opacity:0;">
         No live standings. No challenge tracking. No engagement.<br>Your members deserve much better.
       </p>
     </div>
 
 
     <!-- ══════════════════════════════════════════════════════
-         SLIDE 3 — Live Ranking
+         SLIDE 3 — Live Ranking with SWAP animation
     ══════════════════════════════════════════════════════ -->
     <div class="slide s3" style="gap:64px;align-items:center;padding:0 80px;">
       <div style="max-width:400px;animation:fadeRight 0.7s ease forwards 10.2s;opacity:0;">
-        <p class="label" style="margin-bottom:14px;">Live Ladder Ranking</p>
-        <h2 class="display white" style="font-size:2.5rem;line-height:1.18;margin-bottom:18px;">Real-time standings.<br><span class="gold">Always up to date.</span></h2>
-        <p class="muted" style="font-size:1rem;line-height:1.72;">Rankings update automatically after every match. Every player always knows exactly where they stand.</p>
+        <p class="label" data-en="Live Ladder Ranking" data-es="Ranking de desafíos en vivo" style="margin-bottom:14px;">Live Ladder Ranking</p>
+        <h2 class="display white" data-en="Real-time standings.<br><span class='gold'>Watch them move.</span>" data-es="Posiciones en tiempo real.<br><span class='gold'>Mirá cómo cambian.</span>" style="font-size:2.5rem;line-height:1.18;margin-bottom:18px;">Real-time standings.<br><span class="gold">Watch them move.</span></h2>
+        <p class="muted" data-en="Rankings update automatically the second a match is reported. Every challenge moves the ladder live — your members see exactly where they stand." data-es="El ranking se actualiza solo el momento que se reporta un partido. Cada desafío mueve la escalera en vivo — tus socios ven exactamente dónde están." style="font-size:1rem;line-height:1.72;">Rankings update automatically the second a match is reported. Every challenge moves the ladder live — your members see exactly where they stand.</p>
         <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;">
-          <span style="background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.25);border-radius:99px;padding:5px 14px;font-size:11px;font-weight:600;color:#c9a84c;">🏆 Live Rankings</span>
-          <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:99px;padding:5px 14px;font-size:11px;font-weight:600;color:rgba(255,255,255,0.6);">📱 Mobile-First</span>
+          <span data-en="⚡ Real-time" data-es="⚡ Tiempo real" style="background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.25);border-radius:99px;padding:5px 14px;font-size:11px;font-weight:600;color:#c9a84c;">⚡ Real-time</span>
+          <span data-en="📱 Mobile-First" data-es="📱 Mobile-First" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:99px;padding:5px 14px;font-size:11px;font-weight:600;color:rgba(255,255,255,0.6);">📱 Mobile-First</span>
         </div>
       </div>
       <div class="phone" style="animation:scaleIn 0.7s ease forwards 10.1s;opacity:0;">
@@ -221,12 +352,46 @@
         <div class="phone-inner">
           <div class="phone-header"><p>🏆 Ranking</p></div>
           <div class="phone-body">
-            <div class="row"><span class="rank-num" style="color:#c9a84c;">1</span><div class="avatar" style="background:#0b2545;">C</div><div style="flex:1;"><p class="player-name">Carlos M.</p><p class="player-record">7W · 1L</p></div><span class="pill" style="background:#fef9e7;color:#c9a84c;">▲3</span></div>
-            <div class="row"><span class="rank-num" style="color:#888;">2</span><div class="avatar" style="background:#13315c;">J</div><div style="flex:1;"><p class="player-name">Juan P.</p><p class="player-record">6W · 2L</p></div><span style="font-size:9px;color:#bbb;">—</span></div>
-            <div class="row"><span class="rank-num" style="color:#cd7f32;">3</span><div class="avatar" style="background:#1a4080;">M</div><div style="flex:1;"><p class="player-name">Marcos L.</p><p class="player-record">5W · 2L</p></div><span class="pill" style="background:#fef2f2;color:#e57373;">▼1</span></div>
-            <div class="row row-dim"><span class="rank-num" style="color:#ccc;">4</span><div class="avatar" style="background:#2a5098;">D</div><div style="flex:1;"><p style="font-size:11px;font-weight:600;color:#555;">Diego R.</p><p class="player-record">4W · 3L</p></div></div>
-            <div class="row row-dim"><span class="rank-num" style="color:#ccc;">5</span><div class="avatar" style="background:#3a60a8;">P</div><div style="flex:1;"><p style="font-size:11px;font-weight:600;color:#555;">Pablo T.</p><p class="player-record">3W · 4L</p></div></div>
-            <div class="row row-dim"><span class="rank-num" style="color:#ccc;">6</span><div class="avatar" style="background:#4a70b8;">A</div><div style="flex:1;"><p style="font-size:11px;font-weight:600;color:#555;">Alberto K.</p><p class="player-record">2W · 4L</p></div></div>
+            <!-- Pos 1 (Juan) — falls to pos 2 -->
+            <div class="row swap-row-falling">
+              <span class="rank-num" style="color:#c9a84c;">1</span>
+              <div class="avatar" style="background:#13315c;">J</div>
+              <div style="flex:1;"><p class="player-name">Juan P.</p><p class="player-record">6W · 2L</p></div>
+              <span style="font-size:9px;color:#bbb;">—</span>
+            </div>
+            <!-- Pos 2 (Marcos) — falls to pos 3 -->
+            <div class="row swap-row-falling">
+              <span class="rank-num" style="color:#888;">2</span>
+              <div class="avatar" style="background:#1a4080;">M</div>
+              <div style="flex:1;"><p class="player-name">Marcos L.</p><p class="player-record">5W · 2L</p></div>
+              <span style="font-size:9px;color:#bbb;">—</span>
+            </div>
+            <!-- Pos 3 (Diego) — falls to pos 4 -->
+            <div class="row swap-row-falling">
+              <span class="rank-num" style="color:#cd7f32;">3</span>
+              <div class="avatar" style="background:#2a5098;">D</div>
+              <div style="flex:1;"><p class="player-name">Diego R.</p><p class="player-record">5W · 3L</p></div>
+              <span class="pill" style="background:#fef2f2;color:#e57373;">▼1</span>
+            </div>
+            <!-- Pos 4 (Pablo) — falls to pos 5 -->
+            <div class="row swap-row-falling">
+              <span class="rank-num" style="color:#ccc;">4</span>
+              <div class="avatar" style="background:#3a60a8;">P</div>
+              <div style="flex:1;"><p class="player-name">Pablo T.</p><p class="player-record">3W · 4L</p></div>
+              <span style="font-size:9px;color:#bbb;">—</span>
+            </div>
+            <!-- Pos 5 (Carlos) — RISES to pos 1 -->
+            <div class="row swap-row-rising">
+              <span class="rank-num" style="color:#ccc;">5</span>
+              <div class="avatar" style="background:#0b2545;">C</div>
+              <div style="flex:1;"><p class="player-name">Carlos M.</p><p class="player-record">7W · 1L</p></div>
+              <span class="pill" style="background:#dcfce7;color:#16a34a;">▲ won</span>
+            </div>
+            <div class="row row-dim">
+              <span class="rank-num" style="color:#ccc;">6</span>
+              <div class="avatar" style="background:#4a70b8;">A</div>
+              <div style="flex:1;"><p style="font-size:11px;font-weight:600;color:#555;">Alberto K.</p><p class="player-record">2W · 4L</p></div>
+            </div>
           </div>
         </div>
       </div>
@@ -234,45 +399,55 @@
 
 
     <!-- ══════════════════════════════════════════════════════
-         SLIDE 4 — Challenge System
+         SLIDE 4 — Challenge System with PUSH notification toast
     ══════════════════════════════════════════════════════ -->
     <div class="slide s4" style="gap:64px;align-items:center;flex-direction:row-reverse;padding:0 80px;">
-      <div style="max-width:400px;animation:fadeLeft 0.7s ease forwards 15.2s;opacity:0;">
-        <p class="label" style="margin-bottom:14px;">Challenge System</p>
-        <h2 class="display white" style="font-size:2.5rem;line-height:1.18;margin-bottom:18px;">⚔️ Challenge any player.<br><span class="gold">Instantly.</span></h2>
-        <p class="muted" style="font-size:1rem;line-height:1.72;">Players challenge opponents within their range. The system tracks deadlines, sends reminders, and handles expiration — automatically.</p>
+      <div style="max-width:400px;animation:fadeLeft 0.7s ease forwards 16.7s;opacity:0;">
+        <p class="label" data-en="Challenge System" data-es="Sistema de desafíos" style="margin-bottom:14px;">Challenge System</p>
+        <h2 class="display white" data-en="⚔️ Challenge any player.<br><span class='gold'>Instantly.</span>" data-es="⚔️ Desafiá a cualquier jugador.<br><span class='gold'>Al instante.</span>" style="font-size:2.5rem;line-height:1.18;margin-bottom:18px;">⚔️ Challenge any player.<br><span class="gold">Instantly.</span></h2>
+        <p class="muted" data-en="Push notifications, deadline tracking, automatic expiration. The whole challenge lifecycle handled for you — players just play." data-es="Notificaciones push, plazos automáticos, expiración. Todo el ciclo del desafío lo maneja la app — los jugadores solo juegan." style="font-size:1rem;line-height:1.72;">Push notifications, deadline tracking, automatic expiration. The whole challenge lifecycle handled for you — players just play.</p>
       </div>
-      <div class="phone" style="animation:scaleIn 0.7s ease forwards 15.1s;opacity:0;">
+      <div class="phone" style="animation:scaleIn 0.7s ease forwards 16.6s;opacity:0;">
         <div class="phone-notch"></div>
         <div class="phone-status"><span>9:41</span><span>●●● ▲</span></div>
+
+        <!-- Push notification toast — slides in from top, lingers, slides out -->
+        <div class="toast">
+          <div class="avatar" style="background:#0b2545;width:24px;height:24px;font-size:9px;">P</div>
+          <div style="flex:1;min-width:0;">
+            <p data-en="⚡ New challenge" data-es="⚡ Nuevo desafío" style="font-size:8px;font-weight:800;color:#c9a84c;letter-spacing:0.1em;text-transform:uppercase;">⚡ New challenge</p>
+            <p data-en="Pablo T. challenged you" data-es="Pablo T. te desafió" style="font-size:9px;color:#0b2545;font-weight:600;line-height:1.3;">Pablo T. challenged you</p>
+          </div>
+        </div>
+
         <div class="phone-inner">
-          <div class="phone-header"><p>⚔️ Challenges</p></div>
+          <div class="phone-header"><p data-en="⚔️ Challenges" data-es="⚔️ Desafíos">⚔️ Challenges</p></div>
           <div class="phone-body">
             <div style="background:white;border-radius:12px;padding:11px;box-shadow:0 2px 8px rgba(0,0,0,0.09);border-left:3px solid #c9a84c;">
-              <p style="font-size:8px;color:#c9a84c;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:7px;">⚡ Incoming Challenge</p>
+              <p data-en="⚡ Incoming Challenge" data-es="⚡ Desafío entrante" style="font-size:8px;color:#c9a84c;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:7px;">⚡ Incoming Challenge</p>
               <div style="display:flex;align-items:center;gap:8px;margin-bottom:9px;">
                 <div class="avatar" style="background:#0b2545;width:28px;height:28px;font-size:11px;">P</div>
-                <div style="flex:1;"><p style="font-size:11px;font-weight:700;color:#0b2545;">Pablo T. <span style="color:#aaa;font-weight:400;">#5</span></p><p style="font-size:9px;color:#bbb;">challenged you</p></div>
-                <p style="font-size:9px;color:#e57373;font-weight:600;">4 days left</p>
+                <div style="flex:1;"><p style="font-size:11px;font-weight:700;color:#0b2545;">Pablo T. <span style="color:#aaa;font-weight:400;">#5</span></p><p data-en="challenged you" data-es="te desafió" style="font-size:9px;color:#bbb;">challenged you</p></div>
+                <p data-en="4 days left" data-es="4 días restantes" style="font-size:9px;color:#e57373;font-weight:600;">4 days left</p>
               </div>
               <div style="display:flex;gap:6px;">
-                <button style="flex:1;background:#0b2545;color:white;border:none;border-radius:8px;padding:7px;font-size:10px;font-weight:700;">Accept ✓</button>
-                <button style="flex:1;background:#f0f0f0;color:#888;border:none;border-radius:8px;padding:7px;font-size:10px;">Decline</button>
+                <button data-en="Accept ✓" data-es="Aceptar ✓" style="flex:1;background:#0b2545;color:white;border:none;border-radius:8px;padding:7px;font-size:10px;font-weight:700;">Accept ✓</button>
+                <button data-en="Decline" data-es="Rechazar" style="flex:1;background:#f0f0f0;color:#888;border:none;border-radius:8px;padding:7px;font-size:10px;">Decline</button>
               </div>
             </div>
             <div style="background:white;border-radius:12px;padding:11px;box-shadow:0 1px 4px rgba(0,0,0,0.06);border-left:3px solid #4ade80;">
-              <p style="font-size:8px;color:#22c55e;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:7px;">Pending · Sent by you</p>
+              <p data-en="Pending · Sent by you" data-es="Pendiente · Enviado por vos" style="font-size:8px;color:#22c55e;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:7px;">Pending · Sent by you</p>
               <div style="display:flex;align-items:center;gap:8px;">
                 <div class="avatar" style="background:#1a4080;width:28px;height:28px;font-size:11px;">M</div>
-                <div style="flex:1;"><p style="font-size:11px;font-weight:700;color:#0b2545;">Marcos L. <span style="color:#aaa;font-weight:400;">#3</span></p><p style="font-size:9px;color:#bbb;">waiting for response</p></div>
-                <p style="font-size:9px;color:#bbb;">2d ago</p>
+                <div style="flex:1;"><p style="font-size:11px;font-weight:700;color:#0b2545;">Marcos L. <span style="color:#aaa;font-weight:400;">#3</span></p><p data-en="waiting for response" data-es="esperando respuesta" style="font-size:9px;color:#bbb;">waiting for response</p></div>
+                <p data-en="2d ago" data-es="hace 2d" style="font-size:9px;color:#bbb;">2d ago</p>
               </div>
             </div>
             <div style="background:#f5f5f3;border-radius:12px;padding:10px 11px;">
-              <p style="font-size:8px;color:#bbb;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Last Result</p>
+              <p data-en="Last Result" data-es="Último resultado" style="font-size:8px;color:#bbb;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Last Result</p>
               <div style="display:flex;align-items:center;gap:7px;">
                 <span style="font-size:16px;">🏆</span>
-                <div style="flex:1;"><p style="font-size:10px;font-weight:700;color:#333;">Won vs Diego R.</p><p style="font-size:9px;color:#aaa;">6-4, 7-5 · 3 days ago</p></div>
+                <div style="flex:1;"><p data-en="Won vs Diego R." data-es="Ganaste vs Diego R." style="font-size:10px;font-weight:700;color:#333;">Won vs Diego R.</p><p data-en="6-4, 7-5 · 3 days ago" data-es="6-4, 7-5 · hace 3 días" style="font-size:9px;color:#aaa;">6-4, 7-5 · 3 days ago</p></div>
                 <span class="pill" style="background:#dcfce7;color:#16a34a;">+2 ▲</span>
               </div>
             </div>
@@ -283,22 +458,22 @@
 
 
     <!-- ══════════════════════════════════════════════════════
-         SLIDE 5 — Community Tribune (with photo in feed)
+         SLIDE 5 — Community Feed with LIVE LIKE COUNTER
     ══════════════════════════════════════════════════════ -->
     <div class="slide s5" style="gap:64px;align-items:center;padding:0 80px;">
-      <div style="max-width:400px;animation:fadeRight 0.7s ease forwards 20.2s;opacity:0;">
-        <p class="label" style="margin-bottom:14px;">Community Feed</p>
-        <h2 class="display white" style="font-size:2.5rem;line-height:1.18;margin-bottom:18px;">🏟️ Club culture,<br><span class="gold">built in.</span></h2>
-        <p class="muted" style="font-size:1rem;line-height:1.72;">A social feed where players share results, post match photos, and keep the competitive spirit alive between sessions. Real community, not just a scoreboard.</p>
+      <div style="max-width:400px;animation:fadeRight 0.7s ease forwards 23.2s;opacity:0;">
+        <p class="label" data-en="Community Feed" data-es="Feed comunitario" style="margin-bottom:14px;">Community Feed</p>
+        <h2 class="display white" data-en="🏟️ Club culture,<br><span class='gold'>built in.</span>" data-es="🏟️ Cultura del club,<br><span class='gold'>integrada.</span>" style="font-size:2.5rem;line-height:1.18;margin-bottom:18px;">🏟️ Club culture,<br><span class="gold">built in.</span></h2>
+        <p class="muted" data-en="A social feed where players share results, post match photos, and keep the competitive spirit alive between sessions. Real community, not just a scoreboard." data-es="Un feed social donde los jugadores comparten resultados, publican fotos de los partidos y mantienen vivo el espíritu competitivo entre sessions. Comunidad de verdad, no solo un scoreboard." style="font-size:1rem;line-height:1.72;">A social feed where players share results, post match photos, and keep the competitive spirit alive between sessions. Real community, not just a scoreboard.</p>
       </div>
-      <div class="phone" style="animation:scaleIn 0.7s ease forwards 20.1s;opacity:0;">
+      <div class="phone" style="animation:scaleIn 0.7s ease forwards 23.1s;opacity:0;">
         <div class="phone-notch"></div>
         <div class="phone-status"><span>9:41</span><span>●●● ▲</span></div>
         <div class="phone-inner">
           <div class="phone-header"><p>🏟️ Tribuna</p></div>
           <div class="phone-body" style="padding:6px;gap:5px;">
 
-            <!-- Post 1 — with photo -->
+            <!-- Post 1 — with photo + ANIMATED like counter 0 → 12 -->
             <div style="background:white;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08);">
               <img src="match_photo.jpg" alt="match" style="width:100%;height:68px;object-fit:cover;object-position:center 30%;display:block;" />
               <div style="padding:7px 9px;">
@@ -307,10 +482,19 @@
                   <div style="flex:1;"><p style="font-size:9px;font-weight:700;color:#0b2545;">Carlos M.</p></div>
                   <span class="pill" style="background:#fef9e7;color:#c9a84c;font-size:8px;">#1</span>
                 </div>
-                <div style="background:#e8f4e8;border-radius:6px;padding:3px 7px;margin-bottom:3px;">
-                  <p style="font-size:9px;color:#2d6a2d;font-weight:600;">🎾 Won 6-3, 6-2 vs Marcos L.</p>
+                <div style="background:#e8f4e8;border-radius:6px;padding:3px 7px;margin-bottom:4px;">
+                  <p data-en="🎾 Won 6-3, 6-2 vs Marcos L." data-es="🎾 Ganó 6-3, 6-2 vs Marcos L." style="font-size:9px;color:#2d6a2d;font-weight:600;">🎾 Won 6-3, 6-2 vs Marcos L.</p>
                 </div>
-                <p style="font-size:8px;color:#ccc;">❤️ 8 &nbsp; 💬 3</p>
+                <p style="font-size:9px;color:#777;font-weight:600;">
+                  <span style="color:#e74c4c;">❤</span>
+                  <span class="counter" style="font-size:10px;font-weight:700;width:1.2ch;text-align:left;color:#0b2545;">
+                    <span class="counter-tape likes-tape">
+                      <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                      <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span>
+                    </span>
+                  </span>
+                  &nbsp;&nbsp;💬 4
+                </p>
               </div>
             </div>
 
@@ -318,17 +502,17 @@
             <div style="background:white;border-radius:12px;padding:9px;box-shadow:0 1px 4px rgba(0,0,0,0.07);">
               <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px;">
                 <div class="avatar" style="background:#c9a84c;width:22px;height:22px;font-size:9px;">J</div>
-                <div style="flex:1;"><p style="font-size:9px;font-weight:700;color:#0b2545;">Juan P.</p><p style="font-size:7px;color:#bbb;">hace 5h</p></div>
+                <div style="flex:1;"><p style="font-size:9px;font-weight:700;color:#0b2545;">Juan P.</p><p data-en="5h ago" data-es="hace 5h" style="font-size:7px;color:#bbb;">5h ago</p></div>
               </div>
-              <p style="font-size:9px;color:#555;line-height:1.4;">Who's playing this Saturday? Courts available 10am 🎾</p>
-              <p style="font-size:8px;color:#ccc;margin-top:4px;">❤️ 12 &nbsp; 💬 7</p>
+              <p data-en="Who's playing this Saturday? Courts available 10am 🎾" data-es="¿Quién juega este sábado? Canchas disponibles a las 10 🎾" style="font-size:9px;color:#555;line-height:1.4;">Who's playing this Saturday? Courts available 10am 🎾</p>
+              <p style="font-size:8px;color:#ccc;margin-top:4px;">❤️ 8 &nbsp; 💬 7</p>
             </div>
 
             <!-- Post 3 partial -->
             <div style="background:#f5f5f3;border-radius:12px;padding:9px;opacity:0.5;">
               <div style="display:flex;align-items:center;gap:5px;">
                 <div class="avatar" style="background:#3a60a8;width:22px;height:22px;font-size:9px;">D</div>
-                <div><p style="font-size:9px;font-weight:700;color:#0b2545;">Diego R.</p><p style="font-size:7px;color:#bbb;">hace 1d</p></div>
+                <div><p style="font-size:9px;font-weight:700;color:#0b2545;">Diego R.</p><p data-en="1d ago" data-es="hace 1d" style="font-size:7px;color:#bbb;">1d ago</p></div>
               </div>
             </div>
 
@@ -339,19 +523,19 @@
 
 
     <!-- ══════════════════════════════════════════════════════
-         SLIDE 6 — Player Stats (phone mockup)
+         SLIDE 6 — Player Stats with ANIMATED COUNTERS
     ══════════════════════════════════════════════════════ -->
     <div class="slide s6" style="gap:64px;align-items:center;flex-direction:row-reverse;padding:0 80px;">
-      <div style="max-width:400px;animation:fadeLeft 0.7s ease forwards 25.2s;opacity:0;">
-        <p class="label" style="margin-bottom:14px;">Match Stats & History</p>
-        <h2 class="display white" style="font-size:2.5rem;line-height:1.18;margin-bottom:18px;">📊 Every win.<br><span class="gold">Every rivalry.</span></h2>
-        <p class="muted" style="font-size:1rem;line-height:1.72;">Full match history, head-to-head records, win streaks, and personal progress. Players stay hooked tracking their journey up the ladder.</p>
+      <div style="max-width:400px;animation:fadeLeft 0.7s ease forwards 29.2s;opacity:0;">
+        <p class="label" data-en="Match Stats & History" data-es="Stats e historial" style="margin-bottom:14px;">Match Stats & History</p>
+        <h2 class="display white" data-en="📊 Every win.<br><span class='gold'>Every rivalry.</span>" data-es="📊 Cada victoria.<br><span class='gold'>Cada rivalidad.</span>" style="font-size:2.5rem;line-height:1.18;margin-bottom:18px;">📊 Every win.<br><span class="gold">Every rivalry.</span></h2>
+        <p class="muted" data-en="Full match history, head-to-head records, win streaks, and personal progress. Players stay hooked tracking their journey up the ladder." data-es="Historial completo de partidos, head-to-head, rachas de victorias y progreso personal. Los jugadores se enganchan trackeando su camino subiendo la escalera." style="font-size:1rem;line-height:1.72;">Full match history, head-to-head records, win streaks, and personal progress. Players stay hooked tracking their journey up the ladder.</p>
       </div>
-      <div class="phone" style="animation:scaleIn 0.7s ease forwards 25.1s;opacity:0;">
+      <div class="phone" style="animation:scaleIn 0.7s ease forwards 29.1s;opacity:0;">
         <div class="phone-notch"></div>
         <div class="phone-status"><span>9:41</span><span>●●● ▲</span></div>
         <div class="phone-inner">
-          <div class="phone-header"><p>📊 Estadísticas</p></div>
+          <div class="phone-header"><p>📊 Stats</p></div>
           <div class="phone-body" style="padding:8px;gap:5px;">
 
             <!-- Player card -->
@@ -360,38 +544,59 @@
               <p style="font-size:12px;font-weight:800;color:#0b2545;">Carlos M.</p>
               <div style="display:inline-flex;align-items:center;gap:4px;background:#fef9e7;border-radius:99px;padding:2px 10px;margin-top:3px;">
                 <span style="font-size:10px;font-weight:800;color:#c9a84c;">#1</span>
-                <span style="font-size:8px;color:#c9a84c;">▲3 this month</span>
+                <span data-en="▲3 this month" data-es="▲3 este mes" style="font-size:8px;color:#c9a84c;">▲3 this month</span>
               </div>
             </div>
 
-            <!-- Stats grid -->
+            <!-- Stats grid with ANIMATED counters -->
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;">
               <div style="background:white;border-radius:10px;padding:7px 4px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
-                <p style="font-size:16px;font-weight:800;color:#0b2545;line-height:1;">7</p>
-                <p style="font-size:8px;color:#aaa;text-transform:uppercase;letter-spacing:0.05em;margin-top:2px;">Wins</p>
+                <p style="font-size:16px;font-weight:800;color:#0b2545;line-height:1;">
+                  <span class="counter" style="height:1em;">
+                    <span class="counter-tape wins-tape">
+                      <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+                    </span>
+                  </span>
+                </p>
+                <p data-en="Wins" data-es="Ganados" style="font-size:8px;color:#aaa;text-transform:uppercase;letter-spacing:0.05em;margin-top:2px;">Wins</p>
               </div>
               <div style="background:white;border-radius:10px;padding:7px 4px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
                 <p style="font-size:16px;font-weight:800;color:#0b2545;line-height:1;">1</p>
-                <p style="font-size:8px;color:#aaa;text-transform:uppercase;letter-spacing:0.05em;margin-top:2px;">Losses</p>
+                <p data-en="Losses" data-es="Perdidos" style="font-size:8px;color:#aaa;text-transform:uppercase;letter-spacing:0.05em;margin-top:2px;">Losses</p>
               </div>
               <div style="background:#fef9e7;border-radius:10px;padding:7px 4px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
-                <p style="font-size:16px;font-weight:800;color:#c9a84c;line-height:1;">87%</p>
+                <p style="font-size:16px;font-weight:800;color:#c9a84c;line-height:1;">
+                  <span class="counter" style="height:1em;width:2.4ch;text-align:center;">
+                    <span class="counter-tape wr-tape">
+                      <!-- 0..87 stacked. Span height = 1em. -->
+                      <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+                      <span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span>
+                      <span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span>
+                      <span>30</span><span>31</span><span>32</span><span>33</span><span>34</span><span>35</span><span>36</span><span>37</span><span>38</span><span>39</span>
+                      <span>40</span><span>41</span><span>42</span><span>43</span><span>44</span><span>45</span><span>46</span><span>47</span><span>48</span><span>49</span>
+                      <span>50</span><span>51</span><span>52</span><span>53</span><span>54</span><span>55</span><span>56</span><span>57</span><span>58</span><span>59</span>
+                      <span>60</span><span>61</span><span>62</span><span>63</span><span>64</span><span>65</span><span>66</span><span>67</span><span>68</span><span>69</span>
+                      <span>70</span><span>71</span><span>72</span><span>73</span><span>74</span><span>75</span><span>76</span><span>77</span><span>78</span><span>79</span>
+                      <span>80</span><span>81</span><span>82</span><span>83</span><span>84</span><span>85</span><span>86</span><span>87</span>
+                    </span>
+                  </span>%
+                </p>
                 <p style="font-size:8px;color:#c9a84c;text-transform:uppercase;letter-spacing:0.05em;margin-top:2px;">Win %</p>
               </div>
             </div>
 
-            <!-- Streak -->
+            <!-- Streak with animated fire emoji growth -->
             <div style="background:linear-gradient(135deg,#0b2545,#1a4080);border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px;">
-              <span style="font-size:18px;">🔥</span>
+              <span class="fire-icon" style="font-size:18px;">🔥</span>
               <div>
-                <p style="font-size:11px;font-weight:800;color:white;">5-match win streak</p>
-                <p style="font-size:8px;color:rgba(255,255,255,0.5);">Personal best</p>
+                <p data-en="5-match win streak" data-es="Racha de 5 victorias" style="font-size:11px;font-weight:800;color:white;">5-match win streak</p>
+                <p data-en="Personal best" data-es="Récord personal" style="font-size:8px;color:rgba(255,255,255,0.5);">Personal best</p>
               </div>
             </div>
 
             <!-- Recent matches -->
             <div style="background:white;border-radius:10px;padding:8px 10px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
-              <p style="font-size:8px;color:#bbb;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Recent Matches</p>
+              <p data-en="Recent Matches" data-es="Partidos recientes" style="font-size:8px;color:#bbb;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px;">Recent Matches</p>
               <div style="display:flex;flex-direction:column;gap:4px;">
                 <div style="display:flex;align-items:center;gap:6px;">
                   <span style="font-size:9px;">✅</span><p style="flex:1;font-size:10px;color:#333;">vs Juan P.</p><p style="font-size:9px;color:#aaa;">6-4, 6-2</p>
@@ -412,51 +617,140 @@
 
 
     <!-- ══════════════════════════════════════════════════════
-         SLIDE 7 — Pricing
+         SLIDE 7 — Multi-sport + Pricing (UPDATED to per-club model)
     ══════════════════════════════════════════════════════ -->
-    <div class="slide s7" style="flex-direction:column;align-items:center;text-align:center;gap:26px;">
-      <div class="glow" style="width:600px;height:500px;background:rgba(201,168,76,0.08);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
-      <p class="muted" style="font-size:0.78rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;animation:fadeIn 0.5s ease forwards 30.15s;opacity:0;">Simple pricing</p>
-      <div style="animation:scaleIn 0.6s ease forwards 30.3s;opacity:0;">
-        <p class="display gold" style="font-size:6rem;font-weight:800;line-height:1;letter-spacing:-3px;">$0.99</p>
-        <p class="white" style="font-size:1.15rem;font-weight:600;margin-top:8px;opacity:0.85;">per player &nbsp;·&nbsp; per month</p>
+    <div class="slide s7" style="flex-direction:column;align-items:center;text-align:center;gap:24px;padding:0 60px;">
+      <div class="glow" style="width:800px;height:600px;background:rgba(201,168,76,0.08);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+
+      <!-- Multi-sport heading: usa los mismos SVGs que la landing
+           (consistencia visual) — versión inline con gradients propios
+           para que cada pill se renderee independiente. -->
+      <div style="animation:fadeUp 0.6s ease forwards 35.2s;opacity:0;">
+        <p class="muted" data-en="One platform · four sports" data-es="Una plataforma · cuatro deportes" style="font-size:0.74rem;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;margin-bottom:10px;">One platform · four sports</p>
+        <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;">
+          <!-- TENNIS: pelota amarilla con costura S-curve -->
+          <span class="sport-pill">
+            <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
+              <defs><radialGradient id="pg-t" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#f4f57a"/><stop offset="55%" stop-color="#d8df3a"/><stop offset="100%" stop-color="#7a8316"/></radialGradient></defs>
+              <circle cx="24" cy="22" r="16" fill="url(#pg-t)"/>
+              <path d="M 10 16 C 12 30, 28 32, 38 18" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" opacity="0.95"/>
+              <path d="M 14 10 Q 24 7 33 11" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+              <ellipse cx="17" cy="14" rx="5" ry="3" fill="#fff" opacity="0.35"/>
+            </svg>
+            <span data-en="Tennis" data-es="Tenis">Tennis</span>
+          </span>
+          <!-- PADEL: paleta navy con perforaciones -->
+          <span class="sport-pill">
+            <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
+              <defs><linearGradient id="pg-p" x1="20%" y1="0%" x2="80%" y2="100%"><stop offset="0%" stop-color="#1d3a6b"/><stop offset="50%" stop-color="#0b2545"/><stop offset="100%" stop-color="#04122b"/></linearGradient></defs>
+              <g transform="rotate(-8 22 22)">
+                <path d="M 8 14 Q 8 4 22 4 Q 36 4 36 14 L 36 26 Q 36 30 32 30 L 12 30 Q 8 30 8 26 Z" fill="url(#pg-p)"/>
+                <g fill="#fff7ed">
+                  <circle cx="14" cy="10" r="1.1"/><circle cx="22" cy="8.5" r="1.1"/><circle cx="30" cy="10" r="1.1"/>
+                  <circle cx="13" cy="14" r="1.1"/><circle cx="22" cy="13.5" r="1.1"/><circle cx="31" cy="14" r="1.1"/>
+                  <circle cx="13" cy="18" r="1.1"/><circle cx="22" cy="18" r="1.1"/><circle cx="31" cy="18" r="1.1"/>
+                  <circle cx="14" cy="22" r="1.1"/><circle cx="22" cy="22" r="1.1"/><circle cx="30" cy="22" r="1.1"/>
+                </g>
+                <path d="M 16 30 L 28 30 L 26 34 L 18 34 Z" fill="url(#pg-p)"/>
+                <rect x="19" y="34" width="6" height="11" rx="1.5" fill="url(#pg-p)"/>
+              </g>
+            </svg>
+            <span data-en="Padel" data-es="Pádel">Padel</span>
+          </span>
+          <!-- PICKLEBALL: ball amarilla con holes blancos -->
+          <span class="sport-pill">
+            <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
+              <defs><radialGradient id="pg-pk" cx="35%" cy="30%" r="75%"><stop offset="0%" stop-color="#fff8b8"/><stop offset="55%" stop-color="#e8c96a"/><stop offset="100%" stop-color="#9a7a1f"/></radialGradient></defs>
+              <circle cx="24" cy="22" r="16" fill="url(#pg-pk)"/>
+              <g fill="#fff7ed">
+                <circle cx="24" cy="22" r="2"/>
+                <circle cx="24" cy="14" r="1.8"/><circle cx="31" cy="18" r="1.8"/><circle cx="31" cy="26" r="1.8"/>
+                <circle cx="24" cy="30" r="1.8"/><circle cx="17" cy="26" r="1.8"/><circle cx="17" cy="18" r="1.8"/>
+                <ellipse cx="24" cy="8" rx="1.6" ry="1"/><ellipse cx="36.5" cy="22" rx="1" ry="1.6"/>
+                <ellipse cx="24" cy="36" rx="1.6" ry="1"/><ellipse cx="11.5" cy="22" rx="1" ry="1.6"/>
+              </g>
+              <ellipse cx="17" cy="14" rx="5" ry="3" fill="#fff" opacity="0.25"/>
+            </svg>
+            <span>Pickleball</span>
+          </span>
+          <!-- SQUASH: ball negra con dot gold -->
+          <span class="sport-pill">
+            <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
+              <defs>
+                <radialGradient id="pg-sq" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#3a3a3a"/><stop offset="50%" stop-color="#181818"/><stop offset="100%" stop-color="#000"/></radialGradient>
+                <radialGradient id="pg-sqd" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#f5d97f"/><stop offset="100%" stop-color="#c9a84c"/></radialGradient>
+              </defs>
+              <circle cx="24" cy="24" r="13" fill="url(#pg-sq)"/>
+              <circle cx="24" cy="20" r="2.4" fill="url(#pg-sqd)"/>
+              <ellipse cx="18" cy="17" rx="4" ry="2.5" fill="#fff" opacity="0.18"/>
+            </svg>
+            <span>Squash</span>
+          </span>
+        </div>
       </div>
-      <div style="display:flex;align-items:center;gap:28px;animation:fadeUp 0.5s ease forwards 30.65s;opacity:0;">
-        <p class="white" style="font-size:0.95rem;font-weight:600;">No setup fee</p>
-        <div class="vdivider" style="height:20px;"></div>
-        <p class="white" style="font-size:0.95rem;font-weight:600;">No IT required</p>
-        <div class="vdivider" style="height:20px;"></div>
-        <p class="white" style="font-size:0.95rem;font-weight:600;">Live in 24 hours</p>
+
+      <!-- Pricing tiers -->
+      <div style="display:flex;gap:14px;align-items:stretch;animation:scaleIn 0.6s ease forwards 35.6s;opacity:0;margin-top:6px;">
+        <div class="price-card">
+          <p class="name">Starter</p>
+          <p class="amount">$49<sub data-en="/mo" data-es="/mes">/mo</sub></p>
+          <p class="feature" data-en="50 players<br>2 rankings" data-es="50 jugadores<br>2 rankings">50 players<br>2 rankings</p>
+        </div>
+        <div class="price-card popular">
+          <p class="name">Growth</p>
+          <p class="amount">$99<sub data-en="/mo" data-es="/mes">/mo</sub></p>
+          <p class="feature" data-en="150 players<br>4 rankings" data-es="150 jugadores<br>4 rankings">150 players<br>4 rankings</p>
+        </div>
+        <div class="price-card">
+          <p class="name">Pro</p>
+          <p class="amount">$179<sub data-en="/mo" data-es="/mes">/mo</sub></p>
+          <p class="feature" data-en="300 players<br>Unlimited rankings" data-es="300 jugadores<br>Rankings ilimitados">300 players<br>Unlimited rankings</p>
+        </div>
       </div>
-      <p class="muted" style="font-size:0.85rem;animation:fadeUp 0.5s ease forwards 30.9s;opacity:0;">From $99/month for a ranking of up to 100 players &nbsp;·&nbsp; No long-term contracts</p>
+
+      <p class="muted" data-en="No setup fee &nbsp;·&nbsp; No IT required &nbsp;·&nbsp; Live in 24 hours &nbsp;·&nbsp; Cancel anytime" data-es="Sin costo de alta &nbsp;·&nbsp; Sin IT requerido &nbsp;·&nbsp; Activo en 24 horas &nbsp;·&nbsp; Cancelá cuando quieras" style="font-size:0.85rem;animation:fadeUp 0.5s ease forwards 36.2s;opacity:0;">
+        No setup fee &nbsp;·&nbsp; No IT required &nbsp;·&nbsp; Live in 24 hours &nbsp;·&nbsp; Cancel anytime
+      </p>
     </div>
 
 
     <!-- ══════════════════════════════════════════════════════
-         SLIDE 8 — CTA / Closing
+         SLIDE 8 — Closing CTA (sticky, stronger hook)
     ══════════════════════════════════════════════════════ -->
-    <div class="slide s8" style="flex-direction:column;align-items:center;text-align:center;gap:28px;">
+    <div class="slide s8" style="flex-direction:column;align-items:center;text-align:center;gap:26px;">
       <div class="glow" style="width:700px;height:600px;background:rgba(201,168,76,0.08);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
-      <div style="position:relative;width:116px;height:116px;animation:scaleIn 0.7s ease forwards 35.2s;opacity:0;">
+      <div style="position:relative;width:108px;height:108px;animation:scaleIn 0.7s ease forwards 42.2s;opacity:0;">
         <div style="position:absolute;inset:-8px;border-radius:50%;border:1.5px solid rgba(201,168,76,0.45);animation:spin 10s linear infinite;"></div>
         <div style="position:absolute;inset:-18px;border-radius:50%;border:1px solid rgba(201,168,76,0.15);animation:spin 18s linear infinite reverse;"></div>
         <img src="logo2.png" style="width:100%;height:100%;border-radius:50%;object-fit:cover;box-shadow:0 0 60px rgba(201,168,76,0.3),0 0 0 2px rgba(201,168,76,0.35);" />
       </div>
-      <div style="animation:fadeUp 0.7s ease forwards 35.5s;opacity:0;">
-        <h2 class="display white" style="font-size:2.9rem;line-height:1.12;margin-bottom:12px;">Ready to energize<br>your <span class="gold">club?</span></h2>
-        <p class="muted" style="font-size:1rem;">Book a free 20-minute demo &nbsp;·&nbsp; Live in 24 hours</p>
+      <div style="animation:fadeUp 0.7s ease forwards 42.5s;opacity:0;">
+        <h2 class="display white" data-en="Ready to <span class='gold'>triple</span><br>your club's activity?" data-es="¿Listo para <span class='gold'>triplicar</span><br>la actividad de tu club?" style="font-size:2.9rem;line-height:1.12;margin-bottom:12px;">Ready to <span class="gold">triple</span><br>your club's activity?</h2>
+        <p class="muted" data-en="Free 30-day trial &nbsp;·&nbsp; No card required &nbsp;·&nbsp; Live in 24 hours" data-es="30 días gratis &nbsp;·&nbsp; Sin tarjeta &nbsp;·&nbsp; Activo en 24 horas" style="font-size:1rem;">Free 30-day trial &nbsp;·&nbsp; No card required &nbsp;·&nbsp; Live in 24 hours</p>
       </div>
-      <div style="border:2px solid rgba(201,168,76,0.45);border-radius:999px;padding:15px 44px;background:rgba(201,168,76,0.08);animation:scaleIn 0.6s ease forwards 35.85s;opacity:0;">
+      <div style="border:2px solid rgba(201,168,76,0.45);border-radius:999px;padding:15px 44px;background:rgba(201,168,76,0.08);animation:scaleIn 0.6s ease forwards 42.85s;opacity:0;">
         <p class="gold" style="font-size:1.5rem;font-weight:700;letter-spacing:-0.3px;">challengersranking.online</p>
       </div>
-      <p class="muted" style="font-size:0.8rem;letter-spacing:0.1em;animation:fadeIn 0.5s ease forwards 36.2s;opacity:0;">Get a Free Demo Today</p>
+      <p class="muted" data-en="Start your free trial today" data-es="Empezá tu trial gratis hoy" style="font-size:0.8rem;letter-spacing:0.1em;animation:fadeIn 0.5s ease forwards 43.2s;opacity:0;">Start your free trial today</p>
     </div>
 
-  </div><!-- /scene -->
-</div><!-- /stage -->
+  </div>
+</div>
 
 <script>
-  // Scale the stage to always fill the available viewport
+  /* ─── i18n: lee 'cr-lang' del localStorage compartido con la landing
+       (mismo origin = misma localStorage). Default EN si no hay guardado.
+       Swappea inmediato — no espera a animations. */
+  (function applyLang() {
+    var lang = 'en';
+    try { lang = localStorage.getItem('cr-lang') === 'es' ? 'es' : 'en'; } catch (e) {}
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-en]').forEach(function(el) {
+      el.innerHTML = lang === 'es' ? el.dataset.es : el.dataset.en;
+    });
+  })();
+
+  /* ─── Stage scale to viewport ─── */
   function fitStage() {
     var stage = document.getElementById('stage');
     var sw = window.innerWidth  / 1280;

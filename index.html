@@ -1165,6 +1165,12 @@
       localStorage.setItem('cr-lang', lang);
       document.documentElement.lang = lang;
 
+      // Reload el iframe del promo video para que pickee el lang nuevo
+      // (el promo lee localStorage al load + bake-in los strings via JS).
+      // Cache-bust con timestamp así Vercel no sirve la versión cacheada.
+      var promoFrame = document.getElementById('promoFrame');
+      if (promoFrame) promoFrame.src = 'promo.html?t=' + Date.now();
+
       // Swap innerHTML for all [data-en] / [data-es] elements
       document.querySelectorAll('[data-en]').forEach(function(el) {
         el.innerHTML = lang === 'es' ? el.dataset.es : el.dataset.en;
