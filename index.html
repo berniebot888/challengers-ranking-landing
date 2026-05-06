@@ -490,21 +490,165 @@
          data-es="Manejá rankings independientes por cada deporte que se juega en tu club — mismo admin, mismo plan.">
         Run independent rankings for every sport your club plays — same admin, same plan.
       </p>
+      <!-- SVG defs: gradients + drop shadow filter compartidos por todos los íconos.
+           Pongo defs una sola vez para no repetir y reducir bytes. -->
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+          <!-- Tennis ball: amarillo neón con highlight arriba-izq y sombra abajo-der -->
+          <radialGradient id="g-tennis" cx="35%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#f4f57a"/>
+            <stop offset="55%" stop-color="#d8df3a"/>
+            <stop offset="100%" stop-color="#7a8316"/>
+          </radialGradient>
+          <!-- Padel paddle: negro/navy con highlight de carbon-fiber -->
+          <linearGradient id="g-padel" x1="20%" y1="0%" x2="80%" y2="100%">
+            <stop offset="0%" stop-color="#1d3a6b"/>
+            <stop offset="50%" stop-color="#0b2545"/>
+            <stop offset="100%" stop-color="#04122b"/>
+          </linearGradient>
+          <!-- Pickleball wiffle ball: amarillo claro con shading -->
+          <radialGradient id="g-pickle" cx="35%" cy="30%" r="75%">
+            <stop offset="0%" stop-color="#fff8b8"/>
+            <stop offset="55%" stop-color="#e8c96a"/>
+            <stop offset="100%" stop-color="#9a7a1f"/>
+          </radialGradient>
+          <!-- Squash ball: negro mate con highlight sutil -->
+          <radialGradient id="g-squash" cx="35%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#3a3a3a"/>
+            <stop offset="50%" stop-color="#181818"/>
+            <stop offset="100%" stop-color="#000"/>
+          </radialGradient>
+          <!-- Squash dot color (gold) -->
+          <radialGradient id="g-squash-dot" cx="40%" cy="35%" r="60%">
+            <stop offset="0%" stop-color="#f5d97f"/>
+            <stop offset="100%" stop-color="#c9a84c"/>
+          </radialGradient>
+          <!-- Drop shadow shared filter -->
+          <filter id="ds" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="0.8"/>
+            <feOffset dx="0" dy="1.2" result="offsetblur"/>
+            <feComponentTransfer><feFuncA type="linear" slope="0.35"/></feComponentTransfer>
+            <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+      </svg>
+
       <div class="flex flex-wrap justify-center gap-2 sm:gap-3">
-        <div class="inline-flex items-center gap-2 bg-sand border border-navy/15 rounded-full px-5 py-2.5">
-          <span class="text-xl leading-none">🎾</span>
+        <!-- TENNIS: la pelota amarilla 3D. Costura realista — UN trazo
+             principal en S-curva (la parte visible del seam wrap-around) +
+             un arco menor arriba (donde el seam asoma del back de la pelota
+             antes de seguir wrappeando). Imita el reference real, no la
+             "lente" simétrica que tenía antes. -->
+        <div class="inline-flex items-center gap-3 bg-sand border border-navy/15 rounded-full pl-3 pr-5 py-2">
+          <svg width="44" height="44" viewBox="0 0 48 48" aria-hidden="true">
+            <!-- sombra elíptica abajo -->
+            <ellipse cx="24" cy="42" rx="13" ry="2" fill="#000" opacity="0.18"/>
+            <!-- cuerpo de la pelota -->
+            <circle cx="24" cy="22" r="16" fill="url(#g-tennis)" filter="url(#ds)"/>
+            <!-- Seam principal: U-curve grande que cruza la pelota — entra
+                 por upper-left, dippea profundo al center-bottom, sale por
+                 upper-right. ESTA es la curva visible más prominente. -->
+            <path d="M 10 16 C 12 30, 28 32, 38 18" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" opacity="0.95"/>
+            <!-- Seam secundario: pequeño arco arriba que muestra el seam
+                 wrappeando hacia el back. Más fino y con menos opacidad
+                 para que no compita con la curva principal. -->
+            <path d="M 14 10 Q 24 7 33 11" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+            <!-- highlight especular -->
+            <ellipse cx="17" cy="14" rx="5" ry="3" fill="#fff" opacity="0.35"/>
+          </svg>
           <span class="text-navy font-semibold text-sm" data-en="Tennis" data-es="Tenis">Tennis</span>
         </div>
-        <div class="inline-flex items-center gap-2 bg-sand border border-navy/15 rounded-full px-5 py-2.5">
-          <span class="text-xl leading-none">🏓</span>
+
+        <!-- PADEL: paleta vista de frente, ligeramente inclinada, con perforaciones reales y carbon-fiber sheen -->
+        <div class="inline-flex items-center gap-3 bg-sand border border-navy/15 rounded-full pl-3 pr-5 py-2">
+          <svg width="44" height="44" viewBox="0 0 48 48" aria-hidden="true">
+            <!-- sombra abajo -->
+            <ellipse cx="22" cy="44" rx="11" ry="1.6" fill="#000" opacity="0.18"/>
+            <!-- ligero tilt vía rotación -->
+            <g transform="rotate(-8 22 22)" filter="url(#ds)">
+              <!-- cabeza de pádel (forma realista: hombros redondeados, base levemente angosta) -->
+              <path d="M 8 14 Q 8 4 22 4 Q 36 4 36 14 L 36 26 Q 36 30 32 30 L 12 30 Q 8 30 8 26 Z" fill="url(#g-padel)"/>
+              <!-- highlight diagonal carbon-fiber -->
+              <path d="M 10 8 Q 14 5 22 4.5 Q 30 5 34 9" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.18"/>
+              <!-- perforaciones (16, en cluster denso central — patrón realista) -->
+              <g fill="#fff7ed">
+                <circle cx="14" cy="10" r="1.1"/><circle cx="18" cy="9" r="1.1"/><circle cx="22" cy="8.5" r="1.1"/><circle cx="26" cy="9" r="1.1"/><circle cx="30" cy="10" r="1.1"/>
+                <circle cx="13" cy="14" r="1.1"/><circle cx="17" cy="14" r="1.1"/><circle cx="22" cy="13.5" r="1.1"/><circle cx="27" cy="14" r="1.1"/><circle cx="31" cy="14" r="1.1"/>
+                <circle cx="13" cy="18" r="1.1"/><circle cx="17" cy="18" r="1.1"/><circle cx="22" cy="18" r="1.1"/><circle cx="27" cy="18" r="1.1"/><circle cx="31" cy="18" r="1.1"/>
+                <circle cx="14" cy="22" r="1.1"/><circle cx="18" cy="22" r="1.1"/><circle cx="22" cy="22" r="1.1"/><circle cx="26" cy="22" r="1.1"/><circle cx="30" cy="22" r="1.1"/>
+              </g>
+              <!-- throat (triángulo de unión cabeza-mango) -->
+              <path d="M 16 30 L 28 30 L 26 34 L 18 34 Z" fill="url(#g-padel)"/>
+              <!-- mango (corto, típico de pádel) -->
+              <rect x="19" y="34" width="6" height="11" rx="1.5" fill="url(#g-padel)"/>
+              <!-- grip wraps -->
+              <line x1="20" y1="36.5" x2="24" y2="38" stroke="#fff" stroke-width="0.5" opacity="0.3"/>
+              <line x1="20" y1="39" x2="24" y2="40.5" stroke="#fff" stroke-width="0.5" opacity="0.3"/>
+              <line x1="20" y1="41.5" x2="24" y2="43" stroke="#fff" stroke-width="0.5" opacity="0.3"/>
+            </g>
+          </svg>
           <span class="text-navy font-semibold text-sm" data-en="Padel" data-es="Pádel">Padel</span>
         </div>
-        <div class="inline-flex items-center gap-2 bg-sand border border-navy/15 rounded-full px-5 py-2.5">
-          <span class="text-xl leading-none">🥒</span>
+
+        <!-- PICKLEBALL: wiffle ball con agujeros BLANCOS en patrón hexagonal
+             (1 centro + 6 ring interno + 12 ring borde). Los del borde son
+             ELIPSES con el eje mayor PARALELO al borde de la pelota — eso
+             simula la perspectiva esférica (igual que el reference real). -->
+        <div class="inline-flex items-center gap-3 bg-sand border border-navy/15 rounded-full pl-3 pr-5 py-2">
+          <svg width="44" height="44" viewBox="0 0 48 48" aria-hidden="true">
+            <ellipse cx="24" cy="42" rx="13" ry="2" fill="#000" opacity="0.18"/>
+            <!-- esfera 3D -->
+            <circle cx="24" cy="22" r="16" fill="url(#g-pickle)" filter="url(#ds)"/>
+            <!-- 19 agujeros blancos en patrón hexagonal con perspectiva real.
+                 Los del centro son círculos perfectos, los del borde elipses
+                 con compresión radial (squash hacia el centro de la pelota). -->
+            <g fill="#fff7ed">
+              <!-- Centro -->
+              <circle cx="24" cy="22" r="2"/>
+              <!-- Ring interno: 6 círculos perfectos en hexágono -->
+              <circle cx="24" cy="14" r="1.8"/>
+              <circle cx="31" cy="18" r="1.8"/>
+              <circle cx="31" cy="26" r="1.8"/>
+              <circle cx="24" cy="30" r="1.8"/>
+              <circle cx="17" cy="26" r="1.8"/>
+              <circle cx="17" cy="18" r="1.8"/>
+              <!-- Ring borde: 12 elipses con perspectiva (compresión radial) -->
+              <!-- Top arc: ellipses horizontales chatas -->
+              <ellipse cx="18" cy="9.5" rx="1.5" ry="1"/>
+              <ellipse cx="24" cy="8" rx="1.6" ry="1"/>
+              <ellipse cx="30" cy="9.5" rx="1.5" ry="1"/>
+              <!-- Right arc: ellipses verticales angostas -->
+              <ellipse cx="35" cy="14" rx="1.1" ry="1.4"/>
+              <ellipse cx="36.5" cy="22" rx="1" ry="1.6"/>
+              <ellipse cx="35" cy="30" rx="1.1" ry="1.4"/>
+              <!-- Bottom arc: ellipses horizontales chatas -->
+              <ellipse cx="30" cy="34.5" rx="1.5" ry="1"/>
+              <ellipse cx="24" cy="36" rx="1.6" ry="1"/>
+              <ellipse cx="18" cy="34.5" rx="1.5" ry="1"/>
+              <!-- Left arc: ellipses verticales angostas -->
+              <ellipse cx="13" cy="30" rx="1.1" ry="1.4"/>
+              <ellipse cx="11.5" cy="22" rx="1" ry="1.6"/>
+              <ellipse cx="13" cy="14" rx="1.1" ry="1.4"/>
+            </g>
+            <!-- highlight especular sutil -->
+            <ellipse cx="17" cy="14" rx="5" ry="3" fill="#fff" opacity="0.25"/>
+          </svg>
           <span class="text-navy font-semibold text-sm" data-en="Pickleball" data-es="Pickleball">Pickleball</span>
         </div>
-        <div class="inline-flex items-center gap-2 bg-sand border border-navy/15 rounded-full px-5 py-2.5">
-          <span class="text-xl leading-none">⬛</span>
+
+        <!-- SQUASH: la pelota negra con dot gold (firma cultural inmediata para quien juega squash) -->
+        <div class="inline-flex items-center gap-3 bg-sand border border-navy/15 rounded-full pl-3 pr-5 py-2">
+          <svg width="44" height="44" viewBox="0 0 48 48" aria-hidden="true">
+            <ellipse cx="24" cy="42" rx="13" ry="2" fill="#000" opacity="0.22"/>
+            <!-- pelota chica negra (las squash balls son notablemente más chicas que tenis) -->
+            <circle cx="24" cy="24" r="13" fill="url(#g-squash)" filter="url(#ds)"/>
+            <!-- dot de velocidad (las squash balls tienen 1-2 dots: amarillo, blanco, rojo, azul, según velocidad).
+                 Dot gold = double yellow dot (la pelota más usada en juego competitivo) -->
+            <circle cx="24" cy="20" r="2.4" fill="url(#g-squash-dot)"/>
+            <circle cx="24" cy="20" r="1.1" fill="#fff7d0" opacity="0.6"/>
+            <!-- highlight especular sobre la pelota negra -->
+            <ellipse cx="18" cy="17" rx="4" ry="2.5" fill="#fff" opacity="0.18"/>
+          </svg>
           <span class="text-navy font-semibold text-sm" data-en="Squash" data-es="Squash">Squash</span>
         </div>
       </div>
