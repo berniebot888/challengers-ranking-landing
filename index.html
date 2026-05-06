@@ -255,16 +255,14 @@
 
   <!-- ─── NAV ─────────────────────────────────────────────────────────────── -->
   <nav class="fixed top-0 inset-x-0 z-50 bg-navy/95 backdrop-blur border-b border-white/10">
-    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3.5 group" aria-label="Challengers Ranking">
-        <!-- Brand v2: lockup horizontal blanco directo (incluye badge + wordmark).
-             Reemplaza el logo2.png + texto inline anterior. -->
+    <div class="max-w-6xl mx-auto px-6 h-[76px] flex items-center justify-between">
+      <a href="#" class="flex items-center group" aria-label="Challengers Ranking">
+        <!-- Brand v2: lockup horizontal blanco (badge + wordmark juntos en SVG).
+             Sin texto secundario al lado para que el lockup tenga toda la
+             presencia del header. h-12 desktop / h-10 mobile. -->
         <img src="brand-kit/lockup-horizontal-white.svg"
              alt="Challengers Ranking"
-             class="h-9 w-auto group-hover:opacity-90 transition-opacity" />
-        <span class="hidden sm:inline text-white/35 text-[9px] font-sans font-medium tracking-[0.28em] uppercase ml-2"
-              data-en="Tennis Ladder Software"
-              data-es="Software de Ranking de Tenis">Tennis Ladder Software</span>
+             class="h-10 sm:h-12 w-auto group-hover:opacity-90 transition-opacity" />
       </a>
       <div class="flex items-center gap-3">
         <!-- Language toggle -->
