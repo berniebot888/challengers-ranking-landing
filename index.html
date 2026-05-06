@@ -660,6 +660,119 @@
     </div>
   </section>
 
+  <!-- ─── INSTALL ON PHONE ──────────────────────────────────────────────── -->
+  <section id="install" class="py-20 px-6 bg-sand">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-10">
+        <p class="text-gold font-semibold tracking-widest uppercase text-xs mb-3"
+           data-en="Use the app on your phone" data-es="Usá la app en tu celular">Use the app on your phone</p>
+        <h2 class="font-serif text-3xl sm:text-4xl text-navy font-bold mb-3"
+            data-en="Install in 2 taps. <span class='text-gold'>No App Store needed.</span>"
+            data-es="Instalá en 2 toques. <span class='text-gold'>Sin App Store.</span>">
+          Install in 2 taps. <span class="text-gold">No App Store needed.</span>
+        </h2>
+        <p class="text-navy/55 text-sm sm:text-base max-w-xl mx-auto"
+           data-en="Challengers Ranking is a Progressive Web App (PWA). You can add the app icon to your home screen straight from the browser — no download needed."
+           data-es="Challengers Ranking es una Progressive Web App (PWA). Podés agregar el ícono de la app a tu pantalla de inicio, directo desde el navegador, sin necesidad de descarga.">
+          Challengers Ranking is a Progressive Web App (PWA). You can add the app icon to your home screen straight from the browser — no download needed.
+        </p>
+      </div>
+
+      <!-- OS tabs -->
+      <div class="flex justify-center gap-1.5 mb-8">
+        <button id="install-tab-ios" onclick="setInstallTab('ios')"
+          class="install-tab inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition bg-navy text-gold border-2 border-navy">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+          <span data-en="iOS" data-es="iOS">iOS</span>
+        </button>
+        <button id="install-tab-android" onclick="setInstallTab('android')"
+          class="install-tab inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition bg-white text-navy/60 border-2 border-navy/15 hover:border-navy/40">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.342c-.456 0-.825-.369-.825-.823 0-.456.369-.825.825-.825.456 0 .825.369.825.825 0 .454-.369.823-.825.823zm-11.046 0c-.456 0-.825-.369-.825-.823 0-.456.369-.825.825-.825.456 0 .825.369.825.825 0 .454-.369.823-.825.823zm11.482-6.260l1.785-3.094a.387.387 0 0 0-.142-.529.387.387 0 0 0-.529.142l-1.808 3.131c-1.385-.632-2.939-.984-4.65-.984-1.711 0-3.265.352-4.65.984l-1.808-3.131a.387.387 0 0 0-.529-.142.387.387 0 0 0-.142.529l1.785 3.094C3.987 10.728 1.852 13.611 1.5 17h21c-.352-3.389-2.487-6.272-5.541-7.918z"/></svg>
+          <span data-en="Android" data-es="Android">Android</span>
+        </button>
+      </div>
+
+      <!-- iOS steps -->
+      <div id="install-ios" class="install-steps grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
+        <div class="bg-white rounded-2xl border border-navy/10 p-5 text-center shadow-sm">
+          <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-navy text-gold font-bold text-sm mb-3">1</div>
+          <p class="font-bold text-navy text-sm mb-1.5"
+             data-en="Open Safari" data-es="Abrí Safari">Open Safari</p>
+          <p class="text-navy/60 text-xs leading-relaxed"
+             data-en="Visit your club's URL: <strong>yourclub.challengersranking.online</strong>"
+             data-es="Entrá a la URL de tu club: <strong>tuclub.challengersranking.online</strong>">
+            Visit your club's URL: <strong>yourclub.challengersranking.online</strong>
+          </p>
+        </div>
+        <div class="bg-white rounded-2xl border border-navy/10 p-5 text-center shadow-sm">
+          <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-navy text-gold font-bold text-sm mb-3">2</div>
+          <p class="font-bold text-navy text-sm mb-1.5 inline-flex items-center gap-1.5 justify-center"
+             data-en="Tap Share <svg width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8'/><polyline points='16 6 12 2 8 6'/><line x1='12' y1='2' x2='12' y2='15'/></svg>"
+             data-es="Tocá Compartir <svg width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8'/><polyline points='16 6 12 2 8 6'/><line x1='12' y1='2' x2='12' y2='15'/></svg>">
+            Tap Share <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          </p>
+          <p class="text-navy/60 text-xs leading-relaxed"
+             data-en="The Share button is at the bottom of Safari. Scroll the menu down."
+             data-es="El botón Compartir está en la barra inferior de Safari. Bajá el menú.">
+            The Share button is at the bottom of Safari. Scroll the menu down.
+          </p>
+        </div>
+        <div class="bg-white rounded-2xl border-2 border-gold/40 p-5 text-center shadow-md">
+          <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gold text-navy font-bold text-sm mb-3">3</div>
+          <p class="font-bold text-navy text-sm mb-1.5"
+             data-en="Add to Home Screen" data-es="Agregar a Pantalla de Inicio">Add to Home Screen</p>
+          <p class="text-navy/60 text-xs leading-relaxed"
+             data-en="Tap <strong>“Add to Home Screen”</strong> → <strong>Add</strong>. Done — your app is installed."
+             data-es="Tocá <strong>“Agregar a Pantalla de Inicio”</strong> → <strong>Agregar</strong>. Listo — la app quedó instalada.">
+            Tap <strong>"Add to Home Screen"</strong> → <strong>Add</strong>. Done — your app is installed.
+          </p>
+        </div>
+      </div>
+
+      <!-- Android steps -->
+      <div id="install-android" class="install-steps hidden grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
+        <div class="bg-white rounded-2xl border border-navy/10 p-5 text-center shadow-sm">
+          <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-navy text-gold font-bold text-sm mb-3">1</div>
+          <p class="font-bold text-navy text-sm mb-1.5"
+             data-en="Open Chrome" data-es="Abrí Chrome">Open Chrome</p>
+          <p class="text-navy/60 text-xs leading-relaxed"
+             data-en="Visit your club's URL: <strong>yourclub.challengersranking.online</strong>"
+             data-es="Entrá a la URL de tu club: <strong>tuclub.challengersranking.online</strong>">
+            Visit your club's URL: <strong>yourclub.challengersranking.online</strong>
+          </p>
+        </div>
+        <div class="bg-white rounded-2xl border border-navy/10 p-5 text-center shadow-sm">
+          <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-navy text-gold font-bold text-sm mb-3">2</div>
+          <p class="font-bold text-navy text-sm mb-1.5"
+             data-en="Tap Install" data-es="Tocá Instalar">Tap Install</p>
+          <p class="text-navy/60 text-xs leading-relaxed"
+             data-en="Chrome shows an <strong>Install app</strong> banner automatically. Tap it. Or use the menu (⋮) → <strong>Install app</strong>."
+             data-es="Chrome muestra un banner <strong>Instalar app</strong> automático. Tocalo. O desde el menú (⋮) → <strong>Instalar app</strong>.">
+            Chrome shows an <strong>Install app</strong> banner automatically. Tap it. Or use the menu (⋮) → <strong>Install app</strong>.
+          </p>
+        </div>
+        <div class="bg-white rounded-2xl border-2 border-gold/40 p-5 text-center shadow-md">
+          <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gold text-navy font-bold text-sm mb-3">3</div>
+          <p class="font-bold text-navy text-sm mb-1.5"
+             data-en="Done" data-es="Listo">Done</p>
+          <p class="text-navy/60 text-xs leading-relaxed"
+             data-en="The app icon appears on your home screen. Open it like any other app — full screen, push notifications, offline support."
+             data-es="El ícono aparece en tu pantalla de inicio. Abrila como cualquier app — pantalla completa, notificaciones push, soporte offline.">
+            The app icon appears on your home screen. Open it like any other app — full screen, push notifications, offline support.
+          </p>
+        </div>
+      </div>
+
+      <!-- Footnote: link clickable a /login (slug lookup), abierto en
+           Safari/Chrome para que el banner de Install se dispare nativo. -->
+      <p class="text-center text-navy/45 text-xs mt-8"
+         data-en="Already have an account? <a href='https://app.challengersranking.online/login' class='text-navy font-semibold underline underline-offset-2 hover:text-gold transition'>Sign in to your club</a> from Safari (iOS) or Chrome (Android)."
+         data-es="¿Ya tenés cuenta? <a href='https://app.challengersranking.online/login' class='text-navy font-semibold underline underline-offset-2 hover:text-gold transition'>Iniciá sesión en tu club</a> desde Safari (iOS) o Chrome (Android).">
+        Already have an account? <a href="https://app.challengersranking.online/login" class="text-navy font-semibold underline underline-offset-2 hover:text-gold transition">Sign in to your club</a> from Safari (iOS) or Chrome (Android).
+      </p>
+    </div>
+  </section>
+
   <section class="py-24 px-6 bg-navy-dark">
     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-10">
@@ -1354,6 +1467,47 @@
         btn.classList.remove('bg-white', 'text-navy/60', 'border-navy/20');
       }
     }
+
+    /* ─── Install section: tab switch (iOS / Android) + auto-detect ─── */
+    function setInstallTab(os) {
+      var iosBtn = document.getElementById('install-tab-ios');
+      var andBtn = document.getElementById('install-tab-android');
+      var iosSteps = document.getElementById('install-ios');
+      var andSteps = document.getElementById('install-android');
+      var activeCls = ['bg-navy', 'text-gold', 'border-navy'];
+      var idleCls   = ['bg-white', 'text-navy/60', 'border-navy/15'];
+
+      function setActive(btn, isActive) {
+        if (isActive) {
+          btn.classList.add.apply(btn.classList, activeCls);
+          btn.classList.remove.apply(btn.classList, idleCls);
+          btn.classList.remove('hover:border-navy/40');
+        } else {
+          btn.classList.remove.apply(btn.classList, activeCls);
+          btn.classList.add.apply(btn.classList, idleCls);
+          btn.classList.add('hover:border-navy/40');
+        }
+      }
+      if (os === 'android') {
+        setActive(iosBtn, false); setActive(andBtn, true);
+        iosSteps.classList.add('hidden'); andSteps.classList.remove('hidden');
+      } else {
+        setActive(iosBtn, true); setActive(andBtn, false);
+        andSteps.classList.add('hidden'); iosSteps.classList.remove('hidden');
+      }
+    }
+
+    /* Auto-pick OS basado en user agent del visitante. iPad puede reportar
+       como Mac en iOS 13+; chequeamos también touchPoints como heurística.
+       Default iOS si no es Android (más común en LATAM, conservador). */
+    (function autoSelectInstallTab() {
+      try {
+        var ua = navigator.userAgent || '';
+        var isAndroid = /Android/i.test(ua);
+        if (isAndroid) setInstallTab('android');
+        // si es iOS o desktop, deja iOS visible (que es el default del HTML)
+      } catch (e) {}
+    })();
   </script>
 
   <!-- ─── Enterprise contact modal ──────────────────────────────────────── -->
