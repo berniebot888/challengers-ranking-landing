@@ -266,10 +266,11 @@
       <a href="#" class="flex items-center gap-3 sm:gap-4 group" aria-label="Challengers Ranking">
         <img src="brand-kit/mark-orange.svg"
              alt=""
-             class="h-12 sm:h-14 w-auto transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_4px_12px_rgba(200,69,28,0.35)]" />
+             class="h-11 sm:h-14 w-auto transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_4px_12px_rgba(200,69,28,0.35)]" />
+        <!-- Wordmark: oculto en mobile (no entra con lang toggle + CTA) -->
         <img src="brand-kit/wordmark-white.svg"
              alt="Challengers Ranking"
-             class="h-10 sm:h-14 w-auto transition-opacity group-hover:opacity-90" />
+             class="hidden sm:block h-14 w-auto transition-opacity group-hover:opacity-90" />
       </a>
       <div class="flex items-center gap-2 sm:gap-3">
         <!-- Language toggle -->
@@ -288,7 +289,7 @@
            class="text-white/70 hover:text-white text-sm font-medium transition hidden md:block"
            data-en="Sign in" data-es="Iniciar sesión">Sign in</a>
         <a href="https://app.challengersranking.online/signup"
-           class="bg-terracotta hover:bg-terracotta-hover text-white font-bold text-sm px-5 py-2.5 rounded-full transition shadow-md shadow-terracotta/30"
+           class="bg-terracotta hover:bg-terracotta-hover text-white font-bold text-sm px-4 sm:px-5 py-2.5 rounded-full transition shadow-md shadow-terracotta/30 whitespace-nowrap"
            data-en="Start free" data-es="Empezá gratis">Start free</a>
       </div>
     </div>
