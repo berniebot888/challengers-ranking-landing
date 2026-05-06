@@ -60,7 +60,7 @@
       "priceCurrency": "USD",
       "description": "Starter plan: $49/month per club, up to 50 players, 2 rankings. Plans scale up to Enterprise. No setup fee. Cancel anytime."
     },
-    "screenshot": "https://challengersranking.online/logo2.png",
+    "screenshot": "https://challengersranking.online/brand-kit/png/badge-orange-1024.png",
     "keywords": "tennis ladder app, padel ladder app, pickleball ladder app, squash ladder app, racket sports ranking software, ranking tenis club, ranking padel club, app ranking tenis, app ranking padel, escalera tenis, escalera pádel"
   }
   </script>
@@ -72,7 +72,7 @@
     "@type": "Organization",
     "name": "Challengers Ranking",
     "url": "https://challengersranking.online",
-    "logo": "https://challengersranking.online/logo2.png",
+    "logo": "https://challengersranking.online/brand-kit/png/badge-orange-1024.png",
     "description": "Tennis ladder software for clubs. App de ranking de tenis para clubes.",
     "contactPoint": {
       "@type": "ContactPoint",
@@ -156,7 +156,11 @@
   }
   </script>
 
+  <!-- Favicons: SVG primario para browsers modernos, PNG fallback. -->
+  <link rel="icon" type="image/svg+xml" href="brand-kit/favicon.svg" />
   <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="brand-kit/png/icon-app-orange-256.png" />
+  <meta name="theme-color" content="#C8451C" />
   <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
   <!-- Fonts -->
@@ -176,20 +180,37 @@
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
+    /* Brand v2 — paleta nueva (terracotta + navy + cream + gold). Mantenemos
+       los nombres de tokens de la v1 (navy, gold, sand) con los HEX nuevos
+       para que el HTML existente herede el rebrand sin reescribir clases.
+       Agregamos `terracotta` y `cream` para uso explícito en CTAs y backgrounds. */
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            navy: '#0b2545',
-            'navy-light': '#13315c',
-            'navy-dark': '#071a30',
-            gold: '#c9a84c',
-            'gold-light': '#e8c96a',
-            sand: '#f5f0e8',
+            // Navy v2 (más oscuro, casi azul-negro)
+            navy: '#1A1A2E',
+            'navy-light': '#3A3A52',
+            'navy-dark': '#0F0F1F',
+            // Terracotta — primary CTA color del brand v2
+            terracotta: '#C8451C',
+            'terracotta-hover': '#A8381A',
+            'terracotta-soft': '#FCE8DC',
+            // Cream — background warm del brand v2
+            cream: '#FAF7F2',
+            'cream-warm': '#F2EBE0',
+            // Gold v2 (un poco más cálido)
+            gold: '#E8B04C',
+            'gold-light': '#F2C46E',
+            // Sand alias para compat con HTML existente
+            sand: '#FAF7F2',
           },
           fontFamily: {
             serif: ['Playfair Display', 'serif'],
             sans: ['Inter', 'sans-serif'],
+          },
+          borderRadius: {
+            pill: '999px',
           },
         },
       },
@@ -200,7 +221,7 @@
     html { scroll-behavior: smooth; }
     .hero-bg {
       background-image:
-        linear-gradient(to bottom, rgba(7,26,48,0.82) 0%, rgba(11,37,69,0.75) 60%, rgba(7,26,48,0.95) 100%),
+        linear-gradient(to bottom, rgba(15,15,31,0.85) 0%, rgba(26,26,46,0.75) 60%, rgba(15,15,31,0.95) 100%),
         url('https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=1800&q=80');
       background-size: cover;
       background-position: center 30%;
@@ -213,7 +234,7 @@
       left: calc(50% + 40px);
       width: calc(100% - 80px);
       height: 2px;
-      background: linear-gradient(to right, #c9a84c, transparent);
+      background: linear-gradient(to right, #E8B04C, transparent);
     }
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(24px); }
@@ -226,7 +247,7 @@
 
     /* Lang toggle */
     .lang-btn { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; }
-    .lang-btn.active { color: #c9a84c; border-color: rgba(201,168,76,0.6); }
+    .lang-btn.active { color: #E8B04C; border-color: rgba(232,176,76,0.6); }
   </style>
 </head>
 
@@ -235,14 +256,15 @@
   <!-- ─── NAV ─────────────────────────────────────────────────────────────── -->
   <nav class="fixed top-0 inset-x-0 z-50 bg-navy/95 backdrop-blur border-b border-white/10">
     <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3.5 group">
-        <img src="logo2.png" alt="Challengers Ranking" class="h-11 w-11 rounded-full object-cover ring-2 ring-gold/40 group-hover:ring-gold/70 shadow-lg shadow-black/30 transition-all duration-300" />
-        <div class="hidden sm:flex flex-col leading-none">
-          <span class="font-serif text-white font-bold text-[1.15rem] tracking-tight leading-none">Challengers <span class="text-gold">Ranking</span></span>
-          <span class="text-white/35 text-[9px] font-sans font-medium tracking-[0.28em] uppercase mt-[5px]"
-                data-en="Tennis Ladder Software"
-                data-es="Software de Ranking de Tenis">Tennis Ladder Software</span>
-        </div>
+      <a href="#" class="flex items-center gap-3.5 group" aria-label="Challengers Ranking">
+        <!-- Brand v2: lockup horizontal blanco directo (incluye badge + wordmark).
+             Reemplaza el logo2.png + texto inline anterior. -->
+        <img src="brand-kit/lockup-horizontal-white.svg"
+             alt="Challengers Ranking"
+             class="h-9 w-auto group-hover:opacity-90 transition-opacity" />
+        <span class="hidden sm:inline text-white/35 text-[9px] font-sans font-medium tracking-[0.28em] uppercase ml-2"
+              data-en="Ladder Software"
+              data-es="Software de Ranking">Ladder Software</span>
       </a>
       <div class="flex items-center gap-3">
         <!-- Language toggle -->
@@ -261,7 +283,7 @@
            class="text-white/70 hover:text-white text-sm font-medium transition hidden sm:block"
            data-en="Sign in" data-es="Iniciar sesión">Sign in</a>
         <a href="https://app.challengersranking.online/signup"
-           class="bg-gold hover:bg-gold-light text-navy font-bold text-sm px-5 py-2.5 rounded-full transition"
+           class="bg-terracotta hover:bg-terracotta-hover text-white font-bold text-sm px-5 py-2.5 rounded-full transition shadow-md"
            data-en="Start free" data-es="Empezá gratis">Start free</a>
       </div>
     </div>
@@ -270,45 +292,43 @@
   <!-- ─── HERO ─────────────────────────────────────────────────────────────── -->
   <section class="hero-bg min-h-screen flex items-start sm:items-center justify-center text-center px-6 pt-28 sm:pt-16">
     <div class="max-w-4xl mx-auto">
-      <img src="logo2.png" alt="Challengers Ranking — Tennis Ladder App" class="h-28 w-28 rounded-full mx-auto mb-8 shadow-2xl fade-up" />
+      <!-- Brand v2: badge orange grande del nuevo brand kit -->
+      <img src="brand-kit/png/badge-orange-1024.png"
+           alt="Challengers Ranking"
+           class="h-28 w-28 mx-auto mb-8 fade-up drop-shadow-[0_8px_24px_rgba(200,69,28,0.4)]" />
 
-      <!-- Social proof badge -->
-      <div class="inline-block bg-white/8 border border-gold/30 rounded-full px-4 py-1.5 mb-6 fade-up text-gold text-xs font-semibold tracking-wide"
-           data-en="🎾 Match activity tripled in 2 months · Real club, real numbers"
-           data-es="🎾 Triplicamos los partidos jugados en 2 meses · Con un club real">
-        🎾 Match activity tripled in 2 months · Real club, real numbers
+      <!-- Eyebrow / target audience (brand v2 — terracotta sobre dark) -->
+      <div class="inline-block bg-terracotta/15 border border-terracotta/40 rounded-full px-4 py-1.5 mb-6 fade-up text-terracotta text-xs font-bold tracking-[0.15em] uppercase"
+           data-en="For tennis · padel · pickleball · squash clubs"
+           data-es="Para clubes de tenis · pádel · pickleball · squash">
+        For tennis · padel · pickleball · squash clubs
       </div>
 
       <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl text-white font-bold leading-tight mb-6 fade-up fade-up-delay-1"
-          data-en="Your club deserves<br />a <span class='text-gold'>live ladder ranking.</span>"
-          data-es="Tu club merece<br />un <span class='text-gold'>ranking en vivo.</span>">
-        Your club deserves<br />a <span class="text-gold">live ladder ranking.</span>
+          data-en="Activate your club's ladder.<br /><span class='text-gold'>In 24 hours.</span>"
+          data-es="Activá el ranking de tu club.<br /><span class='text-gold'>En 24 horas.</span>">
+        Activate your club's ladder.<br /><span class="text-gold">In 24 hours.</span>
       </h1>
       <p class="text-white/80 text-lg sm:text-xl max-w-2xl mx-auto mb-4 fade-up fade-up-delay-2"
-         data-en="Replace the locker-room whiteboard with a live ranking your members open every day. Automated challenges, real-time standings and a community feed — built to turn 'who can I play?' into 'I've got three challenges lined up.'"
-         data-es="Cambiá la pizarra del vestuario por un ranking que tus socios revisan todos los días. Desafíos automáticos, posiciones en tiempo real y feed comunitario — pensado para que el '¿con quién puedo jugar?' se convierta en 'tengo tres desafíos pendientes de jugar.'">
-        Replace the locker-room whiteboard with a live ranking your members open every day. Automated challenges, real-time standings and a community feed — built to turn 'who can I play?' into 'I've got three challenges lined up.'
+         data-en="48-hour challenge windows, community feed, multi-sport. No App Store fees. Your members already know how to use it."
+         data-es="Desafíos con ventana de 48 hs, tribuna comunitaria, multi-deporte. Sin App Store fees. Tus socios ya saben usarla.">
+        48-hour challenge windows, community feed, multi-sport. No App Store fees. Your members already know how to use it.
       </p>
-      <p class="text-white/45 text-xs sm:text-sm mb-10 fade-up fade-up-delay-2 tracking-wide"
-         data-en="Works for tennis · padel · pickleball · squash"
-         data-es="Funciona para tenis · pádel · pickleball · squash">
-        Works for tennis · padel · pickleball · squash
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center fade-up fade-up-delay-3">
+      <div class="flex flex-col sm:flex-row gap-4 justify-center fade-up fade-up-delay-3 mt-8">
         <a href="https://app.challengersranking.online/signup"
-           class="bg-gold hover:bg-gold-light text-navy font-bold text-base px-8 py-4 rounded-full transition shadow-lg"
-           data-en="Start free trial →" data-es="Empezá gratis →">
-          Start free trial →
+           class="bg-terracotta hover:bg-terracotta-hover text-white font-bold text-base px-8 py-4 rounded-full transition shadow-lg shadow-terracotta/30"
+           data-en="Try it free →" data-es="Probar gratis →">
+          Try it free →
         </a>
-        <a href="#demo" class="border border-white/40 hover:border-white text-white font-semibold text-base px-8 py-4 rounded-full transition"
-           data-en="Request a Demo" data-es="Pedir una Demo">
-          Request a Demo
+        <a href="#demo" class="border-2 border-white/40 hover:border-white hover:bg-white/5 text-white font-semibold text-base px-8 py-4 rounded-full transition"
+           data-en="See live demo" data-es="Ver demo en vivo">
+          See live demo
         </a>
       </div>
-      <p class="text-white/40 text-sm mt-8 fade-up fade-up-delay-3"
-         data-en="30 days free · 10 players · No card required"
-         data-es="30 días gratis · 10 jugadores · Sin tarjeta">
-        30 days free · 10 players · No card required
+      <p class="text-white/50 text-sm mt-8 fade-up fade-up-delay-3"
+         data-en="🎾 Live at TCA · 65 active players in week one"
+         data-es="🎾 En uso en TCA · 65 jugadores activos en la primera semana">
+        🎾 Live at TCA · 65 active players in week one
       </p>
     </div>
   </section>
@@ -1129,7 +1149,9 @@
   <!-- ─── DEMO CTA ───────────────────────────────────────────────────────────── -->
   <section id="demo" class="py-24 px-6 bg-navy">
     <div class="max-w-2xl mx-auto text-center">
-      <img src="logo2.png" alt="Logo" class="h-20 w-20 rounded-full mx-auto mb-8 shadow-xl" />
+      <img src="brand-kit/png/badge-orange-1024.png"
+           alt="Challengers Ranking"
+           class="h-20 w-20 mx-auto mb-8 drop-shadow-[0_8px_24px_rgba(200,69,28,0.4)]" />
       <h2 class="font-serif text-4xl sm:text-5xl text-white font-bold mb-4"
           data-en="Ready to energize your club?" data-es="¿Querés más partidos, más comunidad y más participación en tu club?">Ready to energize your club?</h2>
       <p class="text-white/60 mb-10"
@@ -1213,8 +1235,10 @@
   <footer class="bg-navy-dark py-10 px-6 border-t border-white/10">
     <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-3">
-        <img src="logo2.png" alt="Logo" class="h-8 w-8 rounded-full" />
-        <span class="text-white/50 text-sm">Challengers Ranking © 2026</span>
+        <img src="brand-kit/lockup-horizontal-white.svg"
+             alt="Challengers Ranking"
+             class="h-7 w-auto opacity-70" />
+        <span class="text-white/40 text-sm">© 2026</span>
       </div>
       <div class="flex gap-6 text-white/40 text-sm flex-wrap justify-center">
         <a href="#features" class="hover:text-white transition"

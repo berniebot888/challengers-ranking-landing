@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Challengers Ranking — Brand Kit</title>
+<style>
+  :root {
+    --orange: #C8451C;
+    --navy: #1A1A2E;
+    --cream: #FAF7F2;
+    --gold: #E8B04C;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    line-height: 1.55;
+  }
+  .hero {
+    background: var(--navy);
+    color: var(--cream);
+    padding: 80px 60px;
+    text-align: center;
+  }
+  .hero h1 { font-size: 56px; font-weight: 800; letter-spacing: -2px; }
+  .hero .sub { font-size: 18px; color: rgba(250, 247, 242, 0.7); margin-top: 12px; }
+  .hero .badge-display { width: 200px; height: 200px; margin: 30px auto 20px; }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 60px 40px; }
+  h2 { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 8px; }
+  .section-sub { color: #666; margin-bottom: 32px; max-width: 700px; }
+  .section { margin-bottom: 80px; }
+  .section-tag {
+    display: inline-block;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 8px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .grid.wide {
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  }
+  .grid.full {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+  }
+  .card .canvas {
+    background: var(--cream);
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 240px;
+  }
+  .card .canvas.dark { background: var(--navy); }
+  .card .canvas.checkered {
+    background-image: linear-gradient(45deg, #eee 25%, transparent 25%), linear-gradient(-45deg, #eee 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #eee 75%), linear-gradient(-45deg, transparent 75%, #eee 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    background-color: white;
+  }
+  .card svg { max-width: 100%; max-height: 220px; height: auto; }
+  .card .label {
+    padding: 16px 20px;
+    border-top: 1px solid #f0f0f0;
+  }
+  .card .label .name { font-weight: 700; font-size: 15px; }
+  .card .label .desc { font-size: 13px; color: #666; margin-top: 2px; }
+  .card .label .files { font-size: 12px; color: #999; margin-top: 6px; font-family: "SF Mono", Menlo, monospace; }
+
+  .palette-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .swatch {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .swatch-color { height: 130px; }
+  .swatch-info { padding: 16px 20px; }
+  .swatch-info .name { font-weight: 700; }
+  .swatch-info code { font-size: 12px; color: #999; font-family: "SF Mono", Menlo, monospace; }
+  .swatch-info .use { font-size: 12px; color: #666; margin-top: 4px; }
+
+  .type-spec {
+    background: white;
+    border-radius: 14px;
+    padding: 40px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .type-spec .specimen { font-size: 84px; font-weight: 800; letter-spacing: -3px; color: var(--navy); line-height: 1; }
+  .type-spec .specimen-2 { font-size: 28px; font-weight: 500; letter-spacing: 14px; color: var(--orange); margin-top: 4px; }
+  .type-spec table { margin-top: 24px; font-size: 14px; width: 100%; }
+  .type-spec td { padding: 6px 16px 6px 0; color: #555; }
+  .type-spec td:first-child { font-weight: 600; color: var(--navy); width: 200px; }
+
+  .usage-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .usage {
+    background: white;
+    border-radius: 14px;
+    padding: 28px;
+  }
+  .usage h4 { font-size: 16px; margin-bottom: 12px; }
+  .usage ul { list-style: none; }
+  .usage li { padding: 6px 0; font-size: 14px; color: #444; padding-left: 24px; position: relative; }
+  .usage li::before { position: absolute; left: 0; }
+  .usage.do li::before { content: "✓"; color: #2a8a2a; font-weight: 700; }
+  .usage.dont li::before { content: "✕"; color: var(--orange); font-weight: 700; }
+
+  .file-list {
+    background: white;
+    border-radius: 14px;
+    padding: 28px 32px;
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 13px;
+    line-height: 1.9;
+  }
+  .file-list .folder { font-weight: 700; color: var(--orange); margin-top: 10px; }
+  .file-list .file { color: #555; padding-left: 20px; }
+  .file-list a { color: inherit; text-decoration: none; }
+  .file-list a:hover { text-decoration: underline; }
+
+  @media (max-width: 720px) {
+    .hero { padding: 50px 30px; }
+    .hero h1 { font-size: 38px; }
+    .container { padding: 40px 20px; }
+    .usage-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="badge-display">
+    <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="200" cy="200" r="190" fill="#C8451C"/>
+      <g fill="#FAF7F2">
+        <rect x="101" y="240" width="42" height="70" rx="5"/>
+        <rect x="153" y="205" width="42" height="105" rx="5"/>
+        <rect x="205" y="165" width="42" height="145" rx="5"/>
+        <rect x="257" y="120" width="42" height="190" rx="5"/>
+      </g>
+      <circle cx="278" cy="92" r="22" fill="#FAF7F2"/>
+    </svg>
+  </div>
+  <h1>Challengers Ranking — Brand Kit</h1>
+  <p class="sub">Sistema visual completo: badge, marca pelada, lockups, app icon, wordmark y assets sociales.</p>
+</header>
+
+<div class="container">
+
+  <!-- ============== PRIMARY BADGE ============== -->
+  <div class="section">
+    <span class="section-tag">01 — Primary Mark</span>
+    <h2>Badge circular</h2>
+    <p class="section-sub">El identificador principal. Úsalo para social, swag, sticker, app icon, y cualquier contexto donde la marca aparezca solita.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="canvas">
+          <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="200" cy="200" r="190" fill="#C8451C"/>
+            <g fill="#FAF7F2">
+              <rect x="101" y="240" width="42" height="70" rx="5"/>
+              <rect x="153" y="205" width="42" height="105" rx="5"/>
+              <rect x="205" y="165" width="42" height="145" rx="5"/>
+              <rect x="257" y="120" width="42" height="190" rx="5"/>
+            </g>
+            <circle cx="278" cy="92" r="22" fill="#FAF7F2"/>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">Badge orange (primary)</div>
+          <div class="desc">Versión principal. Fondo terracotta, marca crema.</div>
+          <div class="files">badge-orange.svg / .png</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="canvas">
+          <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="200" cy="200" r="190" fill="#C8451C"/>
+            <g fill="#FAF7F2">
+              <rect x="101" y="220" width="42" height="60" rx="5"/>
+              <rect x="153" y="190" width="42" height="90" rx="5"/>
+              <rect x="205" y="155" width="42" height="125" rx="5"/>
+              <rect x="257" y="115" width="42" height="165" rx="5"/>
+            </g>
+            <circle cx="278" cy="92" r="20" fill="#FAF7F2"/>
+            <text x="200" y="335" font-family="Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="30" fill="#FAF7F2" text-anchor="middle" letter-spacing="2">CHALLENGERS</text>
+            <text x="200" y="362" font-family="Helvetica Neue, Arial, sans-serif" font-weight="500" font-size="16" fill="#FAF7F2" text-anchor="middle" letter-spacing="6">RANKING</text>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">Badge orange + wordmark</div>
+          <div class="desc">Para uso autónomo: sticker, swag, social profile.</div>
+          <div class="files">badge-orange-with-text.svg / .png</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="canvas dark">
+          <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="200" cy="200" r="190" fill="#1A1A2E"/>
+            <g fill="#C8451C">
+              <rect x="101" y="240" width="42" height="70" rx="5"/>
+              <rect x="153" y="205" width="42" height="105" rx="5"/>
+              <rect x="205" y="165" width="42" height="145" rx="5"/>
+              <rect x="257" y="120" width="42" height="190" rx="5"/>
+            </g>
+            <circle cx="278" cy="92" r="22" fill="#C8451C"/>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">Badge navy (premium)</div>
+          <div class="desc">Variante elegante para enterprise / internacional.</div>
+          <div class="files">badge-navy.svg / .png</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="canvas">
+          <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="200" cy="200" r="190" fill="#FAF7F2"/>
+            <circle cx="200" cy="200" r="190" fill="none" stroke="#C8451C" stroke-width="4"/>
+            <g fill="#C8451C">
+              <rect x="101" y="240" width="42" height="70" rx="5"/>
+              <rect x="153" y="205" width="42" height="105" rx="5"/>
+              <rect x="205" y="165" width="42" height="145" rx="5"/>
+              <rect x="257" y="120" width="42" height="190" rx="5"/>
+            </g>
+            <circle cx="278" cy="92" r="22" fill="#C8451C"/>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">Badge white (inverted)</div>
+          <div class="desc">Para fondos oscuros o impresión sobre color.</div>
+          <div class="files">badge-white.svg / .png</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="canvas dark">
+          <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="200" cy="200" r="190" fill="#1A1A2E"/>
+            <g fill="#FAF7F2">
+              <rect x="101" y="240" width="42" height="70" rx="5"/>
+              <rect x="153" y="205" width="42" height="105" rx="5"/>
+              <rect x="205" y="165" width="42" height="145" rx="5"/>
+              <rect x="257" y="120" width="42" height="190" rx="5"/>
+            </g>
+            <circle cx="278" cy="92" r="22" fill="#FAF7F2"/>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">Badge mono dark</div>
+          <div class="desc">Cuando el naranja no encaja (B&W, contextos formales).</div>
+          <div class="files">badge-mono-dark.svg / .png</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== APP ICON ============== -->
+  <div class="section">
+    <span class="section-tag">02 — App icon</span>
+    <h2>Squircle iOS / Android / PWA</h2>
+    <p class="section-sub">Misma marca con esquinas redondeadas estilo iOS. Es lo que se ve cuando un socio instala la PWA en el home screen.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="canvas">
+          <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="400" height="400" rx="88" fill="#C8451C"/>
+            <g fill="#FAF7F2">
+              <rect x="101" y="240" width="42" height="70" rx="5"/>
+              <rect x="153" y="205" width="42" height="105" rx="5"/>
+              <rect x="205" y="165" width="42" height="145" rx="5"/>
+              <rect x="257" y="120" width="42" height="190" rx="5"/>
+            </g>
+            <circle cx="278" cy="92" r="22" fill="#FAF7F2"/>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">App icon orange</div>
+          <div class="desc">Icono primario PWA (tamaños 16/32/64/128/256/512/1024 px en /png/).</div>
+          <div class="files">icon-app-orange.svg + 7 PNG sizes</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="canvas dark">
+          <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="400" height="400" rx="88" fill="#1A1A2E"/>
+            <g fill="#C8451C">
+              <rect x="101" y="240" width="42" height="70" rx="5"/>
+              <rect x="153" y="205" width="42" height="105" rx="5"/>
+              <rect x="205" y="165" width="42" height="145" rx="5"/>
+              <rect x="257" y="120" width="42" height="190" rx="5"/>
+            </g>
+            <circle cx="278" cy="92" r="22" fill="#C8451C"/>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">App icon navy</div>
+          <div class="desc">Variante alternativa para dark mode iOS.</div>
+          <div class="files">icon-app-navy.svg / .png</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="canvas">
+          <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="400" height="400" rx="60" fill="#C8451C"/>
+            <g fill="#FAF7F2">
+              <rect x="101" y="240" width="42" height="70" rx="5"/>
+              <rect x="153" y="205" width="42" height="105" rx="5"/>
+              <rect x="205" y="165" width="42" height="145" rx="5"/>
+              <rect x="257" y="120" width="42" height="190" rx="5"/>
+            </g>
+            <circle cx="278" cy="92" r="22" fill="#FAF7F2"/>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">Favicon</div>
+          <div class="desc">Para la pestaña del browser (radius más chico).</div>
+          <div class="files">favicon.svg</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== BARE MARK ============== -->
+  <div class="section">
+    <span class="section-tag">03 — Bare mark</span>
+    <h2>Marca pelada (sin contenedor)</h2>
+    <p class="section-sub">Las barras y la pelota sin el círculo. Útil cuando ya hay un fondo de color, en headers chiquitos, watermarks, o cuando querés que la marca "respire".</p>
+    <div class="grid">
+      <div class="card">
+        <div class="canvas">
+          <svg viewBox="91 60 218 260" xmlns="http://www.w3.org/2000/svg">
+            <g fill="#C8451C">
+              <rect x="101" y="240" width="42" height="70" rx="5"/>
+              <rect x="153" y="205" width="42" height="105" rx="5"/>
+              <rect x="205" y="165" width="42" height="145" rx="5"/>
+              <rect x="257" y="120" width="42" height="190" rx="5"/>
+            </g>
+            <circle cx="278" cy="92" r="22" fill="#C8451C"/>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">Mark orange</div>
+          <div class="files">mark-orange.svg / .png</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="canvas dark">
+          <svg viewBox="91 60 218 260" xmlns="http://www.w3.org/2000/svg">
+            <g fill="#FAF7F2">
+              <rect x="101" y="240" width="42" height="70" rx="5"/>
+              <rect x="153" y="205" width="42" height="105" rx="5"/>
+              <rect x="205" y="165" width="42" height="145" rx="5"/>
+              <rect x="257" y="120" width="42" height="190" rx="5"/>
+            </g>
+            <circle cx="278" cy="92" r="22" fill="#FAF7F2"/>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">Mark white</div>
+          <div class="files">mark-white.svg / .png</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="canvas">
+          <svg viewBox="91 60 218 260" xmlns="http://www.w3.org/2000/svg">
+            <g fill="#1A1A2E">
+              <rect x="101" y="240" width="42" height="70" rx="5"/>
+              <rect x="153" y="205" width="42" height="105" rx="5"/>
+              <rect x="205" y="165" width="42" height="145" rx="5"/>
+              <rect x="257" y="120" width="42" height="190" rx="5"/>
+            </g>
+            <circle cx="278" cy="92" r="22" fill="#1A1A2E"/>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">Mark navy</div>
+          <div class="files">mark-navy.svg / .png</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== HORIZONTAL LOCKUP ============== -->
+  <div class="section">
+    <span class="section-tag">04 — Lockup horizontal</span>
+    <h2>Marca + nombre, en línea</h2>
+    <p class="section-sub">El formato más versátil. Va en el header de la landing, firma de email, presentaciones, letterhead.</p>
+    <div class="grid wide">
+      <div class="card">
+        <div class="canvas">
+          <svg viewBox="0 0 1100 320" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="160" cy="160" r="140" fill="#C8451C"/>
+            <g fill="#FAF7F2" transform="translate(60, 60) scale(0.5)">
+              <rect x="101" y="240" width="42" height="70" rx="5"/>
+              <rect x="153" y="205" width="42" height="105" rx="5"/>
+              <rect x="205" y="165" width="42" height="145" rx="5"/>
+              <rect x="257" y="120" width="42" height="190" rx="5"/>
+            </g>
+            <circle cx="199" cy="106" r="11" fill="#FAF7F2"/>
+            <text x="340" y="170" font-family="Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="110" fill="#1A1A2E" letter-spacing="-4">challengers</text>
+            <text x="346" y="225" font-family="Helvetica Neue, Arial, sans-serif" font-weight="500" font-size="38" fill="#C8451C" letter-spacing="18">RANKING</text>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">Horizontal color (default)</div>
+          <div class="desc">Para landing, email, deck, letterhead — fondos claros.</div>
+          <div class="files">lockup-horizontal-color.svg / .png</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="canvas dark">
+          <svg viewBox="0 0 1100 320" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="160" cy="160" r="140" fill="#FAF7F2"/>
+            <g fill="#C8451C" transform="translate(60, 60) scale(0.5)">
+              <rect x="101" y="240" width="42" height="70" rx="5"/>
+              <rect x="153" y="205" width="42" height="105" rx="5"/>
+              <rect x="205" y="165" width="42" height="145" rx="5"/>
+              <rect x="257" y="120" width="42" height="190" rx="5"/>
+            </g>
+            <circle cx="199" cy="106" r="11" fill="#C8451C"/>
+            <text x="340" y="170" font-family="Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="110" fill="#FAF7F2" letter-spacing="-4">challengers</text>
+            <text x="346" y="225" font-family="Helvetica Neue, Arial, sans-serif" font-weight="500" font-size="38" fill="#C8451C" letter-spacing="18">RANKING</text>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">Horizontal white</div>
+          <div class="desc">Para fondos oscuros (dark mode, video, presentación).</div>
+          <div class="files">lockup-horizontal-white.svg / .png</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="canvas">
+          <svg viewBox="0 0 1100 320" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="160" cy="160" r="140" fill="#1A1A2E"/>
+            <g fill="#FAF7F2" transform="translate(60, 60) scale(0.5)">
+              <rect x="101" y="240" width="42" height="70" rx="5"/>
+              <rect x="153" y="205" width="42" height="105" rx="5"/>
+              <rect x="205" y="165" width="42" height="145" rx="5"/>
+              <rect x="257" y="120" width="42" height="190" rx="5"/>
+            </g>
+            <circle cx="199" cy="106" r="11" fill="#FAF7F2"/>
+            <text x="340" y="170" font-family="Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="110" fill="#1A1A2E" letter-spacing="-4">challengers</text>
+            <text x="346" y="225" font-family="Helvetica Neue, Arial, sans-serif" font-weight="500" font-size="38" fill="#1A1A2E" letter-spacing="18">RANKING</text>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">Horizontal mono dark</div>
+          <div class="desc">Para B&W, fax, contextos formales / legales.</div>
+          <div class="files">lockup-horizontal-mono-dark.svg / .png</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== VERTICAL LOCKUP ============== -->
+  <div class="section">
+    <span class="section-tag">05 — Lockup vertical</span>
+    <h2>Marca arriba, nombre abajo</h2>
+    <p class="section-sub">Para layouts centrados: portadas de deck, square ads, tarjetas, posters.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="canvas">
+          <svg viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="250" cy="200" r="180" fill="#C8451C"/>
+            <g fill="#FAF7F2" transform="translate(155, 105) scale(0.6)">
+              <rect x="101" y="240" width="42" height="70" rx="5"/>
+              <rect x="153" y="205" width="42" height="105" rx="5"/>
+              <rect x="205" y="165" width="42" height="145" rx="5"/>
+              <rect x="257" y="120" width="42" height="190" rx="5"/>
+            </g>
+            <circle cx="322" cy="160" r="13" fill="#FAF7F2"/>
+            <text x="250" y="475" font-family="Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="80" fill="#1A1A2E" text-anchor="middle" letter-spacing="-3">challengers</text>
+            <text x="250" y="525" font-family="Helvetica Neue, Arial, sans-serif" font-weight="500" font-size="28" fill="#C8451C" text-anchor="middle" letter-spacing="14">RANKING</text>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">Vertical color</div>
+          <div class="files">lockup-vertical-color.svg / .png</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="canvas dark">
+          <svg viewBox="0 0 500 600" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="250" cy="200" r="180" fill="#FAF7F2"/>
+            <g fill="#C8451C" transform="translate(155, 105) scale(0.6)">
+              <rect x="101" y="240" width="42" height="70" rx="5"/>
+              <rect x="153" y="205" width="42" height="105" rx="5"/>
+              <rect x="205" y="165" width="42" height="145" rx="5"/>
+              <rect x="257" y="120" width="42" height="190" rx="5"/>
+            </g>
+            <circle cx="322" cy="160" r="13" fill="#C8451C"/>
+            <text x="250" y="475" font-family="Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="80" fill="#FAF7F2" text-anchor="middle" letter-spacing="-3">challengers</text>
+            <text x="250" y="525" font-family="Helvetica Neue, Arial, sans-serif" font-weight="500" font-size="28" fill="#C8451C" text-anchor="middle" letter-spacing="14">RANKING</text>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">Vertical white</div>
+          <div class="files">lockup-vertical-white.svg / .png</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== WORDMARK ============== -->
+  <div class="section">
+    <span class="section-tag">06 — Wordmark</span>
+    <h2>Solo el nombre</h2>
+    <p class="section-sub">Cuando el contexto ya tiene la marca (ej. dentro del producto). Útil para email signatures formales y firmas.</p>
+    <div class="grid wide">
+      <div class="card">
+        <div class="canvas">
+          <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+            <text x="40" y="120" font-family="Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="110" fill="#1A1A2E" letter-spacing="-4">challengers</text>
+            <text x="46" y="175" font-family="Helvetica Neue, Arial, sans-serif" font-weight="500" font-size="38" fill="#C8451C" letter-spacing="18">RANKING</text>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">Wordmark color</div>
+          <div class="files">wordmark-color.svg / .png</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="canvas dark">
+          <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+            <text x="40" y="120" font-family="Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="110" fill="#FAF7F2" letter-spacing="-4">challengers</text>
+            <text x="46" y="175" font-family="Helvetica Neue, Arial, sans-serif" font-weight="500" font-size="38" fill="#FAF7F2" letter-spacing="18">RANKING</text>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">Wordmark white</div>
+          <div class="files">wordmark-white.svg / .png</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== LETTERHEAD ============== -->
+  <div class="section">
+    <span class="section-tag">07 — Letterhead</span>
+    <h2>Cabecera para cartas y documentos</h2>
+    <p class="section-sub">Header compacto con dominio a la derecha y línea separadora. Pegalo arriba de cualquier carta, contrato, propuesta o factura.</p>
+    <div class="grid full">
+      <div class="card">
+        <div class="canvas" style="padding: 60px;">
+          <svg viewBox="0 0 1400 180" xmlns="http://www.w3.org/2000/svg" style="max-height: 160px;">
+            <circle cx="90" cy="90" r="70" fill="#C8451C"/>
+            <g fill="#FAF7F2" transform="translate(43, 53) scale(0.235)">
+              <rect x="101" y="240" width="42" height="70" rx="5"/>
+              <rect x="153" y="205" width="42" height="105" rx="5"/>
+              <rect x="205" y="165" width="42" height="145" rx="5"/>
+              <rect x="257" y="120" width="42" height="190" rx="5"/>
+            </g>
+            <circle cx="108" cy="75" r="5" fill="#FAF7F2"/>
+            <text x="200" y="95" font-family="Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="56" fill="#1A1A2E" letter-spacing="-2">challengers</text>
+            <text x="203" y="125" font-family="Helvetica Neue, Arial, sans-serif" font-weight="500" font-size="20" fill="#C8451C" letter-spacing="9">RANKING</text>
+            <text x="1370" y="100" font-family="Helvetica Neue, Arial, sans-serif" font-weight="400" font-size="18" fill="#1A1A2E" text-anchor="end">challengersranking.online</text>
+            <line x1="40" y1="160" x2="1360" y2="160" stroke="#C8451C" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">Letterhead header</div>
+          <div class="desc">Cabecera lista para cartas, propuestas, facturas. Editá el dominio si querés.</div>
+          <div class="files">letterhead-header.svg / .png</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== SOCIAL ============== -->
+  <div class="section">
+    <span class="section-tag">08 — Social</span>
+    <h2>Assets para redes</h2>
+    <p class="section-sub">Square 1080×1080 para Instagram / posts cuadrados, y banner 1200×630 para Open Graph (LinkedIn, Twitter, og:image en la landing).</p>
+    <div class="grid wide">
+      <div class="card">
+        <div class="canvas" style="padding: 0; min-height: 320px;">
+          <svg viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-height: 320px;">
+            <rect width="1080" height="1080" fill="#C8451C"/>
+            <g fill="#FAF7F2" transform="translate(390, 280) scale(0.75)">
+              <rect x="101" y="240" width="42" height="70" rx="5"/>
+              <rect x="153" y="205" width="42" height="105" rx="5"/>
+              <rect x="205" y="165" width="42" height="145" rx="5"/>
+              <rect x="257" y="120" width="42" height="190" rx="5"/>
+            </g>
+            <circle cx="598.5" cy="349" r="16.5" fill="#FAF7F2"/>
+            <text x="540" y="780" font-family="Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="100" fill="#FAF7F2" text-anchor="middle" letter-spacing="-3">challengers</text>
+            <text x="540" y="838" font-family="Helvetica Neue, Arial, sans-serif" font-weight="500" font-size="36" fill="#FAF7F2" text-anchor="middle" letter-spacing="18">RANKING</text>
+            <text x="540" y="1010" font-family="Helvetica Neue, Arial, sans-serif" font-weight="400" font-size="22" fill="#FAF7F2" text-anchor="middle" opacity="0.85">challengersranking.online</text>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">Social square 1080×1080</div>
+          <div class="desc">Instagram post, LinkedIn post cuadrado, perfil.</div>
+          <div class="files">social-square.svg / .png</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="canvas" style="padding: 0; min-height: 200px;">
+          <svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-height: 320px;">
+            <rect width="1200" height="630" fill="#FAF7F2"/>
+            <circle cx="270" cy="315" r="180" fill="#C8451C"/>
+            <g fill="#FAF7F2" transform="translate(173, 220) scale(0.6)">
+              <rect x="101" y="240" width="42" height="70" rx="5"/>
+              <rect x="153" y="205" width="42" height="105" rx="5"/>
+              <rect x="205" y="165" width="42" height="145" rx="5"/>
+              <rect x="257" y="120" width="42" height="190" rx="5"/>
+            </g>
+            <circle cx="339.8" cy="275.2" r="13.2" fill="#FAF7F2"/>
+            <text x="510" y="305" font-family="Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="92" fill="#1A1A2E" letter-spacing="-3">challengers</text>
+            <text x="514" y="350" font-family="Helvetica Neue, Arial, sans-serif" font-weight="500" font-size="32" fill="#C8451C" letter-spacing="14">RANKING</text>
+            <text x="510" y="420" font-family="Helvetica Neue, Arial, sans-serif" font-weight="500" font-size="26" fill="#1A1A2E" opacity="0.7">Ranking de escalera en vivo para tu club.</text>
+          </svg>
+        </div>
+        <div class="label">
+          <div class="name">Open Graph banner 1200×630</div>
+          <div class="desc">Para og:image en la landing, link previews de WhatsApp, LinkedIn, Twitter.</div>
+          <div class="files">social-banner-og.svg / .png</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== COLORS ============== -->
+  <div class="section">
+    <span class="section-tag">09 — Colors</span>
+    <h2>Paleta</h2>
+    <p class="section-sub">4 colores. No más. Disciplina visual = marca reconocible.</p>
+    <div class="palette-grid">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#C8451C"></div>
+        <div class="swatch-info">
+          <div class="name">Terracotta</div>
+          <code>#C8451C / RGB 200,69,28</code>
+          <div class="use">Primario. CTAs, badge, acentos.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#1A1A2E"></div>
+        <div class="swatch-info">
+          <div class="name">Court Navy</div>
+          <code>#1A1A2E / RGB 26,26,46</code>
+          <div class="use">Texto, fondos premium.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#FAF7F2; border:1px solid #eee;"></div>
+        <div class="swatch-info">
+          <div class="name">Cream</div>
+          <code>#FAF7F2 / RGB 250,247,242</code>
+          <div class="use">Fondos, marca sobre orange.</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#E8B04C"></div>
+        <div class="swatch-info">
+          <div class="name">Gold accent</div>
+          <code>#E8B04C / RGB 232,176,76</code>
+          <div class="use">Premium tier, top 1, badges especiales.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== TYPOGRAPHY ============== -->
+  <div class="section">
+    <span class="section-tag">10 — Typography</span>
+    <h2>Sistema tipográfico</h2>
+    <p class="section-sub">Para headings y wordmark, Helvetica Neue / Inter (gratis, Google Fonts). Si pasás a producción seria, considerá <strong>Inter</strong> o <strong>Plus Jakarta Sans</strong>.</p>
+    <div class="type-spec">
+      <div class="specimen">challengers</div>
+      <div class="specimen-2">RANKING</div>
+      <table>
+        <tr><td>Wordmark primary</td><td>Helvetica Neue / Inter, ExtraBold (800), tracking -4%, lowercase</td></tr>
+        <tr><td>Wordmark secondary</td><td>Helvetica Neue / Inter, Medium (500), tracking +400, uppercase</td></tr>
+        <tr><td>Headings (H1-H3)</td><td>Inter / Helvetica Neue, ExtraBold (800), tracking -2%</td></tr>
+        <tr><td>Body</td><td>Inter / system-ui, Regular (400), 16-17px, line-height 1.55</td></tr>
+        <tr><td>UI labels</td><td>Inter, Medium (500), 13-14px, tracking +0.5%</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ============== USAGE ============== -->
+  <div class="section">
+    <span class="section-tag">11 — Usage</span>
+    <h2>Reglas de uso</h2>
+    <div class="usage-grid">
+      <div class="usage do">
+        <h4 style="color: #2a8a2a;">Sí</h4>
+        <ul>
+          <li>Mantené espacio libre alrededor del badge igual al diámetro de la pelota</li>
+          <li>Usá la versión white sobre fondos oscuros / fotos</li>
+          <li>Tamaño mínimo del badge: 32px digital, 12mm impreso</li>
+          <li>Para header de landing, usá lockup horizontal a 32-48px de alto</li>
+          <li>Para favicon, usá favicon.svg directamente (los browsers modernos lo soportan)</li>
+        </ul>
+      </div>
+      <div class="usage dont">
+        <h4 style="color: #a04020;">No</h4>
+        <ul>
+          <li>No estires ni distorsiones la marca (siempre proporcional)</li>
+          <li>No cambies los colores fuera de la paleta</li>
+          <li>No agregues sombras, gradientes, o efectos al badge</li>
+          <li>No uses la marca pelada (mark-orange) sobre fondos crema — pierde contraste</li>
+          <li>No combines el badge con otros logos en el mismo "lockup"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<svg viewBox="0 0 1100 320" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="160" cy="160" r="140" fill="#FAF7F2"/>
+  <g fill="#C8451C" transform="translate(60, 60) scale(0.5)">
+    <rect x="101" y="240" width="42" height="70" rx="5"/>
+    <rect x="153" y="205" width="42" height="105" rx="5"/>
+    <rect x="205" y="165" width="42" height="145" rx="5"/>
+    <rect x="257" y="120" width="42" height="190" rx="5"/>
+  </g>
+  <circle cx="199" cy="106" r="11" fill="#C8451C"/>
+  <text x="340" y="170" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="800" font-size="110" fill="#FAF7F2" letter-spacing="-4">challengers</text>
+  <text x="346" y="225" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="500" font-size="38" fill="#C8451C" letter-spacing="18">RANKING</text>
+</svg>
