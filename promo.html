@@ -9,7 +9,7 @@
 
     html, body {
       width: 100%; height: 100%;
-      background: #050d1a;
+      background: #0F0F1F;
       overflow: hidden;
       font-family: 'Inter', sans-serif;
       cursor: none;
@@ -23,16 +23,16 @@
       height: 720px;
       position: relative;
       overflow: hidden;
-      background: #050d1a;
+      background: #0F0F1F;
       flex-shrink: 0;
     }
 
     .bg {
       position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse 90% 70% at 15% 60%, rgba(201,168,76,0.05) 0%, transparent 60%),
-        radial-gradient(ellipse 70% 90% at 85% 20%, rgba(11,37,69,0.9) 0%, transparent 60%),
-        linear-gradient(145deg, #050d1a 0%, #0b2545 55%, #071a30 100%);
+        radial-gradient(ellipse 90% 70% at 15% 60%, rgba(232,176,76,0.05) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 90% at 85% 20%, rgba(26,26,46,0.9) 0%, transparent 60%),
+        linear-gradient(145deg, #0F0F1F 0%, #1A1A2E 55%, #0F0F1F 100%);
       z-index: 0;
     }
     .bg::after {
@@ -45,7 +45,7 @@
 
     .topline {
       position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(to right, transparent, #c9a84c 30%, #e8c96a 50%, #c9a84c 70%, transparent);
+      background: linear-gradient(to right, transparent, #E8B04C 30%, #F2C46E 50%, #E8B04C 70%, transparent);
       z-index: 200;
       opacity: 0.7;
     }
@@ -53,7 +53,7 @@
     .progress {
       position: absolute; bottom: 0; left: 0;
       height: 3px;
-      background: linear-gradient(to right, #c9a84c, #e8c96a, #c9a84c);
+      background: linear-gradient(to right, #E8B04C, #F2C46E, #E8B04C);
       animation: progressBar 50s linear forwards;
       z-index: 200;
     }
@@ -101,34 +101,34 @@
     .s8 { animation: showSlideLast 8s ease forwards 42s; }/* Closing */
 
     .display { font-family: 'Playfair Display', serif; }
-    .gold    { color: #c9a84c; }
+    .gold    { color: #E8B04C; }
     .white   { color: #fff; }
     .muted   { color: rgba(255,255,255,0.48); }
-    .label   { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: #c9a84c; }
+    .label   { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: #E8B04C; }
 
     .glow { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
 
     /* ─── Phone mockup ─── */
     .phone {
       width: 198px; height: 400px;
-      background: #0a1a32;
+      background: #1A1A2E;
       border-radius: 36px;
       border: 2px solid rgba(255,255,255,0.10);
       overflow: hidden;
       position: relative;
-      box-shadow: 0 40px 100px rgba(0,0,0,0.75), 0 0 0 1px rgba(201,168,76,0.12), inset 0 1px 0 rgba(255,255,255,0.06);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.75), 0 0 0 1px rgba(232,176,76,0.12), inset 0 1px 0 rgba(255,255,255,0.06);
       flex-shrink: 0;
     }
     .phone-notch {
       position: absolute; top: 0; left: 50%; transform: translateX(-50%);
       width: 72px; height: 22px;
-      background: #0a1a32;
+      background: #1A1A2E;
       border-radius: 0 0 14px 14px;
       z-index: 20;
     }
     .phone-status {
       position: absolute; top: 0; left: 0; right: 0; height: 38px;
-      background: linear-gradient(#0b2545, transparent);
+      background: linear-gradient(#1A1A2E, transparent);
       z-index: 10;
       display: flex; align-items: flex-end; padding: 0 16px 4px; justify-content: space-between;
     }
@@ -141,19 +141,19 @@
       display: flex; flex-direction: column;
     }
     .phone-header {
-      background: #0b2545;
+      background: #1A1A2E;
       padding: 44px 12px 10px;
       border-bottom: 1px solid rgba(255,255,255,0.07);
       flex-shrink: 0;
     }
-    .phone-header p { color: #c9a84c; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-align: center; text-transform: uppercase; }
+    .phone-header p { color: #E8B04C; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-align: center; text-transform: uppercase; }
     .phone-body { flex: 1; padding: 8px; overflow: hidden; display: flex; flex-direction: column; gap: 5px; }
 
     .row { display: flex; align-items: center; gap: 8px; background: white; border-radius: 10px; padding: 8px 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
     .row-dim { background: #f5f5f3; box-shadow: none; }
     .avatar { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 11px; font-weight: 700; flex-shrink: 0; }
     .rank-num { font-size: 13px; font-weight: 800; width: 16px; flex-shrink: 0; }
-    .player-name   { font-size: 11px; font-weight: 700; color: #0b2545; }
+    .player-name   { font-size: 11px; font-weight: 700; color: #1A1A2E; }
     .player-record { font-size: 9px; color: #aaa; }
     .pill { border-radius: 999px; font-size: 9px; font-weight: 700; padding: 3px 8px; }
     .vdivider { width: 1px; background: rgba(255,255,255,0.1); align-self: stretch; }
@@ -170,7 +170,7 @@
     }
     @keyframes swapHighlight {
       0%, 30%   { box-shadow: 0 1px 4px rgba(0,0,0,0.07); background: #f5f5f3; }
-      45%, 60%  { box-shadow: 0 0 0 2px #c9a84c, 0 4px 16px rgba(201,168,76,0.5); background: #fef9e7; transform: scale(1.04); }
+      45%, 60%  { box-shadow: 0 0 0 2px #E8B04C, 0 4px 16px rgba(232,176,76,0.5); background: #fef9e7; transform: scale(1.04); }
       75%, 100% { box-shadow: 0 1px 4px rgba(0,0,0,0.07); background: white; }
     }
     .swap-row-rising  { animation: swapUp 4s ease 11.5s forwards, swapHighlight 4s ease 11.5s forwards; position: relative; z-index: 5; }
@@ -265,20 +265,20 @@
       backdrop-filter: blur(8px);
     }
     .price-card.popular {
-      background: rgba(201,168,76,0.10);
-      border-color: rgba(201,168,76,0.50);
-      box-shadow: 0 0 30px rgba(201,168,76,0.15);
+      background: rgba(232,176,76,0.10);
+      border-color: rgba(232,176,76,0.50);
+      box-shadow: 0 0 30px rgba(232,176,76,0.15);
       position: relative;
     }
     .price-card.popular::before {
       content: 'Most popular';
       position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
-      background: #c9a84c; color: #0b2545;
+      background: #E8B04C; color: #1A1A2E;
       font-size: 8px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase;
       padding: 3px 10px; border-radius: 99px;
       white-space: nowrap;
     }
-    .price-card .name { color: #c9a84c; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+    .price-card .name { color: #E8B04C; font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
     .price-card .amount { color: white; font-family: 'Playfair Display', serif; font-size: 2.4rem; font-weight: 800; line-height: 1; }
     .price-card .amount sub { font-size: 0.7rem; color: rgba(255,255,255,0.5); font-weight: 500; vertical-align: baseline; margin-left: 3px; font-family: 'Inter', sans-serif; }
     .price-card .feature { color: rgba(255,255,255,0.7); font-size: 11px; line-height: 1.5; }
@@ -296,19 +296,20 @@
          SLIDE 1 — Hero: Logo + tagline multi-sport + social proof
     ══════════════════════════════════════════════════════ -->
     <div class="slide s1" style="flex-direction:column;align-items:center;text-align:center;gap:22px;">
-      <div class="glow" style="width:520px;height:520px;background:rgba(201,168,76,0.07);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+      <div class="glow" style="width:520px;height:520px;background:rgba(232,176,76,0.07);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
       <div style="position:relative;width:108px;height:108px;animation:scaleIn 0.7s ease forwards 0.2s;opacity:0;">
-        <div style="position:absolute;inset:-8px;border-radius:50%;border:1.5px solid rgba(201,168,76,0.45);animation:spin 10s linear infinite;"></div>
-        <div style="position:absolute;inset:-16px;border-radius:50%;border:1px solid rgba(201,168,76,0.15);animation:spin 18s linear infinite reverse;"></div>
-        <img src="logo2.png" style="width:100%;height:100%;border-radius:50%;object-fit:cover;box-shadow:0 0 50px rgba(201,168,76,0.25),0 0 0 2px rgba(201,168,76,0.3);" />
+        <div style="position:absolute;inset:-8px;border-radius:50%;border:1.5px solid rgba(232,176,76,0.45);animation:spin 10s linear infinite;"></div>
+        <div style="position:absolute;inset:-16px;border-radius:50%;border:1px solid rgba(232,176,76,0.15);animation:spin 18s linear infinite reverse;"></div>
+        <img src="brand-kit/png/badge-orange-1024.png" style="width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 28px rgba(200,69,28,0.5));" />
       </div>
-      <div style="animation:fadeUp 0.7s ease forwards 0.5s;opacity:0;">
-        <h1 class="display white" style="font-size:3.4rem;letter-spacing:-1.5px;line-height:1.08;">Challengers <span class="gold">Ranking</span></h1>
-        <p class="muted" data-en="Tennis · Padel · Pickleball · Squash" data-es="Tenis · Pádel · Pickleball · Squash" style="font-size:0.78rem;letter-spacing:0.28em;text-transform:uppercase;margin-top:12px;">Tennis · Padel · Pickleball · Squash</p>
+      <div style="animation:fadeUp 0.7s ease forwards 0.5s;opacity:0;text-align:center;">
+        <!-- Wordmark SVG (brand v2) en lugar del h1 Playfair antiguo. -->
+        <img src="brand-kit/wordmark-white.svg" alt="Challengers Ranking" style="height:5rem;width:auto;display:block;margin:0 auto;" />
+        <p class="muted" data-en="Tennis · Padel · Pickleball · Squash" data-es="Tenis · Pádel · Pickleball · Squash" style="font-size:0.78rem;letter-spacing:0.28em;text-transform:uppercase;margin-top:14px;">Tennis · Padel · Pickleball · Squash</p>
       </div>
       <!-- Social proof badge -->
       <div style="margin-top:14px;animation:fadeUp 0.6s ease forwards 1.2s;opacity:0;">
-        <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(201,168,76,0.10);border:1px solid rgba(201,168,76,0.30);border-radius:999px;padding:7px 18px;">
+        <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(232,176,76,0.10);border:1px solid rgba(232,176,76,0.30);border-radius:999px;padding:7px 18px;">
           <span style="font-size:14px;">🎾</span>
           <p class="white" data-en="3× match activity in 2 months" data-es="3× los partidos jugados en 2 meses" style="font-size:0.8rem;font-weight:600;">3× match activity in 2 months</p>
           <span class="muted" style="font-size:0.7rem;">·</span>
@@ -322,7 +323,7 @@
          SLIDE 2 — Problem
     ══════════════════════════════════════════════════════ -->
     <div class="slide s2" style="flex-direction:column;align-items:center;text-align:center;gap:22px;padding:0 80px;">
-      <div class="glow" style="width:600px;height:350px;background:rgba(11,37,69,0.6);top:40%;left:50%;transform:translate(-50%,-50%);"></div>
+      <div class="glow" style="width:600px;height:350px;background:rgba(26,26,46,0.6);top:40%;left:50%;transform:translate(-50%,-50%);"></div>
       <p style="font-size:3.6rem;animation:fadeIn 0.5s ease forwards 5.15s;opacity:0;">📋</p>
       <h2 class="display white" data-en="Your club ranking still lives<br>on a <span class='gold'>whiteboard</span>." data-es="El ranking de tu club todavía vive<br>en una <span class='gold'>pizarra</span>." style="font-size:2.6rem;line-height:1.18;max-width:640px;animation:fadeUp 0.6s ease forwards 5.3s;opacity:0;">
         Your club ranking still lives<br>on a <span class="gold">whiteboard</span>.
@@ -342,7 +343,7 @@
         <h2 class="display white" data-en="Real-time standings.<br><span class='gold'>Watch them move.</span>" data-es="Posiciones en tiempo real.<br><span class='gold'>Mirá cómo cambian.</span>" style="font-size:2.5rem;line-height:1.18;margin-bottom:18px;">Real-time standings.<br><span class="gold">Watch them move.</span></h2>
         <p class="muted" data-en="Rankings update automatically the second a match is reported. Every challenge moves the ladder live — your members see exactly where they stand." data-es="El ranking se actualiza solo el momento que se reporta un partido. Cada desafío mueve la escalera en vivo — tus socios ven exactamente dónde están." style="font-size:1rem;line-height:1.72;">Rankings update automatically the second a match is reported. Every challenge moves the ladder live — your members see exactly where they stand.</p>
         <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;">
-          <span data-en="⚡ Real-time" data-es="⚡ Tiempo real" style="background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.25);border-radius:99px;padding:5px 14px;font-size:11px;font-weight:600;color:#c9a84c;">⚡ Real-time</span>
+          <span data-en="⚡ Real-time" data-es="⚡ Tiempo real" style="background:rgba(232,176,76,0.1);border:1px solid rgba(232,176,76,0.25);border-radius:99px;padding:5px 14px;font-size:11px;font-weight:600;color:#E8B04C;">⚡ Real-time</span>
           <span data-en="📱 Mobile-First" data-es="📱 Mobile-First" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:99px;padding:5px 14px;font-size:11px;font-weight:600;color:rgba(255,255,255,0.6);">📱 Mobile-First</span>
         </div>
       </div>
@@ -354,8 +355,8 @@
           <div class="phone-body">
             <!-- Pos 1 (Juan) — falls to pos 2 -->
             <div class="row swap-row-falling">
-              <span class="rank-num" style="color:#c9a84c;">1</span>
-              <div class="avatar" style="background:#13315c;">J</div>
+              <span class="rank-num" style="color:#E8B04C;">1</span>
+              <div class="avatar" style="background:#3A3A52;">J</div>
               <div style="flex:1;"><p class="player-name">Juan P.</p><p class="player-record">6W · 2L</p></div>
               <span style="font-size:9px;color:#bbb;">—</span>
             </div>
@@ -383,7 +384,7 @@
             <!-- Pos 5 (Carlos) — RISES to pos 1 -->
             <div class="row swap-row-rising">
               <span class="rank-num" style="color:#ccc;">5</span>
-              <div class="avatar" style="background:#0b2545;">C</div>
+              <div class="avatar" style="background:#1A1A2E;">C</div>
               <div style="flex:1;"><p class="player-name">Carlos M.</p><p class="player-record">7W · 1L</p></div>
               <span class="pill" style="background:#dcfce7;color:#16a34a;">▲ won</span>
             </div>
@@ -413,25 +414,25 @@
 
         <!-- Push notification toast — slides in from top, lingers, slides out -->
         <div class="toast">
-          <div class="avatar" style="background:#0b2545;width:24px;height:24px;font-size:9px;">P</div>
+          <div class="avatar" style="background:#1A1A2E;width:24px;height:24px;font-size:9px;">P</div>
           <div style="flex:1;min-width:0;">
-            <p data-en="⚡ New challenge" data-es="⚡ Nuevo desafío" style="font-size:8px;font-weight:800;color:#c9a84c;letter-spacing:0.1em;text-transform:uppercase;">⚡ New challenge</p>
-            <p data-en="Pablo T. challenged you" data-es="Pablo T. te desafió" style="font-size:9px;color:#0b2545;font-weight:600;line-height:1.3;">Pablo T. challenged you</p>
+            <p data-en="⚡ New challenge" data-es="⚡ Nuevo desafío" style="font-size:8px;font-weight:800;color:#E8B04C;letter-spacing:0.1em;text-transform:uppercase;">⚡ New challenge</p>
+            <p data-en="Pablo T. challenged you" data-es="Pablo T. te desafió" style="font-size:9px;color:#1A1A2E;font-weight:600;line-height:1.3;">Pablo T. challenged you</p>
           </div>
         </div>
 
         <div class="phone-inner">
           <div class="phone-header"><p data-en="⚔️ Challenges" data-es="⚔️ Desafíos">⚔️ Challenges</p></div>
           <div class="phone-body">
-            <div style="background:white;border-radius:12px;padding:11px;box-shadow:0 2px 8px rgba(0,0,0,0.09);border-left:3px solid #c9a84c;">
-              <p data-en="⚡ Incoming Challenge" data-es="⚡ Desafío entrante" style="font-size:8px;color:#c9a84c;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:7px;">⚡ Incoming Challenge</p>
+            <div style="background:white;border-radius:12px;padding:11px;box-shadow:0 2px 8px rgba(0,0,0,0.09);border-left:3px solid #E8B04C;">
+              <p data-en="⚡ Incoming Challenge" data-es="⚡ Desafío entrante" style="font-size:8px;color:#E8B04C;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:7px;">⚡ Incoming Challenge</p>
               <div style="display:flex;align-items:center;gap:8px;margin-bottom:9px;">
-                <div class="avatar" style="background:#0b2545;width:28px;height:28px;font-size:11px;">P</div>
-                <div style="flex:1;"><p style="font-size:11px;font-weight:700;color:#0b2545;">Pablo T. <span style="color:#aaa;font-weight:400;">#5</span></p><p data-en="challenged you" data-es="te desafió" style="font-size:9px;color:#bbb;">challenged you</p></div>
+                <div class="avatar" style="background:#1A1A2E;width:28px;height:28px;font-size:11px;">P</div>
+                <div style="flex:1;"><p style="font-size:11px;font-weight:700;color:#1A1A2E;">Pablo T. <span style="color:#aaa;font-weight:400;">#5</span></p><p data-en="challenged you" data-es="te desafió" style="font-size:9px;color:#bbb;">challenged you</p></div>
                 <p data-en="4 days left" data-es="4 días restantes" style="font-size:9px;color:#e57373;font-weight:600;">4 days left</p>
               </div>
               <div style="display:flex;gap:6px;">
-                <button data-en="Accept ✓" data-es="Aceptar ✓" style="flex:1;background:#0b2545;color:white;border:none;border-radius:8px;padding:7px;font-size:10px;font-weight:700;">Accept ✓</button>
+                <button data-en="Accept ✓" data-es="Aceptar ✓" style="flex:1;background:#1A1A2E;color:white;border:none;border-radius:8px;padding:7px;font-size:10px;font-weight:700;">Accept ✓</button>
                 <button data-en="Decline" data-es="Rechazar" style="flex:1;background:#f0f0f0;color:#888;border:none;border-radius:8px;padding:7px;font-size:10px;">Decline</button>
               </div>
             </div>
@@ -439,7 +440,7 @@
               <p data-en="Pending · Sent by you" data-es="Pendiente · Enviado por vos" style="font-size:8px;color:#22c55e;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:7px;">Pending · Sent by you</p>
               <div style="display:flex;align-items:center;gap:8px;">
                 <div class="avatar" style="background:#1a4080;width:28px;height:28px;font-size:11px;">M</div>
-                <div style="flex:1;"><p style="font-size:11px;font-weight:700;color:#0b2545;">Marcos L. <span style="color:#aaa;font-weight:400;">#3</span></p><p data-en="waiting for response" data-es="esperando respuesta" style="font-size:9px;color:#bbb;">waiting for response</p></div>
+                <div style="flex:1;"><p style="font-size:11px;font-weight:700;color:#1A1A2E;">Marcos L. <span style="color:#aaa;font-weight:400;">#3</span></p><p data-en="waiting for response" data-es="esperando respuesta" style="font-size:9px;color:#bbb;">waiting for response</p></div>
                 <p data-en="2d ago" data-es="hace 2d" style="font-size:9px;color:#bbb;">2d ago</p>
               </div>
             </div>
@@ -478,16 +479,16 @@
               <img src="match_photo.jpg" alt="match" style="width:100%;height:68px;object-fit:cover;object-position:center 30%;display:block;" />
               <div style="padding:7px 9px;">
                 <div style="display:flex;align-items:center;gap:5px;margin-bottom:4px;">
-                  <div class="avatar" style="background:#0b2545;width:22px;height:22px;font-size:9px;">C</div>
-                  <div style="flex:1;"><p style="font-size:9px;font-weight:700;color:#0b2545;">Carlos M.</p></div>
-                  <span class="pill" style="background:#fef9e7;color:#c9a84c;font-size:8px;">#1</span>
+                  <div class="avatar" style="background:#1A1A2E;width:22px;height:22px;font-size:9px;">C</div>
+                  <div style="flex:1;"><p style="font-size:9px;font-weight:700;color:#1A1A2E;">Carlos M.</p></div>
+                  <span class="pill" style="background:#fef9e7;color:#E8B04C;font-size:8px;">#1</span>
                 </div>
                 <div style="background:#e8f4e8;border-radius:6px;padding:3px 7px;margin-bottom:4px;">
                   <p data-en="🎾 Won 6-3, 6-2 vs Marcos L." data-es="🎾 Ganó 6-3, 6-2 vs Marcos L." style="font-size:9px;color:#2d6a2d;font-weight:600;">🎾 Won 6-3, 6-2 vs Marcos L.</p>
                 </div>
                 <p style="font-size:9px;color:#777;font-weight:600;">
                   <span style="color:#e74c4c;">❤</span>
-                  <span class="counter" style="font-size:10px;font-weight:700;width:1.2ch;text-align:left;color:#0b2545;">
+                  <span class="counter" style="font-size:10px;font-weight:700;width:1.2ch;text-align:left;color:#1A1A2E;">
                     <span class="counter-tape likes-tape">
                       <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
                       <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span>
@@ -501,8 +502,8 @@
             <!-- Post 2 -->
             <div style="background:white;border-radius:12px;padding:9px;box-shadow:0 1px 4px rgba(0,0,0,0.07);">
               <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px;">
-                <div class="avatar" style="background:#c9a84c;width:22px;height:22px;font-size:9px;">J</div>
-                <div style="flex:1;"><p style="font-size:9px;font-weight:700;color:#0b2545;">Juan P.</p><p data-en="5h ago" data-es="hace 5h" style="font-size:7px;color:#bbb;">5h ago</p></div>
+                <div class="avatar" style="background:#E8B04C;width:22px;height:22px;font-size:9px;">J</div>
+                <div style="flex:1;"><p style="font-size:9px;font-weight:700;color:#1A1A2E;">Juan P.</p><p data-en="5h ago" data-es="hace 5h" style="font-size:7px;color:#bbb;">5h ago</p></div>
               </div>
               <p data-en="Who's playing this Saturday? Courts available 10am 🎾" data-es="¿Quién juega este sábado? Canchas disponibles a las 10 🎾" style="font-size:9px;color:#555;line-height:1.4;">Who's playing this Saturday? Courts available 10am 🎾</p>
               <p style="font-size:8px;color:#ccc;margin-top:4px;">❤️ 8 &nbsp; 💬 7</p>
@@ -512,7 +513,7 @@
             <div style="background:#f5f5f3;border-radius:12px;padding:9px;opacity:0.5;">
               <div style="display:flex;align-items:center;gap:5px;">
                 <div class="avatar" style="background:#3a60a8;width:22px;height:22px;font-size:9px;">D</div>
-                <div><p style="font-size:9px;font-weight:700;color:#0b2545;">Diego R.</p><p data-en="1d ago" data-es="hace 1d" style="font-size:7px;color:#bbb;">1d ago</p></div>
+                <div><p style="font-size:9px;font-weight:700;color:#1A1A2E;">Diego R.</p><p data-en="1d ago" data-es="hace 1d" style="font-size:7px;color:#bbb;">1d ago</p></div>
               </div>
             </div>
 
@@ -540,18 +541,18 @@
 
             <!-- Player card -->
             <div style="background:white;border-radius:12px;padding:10px;box-shadow:0 2px 8px rgba(0,0,0,0.08);text-align:center;">
-              <div style="width:34px;height:34px;background:#0b2545;border-radius:50%;margin:0 auto 5px;display:flex;align-items:center;justify-content:center;color:white;font-size:13px;font-weight:800;">C</div>
-              <p style="font-size:12px;font-weight:800;color:#0b2545;">Carlos M.</p>
+              <div style="width:34px;height:34px;background:#1A1A2E;border-radius:50%;margin:0 auto 5px;display:flex;align-items:center;justify-content:center;color:white;font-size:13px;font-weight:800;">C</div>
+              <p style="font-size:12px;font-weight:800;color:#1A1A2E;">Carlos M.</p>
               <div style="display:inline-flex;align-items:center;gap:4px;background:#fef9e7;border-radius:99px;padding:2px 10px;margin-top:3px;">
-                <span style="font-size:10px;font-weight:800;color:#c9a84c;">#1</span>
-                <span data-en="▲3 this month" data-es="▲3 este mes" style="font-size:8px;color:#c9a84c;">▲3 this month</span>
+                <span style="font-size:10px;font-weight:800;color:#E8B04C;">#1</span>
+                <span data-en="▲3 this month" data-es="▲3 este mes" style="font-size:8px;color:#E8B04C;">▲3 this month</span>
               </div>
             </div>
 
             <!-- Stats grid with ANIMATED counters -->
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;">
               <div style="background:white;border-radius:10px;padding:7px 4px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
-                <p style="font-size:16px;font-weight:800;color:#0b2545;line-height:1;">
+                <p style="font-size:16px;font-weight:800;color:#1A1A2E;line-height:1;">
                   <span class="counter" style="height:1em;">
                     <span class="counter-tape wins-tape">
                       <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
@@ -561,11 +562,11 @@
                 <p data-en="Wins" data-es="Ganados" style="font-size:8px;color:#aaa;text-transform:uppercase;letter-spacing:0.05em;margin-top:2px;">Wins</p>
               </div>
               <div style="background:white;border-radius:10px;padding:7px 4px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
-                <p style="font-size:16px;font-weight:800;color:#0b2545;line-height:1;">1</p>
+                <p style="font-size:16px;font-weight:800;color:#1A1A2E;line-height:1;">1</p>
                 <p data-en="Losses" data-es="Perdidos" style="font-size:8px;color:#aaa;text-transform:uppercase;letter-spacing:0.05em;margin-top:2px;">Losses</p>
               </div>
               <div style="background:#fef9e7;border-radius:10px;padding:7px 4px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
-                <p style="font-size:16px;font-weight:800;color:#c9a84c;line-height:1;">
+                <p style="font-size:16px;font-weight:800;color:#E8B04C;line-height:1;">
                   <span class="counter" style="height:1em;width:2.4ch;text-align:center;">
                     <span class="counter-tape wr-tape">
                       <!-- 0..87 stacked. Span height = 1em. -->
@@ -581,12 +582,12 @@
                     </span>
                   </span>%
                 </p>
-                <p style="font-size:8px;color:#c9a84c;text-transform:uppercase;letter-spacing:0.05em;margin-top:2px;">Win %</p>
+                <p style="font-size:8px;color:#E8B04C;text-transform:uppercase;letter-spacing:0.05em;margin-top:2px;">Win %</p>
               </div>
             </div>
 
             <!-- Streak with animated fire emoji growth -->
-            <div style="background:linear-gradient(135deg,#0b2545,#1a4080);border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px;">
+            <div style="background:linear-gradient(135deg,#1A1A2E,#1a4080);border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:8px;">
               <span class="fire-icon" style="font-size:18px;">🔥</span>
               <div>
                 <p data-en="5-match win streak" data-es="Racha de 5 victorias" style="font-size:11px;font-weight:800;color:white;">5-match win streak</p>
@@ -620,7 +621,7 @@
          SLIDE 7 — Multi-sport + Pricing (UPDATED to per-club model)
     ══════════════════════════════════════════════════════ -->
     <div class="slide s7" style="flex-direction:column;align-items:center;text-align:center;gap:24px;padding:0 60px;">
-      <div class="glow" style="width:800px;height:600px;background:rgba(201,168,76,0.08);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+      <div class="glow" style="width:800px;height:600px;background:rgba(232,176,76,0.08);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
 
       <!-- Multi-sport heading: usa los mismos SVGs que la landing
            (consistencia visual) — versión inline con gradients propios
@@ -641,7 +642,7 @@
           <!-- PADEL: paleta navy con perforaciones -->
           <span class="sport-pill">
             <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
-              <defs><linearGradient id="pg-p" x1="20%" y1="0%" x2="80%" y2="100%"><stop offset="0%" stop-color="#1d3a6b"/><stop offset="50%" stop-color="#0b2545"/><stop offset="100%" stop-color="#04122b"/></linearGradient></defs>
+              <defs><linearGradient id="pg-p" x1="20%" y1="0%" x2="80%" y2="100%"><stop offset="0%" stop-color="#1d3a6b"/><stop offset="50%" stop-color="#1A1A2E"/><stop offset="100%" stop-color="#04122b"/></linearGradient></defs>
               <g transform="rotate(-8 22 22)">
                 <path d="M 8 14 Q 8 4 22 4 Q 36 4 36 14 L 36 26 Q 36 30 32 30 L 12 30 Q 8 30 8 26 Z" fill="url(#pg-p)"/>
                 <g fill="#fff7ed">
@@ -659,7 +660,7 @@
           <!-- PICKLEBALL: ball amarilla con holes blancos -->
           <span class="sport-pill">
             <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
-              <defs><radialGradient id="pg-pk" cx="35%" cy="30%" r="75%"><stop offset="0%" stop-color="#fff8b8"/><stop offset="55%" stop-color="#e8c96a"/><stop offset="100%" stop-color="#9a7a1f"/></radialGradient></defs>
+              <defs><radialGradient id="pg-pk" cx="35%" cy="30%" r="75%"><stop offset="0%" stop-color="#fff8b8"/><stop offset="55%" stop-color="#F2C46E"/><stop offset="100%" stop-color="#9a7a1f"/></radialGradient></defs>
               <circle cx="24" cy="22" r="16" fill="url(#pg-pk)"/>
               <g fill="#fff7ed">
                 <circle cx="24" cy="22" r="2"/>
@@ -677,7 +678,7 @@
             <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
               <defs>
                 <radialGradient id="pg-sq" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#3a3a3a"/><stop offset="50%" stop-color="#181818"/><stop offset="100%" stop-color="#000"/></radialGradient>
-                <radialGradient id="pg-sqd" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#f5d97f"/><stop offset="100%" stop-color="#c9a84c"/></radialGradient>
+                <radialGradient id="pg-sqd" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#f5d97f"/><stop offset="100%" stop-color="#E8B04C"/></radialGradient>
               </defs>
               <circle cx="24" cy="24" r="13" fill="url(#pg-sq)"/>
               <circle cx="24" cy="20" r="2.4" fill="url(#pg-sqd)"/>
@@ -717,18 +718,19 @@
          SLIDE 8 — Closing CTA (sticky, stronger hook)
     ══════════════════════════════════════════════════════ -->
     <div class="slide s8" style="flex-direction:column;align-items:center;text-align:center;gap:26px;">
-      <div class="glow" style="width:700px;height:600px;background:rgba(201,168,76,0.08);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+      <div class="glow" style="width:700px;height:600px;background:rgba(232,176,76,0.08);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
       <div style="position:relative;width:108px;height:108px;animation:scaleIn 0.7s ease forwards 42.2s;opacity:0;">
-        <div style="position:absolute;inset:-8px;border-radius:50%;border:1.5px solid rgba(201,168,76,0.45);animation:spin 10s linear infinite;"></div>
-        <div style="position:absolute;inset:-18px;border-radius:50%;border:1px solid rgba(201,168,76,0.15);animation:spin 18s linear infinite reverse;"></div>
-        <img src="logo2.png" style="width:100%;height:100%;border-radius:50%;object-fit:cover;box-shadow:0 0 60px rgba(201,168,76,0.3),0 0 0 2px rgba(201,168,76,0.35);" />
+        <div style="position:absolute;inset:-8px;border-radius:50%;border:1.5px solid rgba(232,176,76,0.45);animation:spin 10s linear infinite;"></div>
+        <div style="position:absolute;inset:-18px;border-radius:50%;border:1px solid rgba(232,176,76,0.15);animation:spin 18s linear infinite reverse;"></div>
+        <img src="brand-kit/png/badge-orange-1024.png" style="width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 32px rgba(200,69,28,0.55));" />
       </div>
       <div style="animation:fadeUp 0.7s ease forwards 42.5s;opacity:0;">
         <h2 class="display white" data-en="Ready to <span class='gold'>triple</span><br>your club's activity?" data-es="¿Listo para <span class='gold'>triplicar</span><br>la actividad de tu club?" style="font-size:2.9rem;line-height:1.12;margin-bottom:12px;">Ready to <span class="gold">triple</span><br>your club's activity?</h2>
         <p class="muted" data-en="Free 30-day trial &nbsp;·&nbsp; No card required &nbsp;·&nbsp; Live in 24 hours" data-es="30 días gratis &nbsp;·&nbsp; Sin tarjeta &nbsp;·&nbsp; Activo en 24 horas" style="font-size:1rem;">Free 30-day trial &nbsp;·&nbsp; No card required &nbsp;·&nbsp; Live in 24 hours</p>
       </div>
-      <div style="border:2px solid rgba(201,168,76,0.45);border-radius:999px;padding:15px 44px;background:rgba(201,168,76,0.08);animation:scaleIn 0.6s ease forwards 42.85s;opacity:0;">
-        <p class="gold" style="font-size:1.5rem;font-weight:700;letter-spacing:-0.3px;">challengersranking.online</p>
+      <!-- CTA principal: terracotta (brand v2 primary) en lugar del gold viejo -->
+      <div style="border:none;border-radius:999px;padding:16px 46px;background:#C8451C;box-shadow:0 8px 24px rgba(200,69,28,0.4),0 0 0 1px rgba(200,69,28,0.6);animation:scaleIn 0.6s ease forwards 42.85s;opacity:0;">
+        <p style="color:#fff;font-size:1.5rem;font-weight:800;letter-spacing:-0.3px;">challengersranking.online</p>
       </div>
       <p class="muted" data-en="Start your free trial today" data-es="Empezá tu trial gratis hoy" style="font-size:0.8rem;letter-spacing:0.1em;animation:fadeIn 0.5s ease forwards 43.2s;opacity:0;">Start your free trial today</p>
     </div>
