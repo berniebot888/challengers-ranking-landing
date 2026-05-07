@@ -274,6 +274,12 @@
              class="h-7 sm:h-14 w-auto flex-shrink min-w-0 transition-opacity group-hover:opacity-90" />
       </a>
       <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+        <!-- Lang toggle desktop only — en mobile va en el footer -->
+        <div class="hidden sm:flex items-center rounded-full border border-white/15 overflow-hidden">
+          <button data-lang="en" onclick="setLang('en')" class="lang-btn px-2.5 py-1 text-white/50 hover:text-white transition-colors">EN</button>
+          <div class="w-px h-3 bg-white/20"></div>
+          <button data-lang="es" onclick="setLang('es')" class="lang-btn px-2.5 py-1 text-white/50 hover:text-white transition-colors">ES</button>
+        </div>
         <a href="#pricing"
            class="text-white/70 hover:text-white text-sm font-medium transition hidden md:block"
            data-en="Pricing" data-es="Precios">Pricing</a>
@@ -1327,12 +1333,12 @@
           <a href="#demo" class="hover:text-white transition"
              data-en="Contact" data-es="Contacto">Contact</a>
         </div>
-        <!-- Lang toggle: movido del header al footer. El idioma por defecto se
-             auto-detecta del navegador / geo. Esto es solo override manual. -->
-        <div class="flex items-center rounded-full border border-white/15 overflow-hidden">
-          <button id="btn-en" onclick="setLang('en')" class="lang-btn px-2.5 py-1 text-white/50 hover:text-white transition-colors">EN</button>
+        <!-- Lang toggle mobile only — en desktop va en el header.
+             El idioma por defecto se auto-detecta del navegador / geo. -->
+        <div class="sm:hidden flex items-center rounded-full border border-white/15 overflow-hidden">
+          <button data-lang="en" onclick="setLang('en')" class="lang-btn px-2.5 py-1 text-white/50 hover:text-white transition-colors">EN</button>
           <div class="w-px h-3 bg-white/20"></div>
-          <button id="btn-es" onclick="setLang('es')" class="lang-btn px-2.5 py-1 text-white/50 hover:text-white transition-colors">ES</button>
+          <button data-lang="es" onclick="setLang('es')" class="lang-btn px-2.5 py-1 text-white/50 hover:text-white transition-colors">ES</button>
         </div>
       </div>
     </div>
@@ -1397,9 +1403,15 @@
         el.placeholder = lang === 'es' ? el.dataset.esPh : el.dataset.enPh;
       });
 
-      // Update toggle button active state
-      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-      document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+      // Update toggle button active state — usamos data-lang en lugar de
+      // IDs porque hay 2 toggles (header desktop + footer mobile) y los IDs
+      // no se pueden duplicar.
+      document.querySelectorAll('[data-lang="en"]').forEach(function(el) {
+        el.classList.toggle('active', lang === 'en');
+      });
+      document.querySelectorAll('[data-lang="es"]').forEach(function(el) {
+        el.classList.toggle('active', lang === 'es');
+      });
 
       // Propagar el idioma a la app (la landing es estática en
       // www.challengersranking.online, la app vive en
