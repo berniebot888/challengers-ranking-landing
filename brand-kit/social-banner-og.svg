@@ -1,14 +1,23 @@
 <svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
   <rect width="1200" height="630" fill="#FAF7F2"/>
-  <circle cx="270" cy="315" r="180" fill="#C8451C"/>
-  <g fill="#FAF7F2" transform="translate(173, 220) scale(0.6)">
-    <rect x="101" y="240" width="42" height="70" rx="5"/>
-    <rect x="153" y="205" width="42" height="105" rx="5"/>
-    <rect x="205" y="165" width="42" height="145" rx="5"/>
-    <rect x="257" y="120" width="42" height="190" rx="5"/>
-  </g>
-  <circle cx="339.8" cy="275.2" r="13.2" fill="#FAF7F2"/>
-  <text x="510" y="305" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="800" font-size="92" fill="#1A1A2E" letter-spacing="-3">challengers</text>
-  <text x="514" y="350" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="500" font-size="32" fill="#C8451C" letter-spacing="14">RANKING</text>
-  <text x="510" y="420" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="500" font-size="26" fill="#1A1A2E" opacity="0.7">Ranking de escalera en vivo para tu club.</text>
+
+  <!-- Badge embebido (badge-orange.svg completo) — escala automática al
+       contenedor svg interno. Antes las bars tenían scale(0.6) que las
+       achicaba al 60% del badge. Ahora reusamos el badge canónico tamaño
+       completo, embebido como sub-SVG con su propio viewBox. -->
+  <svg x="80" y="135" width="360" height="360" viewBox="0 0 400 400">
+    <circle cx="200" cy="200" r="190" fill="#C8451C"/>
+    <g fill="#FAF7F2">
+      <rect x="101" y="240" width="42" height="70" rx="5"/>
+      <rect x="153" y="205" width="42" height="105" rx="5"/>
+      <rect x="205" y="165" width="42" height="145" rx="5"/>
+      <rect x="257" y="120" width="42" height="190" rx="5"/>
+    </g>
+    <circle cx="278" cy="92" r="22" fill="#FAF7F2"/>
+  </svg>
+
+  <!-- Wordmark + tagline -->
+  <text x="500" y="305" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="800" font-size="92" fill="#1A1A2E" letter-spacing="-3">challengers</text>
+  <text x="504" y="350" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="500" font-size="32" fill="#C8451C" letter-spacing="14">RANKING</text>
+  <text x="500" y="420" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="500" font-size="26" fill="#1A1A2E" opacity="0.7">Ranking de escalera en vivo para tu club.</text>
 </svg>
