@@ -263,22 +263,17 @@
        - Bottom border más visible con gradient terracotta → fade -->
   <nav class="fixed top-0 inset-x-0 z-50 bg-navy/95 backdrop-blur-md">
     <div class="max-w-6xl mx-auto px-5 sm:px-8 h-20 sm:h-24 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3 sm:gap-4 group" aria-label="Challengers Ranking">
+      <a href="#" class="flex items-center gap-2.5 sm:gap-4 group min-w-0" aria-label="Challengers Ranking">
         <img src="brand-kit/mark-orange.svg"
              alt=""
-             class="h-11 sm:h-14 w-auto transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_4px_12px_rgba(200,69,28,0.35)]" />
-        <!-- Wordmark: oculto en mobile (no entra con lang toggle + CTA) -->
+             class="h-10 sm:h-14 w-auto flex-shrink-0 transition-transform duration-300 group-hover:scale-105 drop-shadow-[0_4px_12px_rgba(200,69,28,0.35)]" />
+        <!-- Wordmark visible siempre. En mobile más chico (h-7 = 28px) para
+             que entre con el CTA. Lang toggle se movió al footer. -->
         <img src="brand-kit/wordmark-white.svg"
              alt="Challengers Ranking"
-             class="hidden sm:block h-14 w-auto transition-opacity group-hover:opacity-90" />
+             class="h-7 sm:h-14 w-auto flex-shrink min-w-0 transition-opacity group-hover:opacity-90" />
       </a>
-      <div class="flex items-center gap-2 sm:gap-3">
-        <!-- Language toggle -->
-        <div class="flex items-center rounded-full border border-white/15 overflow-hidden mr-1">
-          <button id="btn-en" onclick="setLang('en')" class="lang-btn px-2.5 py-1 text-white/50 hover:text-white transition-colors">EN</button>
-          <div class="w-px h-3 bg-white/20"></div>
-          <button id="btn-es" onclick="setLang('es')" class="lang-btn px-2.5 py-1 text-white/50 hover:text-white transition-colors">ES</button>
-        </div>
+      <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
         <a href="#pricing"
            class="text-white/70 hover:text-white text-sm font-medium transition hidden md:block"
            data-en="Pricing" data-es="Precios">Pricing</a>
@@ -1312,24 +1307,33 @@
 
   <!-- ─── FOOTER ────────────────────────────────────────────────────────────── -->
   <footer class="bg-navy-dark py-10 px-6 border-t border-white/10">
-    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-5">
       <div class="flex items-center gap-3">
         <img src="brand-kit/lockup-horizontal-white.svg"
              alt="Challengers Ranking"
              class="h-7 w-auto opacity-70" />
         <span class="text-white/50 text-sm">Challengers Ranking © 2026</span>
       </div>
-      <div class="flex gap-6 text-white/40 text-sm flex-wrap justify-center">
-        <a href="#features" class="hover:text-white transition"
-           data-en="Features" data-es="Funciones">Features</a>
-        <a href="#pricing" class="hover:text-white transition"
-           data-en="Pricing" data-es="Precios">Pricing</a>
-        <a href="https://app.challengersranking.online/signup" class="hover:text-white transition"
-           data-en="Sign up" data-es="Crear cuenta">Sign up</a>
-        <a href="https://app.challengersranking.online/login" class="hover:text-white transition"
-           data-en="Sign in" data-es="Iniciar sesión">Sign in</a>
-        <a href="#demo" class="hover:text-white transition"
-           data-en="Contact" data-es="Contacto">Contact</a>
+      <div class="flex items-center gap-5 flex-wrap justify-center">
+        <div class="flex gap-5 text-white/40 text-sm flex-wrap justify-center">
+          <a href="#features" class="hover:text-white transition"
+             data-en="Features" data-es="Funciones">Features</a>
+          <a href="#pricing" class="hover:text-white transition"
+             data-en="Pricing" data-es="Precios">Pricing</a>
+          <a href="https://app.challengersranking.online/signup" class="hover:text-white transition"
+             data-en="Sign up" data-es="Crear cuenta">Sign up</a>
+          <a href="https://app.challengersranking.online/login" class="hover:text-white transition"
+             data-en="Sign in" data-es="Iniciar sesión">Sign in</a>
+          <a href="#demo" class="hover:text-white transition"
+             data-en="Contact" data-es="Contacto">Contact</a>
+        </div>
+        <!-- Lang toggle: movido del header al footer. El idioma por defecto se
+             auto-detecta del navegador / geo. Esto es solo override manual. -->
+        <div class="flex items-center rounded-full border border-white/15 overflow-hidden">
+          <button id="btn-en" onclick="setLang('en')" class="lang-btn px-2.5 py-1 text-white/50 hover:text-white transition-colors">EN</button>
+          <div class="w-px h-3 bg-white/20"></div>
+          <button id="btn-es" onclick="setLang('es')" class="lang-btn px-2.5 py-1 text-white/50 hover:text-white transition-colors">ES</button>
+        </div>
       </div>
     </div>
   </footer>
