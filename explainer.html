@@ -141,12 +141,10 @@
   }
   .phone-header .badge {
     width: 32px; height: 32px;
-    background: var(--terracotta);
-    border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
-  .phone-header .badge svg { width: 18px; height: 18px; }
+  .phone-header .badge svg { width: 100%; height: 100%; }
   .phone-header .title-block { flex: 1; min-width: 0; }
   .phone-header .title-block .t { font-weight: 800; font-size: 14px; line-height: 1; letter-spacing: -0.02em; }
   .phone-header .title-block .s { font-size: 9px; color: rgba(232,176,76,0.7); letter-spacing: 0.18em; text-transform: uppercase; margin-top: 4px; }
@@ -286,15 +284,25 @@
 
   .badge-large {
     width: 180px; height: 180px;
-    background: var(--terracotta);
-    border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 20px 60px rgba(200,69,28,0.4);
+    filter: drop-shadow(0 20px 40px rgba(200,69,28,0.4));
     margin: 0 auto 24px;
   }
-  .badge-large svg { width: 90px; height: 90px; }
+  /* SVG ya tiene el círculo terracotta interno + las bars/ball llenan
+     bien el viewBox. Lo escalamos a 100% del container para que las bars
+     se vean prominentes. */
+  .badge-large svg { width: 100%; height: 100%; }
 
   .pill-list { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 20px; }
+  .sport-pill {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 999px;
+    padding: 6px 18px 6px 6px;
+    color: var(--cream);
+    font-size: 14px; font-weight: 600;
+  }
   .pill-list .pill {
     background: rgba(255,255,255,0.08);
     border: 1px solid rgba(255,255,255,0.15);
@@ -400,14 +408,12 @@
   #play-overlay.gone { display: none; }
   #play-overlay .hero-badge {
     width: 140px; height: 140px;
-    background: var(--terracotta);
-    border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 20px 60px rgba(200,69,28,0.4);
+    filter: drop-shadow(0 20px 40px rgba(200,69,28,0.4));
     transition: transform 200ms ease;
   }
   #play-overlay:hover .hero-badge { transform: scale(1.05); }
-  #play-overlay .hero-badge svg { width: 64px; height: 64px; }
+  #play-overlay .hero-badge svg { width: 100%; height: 100%; }
   #play-overlay h1 { font-size: clamp(28px, 4vw, 52px); font-weight: 800; color: var(--cream); letter-spacing: -0.02em; text-align: center; }
   #play-overlay .sub { color: rgba(250,247,242,0.6); font-size: 14px; text-align: center; }
   #play-overlay .play-btn {
@@ -455,6 +461,7 @@
     <div class="inner">
       <div class="anim-pop badge-large">
         <svg viewBox="0 0 400 400">
+          <circle cx="200" cy="200" r="190" fill="#C8451C"/>
           <g fill="#FAF7F2">
             <rect x="101" y="240" width="42" height="70" rx="5"/>
             <rect x="153" y="205" width="42" height="105" rx="5"/>
@@ -490,7 +497,7 @@
             <div class="phone-status"><span class="time">9:41</span></div>
             <div class="phone-inner">
               <div class="phone-header">
-                <div class="badge"><svg viewBox="0 0 400 400"><g fill="#FAF7F2"><rect x="101" y="240" width="42" height="70" rx="5"/><rect x="153" y="205" width="42" height="105" rx="5"/><rect x="205" y="165" width="42" height="145" rx="5"/><rect x="257" y="120" width="42" height="190" rx="5"/></g><circle cx="278" cy="92" r="22" fill="#FAF7F2"/></svg></div>
+                <div class="badge"><svg viewBox="0 0 400 400"><circle cx="200" cy="200" r="190" fill="#C8451C"/><g fill="#FAF7F2"><rect x="101" y="240" width="42" height="70" rx="5"/><rect x="153" y="205" width="42" height="105" rx="5"/><rect x="205" y="165" width="42" height="145" rx="5"/><rect x="257" y="120" width="42" height="190" rx="5"/></g><circle cx="278" cy="92" r="22" fill="#FAF7F2"/></svg></div>
                 <div class="title-block"><div class="t" data-en="Tennis Club" data-es="Tenis Club">Tenis Club</div><div class="s" data-en="Men's Singles" data-es="Singles Cab.">Singles Cab.</div></div>
               </div>
               <div class="phone-body">
@@ -527,7 +534,7 @@
             <div class="phone-status"><span class="time">9:41</span></div>
             <div class="phone-inner">
               <div class="phone-header">
-                <div class="badge"><svg viewBox="0 0 400 400"><g fill="#FAF7F2"><rect x="101" y="240" width="42" height="70" rx="5"/><rect x="153" y="205" width="42" height="105" rx="5"/><rect x="205" y="165" width="42" height="145" rx="5"/><rect x="257" y="120" width="42" height="190" rx="5"/></g><circle cx="278" cy="92" r="22" fill="#FAF7F2"/></svg></div>
+                <div class="badge"><svg viewBox="0 0 400 400"><circle cx="200" cy="200" r="190" fill="#C8451C"/><g fill="#FAF7F2"><rect x="101" y="240" width="42" height="70" rx="5"/><rect x="153" y="205" width="42" height="105" rx="5"/><rect x="205" y="165" width="42" height="145" rx="5"/><rect x="257" y="120" width="42" height="190" rx="5"/></g><circle cx="278" cy="92" r="22" fill="#FAF7F2"/></svg></div>
                 <div class="title-block"><div class="t">Roger Federer</div><div class="s" data-en="#2 · Men's Singles" data-es="#2 · Singles Cab.">#2 · Singles Cab.</div></div>
               </div>
               <div class="phone-body" style="text-align:center;justify-content:center;align-items:center;gap:8px;">
@@ -659,7 +666,7 @@
             <div class="phone-status"><span class="time">9:41</span></div>
             <div class="phone-inner">
               <div class="phone-header">
-                <div class="badge"><svg viewBox="0 0 400 400"><g fill="#FAF7F2"><rect x="101" y="240" width="42" height="70" rx="5"/><rect x="153" y="205" width="42" height="105" rx="5"/><rect x="205" y="165" width="42" height="145" rx="5"/><rect x="257" y="120" width="42" height="190" rx="5"/></g><circle cx="278" cy="92" r="22" fill="#FAF7F2"/></svg></div>
+                <div class="badge"><svg viewBox="0 0 400 400"><circle cx="200" cy="200" r="190" fill="#C8451C"/><g fill="#FAF7F2"><rect x="101" y="240" width="42" height="70" rx="5"/><rect x="153" y="205" width="42" height="105" rx="5"/><rect x="205" y="165" width="42" height="145" rx="5"/><rect x="257" y="120" width="42" height="190" rx="5"/></g><circle cx="278" cy="92" r="22" fill="#FAF7F2"/></svg></div>
                 <div class="title-block"><div class="t" data-en="🏟️ Clubhouse" data-es="🏟️ Tribuna">🏟️ Tribuna</div></div>
               </div>
               <div class="phone-body">
@@ -715,7 +722,7 @@
             <div class="phone-status"><span class="time">9:41</span></div>
             <div class="phone-inner">
               <div class="phone-header">
-                <div class="badge"><svg viewBox="0 0 400 400"><g fill="#FAF7F2"><rect x="101" y="240" width="42" height="70" rx="5"/><rect x="153" y="205" width="42" height="105" rx="5"/><rect x="205" y="165" width="42" height="145" rx="5"/><rect x="257" y="120" width="42" height="190" rx="5"/></g><circle cx="278" cy="92" r="22" fill="#FAF7F2"/></svg></div>
+                <div class="badge"><svg viewBox="0 0 400 400"><circle cx="200" cy="200" r="190" fill="#C8451C"/><g fill="#FAF7F2"><rect x="101" y="240" width="42" height="70" rx="5"/><rect x="153" y="205" width="42" height="105" rx="5"/><rect x="205" y="165" width="42" height="145" rx="5"/><rect x="257" y="120" width="42" height="190" rx="5"/></g><circle cx="278" cy="92" r="22" fill="#FAF7F2"/></svg></div>
                 <div class="title-block"><div class="t" data-en="Profile" data-es="Ficha">Ficha</div></div>
               </div>
               <div class="phone-body" style="background:var(--cream);">
@@ -779,15 +786,99 @@
 
   <!-- ════════ SCENE 13 — Multi-deporte / categoría ════════ -->
   <section class="scene scene-13">
+    <!-- Defs SVG compartidos para los iconos de deportes (mismos del landing) -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <defs>
+        <radialGradient id="g-tennis" cx="35%" cy="30%" r="70%">
+          <stop offset="0%" stop-color="#f4f57a"/><stop offset="55%" stop-color="#d8df3a"/><stop offset="100%" stop-color="#7a8316"/>
+        </radialGradient>
+        <linearGradient id="g-padel" x1="20%" y1="0%" x2="80%" y2="100%">
+          <stop offset="0%" stop-color="#1d3a6b"/><stop offset="50%" stop-color="#0b2545"/><stop offset="100%" stop-color="#04122b"/>
+        </linearGradient>
+        <radialGradient id="g-pickle" cx="35%" cy="30%" r="75%">
+          <stop offset="0%" stop-color="#fff8b8"/><stop offset="55%" stop-color="#e8c96a"/><stop offset="100%" stop-color="#9a7a1f"/>
+        </radialGradient>
+        <radialGradient id="g-squash" cx="35%" cy="30%" r="70%">
+          <stop offset="0%" stop-color="#3a3a3a"/><stop offset="50%" stop-color="#181818"/><stop offset="100%" stop-color="#000"/>
+        </radialGradient>
+        <radialGradient id="g-squash-dot" cx="40%" cy="35%" r="60%">
+          <stop offset="0%" stop-color="#f5d97f"/><stop offset="100%" stop-color="#c9a84c"/>
+        </radialGradient>
+        <filter id="ds" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="0.8"/>
+          <feOffset dx="0" dy="1.2" result="offsetblur"/>
+          <feComponentTransfer><feFuncA type="linear" slope="0.35"/></feComponentTransfer>
+          <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+    </svg>
+
     <div class="inner">
       <div class="label anim-up" data-en="One plan" data-es="Un solo plan">Un solo plan</div>
       <h2 class="heading anim-up" data-en='All the <span class="terra">club&apos;s disciplines</span>.' data-es='Todas las disciplinas <span class="terra">del club</span>.'>Todas las disciplinas <span class="terra">del club</span>.</h2>
-      <div class="pill-list anim-up-2" style="margin-top:24px;font-size:14px;">
-        <span class="pill" style="font-size:14px;padding:8px 18px;" data-en="🎾 Tennis" data-es="🎾 Tenis">🎾 Tenis</span>
-        <span class="pill" style="font-size:14px;padding:8px 18px;" data-en="🪅 Padel" data-es="🪅 Pádel">🪅 Pádel</span>
-        <span class="pill" style="font-size:14px;padding:8px 18px;">🥒 Pickleball</span>
-        <span class="pill" style="font-size:14px;padding:8px 18px;">🎯 Squash</span>
+
+      <!-- Iconos deportes: mismas chapas SVG del landing (3D realistas) -->
+      <div class="anim-up-2 sport-pills" style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:28px;">
+        <!-- TENNIS -->
+        <div class="sport-pill">
+          <svg width="40" height="40" viewBox="0 0 48 48" aria-hidden="true">
+            <ellipse cx="24" cy="42" rx="13" ry="2" fill="#000" opacity="0.18"/>
+            <circle cx="24" cy="22" r="16" fill="url(#g-tennis)" filter="url(#ds)"/>
+            <path d="M 10 13 C 8 25, 30 30, 38 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" opacity="0.95"/>
+            <ellipse cx="17" cy="14" rx="5" ry="3" fill="#fff" opacity="0.35"/>
+          </svg>
+          <span data-en="Tennis" data-es="Tenis">Tenis</span>
+        </div>
+        <!-- PADEL -->
+        <div class="sport-pill">
+          <svg width="40" height="40" viewBox="0 0 48 48" aria-hidden="true">
+            <ellipse cx="22" cy="44" rx="11" ry="1.6" fill="#000" opacity="0.18"/>
+            <g transform="rotate(-8 22 22)" filter="url(#ds)">
+              <path d="M 8 14 Q 8 4 22 4 Q 36 4 36 14 L 36 26 Q 36 30 32 30 L 12 30 Q 8 30 8 26 Z" fill="url(#g-padel)"/>
+              <path d="M 10 8 Q 14 5 22 4.5 Q 30 5 34 9" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.18"/>
+              <g fill="#fff7ed">
+                <circle cx="14" cy="10" r="1.1"/><circle cx="18" cy="9" r="1.1"/><circle cx="22" cy="8.5" r="1.1"/><circle cx="26" cy="9" r="1.1"/><circle cx="30" cy="10" r="1.1"/>
+                <circle cx="13" cy="14" r="1.1"/><circle cx="17" cy="14" r="1.1"/><circle cx="22" cy="13.5" r="1.1"/><circle cx="27" cy="14" r="1.1"/><circle cx="31" cy="14" r="1.1"/>
+                <circle cx="13" cy="18" r="1.1"/><circle cx="17" cy="18" r="1.1"/><circle cx="22" cy="18" r="1.1"/><circle cx="27" cy="18" r="1.1"/><circle cx="31" cy="18" r="1.1"/>
+                <circle cx="14" cy="22" r="1.1"/><circle cx="18" cy="22" r="1.1"/><circle cx="22" cy="22" r="1.1"/><circle cx="26" cy="22" r="1.1"/><circle cx="30" cy="22" r="1.1"/>
+              </g>
+              <path d="M 16 30 L 28 30 L 26 34 L 18 34 Z" fill="url(#g-padel)"/>
+              <rect x="19" y="34" width="6" height="11" rx="1.5" fill="url(#g-padel)"/>
+            </g>
+          </svg>
+          <span data-en="Padel" data-es="Pádel">Pádel</span>
+        </div>
+        <!-- PICKLEBALL -->
+        <div class="sport-pill">
+          <svg width="40" height="40" viewBox="0 0 48 48" aria-hidden="true">
+            <ellipse cx="24" cy="42" rx="13" ry="2" fill="#000" opacity="0.18"/>
+            <circle cx="24" cy="22" r="16" fill="url(#g-pickle)" filter="url(#ds)"/>
+            <g fill="#fff7ed">
+              <circle cx="24" cy="22" r="2"/>
+              <circle cx="24" cy="14" r="1.8"/><circle cx="31" cy="18" r="1.8"/><circle cx="31" cy="26" r="1.8"/>
+              <circle cx="24" cy="30" r="1.8"/><circle cx="17" cy="26" r="1.8"/><circle cx="17" cy="18" r="1.8"/>
+              <ellipse cx="18" cy="9.5" rx="1.5" ry="1"/><ellipse cx="24" cy="8" rx="1.6" ry="1"/><ellipse cx="30" cy="9.5" rx="1.5" ry="1"/>
+              <ellipse cx="35" cy="14" rx="1.1" ry="1.4"/><ellipse cx="36.5" cy="22" rx="1" ry="1.6"/><ellipse cx="35" cy="30" rx="1.1" ry="1.4"/>
+              <ellipse cx="30" cy="34.5" rx="1.5" ry="1"/><ellipse cx="24" cy="36" rx="1.6" ry="1"/><ellipse cx="18" cy="34.5" rx="1.5" ry="1"/>
+              <ellipse cx="13" cy="30" rx="1.1" ry="1.4"/><ellipse cx="11.5" cy="22" rx="1" ry="1.6"/><ellipse cx="13" cy="14" rx="1.1" ry="1.4"/>
+            </g>
+            <ellipse cx="17" cy="14" rx="5" ry="3" fill="#fff" opacity="0.25"/>
+          </svg>
+          <span>Pickleball</span>
+        </div>
+        <!-- SQUASH -->
+        <div class="sport-pill">
+          <svg width="40" height="40" viewBox="0 0 48 48" aria-hidden="true">
+            <ellipse cx="24" cy="42" rx="13" ry="2" fill="#000" opacity="0.22"/>
+            <circle cx="24" cy="24" r="13" fill="url(#g-squash)" filter="url(#ds)"/>
+            <circle cx="24" cy="20" r="2.4" fill="url(#g-squash-dot)"/>
+            <circle cx="24" cy="20" r="1.1" fill="#fff7d0" opacity="0.6"/>
+            <ellipse cx="18" cy="17" rx="4" ry="2.5" fill="#fff" opacity="0.18"/>
+          </svg>
+          <span>Squash</span>
+        </div>
       </div>
+
       <div class="pill-list anim-up-3" style="margin-top:14px;">
         <span class="pill">Singles</span>
         <span class="pill" data-en="Doubles" data-es="Dobles">Dobles</span>
@@ -807,6 +898,7 @@
     <div class="inner">
       <div class="anim-pop badge-large" style="margin-bottom:24px;">
         <svg viewBox="0 0 400 400">
+          <circle cx="200" cy="200" r="190" fill="#C8451C"/>
           <g fill="#FAF7F2">
             <rect x="101" y="240" width="42" height="70" rx="5"/>
             <rect x="153" y="205" width="42" height="105" rx="5"/>
@@ -837,6 +929,10 @@
     </button>
     <button class="icon-btn" id="btn-prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg></button>
     <button class="icon-btn" id="btn-next" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></button>
+    <button class="icon-btn" id="btn-mute" aria-label="Toggle background music">
+      <svg viewBox="0 0 24 24" id="icon-music"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+      <svg viewBox="0 0 24 24" id="icon-music-off" style="display:none;"><path d="M4.27 3L3 4.27 9 10.27V13c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4v-1.73l8.73 8.73L21 22.46 4.27 3z" opacity="0.5"/></svg>
+    </button>
     <div class="progress-wrap" id="prog-wrap"><div class="progress" id="progress"></div></div>
     <span class="scene-num" id="scene-num">1 / 14</span>
     <div class="lang-toggle">
@@ -1079,6 +1175,118 @@
     if (e.key === 'ArrowRight') gotoScene(currentScene + 1, isPlaying);
     if (e.key === 'ArrowLeft') gotoScene(currentScene - 1, isPlaying);
   });
+
+  // ─── Music + SFX (Web Audio API procedural) ──────────────────────────
+  // Música ambient generada en runtime — no requiere archivos externos.
+  // Mezcla 2 osciladores en intervalo de 5ª justa (C2 + G2) con un LFO sutil
+  // sobre el filtro lowpass para crear movimiento. Volumen muy bajo (~6%).
+  let audioCtx = null, musicGain = null, sfxGain = null;
+  let musicNodes = [];
+  let musicMuted = false;
+
+  function ensureAudioContext() {
+    if (audioCtx) return audioCtx;
+    try {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    } catch { return null; }
+    return audioCtx;
+  }
+
+  function startMusic() {
+    if (!ensureAudioContext()) return;
+    if (musicNodes.length > 0) return;
+
+    musicGain = audioCtx.createGain();
+    musicGain.gain.value = musicMuted ? 0 : 0.045;
+    musicGain.connect(audioCtx.destination);
+
+    // Filtro lowpass para suavizar
+    const filter = audioCtx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.value = 800;
+    filter.Q.value = 0.6;
+    filter.connect(musicGain);
+
+    // LFO sutil para mover el cutoff (movimiento orgánico)
+    const lfo = audioCtx.createOscillator();
+    const lfoGain = audioCtx.createGain();
+    lfo.frequency.value = 0.08;
+    lfoGain.gain.value = 200;
+    lfo.connect(lfoGain).connect(filter.frequency);
+    lfo.start();
+
+    // Osciladores: C2 (65.4Hz), G2 (98Hz), C3 (130.8Hz) — drone con quintas
+    [65.4, 98, 130.8].forEach((freq, i) => {
+      const osc = audioCtx.createOscillator();
+      osc.type = i === 2 ? 'triangle' : 'sine';
+      osc.frequency.value = freq;
+      const g = audioCtx.createGain();
+      g.gain.value = i === 2 ? 0.4 : (i === 1 ? 0.6 : 1.0);
+      osc.connect(g).connect(filter);
+      osc.start();
+      musicNodes.push(osc);
+    });
+    musicNodes.push(lfo);
+  }
+
+  function stopMusic() {
+    musicNodes.forEach(n => { try { n.stop(); } catch {} });
+    musicNodes = [];
+  }
+
+  function setMusicMuted(muted) {
+    musicMuted = muted;
+    if (musicGain) {
+      musicGain.gain.linearRampToValueAtTime(
+        muted ? 0 : 0.045,
+        audioCtx.currentTime + 0.3,
+      );
+    }
+    document.getElementById('icon-music').style.display = muted ? 'none' : 'block';
+    document.getElementById('icon-music-off').style.display = muted ? 'block' : 'none';
+  }
+
+  // SFX: tick suave en cambio de escena (tono corto pitched-up con envelope)
+  function playSceneTick() {
+    if (!audioCtx || musicMuted) return;
+    const osc = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.value = 880; // A5
+    osc.frequency.exponentialRampToValueAtTime(1320, audioCtx.currentTime + 0.08);
+    g.gain.setValueAtTime(0, audioCtx.currentTime);
+    g.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
+    osc.connect(g).connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.3);
+  }
+
+  // Hook: arrancar música al primer play, parar al replay, tick por escena
+  const _origStartPlayback = window.startPlayback;
+  window.startPlayback = function() {
+    ensureAudioContext();
+    startMusic();
+    _origStartPlayback();
+  };
+
+  const _origGoto = gotoScene;
+  // Override: cuando cambia la escena (por ended o manual), tick.
+  // Wrappeamos el mismo función llamando al original + tick.
+  // (No re-asignamos function declarations — pero podemos hookear via onEnded.)
+
+  document.getElementById('btn-mute').addEventListener('click', () => {
+    setMusicMuted(!musicMuted);
+  });
+
+  // Tick on scene change — interceptar en activateScene
+  const _origActivate = activateScene;
+  // No es trivial overridear function declaration. En lugar, agregamos
+  // listener custom al cambio. Más simple: al final del flow normal
+  // (onEnded → gotoScene → activateScene), disparamos tick. Hacemos un
+  // observer del scene-num text content.
+  const obs = new MutationObserver(() => playSceneTick());
+  obs.observe(sceneNum, { childList: true, characterData: true, subtree: true });
 
   // Initial state
   setLang(lang);
