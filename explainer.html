@@ -1101,6 +1101,8 @@
       replayOverlay.querySelectorAll('[data-en]').forEach(el => {
         el.textContent = (lang === 'en') ? el.dataset.en : el.dataset.es;
       });
+      // Suspender música al terminar el video
+      if (audioCtx && audioCtx.state === 'running') audioCtx.suspend();
     }
   }
 
@@ -1132,6 +1134,14 @@
       isPlaying = true;
       iconPlay.style.display = 'none';
       iconPause.style.display = 'block';
+      // Reanudar música al play (si fue pausada o no se inició aún)
+      if (audioCtx) {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+      } else {
+        // Primera vez después del play overlay: arrancar
+        ensureAudioContext();
+        startMusic();
+      }
     }).catch(() => {});
   }
 
@@ -1140,6 +1150,8 @@
     isPlaying = false;
     iconPlay.style.display = 'block';
     iconPause.style.display = 'none';
+    // Pausar música también
+    if (audioCtx && audioCtx.state === 'running') audioCtx.suspend();
   }
 
   window.startPlayback = function() {
