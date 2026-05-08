@@ -64,10 +64,10 @@ Phone mostrando la app con el branding del club ya activo.
 Panel admin con tabs (categorías, branding, reglas).
 
 ### ES
-> *"Configurás tu club desde el panel admin. Categorías: singles caballeros, damas, dobles, lo que tu club use. Reglas: ventana de respuesta del desafío, regla de wild card, todo customizable. Branding: subís tu logo y elegís los colores."*
+> *"Configurás tu club desde el panel admin. Categorías: singles, dobles, mixtos, lo que tu club use. Reglas: ventana del desafío, wild cards, todo customizable. Y lo más importante — subís el logo de tu club, elegís tu gama de colores, y la app entera queda con la identidad de tu club."*
 
 ### EN
-> *"Configure your club from the admin panel. Categories: men's singles, women's, doubles, whatever your club uses. Rules: challenge response window, wildcard rule, everything customizable. Branding: upload your logo and pick the colors."*
+> *"Configure your club from the admin panel. Categories: singles, doubles, mixed, whatever your club uses. Rules: challenge window, wildcards, everything customizable. And most importantly — upload your club's logo, pick your color palette, and the entire app takes on your club's identity."*
 
 ---
 

@@ -548,25 +548,38 @@
       <div class="row-2col">
         <div class="col-text anim-up">
           <div class="label" data-en="Step 3 — Configure" data-es="Paso 3 — Configurar">Paso 3 — Configurar</div>
-          <h2 class="heading" data-en='Your club, <span class="terra">your rules</span>.' data-es='Tu club, <span class="terra">tus reglas</span>.'>Tu club, <span class="terra">tus reglas</span>.</h2>
+          <h2 class="heading" data-en='Your club, <span class="terra">your identity</span>.' data-es='Tu club, <span class="terra">tu identidad</span>.'>Tu club, <span class="terra">tu identidad</span>.</h2>
           <ul class="body" style="margin-top:14px;list-style:none;display:flex;flex-direction:column;gap:8px;">
             <li data-en="🏆 Categories: singles, doubles, mixed" data-es="🏆 Categorías: singles, dobles, mixtos">🏆 Categorías: singles, dobles, mixtos</li>
             <li data-en="⚖️ Rules: challenge window, wildcards" data-es="⚖️ Reglas: ventana del desafío, wild cards">⚖️ Reglas: ventana del desafío, wild cards</li>
-            <li data-en="🎨 Branding: logo + colors" data-es="🎨 Branding: logo + colores">🎨 Branding: logo + colores</li>
+            <li style="background:rgba(232,176,76,0.10);border-left:3px solid var(--gold);padding:6px 10px;margin-left:-13px;border-radius:0 8px 8px 0;" data-en="🎨 <strong>Your logo + your colors</strong> — full white-label" data-es="🎨 <strong>Tu logo + tus colores</strong> — white-label completo">🎨 <strong>Tu logo + tus colores</strong> — white-label completo</li>
           </ul>
         </div>
         <div class="anim-up-2" style="text-align:center;">
+          <!-- Mockup admin panel: tab "Brand" activa con color picker + logo upload -->
           <div style="background:white;border-radius:14px;padding:14px;max-width:340px;margin:0 auto;border:1px solid var(--brand-border);box-shadow:0 12px 40px rgba(0,0,0,0.3);">
             <div style="display:flex;gap:4px;margin-bottom:12px;border-bottom:1px solid var(--brand-border);padding-bottom:10px;">
-              <div style="background:var(--terracotta);color:white;border-radius:6px;padding:5px 10px;font-size:11px;font-weight:700;" data-en="Categories" data-es="Categorías">Categorías</div>
+              <div style="background:var(--cream);color:var(--navy-soft);border-radius:6px;padding:5px 10px;font-size:11px;font-weight:600;" data-en="Categories" data-es="Categorías">Categorías</div>
               <div style="background:var(--cream);color:var(--navy-soft);border-radius:6px;padding:5px 10px;font-size:11px;font-weight:600;" data-en="Rules" data-es="Reglas">Reglas</div>
-              <div style="background:var(--cream);color:var(--navy-soft);border-radius:6px;padding:5px 10px;font-size:11px;font-weight:600;" data-en="Brand" data-es="Brand">Brand</div>
+              <div style="background:var(--terracotta);color:white;border-radius:6px;padding:5px 10px;font-size:11px;font-weight:700;">🎨 Brand</div>
             </div>
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <div style="background:var(--cream);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--navy);font-weight:600;">🎾 <span data-en="Men's Singles" data-es="Singles Caballeros">Singles Caballeros</span></div>
-              <div style="background:var(--cream);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--navy);font-weight:600;">🎾 <span data-en="Women's Singles" data-es="Singles Damas">Singles Damas</span></div>
-              <div style="background:var(--cream);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--navy);font-weight:600;">🤝 <span data-en="Mixed Doubles" data-es="Dobles Mixtos">Dobles Mixtos</span></div>
-              <div style="background:var(--terracotta-soft);border:1px dashed var(--terracotta);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--terracotta);font-weight:700;text-align:center;" data-en="+ Add category" data-es="+ Agregar categoría">+ Agregar categoría</div>
+            <!-- Logo upload -->
+            <div style="font-size:10px;color:var(--navy-soft);text-transform:uppercase;letter-spacing:0.14em;font-weight:700;margin-bottom:6px;text-align:left;" data-en="Club logo" data-es="Logo del club">Logo del club</div>
+            <div style="display:flex;align-items:center;gap:10px;background:var(--cream);border-radius:8px;padding:10px;margin-bottom:14px;">
+              <div style="width:44px;height:44px;background:#0b2545;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#E8B04C;font-weight:800;font-size:14px;flex-shrink:0;">TCA</div>
+              <div style="flex:1;text-align:left;">
+                <div style="font-size:12px;color:var(--navy);font-weight:700;">tca-logo.png</div>
+                <div style="font-size:10px;color:var(--success,#2A8A2A);">✓ <span data-en="Uploaded" data-es="Subido">Subido</span></div>
+              </div>
+            </div>
+            <!-- Color palette -->
+            <div style="font-size:10px;color:var(--navy-soft);text-transform:uppercase;letter-spacing:0.14em;font-weight:700;margin-bottom:6px;text-align:left;" data-en="Color palette" data-es="Gama de colores">Gama de colores</div>
+            <div style="display:flex;gap:6px;align-items:center;justify-content:flex-start;">
+              <div style="width:36px;height:36px;border-radius:8px;background:#0b2545;border:2px solid var(--terracotta);box-shadow:0 0 0 1px white;"></div>
+              <div style="width:36px;height:36px;border-radius:8px;background:#E8B04C;"></div>
+              <div style="width:36px;height:36px;border-radius:8px;background:#FAF7F2;border:1px solid var(--brand-border);"></div>
+              <div style="width:36px;height:36px;border-radius:8px;background:#1A1A2E;"></div>
+              <div style="margin-left:6px;font-size:11px;color:var(--navy-soft);" data-en="Custom" data-es="Custom">Custom</div>
             </div>
           </div>
         </div>
@@ -823,7 +836,7 @@
     "Empezás en challengersranking.online. Click 'Empezá gratis'. Form simple: nombre del club, subdominio, tus datos. 30 segundos.",
     "Te llega un email para verificar. Click. Tu cuenta está activa.",
     "Tu subdominio dedicado: tu-club.challengersranking.online. White-label completo — la app es tuya.",
-    "Configurás categorías, reglas, branding desde el panel admin. Todo customizable.",
+    "Categorías, reglas, todo customizable. Y lo más importante — subís tu logo, elegís tu gama de colores, la app entera queda con la identidad de tu club.",
     "Importás socios desde Excel o CSV. La lista se carga al instante.",
     "Los invitás de 3 formas: link compartible, código QR, o email broadcast.",
     "El socio se registra con su celular y un PIN de 4 dígitos. Sin contraseñas, sin email, sin App Store.",
@@ -836,7 +849,7 @@
     "Start at challengersranking.online. Click 'Start free'. Simple form: club name, subdomain, your info. 30 seconds.",
     "Verification email arrives. Click. Your account is live.",
     "Your dedicated subdomain: your-club.challengersranking.online. Full white-label — the app is yours.",
-    "Configure categories, rules, branding from the admin panel. Everything customizable.",
+    "Categories, rules, everything customizable. And most importantly — upload your logo, pick your color palette, the entire app takes on your club's identity.",
     "Import members from Excel or CSV. The list loads instantly.",
     "Invite them three ways: shareable link, QR code, or email broadcast.",
     "Members sign up with mobile + 4-digit PIN. No passwords, no email, no App Store.",
