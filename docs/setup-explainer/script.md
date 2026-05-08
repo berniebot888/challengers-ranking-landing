@@ -100,13 +100,13 @@ CSV upload + lista de jugadores poblándose.
 ## Escena 8 — Registro del socio (~35s)
 
 ### Visual
-Phone con form de registro: número de celular + PIN de 4 dígitos.
+Phone con form de registro: nombre, teléfono, email, contraseña.
 
 ### ES
-> *"El socio recibe el link, lo abre, y se registra. Solo necesita su número de celular y un PIN de cuatro dígitos. Sin contraseñas, sin email, sin App Store. Cinco segundos y está dentro."*
+> *"El socio recibe el link, lo abre, y se registra. Pone su nombre, teléfono, email, y crea una contraseña. Sin App Store, sin verificación SMS — un par de toques y está dentro."*
 
 ### EN
-> *"The member gets the link, opens it, signs up. Just their mobile number and a 4-digit PIN. No passwords, no email, no App Store. Five seconds and they're in."*
+> *"The member gets the link, opens it, signs up. Enters their name, phone, email, and creates a password. No App Store, no SMS verification — a couple of taps and they're in."*
 
 ---
 
