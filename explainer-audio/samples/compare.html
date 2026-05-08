@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Voice samples comparison</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    background: #0F0F1F;
+    color: #FAF7F2;
+    min-height: 100vh;
+    padding: 30px 20px;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 800px; margin: 0 auto; }
+  h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
+  .sub { color: rgba(250,247,242,0.6); font-size: 15px; margin-bottom: 30px; }
+  .lang-tabs { display: flex; gap: 8px; margin-bottom: 24px; }
+  .lang-tabs button {
+    background: #1A1A2E; color: #FAF7F2;
+    border: 1px solid #3A3A52;
+    padding: 10px 20px; border-radius: 8px;
+    font-weight: 700; font-size: 14px;
+    cursor: pointer; font-family: inherit;
+  }
+  .lang-tabs button.active { background: #C8451C; border-color: #C8451C; }
+
+  .voice-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid #3A3A52;
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+    transition: border-color 200ms ease;
+  }
+  .voice-card:hover { border-color: #C8451C; }
+  .voice-card .name { font-size: 18px; font-weight: 800; margin-bottom: 2px; }
+  .voice-card .desc { color: #E8B04C; font-size: 13px; margin-bottom: 12px; }
+  .voice-card audio {
+    width: 100%;
+    height: 36px;
+  }
+  .voice-card audio::-webkit-media-controls-panel {
+    background: #1A1A2E;
+  }
+
+  .text-sample {
+    background: rgba(255,255,255,0.03);
+    border-left: 3px solid #C8451C;
+    padding: 14px 18px;
+    border-radius: 6px;
+    margin-bottom: 24px;
+    font-size: 14px; line-height: 1.55;
+    color: rgba(250,247,242,0.8);
+    font-style: italic;
+  }
+  .lang-en { display: none; }
+  body.show-en .lang-es { display: none; }
+  body.show-en .lang-en { display: block; }
+
+  .footer-info {
+    margin-top: 30px; padding: 20px;
+    background: rgba(232,176,76,0.08);
+    border: 1px solid rgba(232,176,76,0.3);
+    border-radius: 10px;
+    font-size: 13px; line-height: 1.6;
+  }
+  .footer-info strong { color: #E8B04C; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <h1>Voice samples — Challengers Ranking</h1>
+  <div class="sub">Escuchá las 5 voces leyendo el hook (escena 1) con tono upbeat/promocional. Decime cuál te gusta para ES y cuál para EN.</div>
+
+  <div class="lang-tabs">
+    <button id="btn-es" class="active" onclick="setLang('es')">🇪🇸 Español</button>
+    <button id="btn-en" onclick="setLang('en')">🇺🇸 English</button>
+  </div>
+
+  <div class="text-sample">
+    <div class="lang-es">"Tu club tiene un ranking. Pero está en una pizarra del vestuario que nadie mira. O en un grupo de WhatsApp donde se desordena en una semana. Los socios quieren competir más seguido, pero no encuentran rivales de su nivel."</div>
+    <div class="lang-en">"Your club has a ranking. But it lives on a locker-room whiteboard that nobody checks. Or in a WhatsApp group that goes off the rails in a week. Members want to compete more often, but they can't find opponents at their level."</div>
+  </div>
+
+  <div class="voice-card">
+    <div class="name">Liam</div>
+    <div class="desc">Energetic · Social Media Creator</div>
+    <audio controls preload="metadata">
+      <source class="lang-es" src="liam-es.m4a" type="audio/mp4">
+      <source class="lang-en" src="liam-en.m4a" type="audio/mp4">
+    </audio>
+  </div>
+
+  <div class="voice-card">
+    <div class="name">Eric</div>
+    <div class="desc">Smooth · Trustworthy</div>
+    <audio controls preload="metadata">
+      <source class="lang-es" src="eric-es.m4a" type="audio/mp4">
+      <source class="lang-en" src="eric-en.m4a" type="audio/mp4">
+    </audio>
+  </div>
+
+  <div class="voice-card">
+    <div class="name">Chris</div>
+    <div class="desc">Charming · Down-to-Earth</div>
+    <audio controls preload="metadata">
+      <source class="lang-es" src="chris-es.m4a" type="audio/mp4">
+      <source class="lang-en" src="chris-en.m4a" type="audio/mp4">
+    </audio>
+  </div>
+
+  <div class="voice-card">
+    <div class="name">Brian</div>
+    <div class="desc">Deep · Resonant · Comforting</div>
+    <audio controls preload="metadata">
+      <source class="lang-es" src="brian-es.m4a" type="audio/mp4">
+      <source class="lang-en" src="brian-en.m4a" type="audio/mp4">
+    </audio>
+  </div>
+
+  <div class="voice-card">
+    <div class="name">Daniel</div>
+    <div class="desc">Steady Broadcaster</div>
+    <audio controls preload="metadata">
+      <source class="lang-es" src="daniel-es.m4a" type="audio/mp4">
+      <source class="lang-en" src="daniel-en.m4a" type="audio/mp4">
+    </audio>
+  </div>
+
+  <div class="footer-info">
+    <strong>Settings usados</strong> (los mismos que aplicaría al video completo):<br>
+    stability: 0.30 · similarity_boost: 0.80 · style: 0.45 · speaker_boost: ON<br><br>
+    <strong>Decime tu pick</strong> tipo "Liam para EN, Eric para ES" o "Chris para ambos" y regenero los 28 audios. Total: ~5 min de mi lado.
+  </div>
+</div>
+
+<script>
+  function setLang(l) {
+    document.body.classList.toggle('show-en', l === 'en');
+    document.getElementById('btn-es').classList.toggle('active', l === 'es');
+    document.getElementById('btn-en').classList.toggle('active', l === 'en');
+    // Reload audio sources to pick up the new active <source>
+    document.querySelectorAll('audio').forEach(a => {
+      const src = l === 'en' ? a.querySelector('.lang-en').src : a.querySelector('.lang-es').src;
+      a.src = src;
+    });
+  }
+  setLang('es');
+</script>
+
+</body>
+</html>
