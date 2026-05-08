@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Teleprompter — Challengers Ranking Explainer</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    background: #0F0F1F;
+    color: #FAF7F2;
+    min-height: 100vh;
+    padding: 20px;
+    line-height: 1.5;
+  }
+  .header {
+    position: sticky; top: 0;
+    background: #0F0F1F;
+    border-bottom: 1px solid #3A3A52;
+    padding: 14px 0;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 30px;
+    z-index: 10;
+  }
+  .controls {
+    display: flex; gap: 8px; align-items: center;
+  }
+  .controls button {
+    background: #1A1A2E; color: #FAF7F2;
+    border: 1px solid #3A3A52;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px; cursor: pointer;
+    font-family: inherit;
+  }
+  .controls button:hover { background: #C8451C; border-color: #C8451C; }
+  .controls .lang { font-weight: 700; }
+  .controls .lang.active { background: #C8451C; border-color: #C8451C; }
+  .progress { color: rgba(250,247,242,0.5); font-size: 13px; font-weight: 600; }
+  .size-controls { display: flex; gap: 4px; }
+  .size-controls button { padding: 4px 10px; }
+
+  .scene {
+    max-width: 900px;
+    margin: 0 auto 60px;
+    padding: 24px;
+    background: rgba(255,255,255,0.03);
+    border-left: 4px solid #C8451C;
+    border-radius: 8px;
+  }
+  .scene .num {
+    color: #E8B04C;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .scene .title {
+    color: rgba(250,247,242,0.55);
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+  .scene .text {
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.45;
+    color: #FAF7F2;
+  }
+  .scene .tip {
+    margin-top: 12px;
+    color: rgba(232,176,76,0.6);
+    font-size: 13px;
+    font-style: italic;
+  }
+
+  body.size-l .scene .text { font-size: 36px; }
+  body.size-xl .scene .text { font-size: 44px; }
+
+  .lang-en { display: none; }
+  body.show-en .lang-es { display: none; }
+  body.show-en .lang-en { display: block; }
+
+  .tips-box {
+    max-width: 900px;
+    margin: 0 auto 30px;
+    padding: 20px;
+    background: rgba(232,176,76,0.08);
+    border: 1px solid rgba(232,176,76,0.3);
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .tips-box h3 { color: #E8B04C; font-size: 14px; text-transform: uppercase; letter-spacing: 0.16em; margin-bottom: 8px; }
+  .tips-box ul { padding-left: 22px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="controls">
+    <span class="lang active" id="btn-es" onclick="setLang('es')">
+      <button class="lang active" data-lang="es" onclick="setLang('es')">🇪🇸 ES</button>
+    </span>
+    <span class="lang" id="btn-en" onclick="setLang('en')">
+      <button data-lang="en" onclick="setLang('en')">🇺🇸 EN</button>
+    </span>
+  </div>
+  <div class="progress">14 escenas · ~5 min</div>
+  <div class="size-controls">
+    <button onclick="setSize('m')">A</button>
+    <button onclick="setSize('l')">A+</button>
+    <button onclick="setSize('xl')">A++</button>
+  </div>
+</div>
+
+<div class="tips-box">
+  <h3>📌 Tips para grabar</h3>
+  <ul>
+    <li>Lugar silencioso. Mic del celular o earpods alcanzan.</li>
+    <li>Mic a ~15cm de la boca (un puño de distancia).</li>
+    <li><strong>Pausa de 2-3 segundos entre escenas</strong> — me ayuda a splittear después.</li>
+    <li>Si te equivocás, NO cortes — volvés a empezar la frase desde el principio. Yo descarto el take malo después.</li>
+    <li>Tono: <strong>como si le contaras a un amigo</strong>, no leyendo formal. Energía media-alta, pero no forzada.</li>
+    <li>1 archivo por idioma OK (todo seguido). O 14 archivos sueltos si preferís más control.</li>
+  </ul>
+</div>
+
+<!-- ESCENAS -->
+
+<div class="scene"><div class="num">Escena 1 / 14</div><div class="title">Hook + problema</div>
+  <div class="text lang-es">Tu club tiene un ranking. Pero está en una pizarra del vestuario que nadie mira. O en un grupo de WhatsApp donde se desordena en una semana. Los socios quieren competir más seguido, pero no encuentran rivales de su nivel. Los desafíos se pierden, los resultados también.</div>
+  <div class="text lang-en">Your club has a ranking. But it lives on a locker-room whiteboard that nobody checks. Or in a WhatsApp group that goes off the rails in a week. Members want to compete more often, but they can't find opponents at their level. Challenges get lost. Scores never get logged.</div>
+  <div class="tip lang-es">Tono: planteo del problema, un poco frustrado pero empático. Identificate con el dolor del oyente.</div>
+  <div class="tip lang-en">Tone: stating the problem, slightly frustrated but empathetic.</div>
+</div>
+
+<div class="scene"><div class="num">Escena 2 / 14</div><div class="title">Solución one-liner</div>
+  <div class="text lang-es">Challengers Ranking convierte la escalera de tu club en una app. Tus socios desafían, juegan, suben en el ranking. Vos ves todo en tiempo real desde un dashboard. Sin instalar nada del App Store. Listo en 24 horas.</div>
+  <div class="text lang-en">Challengers Ranking turns your club's ladder into an app. Members challenge, play, climb the ranking. You see everything live from a dashboard. No App Store install. Live in 24 hours.</div>
+  <div class="tip lang-es">Tono: positivo, confiado. "Acá está la solución".</div>
+  <div class="tip lang-en">Tone: positive, confident. "Here's the solution."</div>
+</div>
+
+<div class="scene"><div class="num">Escena 3 / 14</div><div class="title">El ranking de escalera</div>
+  <div class="text lang-es">Esto es un ranking de escalera. Cada socio tiene una posición. Cuanto más alto, más fuerte. La diferencia con un torneo: no es un evento puntual, es un sistema vivo. Las posiciones cambian todo el tiempo, partido a partido. ¿Ves esa espadita al lado del nombre? Significa que ese jugador tiene un desafío activo: alguien lo está retando, o él retó a alguien. Es el pulso del club.</div>
+  <div class="text lang-en">This is a ladder ranking. Every member has a position. Higher means stronger. The difference with a tournament: this isn't an event, it's a living system. Positions change all the time, match by match. See that crossed swords icon? It means that player has an active challenge: someone's playing them, or they're challenging someone else. It's the pulse of the club.</div>
+  <div class="tip lang-es">Tono: explicativo, didáctico. Énfasis en "sistema vivo" y "pulso del club".</div>
+</div>
+
+<div class="scene"><div class="num">Escena 4 / 14</div><div class="title">Cómo desafiar</div>
+  <div class="text lang-es">Para desafiar a alguien, tocás su nombre en el ranking, ves su ficha, y tocás "Desafiar". Podés desafiar a jugadores hasta cinco posiciones por encima tuyo. El sistema le manda al otro un push notification al instante. No tenés que mandar mensajes a tres grupos de WhatsApp para coordinar. Lo hacés desde la app, en cinco segundos.</div>
+  <div class="text lang-en">To challenge someone, you tap their name in the ranking, see their profile, and tap "Challenge". You can challenge players up to five positions above you. The system sends them a push notification instantly. You don't have to message three WhatsApp groups to coordinate. You do it from the app, in five seconds.</div>
+  <div class="tip lang-es">Tono: directo, mostrando simplicidad. "Tap, tap, listo".</div>
+</div>
+
+<div class="scene"><div class="num">Escena 5 / 14</div><div class="title">Wild card</div>
+  <div class="text lang-es">Pero hay una excepción: la wild card. Cada jugador nuevo recibe una de bienvenida, y se gana otra ganando tres partidos al hilo. La wild card te deja desafiar a cualquier posición, sin límite. Es el atajo para subir rápido cuando estás en racha. Los jugadores en racha se vuelven peligrosos.</div>
+  <div class="text lang-en">But there's an exception: the wildcard. Every new player gets one as a welcome gift, and earns another by winning three matches in a row. The wildcard lets you challenge any position, no limit. It's the shortcut to climb fast when you're on a streak. Players on a streak become dangerous.</div>
+  <div class="tip lang-es">Tono: misterio + emoción. "Pero hay una excepción..." (pausa). Luego suben la energía con "los jugadores en racha se vuelven peligrosos".</div>
+</div>
+
+<div class="scene"><div class="num">Escena 6 / 14</div><div class="title">Aceptar / rechazar</div>
+  <div class="text lang-es">El desafiado tiene 48 horas para responder. Puede aceptar, o rechazar y dar una explicación. Si no responde, queda como rechazado. Pero ojo: no se pueden rechazar más de dos desafíos al año, o se pierde una posición en el ranking como penalización. Acá no se puede esconder.</div>
+  <div class="text lang-en">The challenged player has 48 hours to respond. They can accept, or decline with a reason. No reply also counts as a decline. But careful: you can't decline more than two challenges per year, or you lose a position in the ranking as a penalty. There's nowhere to hide.</div>
+  <div class="tip lang-es">Tono: con onda. "Acá no se puede esconder" → como sentencia, firme.</div>
+</div>
+
+<div class="scene"><div class="num">Escena 7 / 14</div><div class="title">Chat del desafío</div>
+  <div class="text lang-es">Cada desafío tiene su propio chat integrado. Coordinás día, horario, cancha — sin saltar a WhatsApp ni perder la conversación. Cuando juegan, ambos vuelven a la app a cargar el resultado.</div>
+  <div class="text lang-en">Every challenge has its own built-in chat. You coordinate the day, time, and court — without jumping to WhatsApp or losing the conversation. When you finish playing, both players come back to the app to log the score.</div>
+  <div class="tip lang-es">Tono: práctico, simple. Frase corta.</div>
+</div>
+
+<div class="scene"><div class="num">Escena 8 / 14</div><div class="title">Cargar resultado</div>
+  <div class="text lang-es">Cualquiera de los dos jugadores carga el score, y el ranking se actualiza al instante. Confiamos en que carguen el resultado correcto. Si hubo una equivocación, se puede corregir. Si el desafiante ganó, sube justo arriba del que perdió. Y si era un desafío con wild card, esa wild card ya se consumió.</div>
+  <div class="text lang-en">Either player enters the score, and the ranking updates instantly. We trust them to log the right result. If there was a mistake, it can be corrected. If the challenger won, they move up, right above the player they beat. And if it was a wildcard challenge, the wildcard is now used up.</div>
+  <div class="tip lang-es">Tono: confiable, casual. "Confiamos" como punto fuerte.</div>
+</div>
+
+<div class="scene"><div class="num">Escena 9 / 14</div><div class="title">Tribuna intro</div>
+  <div class="text lang-es">Pero el ranking es solo la mitad. La Tribuna es la otra: el feed comunitario del club.</div>
+  <div class="text lang-en">But the ranking is only half of it. The Clubhouse is the other half: your club's community feed.</div>
+  <div class="tip lang-es">Tono: pivote. Como diciendo "ojo, viene otra cosa importante". Pausa antes de "La Tribuna".</div>
+</div>
+
+<div class="scene"><div class="num">Escena 10 / 14</div><div class="title">Tribuna features</div>
+  <div class="text lang-es">En la Tribuna, los socios suben fotos de partidos, escriben reflexiones, hacen encuestas para coordinar el próximo torneo. Pueden reaccionar con varios emojis, comentar, mencionar a otros con arroba. El mencionado recibe una notificación. Cualquier post se puede compartir afuera del club: WhatsApp, X, Facebook, o copiar el link.</div>
+  <div class="text lang-en">In the Clubhouse, members post photos of matches, write reflections, run polls to coordinate the next tournament. They can react with multiple emojis, comment, tag others with the at-symbol. The mentioned person gets a notification. Any post can be shared outside the club: WhatsApp, X, Facebook, or just copy the link.</div>
+  <div class="tip lang-es">Tono: enumerativo pero entusiasta. Sentí cada feature como pieza de algo más grande.</div>
+</div>
+
+<div class="scene"><div class="num">Escena 11 / 14</div><div class="title">Ficha del jugador</div>
+  <div class="text lang-es">Cada jugador tiene su ficha. Posición actual, mejor posición histórica, partidos jugados, win rate, racha actual, mejor racha. Y todo el historial: contra quién jugó, cuándo, qué resultado, si ganó o perdió. Los socios entran a la ficha de su próximo rival antes de un partido. Es ESPN del club, en pequeño.</div>
+  <div class="text lang-en">Every player has a profile. Current position, all-time best, matches played, win rate, current streak, best streak. And the full history: who they played, when, the score, win or loss. Members open their next opponent's profile before the match. It's ESPN for your club, in miniature.</div>
+  <div class="tip lang-es">Tono: orgulloso/divertido en el cierre "ESPN del club, en pequeño". Sonrisa audible.</div>
+</div>
+
+<div class="scene"><div class="num">Escena 12 / 14</div><div class="title">Stats del club / Admin</div>
+  <div class="text lang-es">Como admin del club, ves todo desde un dashboard. Cuántos socios juegan activamente, cuántos partidos se jugaron este mes, quién no juega hace tiempo. Por primera vez tenés data real de qué pasa en tu club, fuera del horario que vos lo ves.</div>
+  <div class="text lang-en">As the club admin, you see everything from a dashboard. How many members play actively, how many matches happened this month, who hasn't played in a while. For the first time, you have real data on what's happening in your club, outside the hours you're physically there.</div>
+  <div class="tip lang-es">Tono: serio, hablándole al decision-maker. "Por primera vez" → énfasis.</div>
+</div>
+
+<div class="scene"><div class="num">Escena 13 / 14</div><div class="title">Multi-deporte / categoría</div>
+  <div class="text lang-es">Un solo club, un solo plan, todas las disciplinas. Tenis, pádel, pickleball, squash. Singles y dobles. Categorías por género, edad o nivel. Cada categoría es su propia escalera, pero comparten admin, dashboard y socios.</div>
+  <div class="text lang-en">One club, one plan, all the disciplines. Tennis, padel, pickleball, squash. Singles and doubles. Categories by gender, age, or level. Each category is its own ladder, but they share the admin, dashboard, and members.</div>
+  <div class="tip lang-es">Tono: cadencia rítmica al enumerar deportes. "Tenis. Pádel. Pickleball. Squash." (con beats).</div>
+</div>
+
+<div class="scene"><div class="num">Escena 14 / 14</div><div class="title">Cierre + CTA</div>
+  <div class="text lang-es">Setup en 24 horas. Sin contratos largos, sin App Store fees. Tus socios ya saben usarla, porque es web — la abren desde el navegador y la instalan en su pantalla principal en cinco segundos. Tu primer desafío, esta semana. Empezá ahora en challengersranking punto online.</div>
+  <div class="text lang-en">Live in 24 hours. No long contracts, no App Store fees. Your members already know how to use it — they open it from the browser and install it on their home screen in five seconds. Your first challenge, this week. Get started now at challengersranking dot online.</div>
+  <div class="tip lang-es">Tono: cierre fuerte, invitación. "Tu primer desafío, esta semana" → con energía. "challengersranking punto online" → claro, pausa antes.</div>
+  <div class="tip lang-en">Tone: strong close, invitation. Slow down on "challengersranking dot online" — say it clearly.</div>
+</div>
+
+<script>
+  function setLang(l) {
+    document.body.classList.toggle('show-en', l === 'en');
+    document.querySelectorAll('.lang button').forEach(b => {
+      b.classList.toggle('active', b.dataset.lang === l);
+    });
+  }
+  function setSize(s) {
+    document.body.classList.remove('size-l', 'size-xl');
+    if (s === 'l') document.body.classList.add('size-l');
+    if (s === 'xl') document.body.classList.add('size-xl');
+  }
+</script>
+
+</body>
+</html>
