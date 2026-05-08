@@ -1177,12 +1177,23 @@
   });
 
   // ─── Music + SFX (Web Audio API procedural) ──────────────────────────
-  // Música ambient generada en runtime — no requiere archivos externos.
-  // Mezcla 2 osciladores en intervalo de 5ª justa (C2 + G2) con un LFO sutil
-  // sobre el filtro lowpass para crear movimiento. Volumen muy bajo (~6%).
-  let audioCtx = null, musicGain = null, sfxGain = null;
-  let musicNodes = [];
+  // Música: progresión de acordes I-vi-IV-V (Am-F-C-G en La menor) con
+  // envelope ADSR + filtro lowpass dinámico. Cambio cada 4 segundos.
+  // Volumen global 4.5%, mucho más "musical" que un drone fijo.
+  let audioCtx = null, musicGain = null;
   let musicMuted = false;
+  let musicLoopId = null;
+
+  // Frecuencias de notas (ES4 = E4 = 329.63 Hz, etc.)
+  // Acordes en La menor (cálidos para ambient lo-fi):
+  // Am: A2-C3-E3 / F: F2-A2-C3 / C: C2-E3-G3 / G: G2-B2-D3
+  const CHORDS = [
+    [110.0, 164.81, 220.0],       // Am  (A2, E3, A3 — voicing abierto)
+    [87.31, 130.81, 174.61],      // F   (F2, C3, F3)
+    [98.0,  146.83, 196.0],       // G   (G2, D3, G3)
+    [82.41, 130.81, 196.0],       // E   (E2, C3, G3 — pone tensión antes de loop)
+  ];
+  const CHORD_DUR = 4; // segundos por acorde
 
   function ensureAudioContext() {
     if (audioCtx) return audioCtx;
@@ -1192,46 +1203,91 @@
     return audioCtx;
   }
 
+  // Toca un acorde (3 notas) con envelope ADSR + filtro
+  function playChord(freqs, when, duration) {
+    if (!audioCtx) return;
+    freqs.forEach((freq, i) => {
+      const osc = audioCtx.createOscillator();
+      // Triangle para más calidez que sine, voicing graves para fondo
+      osc.type = i === 0 ? 'triangle' : (i === 1 ? 'sine' : 'sine');
+      osc.frequency.value = freq;
+
+      const noteGain = audioCtx.createGain();
+      noteGain.gain.value = 0;
+
+      // Filtro lowpass por nota (más alto en notas agudas)
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.value = 600 + i * 200;
+      filter.Q.value = 0.7;
+
+      osc.connect(filter).connect(noteGain).connect(musicGain);
+
+      // Envelope ADSR: attack lento (pad-like), sustain plana, release largo
+      const peak = i === 0 ? 0.45 : (i === 1 ? 0.30 : 0.22);
+      noteGain.gain.setValueAtTime(0, when);
+      noteGain.gain.linearRampToValueAtTime(peak, when + 1.0);   // Attack 1s
+      noteGain.gain.setValueAtTime(peak, when + duration - 1.5); // Sustain
+      noteGain.gain.exponentialRampToValueAtTime(0.001, when + duration); // Release 1.5s
+
+      osc.start(when);
+      osc.stop(when + duration + 0.1);
+    });
+  }
+
+  // Toca melodía pluck simple sobre el acorde (notas escogidas que armonizan)
+  function playPluck(rootFreq, when) {
+    if (!audioCtx) return;
+    // Pluck en la 3ª arriba del root — suena melódico
+    const freq = rootFreq * 2; // octava arriba
+    const osc = audioCtx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    const g = audioCtx.createGain();
+    g.gain.value = 0;
+    const filter = audioCtx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.value = 2000;
+    osc.connect(filter).connect(g).connect(musicGain);
+    g.gain.setValueAtTime(0, when);
+    g.gain.linearRampToValueAtTime(0.10, when + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.001, when + 1.5);
+    osc.start(when);
+    osc.stop(when + 1.6);
+  }
+
   function startMusic() {
     if (!ensureAudioContext()) return;
-    if (musicNodes.length > 0) return;
+    if (musicLoopId) return; // ya corriendo
 
     musicGain = audioCtx.createGain();
     musicGain.gain.value = musicMuted ? 0 : 0.045;
     musicGain.connect(audioCtx.destination);
 
-    // Filtro lowpass para suavizar
-    const filter = audioCtx.createBiquadFilter();
-    filter.type = 'lowpass';
-    filter.frequency.value = 800;
-    filter.Q.value = 0.6;
-    filter.connect(musicGain);
-
-    // LFO sutil para mover el cutoff (movimiento orgánico)
-    const lfo = audioCtx.createOscillator();
-    const lfoGain = audioCtx.createGain();
-    lfo.frequency.value = 0.08;
-    lfoGain.gain.value = 200;
-    lfo.connect(lfoGain).connect(filter.frequency);
-    lfo.start();
-
-    // Osciladores: C2 (65.4Hz), G2 (98Hz), C3 (130.8Hz) — drone con quintas
-    [65.4, 98, 130.8].forEach((freq, i) => {
-      const osc = audioCtx.createOscillator();
-      osc.type = i === 2 ? 'triangle' : 'sine';
-      osc.frequency.value = freq;
-      const g = audioCtx.createGain();
-      g.gain.value = i === 2 ? 0.4 : (i === 1 ? 0.6 : 1.0);
-      osc.connect(g).connect(filter);
-      osc.start();
-      musicNodes.push(osc);
-    });
-    musicNodes.push(lfo);
+    // Programa 8 ciclos de la progresión por adelantado y reprograma cada
+    // 4 acordes (16 segundos) — loop infinito sin gaps audibles.
+    let chordIdx = 0;
+    let nextStart = audioCtx.currentTime + 0.1;
+    function scheduleNext() {
+      // Programa los próximos 4 acordes
+      for (let i = 0; i < 4; i++) {
+        const c = CHORDS[chordIdx % CHORDS.length];
+        playChord(c, nextStart, CHORD_DUR);
+        // Pluck en cada acorde, a la mitad de duración
+        if (Math.random() > 0.4) {
+          playPluck(c[0], nextStart + CHORD_DUR / 2);
+        }
+        nextStart += CHORD_DUR;
+        chordIdx++;
+      }
+    }
+    scheduleNext();
+    // Reprograma cada 16 segundos (4 acordes × 4s)
+    musicLoopId = setInterval(scheduleNext, 16000);
   }
 
   function stopMusic() {
-    musicNodes.forEach(n => { try { n.stop(); } catch {} });
-    musicNodes = [];
+    if (musicLoopId) { clearInterval(musicLoopId); musicLoopId = null; }
   }
 
   function setMusicMuted(muted) {
