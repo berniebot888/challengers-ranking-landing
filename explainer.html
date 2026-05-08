@@ -509,43 +509,17 @@
     </div>
   </section>
 
-  <!-- ════════ SCENE 4 — Wild card ════════ -->
+  <!-- ════════ SCENE 4 — Cómo desafiar (era escena 5) ════════ -->
   <section class="scene scene-4">
-    <div class="inner">
-      <div class="anim-pop" style="margin-bottom:24px;">
-        <div class="wc-badge" style="font-size:14px;padding:10px 22px;">
-          <span style="font-size:18px;">🃏</span> Wild Card
-        </div>
-      </div>
-      <h2 class="heading anim-up">Premiamos las rachas.</h2>
-      <p class="body anim-up-2" style="max-width:680px;margin:14px auto 0;">
-        Cada jugador nuevo recibe <span class="gold">una wild card de bienvenida</span> para desafiar 5 posiciones más arriba del límite normal.
-        Y si gana <span class="gold">3 partidos al hilo</span>, se gana otra. Los jugadores en racha se vuelven peligrosos.
-      </p>
-      <div style="display:flex;justify-content:center;gap:16px;margin-top:36px;" class="anim-up-3">
-        <div style="background:rgba(232,176,76,0.10);border:1px solid rgba(232,176,76,0.4);border-radius:16px;padding:18px 22px;min-width:160px;">
-          <div style="font-size:32px;font-weight:800;color:var(--gold);">+1</div>
-          <div style="font-size:11px;color:rgba(250,247,242,0.6);text-transform:uppercase;letter-spacing:0.16em;margin-top:4px;">Bienvenida</div>
-        </div>
-        <div style="background:rgba(200,69,28,0.10);border:1px solid rgba(200,69,28,0.4);border-radius:16px;padding:18px 22px;min-width:160px;">
-          <div style="font-size:32px;font-weight:800;color:var(--terracotta);">3<span style="font-size:18px;">×W</span></div>
-          <div style="font-size:11px;color:rgba(250,247,242,0.6);text-transform:uppercase;letter-spacing:0.16em;margin-top:4px;">= Otra wild card</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════ SCENE 5 — Cómo desafiar ════════ -->
-  <section class="scene scene-5">
     <div class="inner">
       <div class="row-2col">
         <div class="col-text anim-up">
-          <div class="label">Cómo desafiar</div>
+          <div class="label" data-en="How to challenge" data-es="Cómo desafiar">Cómo desafiar</div>
           <h2 class="heading">Tap. <span class="terra">Tap. Tap.</span></h2>
-          <p class="body" style="margin-top:8px;">
+          <p class="body" style="margin-top:8px;" data-en='Tap a player → see their profile → tap "Challenge".' data-es='Tocás un jugador → ves su ficha → tocás "Desafiar".'>
             Tocás un jugador del ranking → ves su ficha → tocás <span style="background:var(--terracotta);color:white;padding:2px 8px;border-radius:6px;font-weight:700;">Desafiar</span>.
           </p>
-          <p class="body" style="margin-top:12px;font-size:0.92em;">Hasta 3 posiciones arriba — o 5 con wild card.</p>
+          <p class="body" style="margin-top:12px;font-size:0.92em;" data-en="Up to 5 positions above you." data-es="Hasta 5 posiciones por encima tuyo.">Hasta 5 posiciones por encima tuyo.</p>
         </div>
         <div class="anim-up-2" style="text-align:center;">
           <div class="phone" style="margin:0 auto;">
@@ -558,12 +532,37 @@
               </div>
               <div class="phone-body" style="text-align:center;padding-top:24px;">
                 <div style="width:80px;height:80px;border-radius:50%;background:var(--navy);color:var(--cream);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;margin:0 auto 14px;">RF</div>
-                <div style="font-size:12px;color:var(--navy-soft);margin-bottom:6px;">Win rate: 78% · Racha: <span class="gold">+5</span></div>
-                <div style="font-size:11px;color:var(--navy-soft);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:24px;">Mejor pos: #1</div>
-                <button style="background:var(--terracotta);color:white;border:none;border-radius:999px;padding:12px 36px;font-weight:800;font-size:14px;box-shadow:0 8px 24px rgba(200,69,28,0.3);width:80%;">⚔ Desafiar</button>
+                <div style="font-size:12px;color:var(--navy-soft);margin-bottom:6px;" data-en="Win rate: 78% · Streak: +5" data-es="Win rate: 78% · Racha: +5">Win rate: 78% · Racha: <span class="gold">+5</span></div>
+                <div style="font-size:11px;color:var(--navy-soft);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:24px;" data-en="Best pos: #1" data-es="Mejor pos: #1">Mejor pos: #1</div>
+                <button style="background:var(--terracotta);color:white;border:none;border-radius:999px;padding:12px 36px;font-weight:800;font-size:14px;box-shadow:0 8px 24px rgba(200,69,28,0.3);width:80%;" data-en="⚔ Challenge" data-es="⚔ Desafiar">⚔ Desafiar</button>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SCENE 5 — Wild card (era escena 4) ════════ -->
+  <section class="scene scene-5">
+    <div class="inner">
+      <div class="anim-pop" style="margin-bottom:24px;">
+        <div class="wc-badge" style="font-size:14px;padding:10px 22px;">
+          <span style="font-size:18px;">🃏</span> Wild Card
+        </div>
+      </div>
+      <h2 class="heading anim-up" data-en="Reward streaks. Skip the limit." data-es="Premiamos las rachas. Sin límite.">Premiamos las rachas. Sin límite.</h2>
+      <p class="body anim-up-2" style="max-width:680px;margin:14px auto 0;" data-en="The wildcard lets you challenge ANY position — no limit. New players get one as a welcome gift, and earn another by winning 3 matches in a row." data-es="La wild card te deja desafiar a CUALQUIER posición — sin límite. Cada jugador nuevo recibe una de bienvenida, y se gana otra ganando 3 partidos al hilo.">
+        La wild card te deja desafiar a <span class="gold">CUALQUIER</span> posición — sin límite. Cada jugador nuevo recibe una de bienvenida, y se gana otra ganando 3 partidos al hilo.
+      </p>
+      <div style="display:flex;justify-content:center;gap:16px;margin-top:36px;" class="anim-up-3">
+        <div style="background:rgba(232,176,76,0.10);border:1px solid rgba(232,176,76,0.4);border-radius:16px;padding:18px 22px;min-width:160px;">
+          <div style="font-size:32px;font-weight:800;color:var(--gold);">+1</div>
+          <div style="font-size:11px;color:rgba(250,247,242,0.6);text-transform:uppercase;letter-spacing:0.16em;margin-top:4px;" data-en="Welcome" data-es="Bienvenida">Bienvenida</div>
+        </div>
+        <div style="background:rgba(200,69,28,0.10);border:1px solid rgba(200,69,28,0.4);border-radius:16px;padding:18px 22px;min-width:160px;">
+          <div style="font-size:32px;font-weight:800;color:var(--terracotta);">3<span style="font-size:18px;">×W</span></div>
+          <div style="font-size:11px;color:rgba(250,247,242,0.6);text-transform:uppercase;letter-spacing:0.16em;margin-top:4px;" data-en="= Another wildcard" data-es="= Otra wild card">= Otra wild card</div>
         </div>
       </div>
     </div>
@@ -577,21 +576,27 @@
           <div class="push-notif" style="margin:0 0 18px auto;">
             <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div>
             <div class="body">
-              <div class="ttl">⚔️ Bernie te desafió</div>
-              <div class="msg">Tenés 48 hs para responder.</div>
+              <div class="ttl" data-en="⚔️ Bernie challenged you" data-es="⚔️ Bernie te desafió">⚔️ Bernie te desafió</div>
+              <div class="msg" data-en="48 hours to respond." data-es="Tenés 48 hs para responder.">Tenés 48 hs para responder.</div>
             </div>
           </div>
-          <div style="display:flex;gap:8px;justify-content:flex-end;">
-            <button style="background:var(--terracotta);color:white;border:none;border-radius:999px;padding:10px 24px;font-weight:700;font-size:13px;">Aceptar</button>
-            <button style="background:transparent;color:var(--cream);border:1.5px solid rgba(255,255,255,0.25);border-radius:999px;padding:10px 20px;font-weight:600;font-size:13px;">Rechazar</button>
+          <div style="display:flex;gap:8px;justify-content:flex-end;margin-bottom:12px;">
+            <button style="background:var(--terracotta);color:white;border:none;border-radius:999px;padding:10px 24px;font-weight:700;font-size:13px;" data-en="Accept" data-es="Aceptar">Aceptar</button>
+            <button style="background:transparent;color:var(--cream);border:1.5px solid rgba(255,255,255,0.25);border-radius:999px;padding:10px 20px;font-weight:600;font-size:13px;" data-en="Decline" data-es="Rechazar">Rechazar</button>
+          </div>
+          <!-- Penalty badge -->
+          <div style="display:flex;justify-content:flex-end;">
+            <div style="background:rgba(178,62,62,0.15);border:1px solid rgba(178,62,62,0.5);border-radius:10px;padding:8px 12px;font-size:11px;color:#F2AAAA;display:inline-flex;align-items:center;gap:6px;">
+              <span style="font-size:14px;">⚠️</span>
+              <span data-en="Max 2 declines/year. Otherwise: -1 position penalty." data-es="Máx 2 rechazos/año. Si no: -1 posición de penalización.">Máx 2 rechazos/año. Si no: -1 posición de penalización.</span>
+            </div>
           </div>
         </div>
         <div class="col-text anim-up">
-          <div class="label">48 horas para responder</div>
-          <h2 class="heading">Acá no se puede <span class="terra">esconder</span>.</h2>
-          <p class="body" style="margin-top:8px;">
-            Si no respondés en 48 hs, el desafío se acepta automáticamente.
-            Resuelve el problema clásico: el que se esconde para no perder posición.
+          <div class="label" data-en="48 hours to respond" data-es="48 horas para responder">48 horas para responder</div>
+          <h2 class="heading" data-en="Nowhere to hide." data-es="Acá no se puede esconder.">Acá no se puede <span class="terra">esconder</span>.</h2>
+          <p class="body" style="margin-top:8px;" data-en="No reply also counts as a decline. And you can't decline more than 2 challenges per year, or you lose a ranking position." data-es="Si no respondés, queda como rechazado. Y no se pueden rechazar más de 2 desafíos al año sin perder una posición.">
+            Si no respondés, queda como rechazado. Y no se pueden rechazar más de 2 desafíos al año sin perder una posición.
           </p>
         </div>
       </div>
@@ -620,8 +625,8 @@
   <!-- ════════ SCENE 8 — Cargar resultado ════════ -->
   <section class="scene scene-8">
     <div class="inner">
-      <div class="label anim-up">Resultado</div>
-      <h2 class="heading anim-up">Uno carga. <span class="terra">El otro confirma.</span></h2>
+      <div class="label anim-up" data-en="Score" data-es="Resultado">Resultado</div>
+      <h2 class="heading anim-up" data-en='Cualquiera carga. <span class="terra">Ranking actualizado.</span>' data-es='Cualquiera carga. <span class="terra">Ranking actualizado.</span>'>Cualquiera carga. <span class="terra">Ranking actualizado.</span></h2>
       <div class="anim-up-2 score-grid" style="margin:28px auto 16px;max-width:480px;">
         <div class="score-cell hl">6</div>
         <div class="score-cell">4</div>
@@ -629,18 +634,18 @@
         <div class="score-cell hl">7</div>
         <div class="score-cell">5</div>
       </div>
-      <p class="body anim-up-3" style="max-width:560px;margin:14px auto 0;">
-        Apenas se confirma, el ranking se actualiza al instante. El ganador sube justo arriba del que perdió.
+      <p class="body anim-up-3" style="max-width:600px;margin:14px auto 0;" data-en="Either player enters the score. We trust them. If there's a mistake, it can be corrected. Ranking updates instantly." data-es="Cualquiera de los dos jugadores carga el score. Confiamos en ellos. Si hay un error, se puede corregir. El ranking se actualiza al instante.">
+        Cualquiera de los dos jugadores carga el score. Confiamos en ellos. Si hay un error, se puede corregir. El ranking se actualiza al instante.
       </p>
     </div>
   </section>
 
-  <!-- ════════ SCENE 9 — Tribuna intro ════════ -->
+  <!-- ════════ SCENE 9 — Tribuna intro (en EN: Clubhouse) ════════ -->
   <section class="scene scene-9">
     <div class="inner">
       <div class="anim-pop" style="font-size:96px;line-height:1;margin-bottom:16px;">🏟️</div>
-      <h1 class="display anim-up">Tribuna</h1>
-      <p class="body anim-up-2" style="margin-top:14px;">El feed comunitario del club.</p>
+      <h1 class="display anim-up" data-en="Clubhouse" data-es="Tribuna">Tribuna</h1>
+      <p class="body anim-up-2" style="margin-top:14px;" data-en="Your club's community feed." data-es="El feed comunitario del club.">El feed comunitario del club.</p>
     </div>
   </section>
 
@@ -655,16 +660,28 @@
             <div class="phone-inner">
               <div class="phone-header">
                 <div class="badge"><svg viewBox="0 0 400 400"><g fill="#FAF7F2"><rect x="101" y="240" width="42" height="70" rx="5"/><rect x="153" y="205" width="42" height="105" rx="5"/><rect x="205" y="165" width="42" height="145" rx="5"/><rect x="257" y="120" width="42" height="190" rx="5"/></g><circle cx="278" cy="92" r="22" fill="#FAF7F2"/></svg></div>
-                <div class="title-block"><div class="t">🏟️ Tribuna</div></div>
+                <div class="title-block"><div class="t" data-en="🏟️ Clubhouse" data-es="🏟️ Tribuna">🏟️ Tribuna</div></div>
               </div>
               <div class="phone-body">
                 <div class="post-card">
                   <div class="post-head">
                     <div class="av">RF</div>
-                    <div class="meta"><div class="nm">Roger</div><div class="tm">hace 2 hs</div></div>
+                    <div class="meta"><div class="nm">Roger</div><div class="tm" data-en="2h ago" data-es="hace 2 hs">hace 2 hs</div></div>
                   </div>
-                  <div class="post-img">🎾</div>
-                  <div class="post-text">Gran partido vs <span class="terra" style="font-weight:700;">@Rafa</span>. 6-4, 7-5 ✊</div>
+                  <!-- Selfie post-partido: dos jugadores sobre fondo de cancha -->
+                  <div class="post-img" style="background:linear-gradient(135deg,#3a7d3a 0%,#5a9d4a 50%,#3a7d3a 100%);position:relative;padding:0;display:block;">
+                    <!-- "Líneas" de cancha -->
+                    <div style="position:absolute;inset:18% 12%;border:2px solid rgba(255,255,255,0.35);"></div>
+                    <div style="position:absolute;left:50%;top:18%;bottom:18%;width:1px;background:rgba(255,255,255,0.35);"></div>
+                    <!-- 2 caras (selfie) -->
+                    <div style="position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:14%;gap:6px;">
+                      <div style="width:64px;height:64px;border-radius:50%;background:#1A1A2E;color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;border:3px solid white;transform:rotate(-6deg);box-shadow:0 8px 16px rgba(0,0,0,0.3);">RF</div>
+                      <div style="width:64px;height:64px;border-radius:50%;background:var(--terracotta);color:white;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;border:3px solid white;transform:rotate(6deg);box-shadow:0 8px 16px rgba(0,0,0,0.3);">RN</div>
+                    </div>
+                    <!-- Pequeño emoji selfie arriba -->
+                    <div style="position:absolute;top:10px;right:12px;background:rgba(0,0,0,0.5);color:white;border-radius:999px;padding:4px 10px;font-size:11px;font-weight:600;backdrop-filter:blur(4px);">📸 Selfie</div>
+                  </div>
+                  <div class="post-text" data-en='Great match vs <span class="terra" style="font-weight:700;">@Rafa</span>. 6-4, 7-5 ✊' data-es='Gran partido vs <span class="terra" style="font-weight:700;">@Rafa</span>. 6-4, 7-5 ✊'>Gran partido vs <span class="terra" style="font-weight:700;">@Rafa</span>. 6-4, 7-5 ✊</div>
                   <div class="post-reactions">
                     <span class="reaction-chip">🎾 8</span>
                     <span class="reaction-chip">🔥 5</span>
@@ -676,13 +693,13 @@
           </div>
         </div>
         <div class="col-text anim-up">
-          <div class="label">Tribuna</div>
-          <h2 class="heading">Fotos. Encuestas. <span class="terra">Reacciones.</span></h2>
+          <div class="label" data-en="Clubhouse" data-es="Tribuna">Tribuna</div>
+          <h2 class="heading" data-en="Photos. Polls. Reactions." data-es="Fotos. Encuestas. Reacciones.">Fotos. Encuestas. <span class="terra">Reacciones.</span></h2>
           <ul class="body" style="margin-top:14px;list-style:none;display:flex;flex-direction:column;gap:8px;">
-            <li>📸 Subir fotos de partidos</li>
-            <li>📊 Encuestas para coordinar</li>
-            <li>💬 Comentarios + @menciones</li>
-            <li>🔄 Compartir afuera del club</li>
+            <li data-en="📸 Match photos" data-es="📸 Fotos de partidos">📸 Subir fotos de partidos</li>
+            <li data-en="📊 Polls to coordinate" data-es="📊 Encuestas para coordinar">📊 Encuestas para coordinar</li>
+            <li data-en="💬 Comments + @mentions" data-es="💬 Comentarios + @menciones">💬 Comentarios + @menciones</li>
+            <li data-en="🔄 Share outside the club" data-es="🔄 Compartir afuera del club">🔄 Compartir afuera del club</li>
           </ul>
         </div>
       </div>
@@ -880,11 +897,11 @@
     "Tu club tiene un ranking. Pero está en una pizarra del vestuario que nadie mira. O en un grupo de WhatsApp que se desordena en una semana.",
     "Challengers Ranking convierte la escalera de tu club en una app. Listo en 24 horas.",
     "Esto es un ranking de escalera. La espadita ⚔️ indica que ese jugador tiene un desafío activo.",
-    "Cada jugador nuevo recibe una wild card. Y si gana 3 partidos al hilo, se gana otra.",
-    "Tocás un jugador, ves su ficha, y tocás 'Desafiar'. Hasta 3 posiciones arriba — o 5 con wild card.",
-    "El desafiado tiene 48 horas para responder. Si no responde, se acepta automáticamente.",
+    "Tocás un jugador, ves su ficha, y tocás 'Desafiar'. Hasta 5 posiciones por encima tuyo.",
+    "Pero hay una excepción: la wild card. Una de bienvenida + otra cada 3 wins en racha. Te deja desafiar a CUALQUIER posición.",
+    "El desafiado tiene 48 hs. No responder = rechazado. Máx 2 rechazos al año, o se pierde una posición. Acá no se puede esconder.",
     "Cada desafío tiene su propio chat. Coordinás día, horario, cancha — sin salir de la app.",
-    "Uno carga el score. El otro confirma. El ranking se actualiza al instante.",
+    "Cualquiera de los dos jugadores carga el score. Confiamos. Si hay error, se corrige. El ranking se actualiza al instante.",
     "Pero el ranking es solo la mitad. La Tribuna es la otra: el feed comunitario del club.",
     "Fotos, encuestas, reacciones, comentarios, @menciones, share a redes. La vida del club online.",
     "Cada jugador tiene su ficha: posición, win rate, racha, historial completo. ESPN del club.",
@@ -896,12 +913,12 @@
     "Your club has a ranking. But it lives on a locker-room whiteboard nobody checks. Or in a WhatsApp group that goes off the rails in a week.",
     "Challengers Ranking turns your club's ladder into an app. Live in 24 hours.",
     "This is a ladder ranking. The ⚔️ icon means that player has an active challenge.",
-    "Every new player gets a welcome wildcard. And 3 wins in a row earn another.",
-    "Tap a player, see their profile, tap 'Challenge'. Up to 3 positions above — or 5 with a wildcard.",
-    "The challenged player has 48 hours to respond. No reply? Auto-accepted.",
+    "Tap a player, see their profile, tap 'Challenge'. Up to 5 positions above you.",
+    "But there's an exception: the wildcard. One welcome + another every 3 wins in a row. Lets you challenge ANY position.",
+    "48h to respond. No reply = decline. Max 2 declines per year, or you lose a position. Nowhere to hide.",
     "Every challenge has its own chat. Coordinate day, time, court — without leaving the app.",
-    "One enters the score. The other confirms. Ranking updates instantly.",
-    "But the ranking is only half. The Tribuna — the stands — is the other: your club's feed.",
+    "Either player enters the score. We trust them. If there's a mistake, it can be corrected. Ranking updates instantly.",
+    "But the ranking is only half. The Clubhouse is the other half: your club's feed.",
     "Photos, polls, reactions, comments, @mentions, share to socials. Your club's life, online.",
     "Every player has a profile: position, win rate, streak, full history. ESPN for your club.",
     "As admin, you see everything: active members, matches this month, pending challenges.",
