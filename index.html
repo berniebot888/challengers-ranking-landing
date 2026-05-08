@@ -853,33 +853,34 @@
     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-10">
         <p class="text-gold font-semibold tracking-widest uppercase text-sm mb-3"
-           data-en="See it in action" data-es="Velo en acción">See it in action</p>
+           data-en="How it works" data-es="Cómo funciona">How it works</p>
         <h2 class="font-serif text-4xl sm:text-5xl text-white font-bold"
-            data-en="Watch it in action." data-es="Mirá el producto en acción.">Watch it in action.</h2>
+            data-en="A 5-minute tour of the app." data-es="Tour de 5 minutos por la app.">A 5-minute tour of the app.</h2>
         <p class="text-white/40 mt-3 text-sm"
-           data-en="Live rankings · Challenges · Stats · Community feed"
-           data-es="Rankings · Desafíos · Stats · Feed comunitario">
-          Live rankings · Challenges · Stats · Community feed
+           data-en="Ladder ranking · Challenges · Wildcard · Clubhouse · Stats"
+           data-es="Ranking de escalera · Desafíos · Wild card · Tribuna · Stats">
+          Ladder ranking · Challenges · Wildcard · Clubhouse · Stats
         </p>
       </div>
 
-      <!-- 16:9 iframe container -->
+      <!-- 16:9 iframe container — explainer.html (5 min deep-dive bilingüe) -->
       <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10" style="padding-bottom: 56.25%;">
         <iframe
           id="promoFrame"
-          src="promo.html"
+          src="explainer.html"
+          loading="lazy"
           style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
         ></iframe>
       </div>
 
-      <!-- Replay button -->
+      <!-- Reload button -->
       <div class="text-center mt-5">
         <button
-          onclick="document.getElementById('promoFrame').src='promo.html'"
+          onclick="document.getElementById('promoFrame').src='explainer.html'"
           class="inline-flex items-center gap-2 text-white/40 hover:text-gold text-sm font-medium transition-colors duration-200"
         >
           <span style="font-size:1rem;">↺</span>
-          <span data-en="Replay" data-es="Repetir">Replay</span>
+          <span data-en="Restart tour" data-es="Reiniciar tour">Restart tour</span>
         </button>
       </div>
     </div>
@@ -1424,11 +1425,11 @@
       localStorage.setItem('cr-lang', lang);
       document.documentElement.lang = lang;
 
-      // Reload el iframe del promo video para que pickee el lang nuevo
-      // (el promo lee localStorage al load + bake-in los strings via JS).
+      // Reload el iframe del explainer para que pickee el lang nuevo
+      // (el explainer lee localStorage 'cr-lang' al load).
       // Cache-bust con timestamp así Vercel no sirve la versión cacheada.
       var promoFrame = document.getElementById('promoFrame');
-      if (promoFrame) promoFrame.src = 'promo.html?t=' + Date.now();
+      if (promoFrame) promoFrame.src = 'explainer.html?t=' + Date.now();
 
       // Swap innerHTML for all [data-en] / [data-es] elements
       document.querySelectorAll('[data-en]').forEach(function(el) {
