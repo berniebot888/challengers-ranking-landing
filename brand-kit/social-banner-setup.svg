@@ -1,0 +1,42 @@
+<svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F0F1F"/>
+      <stop offset="60%" stop-color="#1A1A2E"/>
+      <stop offset="100%" stop-color="#0F0F1F"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="20%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#C8451C" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#C8451C" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <rect y="0" width="1200" height="3" fill="#C8451C" opacity="0.7"/>
+
+  <!-- Badge -->
+  <svg x="80" y="155" width="320" height="320" viewBox="0 0 400 400">
+    <circle cx="200" cy="200" r="190" fill="#C8451C"/>
+    <g fill="#FAF7F2">
+      <rect x="101" y="240" width="42" height="70" rx="5"/>
+      <rect x="153" y="205" width="42" height="105" rx="5"/>
+      <rect x="205" y="165" width="42" height="145" rx="5"/>
+      <rect x="257" y="120" width="42" height="190" rx="5"/>
+    </g>
+    <circle cx="278" cy="92" r="22" fill="#FAF7F2"/>
+  </svg>
+
+  <text x="450" y="220" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="700" font-size="22" fill="#E8B04C" letter-spacing="6">SETUP DEL CLUB · CLUB ONBOARDING</text>
+
+  <text x="450" y="305" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="800" font-size="80" fill="#FAF7F2" letter-spacing="-3">Online en 24 hs</text>
+
+  <text x="450" y="370" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="800" font-size="42" fill="#FAF7F2" letter-spacing="-2">challengers</text>
+  <text x="452" y="402" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="500" font-size="18" fill="#C8451C" letter-spacing="8">RANKING</text>
+
+  <text x="450" y="455" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="500" font-size="22" fill="#FAF7F2" opacity="0.65">Signup · Subdominio · Importar socios · Invitar</text>
+
+  <!-- Play indicator -->
+  <circle cx="1090" cy="540" r="48" fill="#C8451C"/>
+  <polygon points="1078,520 1078,560 1110,540" fill="#FAF7F2"/>
+</svg>
