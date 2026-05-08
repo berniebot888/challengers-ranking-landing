@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Challengers Ranking — How it works</title>
+<meta name="description" content="Cómo funciona Challengers Ranking — tour completo de la app: ranking de escalera, desafíos, wild card, tribuna comunitaria, multi-deporte." />
+
+<link rel="icon" type="image/svg+xml" href="brand-kit/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --terracotta: #C8451C;
+    --terracotta-soft: #FCE8DC;
+    --navy: #1A1A2E;
+    --navy-soft: #3A3A52;
+    --cream: #FAF7F2;
+    --cream-warm: #F2EBE0;
+    --gold: #E8B04C;
+    --border: #E8E2D8;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 100%; min-height: 100%;
+    background: var(--navy);
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--cream);
+    overflow: hidden;
+  }
+  body {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+
+  #stage {
+    width: 100%;
+    max-width: 1280px;
+    aspect-ratio: 16 / 9;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(145deg, #0F0F1F 0%, var(--navy) 55%, #0F0F1F 100%);
+    border-radius: 0;
+  }
+  @media (min-aspect-ratio: 16/9) { #stage { height: 100vh; width: auto; } }
+
+  /* Subtle noise + glow */
+  #stage::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 30%, rgba(232,176,76,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 85% 80%, rgba(200,69,28,0.08) 0%, transparent 60%);
+    pointer-events: none; z-index: 0;
+  }
+
+  .scene {
+    position: absolute; inset: 0;
+    padding: 6% 8%;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.5s ease;
+  }
+  .scene.active {
+    opacity: 1; pointer-events: auto;
+  }
+  .scene .inner {
+    position: relative; z-index: 1;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  /* Typography */
+  h1.display { font-size: clamp(28px, 4vw, 56px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.05; }
+  h2.heading { font-size: clamp(24px, 3.2vw, 44px); font-weight: 800; letter-spacing: -0.01em; line-height: 1.1; margin-bottom: 16px; }
+  p.body { font-size: clamp(14px, 1.5vw, 20px); line-height: 1.55; color: rgba(250,247,242,0.78); }
+  .label { font-size: clamp(11px, 0.9vw, 13px); font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+  .gold { color: var(--gold); }
+  .terra { color: var(--terracotta); }
+  .cream { color: var(--cream); }
+
+  /* Active scene animations */
+  .scene.active .anim-up   { animation: fadeUp 0.7s ease both 0.1s; }
+  .scene.active .anim-up-2 { animation: fadeUp 0.7s ease both 0.4s; }
+  .scene.active .anim-up-3 { animation: fadeUp 0.7s ease both 0.7s; }
+  .scene.active .anim-pop  { animation: pop 0.6s cubic-bezier(0.34,1.56,0.64,1) both 0.1s; }
+  .scene.active .anim-fade { animation: fadeIn 0.8s ease both 0.2s; }
+  .scene.active .anim-glow { animation: glowPulse 2s ease-in-out infinite 0.5s; }
+
+  @keyframes fadeUp   { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeIn   { from{opacity:0} to{opacity:1} }
+  @keyframes pop      { from{opacity:0;transform:scale(0.8)} to{opacity:1;transform:scale(1)} }
+  @keyframes glowPulse { 0%,100%{box-shadow:0 0 0 0 rgba(200,69,28,0)} 50%{box-shadow:0 0 30px 8px rgba(200,69,28,0.4)} }
+  @keyframes spin     { to{transform:rotate(360deg)} }
+  @keyframes rise     { 0%{transform:translateY(40px);opacity:0} 100%{transform:translateY(0);opacity:1} }
+  @keyframes shake    { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-4px)} 75%{transform:translateX(4px)} }
+  @keyframes slideRight { from{transform:translateX(-30px);opacity:0} to{transform:translateX(0);opacity:1} }
+
+  /* Phone mockup */
+  .phone {
+    width: 280px; height: 580px;
+    background: #0F0F1F;
+    border-radius: 42px;
+    border: 2px solid rgba(255,255,255,0.10);
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(232,176,76,0.10);
+    flex-shrink: 0;
+  }
+  .phone-notch {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 110px; height: 26px;
+    background: #000;
+    border-radius: 0 0 16px 16px;
+    z-index: 30;
+  }
+  .phone-status {
+    position: absolute; top: 0; left: 0; right: 0; height: 38px;
+    z-index: 20;
+    display: flex; align-items: center; padding: 0 22px;
+    color: rgba(255,255,255,0.6); font-size: 11px; font-weight: 600;
+  }
+  .phone-status .time { flex: 1; }
+  .phone-inner {
+    position: absolute; inset: 0;
+    background: var(--cream);
+    color: var(--navy);
+    border-radius: 40px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .phone-header {
+    background: var(--navy);
+    color: var(--cream);
+    padding: 48px 14px 12px;
+    display: flex; align-items: center; gap: 10px;
+    flex-shrink: 0;
+  }
+  .phone-header .badge {
+    width: 32px; height: 32px;
+    background: var(--terracotta);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .phone-header .badge svg { width: 18px; height: 18px; }
+  .phone-header .title-block { flex: 1; min-width: 0; }
+  .phone-header .title-block .t { font-weight: 800; font-size: 14px; line-height: 1; letter-spacing: -0.02em; }
+  .phone-header .title-block .s { font-size: 9px; color: rgba(232,176,76,0.7); letter-spacing: 0.18em; text-transform: uppercase; margin-top: 4px; }
+  .phone-body { flex: 1; padding: 12px; overflow: hidden; display: flex; flex-direction: column; gap: 8px; }
+
+  /* Ranking row */
+  .rank-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 10px;
+    background: white;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    font-size: 13px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  }
+  .rank-row .pos { font-weight: 700; color: var(--navy); width: 26px; flex-shrink: 0; font-size: 14px; }
+  .rank-row .pos.gold { color: var(--gold); }
+  .rank-row .avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--navy); color: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; }
+  .rank-row .name { flex: 1; font-weight: 600; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .rank-row .swords { font-size: 14px; }
+  .rank-row.highlight { background: var(--terracotta-soft); border-color: var(--terracotta); animation: glowPulse 2s ease-in-out infinite; }
+
+  /* Post card */
+  .post-card {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    font-size: 12px;
+    color: var(--navy);
+  }
+  .post-head { display: flex; align-items: center; gap: 8px; padding: 10px 12px; }
+  .post-head .av { width: 26px; height: 26px; border-radius: 50%; background: var(--terracotta); color: white; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; }
+  .post-head .meta { font-size: 11px; }
+  .post-head .meta .nm { font-weight: 600; }
+  .post-head .meta .tm { color: rgba(26,26,46,0.5); font-size: 10px; }
+  .post-img { width: 100%; aspect-ratio: 1/1; background: linear-gradient(135deg, var(--terracotta) 0%, var(--gold) 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 32px; }
+  .post-text { padding: 8px 12px; font-size: 12px; line-height: 1.4; }
+  .post-reactions { padding: 6px 12px 10px; display: flex; gap: 6px; }
+  .reaction-chip { background: var(--cream-warm); border: 1px solid var(--border); border-radius: 999px; padding: 2px 8px; font-size: 11px; display: inline-flex; align-items: center; gap: 3px; }
+
+  /* Captions overlay */
+  #captions {
+    position: absolute;
+    bottom: 80px;
+    left: 5%; right: 5%;
+    text-align: center;
+    z-index: 40;
+    pointer-events: none;
+  }
+  #captions .text {
+    display: inline-block;
+    background: rgba(15,15,31,0.85);
+    backdrop-filter: blur(10px);
+    color: var(--cream);
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-size: clamp(12px, 1.3vw, 17px);
+    line-height: 1.5;
+    max-width: 92%;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: opacity 0.4s ease;
+  }
+  #captions.hidden .text { opacity: 0; }
+
+  /* Controls */
+  #controls {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    z-index: 50;
+    background: linear-gradient(to top, rgba(15,15,31,0.95), rgba(15,15,31,0.7) 70%, transparent);
+    padding: 30px 24px 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  #controls button {
+    background: rgba(255,255,255,0.10);
+    color: var(--cream);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 150ms ease;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  #controls button:hover { background: rgba(255,255,255,0.18); }
+  #controls .icon-btn { padding: 8px; width: 36px; height: 36px; justify-content: center; }
+  #controls .icon-btn svg { width: 16px; height: 16px; fill: currentColor; }
+  #controls .progress-wrap {
+    flex: 1; height: 4px; background: rgba(255,255,255,0.12); border-radius: 2px; cursor: pointer; position: relative;
+  }
+  #controls .progress {
+    height: 100%; background: var(--terracotta); border-radius: 2px; width: 0%;
+    transition: width 0.1s linear;
+  }
+  #controls .lang-toggle { display: flex; border: 1px solid rgba(255,255,255,0.15); border-radius: 999px; overflow: hidden; }
+  #controls .lang-toggle button { border: none; background: transparent; padding: 6px 12px; font-weight: 700; font-size: 11px; letter-spacing: 0.06em; color: rgba(255,255,255,0.5); border-radius: 0; }
+  #controls .lang-toggle button.active { color: var(--gold); background: rgba(232,176,76,0.10); }
+  #controls .scene-num { color: rgba(255,255,255,0.45); font-size: 12px; font-variant-numeric: tabular-nums; min-width: 50px; text-align: right; }
+
+  /* Scene-specific styles */
+  .whiteboard {
+    background: rgba(255,255,255,0.05);
+    border: 1px dashed rgba(255,255,255,0.2);
+    border-radius: 12px;
+    padding: 24px 32px;
+    color: rgba(250,247,242,0.7);
+    font-family: 'Permanent Marker', cursive, sans-serif;
+    font-size: clamp(14px, 1.5vw, 22px);
+    line-height: 1.8;
+    text-align: left;
+    max-width: 360px;
+    transform: rotate(-2deg);
+  }
+  .whiteboard .strike { text-decoration: line-through; opacity: 0.5; }
+
+  .wa-mock {
+    background: #0a1015;
+    border-radius: 12px;
+    padding: 12px;
+    max-width: 320px;
+    text-align: left;
+    font-size: 12px;
+    color: rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .wa-mock .wa-bubble {
+    background: #2a3942;
+    padding: 6px 10px; border-radius: 8px; margin-bottom: 4px;
+    display: inline-block; max-width: 90%;
+  }
+  .wa-mock .wa-bubble.me { background: #005c4b; align-self: flex-end; }
+  .wa-mock .wa-row { display: flex; margin-bottom: 4px; }
+  .wa-mock .wa-row.me { justify-content: flex-end; }
+
+  .badge-large {
+    width: 180px; height: 180px;
+    background: var(--terracotta);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 20px 60px rgba(200,69,28,0.4);
+    margin: 0 auto 24px;
+  }
+  .badge-large svg { width: 90px; height: 90px; }
+
+  .pill-list { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 20px; }
+  .pill-list .pill {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 999px; padding: 6px 14px;
+    font-size: 12px; font-weight: 600;
+    color: var(--cream);
+  }
+
+  /* Wildcard badge */
+  .wc-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(232,176,76,0.18);
+    border: 1px solid rgba(232,176,76,0.5);
+    color: var(--gold);
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+
+  /* Notification */
+  .push-notif {
+    background: rgba(255,255,255,0.95);
+    color: var(--navy);
+    border-radius: 14px;
+    padding: 12px 14px;
+    max-width: 320px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    display: flex; align-items: flex-start; gap: 10px;
+    text-align: left;
+  }
+  .push-notif .ico { width: 40px; height: 40px; border-radius: 10px; background: var(--terracotta); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .push-notif .ico svg { width: 22px; height: 22px; fill: white; }
+  .push-notif .body { flex: 1; }
+  .push-notif .body .ttl { font-weight: 700; font-size: 13px; }
+  .push-notif .body .msg { font-size: 12px; color: var(--navy-soft); margin-top: 2px; }
+
+  /* Score input */
+  .score-grid {
+    display: flex; gap: 8px; justify-content: center;
+    background: white; color: var(--navy);
+    border-radius: 12px; padding: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+  .score-cell {
+    background: var(--cream-warm);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    width: 48px; height: 56px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 22px;
+    color: var(--navy);
+  }
+  .score-cell.hl { border-color: var(--terracotta); background: var(--terracotta-soft); }
+
+  /* Layout helpers */
+  .row-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; max-width: 1100px; }
+  .col-text { text-align: left; }
+  .col-text.center { text-align: center; }
+  @media (max-aspect-ratio: 4/3) { .row-2col { grid-template-columns: 1fr; gap: 24px; } }
+
+  /* Top progress bar (overall) */
+  #top-progress {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; z-index: 60; background: rgba(255,255,255,0.08);
+  }
+  #top-progress .fill {
+    height: 100%; background: linear-gradient(to right, var(--terracotta), var(--gold)); width: 0%;
+    transition: width 0.3s linear;
+  }
+
+  /* Replay button (shown at end) */
+  #replay-overlay {
+    position: absolute; inset: 0; z-index: 100;
+    background: rgba(15,15,31,0.85); backdrop-filter: blur(10px);
+    display: none; align-items: center; justify-content: center;
+    flex-direction: column; gap: 24px;
+  }
+  #replay-overlay.show { display: flex; }
+  #replay-overlay h2 { font-size: clamp(28px, 4vw, 52px); font-weight: 800; color: var(--cream); letter-spacing: -0.02em; text-align: center; }
+  #replay-overlay .actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  #replay-overlay button, #replay-overlay a {
+    background: var(--terracotta); color: var(--cream); border: none; border-radius: 999px;
+    padding: 14px 28px; font-weight: 700; font-size: 15px;
+    cursor: pointer; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: background 200ms ease;
+  }
+  #replay-overlay a.secondary {
+    background: transparent; border: 2px solid rgba(255,255,255,0.3); color: var(--cream);
+  }
+  #replay-overlay button:hover, #replay-overlay a:hover { background: #A8381A; }
+  #replay-overlay a.secondary:hover { background: rgba(255,255,255,0.08); }
+
+  /* Initial play overlay */
+  #play-overlay {
+    position: absolute; inset: 0; z-index: 100;
+    background: linear-gradient(145deg, #0F0F1F 0%, var(--navy) 50%, #0F0F1F 100%);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 28px;
+    cursor: pointer;
+  }
+  #play-overlay.gone { display: none; }
+  #play-overlay .hero-badge {
+    width: 140px; height: 140px;
+    background: var(--terracotta);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 20px 60px rgba(200,69,28,0.4);
+    transition: transform 200ms ease;
+  }
+  #play-overlay:hover .hero-badge { transform: scale(1.05); }
+  #play-overlay .hero-badge svg { width: 64px; height: 64px; }
+  #play-overlay h1 { font-size: clamp(28px, 4vw, 52px); font-weight: 800; color: var(--cream); letter-spacing: -0.02em; text-align: center; }
+  #play-overlay .sub { color: rgba(250,247,242,0.6); font-size: 14px; text-align: center; }
+  #play-overlay .play-btn {
+    background: var(--terracotta); color: white; border: none; border-radius: 999px;
+    padding: 14px 32px; font-size: 15px; font-weight: 700; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 10px;
+    box-shadow: 0 10px 30px rgba(200,69,28,0.3);
+    transition: background 200ms ease;
+  }
+  #play-overlay .play-btn:hover { background: #A8381A; }
+  #play-overlay .play-btn svg { width: 16px; height: 16px; fill: white; }
+</style>
+</head>
+<body>
+
+<div id="stage">
+
+  <!-- Top progress bar -->
+  <div id="top-progress"><div class="fill"></div></div>
+
+  <!-- ════════ SCENE 1 — Hook + problema ════════ -->
+  <section class="scene scene-1">
+    <div class="inner">
+      <div class="row-2col">
+        <div class="anim-up col-text center">
+          <div class="label">El problema</div>
+          <h2 class="heading"><span class="cream">Tu ranking vive en una pizarra.</span><br><span class="terra">Y nadie la mira.</span></h2>
+        </div>
+        <div class="anim-up-2">
+          <div class="whiteboard">
+            <div>1. Bernie L.</div>
+            <div class="strike">2. Pablo M.</div>
+            <div>3. Roberto H.</div>
+            <div>4. Jero D.</div>
+            <div class="strike">5. Gonza O.</div>
+            <div>6. Pedro P.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SCENE 2 — Solución ════════ -->
+  <section class="scene scene-2">
+    <div class="inner">
+      <div class="anim-pop badge-large">
+        <svg viewBox="0 0 400 400">
+          <g fill="#FAF7F2">
+            <rect x="101" y="240" width="42" height="70" rx="5"/>
+            <rect x="153" y="205" width="42" height="105" rx="5"/>
+            <rect x="205" y="165" width="42" height="145" rx="5"/>
+            <rect x="257" y="120" width="42" height="190" rx="5"/>
+          </g>
+          <circle cx="278" cy="92" r="22" fill="#FAF7F2"/>
+        </svg>
+      </div>
+      <h1 class="display anim-up">Challengers <span class="terra">Ranking</span></h1>
+      <p class="body anim-up-2" style="margin-top:14px;max-width:580px;margin-left:auto;margin-right:auto;">El ranking de tu club, en vivo. Listo en 24 horas.</p>
+      <div class="pill-list anim-up-3">
+        <span class="pill">🎾 Tenis</span>
+        <span class="pill">🪅 Pádel</span>
+        <span class="pill">🥒 Pickleball</span>
+        <span class="pill">🎯 Squash</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SCENE 3 — Ranking de escalera ════════ -->
+  <section class="scene scene-3">
+    <div class="inner">
+      <div class="row-2col">
+        <div class="col-text anim-up">
+          <div class="label">Ranking de escalera</div>
+          <h2 class="heading">Posiciones que <span class="terra">cambian</span> partido a partido.</h2>
+          <p class="body" style="margin-top:8px;">La <span class="gold">⚔️ espadita</span> indica que ese jugador tiene un desafío activo.</p>
+        </div>
+        <div class="anim-up-2">
+          <div class="phone" style="margin:0 auto;">
+            <div class="phone-notch"></div>
+            <div class="phone-status"><span class="time">9:41</span></div>
+            <div class="phone-inner">
+              <div class="phone-header">
+                <div class="badge"><svg viewBox="0 0 400 400"><g fill="#FAF7F2"><rect x="101" y="240" width="42" height="70" rx="5"/><rect x="153" y="205" width="42" height="105" rx="5"/><rect x="205" y="165" width="42" height="145" rx="5"/><rect x="257" y="120" width="42" height="190" rx="5"/></g><circle cx="278" cy="92" r="22" fill="#FAF7F2"/></svg></div>
+                <div class="title-block"><div class="t">Tenis Club</div><div class="s">Singles Cab.</div></div>
+              </div>
+              <div class="phone-body">
+                <div class="rank-row"><span class="pos gold">#1</span><span class="avatar" style="background:#E8B04C;color:#1A1A2E">RN</span><span class="name">R. Nadal</span><span class="swords">⚔️</span></div>
+                <div class="rank-row"><span class="pos">#2</span><span class="avatar">RF</span><span class="name">R. Federer</span></div>
+                <div class="rank-row highlight"><span class="pos">#3</span><span class="avatar">JS</span><span class="name">J. Sinner</span><span class="swords">⚔️</span></div>
+                <div class="rank-row"><span class="pos">#4</span><span class="avatar">CA</span><span class="name">C. Alcaraz</span></div>
+                <div class="rank-row"><span class="pos">#5</span><span class="avatar">ND</span><span class="name">N. Djokovic</span><span class="swords">⚔️</span></div>
+                <div class="rank-row"><span class="pos">#6</span><span class="avatar">DM</span><span class="name">D. Medvedev</span></div>
+                <div class="rank-row"><span class="pos">#7</span><span class="avatar">AZ</span><span class="name">A. Zverev</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SCENE 4 — Wild card ════════ -->
+  <section class="scene scene-4">
+    <div class="inner">
+      <div class="anim-pop" style="margin-bottom:24px;">
+        <div class="wc-badge" style="font-size:14px;padding:10px 22px;">
+          <span style="font-size:18px;">🃏</span> Wild Card
+        </div>
+      </div>
+      <h2 class="heading anim-up">Premiamos las rachas.</h2>
+      <p class="body anim-up-2" style="max-width:680px;margin:14px auto 0;">
+        Cada jugador nuevo recibe <span class="gold">una wild card de bienvenida</span> para desafiar 5 posiciones más arriba del límite normal.
+        Y si gana <span class="gold">3 partidos al hilo</span>, se gana otra. Los jugadores en racha se vuelven peligrosos.
+      </p>
+      <div style="display:flex;justify-content:center;gap:16px;margin-top:36px;" class="anim-up-3">
+        <div style="background:rgba(232,176,76,0.10);border:1px solid rgba(232,176,76,0.4);border-radius:16px;padding:18px 22px;min-width:160px;">
+          <div style="font-size:32px;font-weight:800;color:var(--gold);">+1</div>
+          <div style="font-size:11px;color:rgba(250,247,242,0.6);text-transform:uppercase;letter-spacing:0.16em;margin-top:4px;">Bienvenida</div>
+        </div>
+        <div style="background:rgba(200,69,28,0.10);border:1px solid rgba(200,69,28,0.4);border-radius:16px;padding:18px 22px;min-width:160px;">
+          <div style="font-size:32px;font-weight:800;color:var(--terracotta);">3<span style="font-size:18px;">×W</span></div>
+          <div style="font-size:11px;color:rgba(250,247,242,0.6);text-transform:uppercase;letter-spacing:0.16em;margin-top:4px;">= Otra wild card</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SCENE 5 — Cómo desafiar ════════ -->
+  <section class="scene scene-5">
+    <div class="inner">
+      <div class="row-2col">
+        <div class="col-text anim-up">
+          <div class="label">Cómo desafiar</div>
+          <h2 class="heading">Tap. <span class="terra">Tap. Tap.</span></h2>
+          <p class="body" style="margin-top:8px;">
+            Tocás un jugador del ranking → ves su ficha → tocás <span style="background:var(--terracotta);color:white;padding:2px 8px;border-radius:6px;font-weight:700;">Desafiar</span>.
+          </p>
+          <p class="body" style="margin-top:12px;font-size:0.92em;">Hasta 3 posiciones arriba — o 5 con wild card.</p>
+        </div>
+        <div class="anim-up-2" style="text-align:center;">
+          <div class="phone" style="margin:0 auto;">
+            <div class="phone-notch"></div>
+            <div class="phone-status"><span class="time">9:41</span></div>
+            <div class="phone-inner">
+              <div class="phone-header">
+                <div class="badge"><svg viewBox="0 0 400 400"><g fill="#FAF7F2"><rect x="101" y="240" width="42" height="70" rx="5"/><rect x="153" y="205" width="42" height="105" rx="5"/><rect x="205" y="165" width="42" height="145" rx="5"/><rect x="257" y="120" width="42" height="190" rx="5"/></g><circle cx="278" cy="92" r="22" fill="#FAF7F2"/></svg></div>
+                <div class="title-block"><div class="t">Roger Federer</div><div class="s">#2 · Singles Cab.</div></div>
+              </div>
+              <div class="phone-body" style="text-align:center;padding-top:24px;">
+                <div style="width:80px;height:80px;border-radius:50%;background:var(--navy);color:var(--cream);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;margin:0 auto 14px;">RF</div>
+                <div style="font-size:12px;color:var(--navy-soft);margin-bottom:6px;">Win rate: 78% · Racha: <span class="gold">+5</span></div>
+                <div style="font-size:11px;color:var(--navy-soft);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:24px;">Mejor pos: #1</div>
+                <button style="background:var(--terracotta);color:white;border:none;border-radius:999px;padding:12px 36px;font-weight:800;font-size:14px;box-shadow:0 8px 24px rgba(200,69,28,0.3);width:80%;">⚔ Desafiar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SCENE 6 — Aceptar / Rechazar ════════ -->
+  <section class="scene scene-6">
+    <div class="inner">
+      <div class="row-2col">
+        <div class="anim-up-2">
+          <div class="push-notif" style="margin:0 0 18px auto;">
+            <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div>
+            <div class="body">
+              <div class="ttl">⚔️ Bernie te desafió</div>
+              <div class="msg">Tenés 48 hs para responder.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;justify-content:flex-end;">
+            <button style="background:var(--terracotta);color:white;border:none;border-radius:999px;padding:10px 24px;font-weight:700;font-size:13px;">Aceptar</button>
+            <button style="background:transparent;color:var(--cream);border:1.5px solid rgba(255,255,255,0.25);border-radius:999px;padding:10px 20px;font-weight:600;font-size:13px;">Rechazar</button>
+          </div>
+        </div>
+        <div class="col-text anim-up">
+          <div class="label">48 horas para responder</div>
+          <h2 class="heading">Acá no se puede <span class="terra">esconder</span>.</h2>
+          <p class="body" style="margin-top:8px;">
+            Si no respondés en 48 hs, el desafío se acepta automáticamente.
+            Resuelve el problema clásico: el que se esconde para no perder posición.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SCENE 7 — Chat del desafío ════════ -->
+  <section class="scene scene-7">
+    <div class="inner">
+      <div class="row-2col">
+        <div class="col-text anim-up">
+          <div class="label">Chat integrado</div>
+          <h2 class="heading">Coordinen sin <span class="terra">salir de la app</span>.</h2>
+          <p class="body" style="margin-top:8px;">Día, horario, cancha. Todo en un mismo lugar.</p>
+        </div>
+        <div class="anim-up-2 wa-mock" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.10);">
+          <div class="wa-row"><div class="wa-bubble" style="background:var(--cream-warm);color:var(--navy)">¿Mañana 19 hs cancha 3?</div></div>
+          <div class="wa-row me"><div class="wa-bubble" style="background:var(--terracotta);color:white">Dale, ahí estoy 👍</div></div>
+          <div class="wa-row"><div class="wa-bubble" style="background:var(--cream-warm);color:var(--navy)">Llevo pelotas nuevas</div></div>
+          <div class="wa-row me"><div class="wa-bubble" style="background:var(--terracotta);color:white">Perfecto, nos vemos</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SCENE 8 — Cargar resultado ════════ -->
+  <section class="scene scene-8">
+    <div class="inner">
+      <div class="label anim-up">Resultado</div>
+      <h2 class="heading anim-up">Uno carga. <span class="terra">El otro confirma.</span></h2>
+      <div class="anim-up-2 score-grid" style="margin:28px auto 16px;max-width:480px;">
+        <div class="score-cell hl">6</div>
+        <div class="score-cell">4</div>
+        <div style="display:flex;align-items:center;color:var(--navy-soft);font-weight:600;">·</div>
+        <div class="score-cell hl">7</div>
+        <div class="score-cell">5</div>
+      </div>
+      <p class="body anim-up-3" style="max-width:560px;margin:14px auto 0;">
+        Apenas se confirma, el ranking se actualiza al instante. El ganador sube justo arriba del que perdió.
+      </p>
+    </div>
+  </section>
+
+  <!-- ════════ SCENE 9 — Tribuna intro ════════ -->
+  <section class="scene scene-9">
+    <div class="inner">
+      <div class="anim-pop" style="font-size:96px;line-height:1;margin-bottom:16px;">🏟️</div>
+      <h1 class="display anim-up">Tribuna</h1>
+      <p class="body anim-up-2" style="margin-top:14px;">El feed comunitario del club.</p>
+    </div>
+  </section>
+
+  <!-- ════════ SCENE 10 — Tribuna features ════════ -->
+  <section class="scene scene-10">
+    <div class="inner">
+      <div class="row-2col">
+        <div class="anim-up-2" style="text-align:center;">
+          <div class="phone" style="margin:0 auto;">
+            <div class="phone-notch"></div>
+            <div class="phone-status"><span class="time">9:41</span></div>
+            <div class="phone-inner">
+              <div class="phone-header">
+                <div class="badge"><svg viewBox="0 0 400 400"><g fill="#FAF7F2"><rect x="101" y="240" width="42" height="70" rx="5"/><rect x="153" y="205" width="42" height="105" rx="5"/><rect x="205" y="165" width="42" height="145" rx="5"/><rect x="257" y="120" width="42" height="190" rx="5"/></g><circle cx="278" cy="92" r="22" fill="#FAF7F2"/></svg></div>
+                <div class="title-block"><div class="t">🏟️ Tribuna</div></div>
+              </div>
+              <div class="phone-body">
+                <div class="post-card">
+                  <div class="post-head">
+                    <div class="av">RF</div>
+                    <div class="meta"><div class="nm">Roger</div><div class="tm">hace 2 hs</div></div>
+                  </div>
+                  <div class="post-img">🎾</div>
+                  <div class="post-text">Gran partido vs <span class="terra" style="font-weight:700;">@Rafa</span>. 6-4, 7-5 ✊</div>
+                  <div class="post-reactions">
+                    <span class="reaction-chip">🎾 8</span>
+                    <span class="reaction-chip">🔥 5</span>
+                    <span class="reaction-chip">👏 3</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-text anim-up">
+          <div class="label">Tribuna</div>
+          <h2 class="heading">Fotos. Encuestas. <span class="terra">Reacciones.</span></h2>
+          <ul class="body" style="margin-top:14px;list-style:none;display:flex;flex-direction:column;gap:8px;">
+            <li>📸 Subir fotos de partidos</li>
+            <li>📊 Encuestas para coordinar</li>
+            <li>💬 Comentarios + @menciones</li>
+            <li>🔄 Compartir afuera del club</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SCENE 11 — Ficha del jugador ════════ -->
+  <section class="scene scene-11">
+    <div class="inner">
+      <div class="row-2col">
+        <div class="col-text anim-up">
+          <div class="label">Ficha del jugador</div>
+          <h2 class="heading">ESPN del club, <span class="terra">en pequeño</span>.</h2>
+          <p class="body" style="margin-top:8px;">
+            Posición, win rate, racha, mejor histórico. Todos los partidos jugados, contra quién, qué resultado.
+          </p>
+        </div>
+        <div class="anim-up-2" style="text-align:center;">
+          <div class="phone" style="margin:0 auto;">
+            <div class="phone-notch"></div>
+            <div class="phone-status"><span class="time">9:41</span></div>
+            <div class="phone-inner">
+              <div class="phone-header">
+                <div class="badge"><svg viewBox="0 0 400 400"><g fill="#FAF7F2"><rect x="101" y="240" width="42" height="70" rx="5"/><rect x="153" y="205" width="42" height="105" rx="5"/><rect x="205" y="165" width="42" height="145" rx="5"/><rect x="257" y="120" width="42" height="190" rx="5"/></g><circle cx="278" cy="92" r="22" fill="#FAF7F2"/></svg></div>
+                <div class="title-block"><div class="t">Ficha</div></div>
+              </div>
+              <div class="phone-body" style="background:var(--cream);">
+                <div style="text-align:center;padding:14px 0 8px;">
+                  <div style="width:72px;height:72px;border-radius:50%;background:var(--navy);color:var(--cream);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;margin:0 auto 8px;">RN</div>
+                  <div style="font-weight:800;color:var(--navy);font-size:15px;">Rafael Nadal</div>
+                  <div style="font-size:11px;color:var(--gold);font-weight:700;">#1 · Singles Cab.</div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;padding:8px 0;">
+                  <div style="background:white;border:1px solid var(--border);border-radius:8px;padding:8px;text-align:center;">
+                    <div style="font-size:18px;font-weight:800;color:var(--navy);">42</div>
+                    <div style="font-size:9px;color:var(--navy-soft);">PARTIDOS</div>
+                  </div>
+                  <div style="background:white;border:1px solid var(--border);border-radius:8px;padding:8px;text-align:center;">
+                    <div style="font-size:18px;font-weight:800;color:var(--terracotta);">82%</div>
+                    <div style="font-size:9px;color:var(--navy-soft);">WIN RATE</div>
+                  </div>
+                  <div style="background:white;border:1px solid var(--border);border-radius:8px;padding:8px;text-align:center;">
+                    <div style="font-size:18px;font-weight:800;color:var(--gold);">+7</div>
+                    <div style="font-size:9px;color:var(--navy-soft);">RACHA</div>
+                  </div>
+                </div>
+                <div style="font-size:10px;color:var(--navy-soft);text-transform:uppercase;letter-spacing:0.14em;margin-top:6px;font-weight:700;">Últimos partidos</div>
+                <div style="background:white;border:1px solid var(--border);border-radius:8px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center;font-size:11px;">
+                  <span style="color:var(--navy);font-weight:600;">vs R. Federer</span>
+                  <span style="color:var(--success,#2A8A2A);font-weight:700;">W 6-4 7-5</span>
+                </div>
+                <div style="background:white;border:1px solid var(--border);border-radius:8px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center;font-size:11px;">
+                  <span style="color:var(--navy);font-weight:600;">vs J. Sinner</span>
+                  <span style="color:var(--success,#2A8A2A);font-weight:700;">W 7-6 6-3</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SCENE 12 — Stats del club ════════ -->
+  <section class="scene scene-12">
+    <div class="inner">
+      <div class="label anim-up">Dashboard del admin</div>
+      <h2 class="heading anim-up">Data real de tu club.<br>Por <span class="terra">primera vez</span>.</h2>
+      <div class="anim-up-2" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;max-width:720px;margin:32px auto 0;">
+        <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);border-radius:14px;padding:18px;">
+          <div style="font-size:32px;font-weight:800;color:var(--cream);">65</div>
+          <div style="font-size:11px;color:rgba(250,247,242,0.55);text-transform:uppercase;letter-spacing:0.14em;margin-top:4px;">Activos</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);border-radius:14px;padding:18px;">
+          <div style="font-size:32px;font-weight:800;color:var(--terracotta);">128</div>
+          <div style="font-size:11px;color:rgba(250,247,242,0.55);text-transform:uppercase;letter-spacing:0.14em;margin-top:4px;">Partidos / mes</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.10);border-radius:14px;padding:18px;">
+          <div style="font-size:32px;font-weight:800;color:var(--gold);">13</div>
+          <div style="font-size:11px;color:rgba(250,247,242,0.55);text-transform:uppercase;letter-spacing:0.14em;margin-top:4px;">Desafíos activos</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ SCENE 13 — Multi-deporte / categoría ════════ -->
+  <section class="scene scene-13">
+    <div class="inner">
+      <div class="label anim-up">Un solo plan</div>
+      <h2 class="heading anim-up">Todas las disciplinas <span class="terra">del club</span>.</h2>
+      <div class="pill-list anim-up-2" style="margin-top:24px;font-size:14px;">
+        <span class="pill" style="font-size:14px;padding:8px 18px;">🎾 Tenis</span>
+        <span class="pill" style="font-size:14px;padding:8px 18px;">🪅 Pádel</span>
+        <span class="pill" style="font-size:14px;padding:8px 18px;">🥒 Pickleball</span>
+        <span class="pill" style="font-size:14px;padding:8px 18px;">🎯 Squash</span>
+      </div>
+      <div class="pill-list anim-up-3" style="margin-top:14px;">
+        <span class="pill">Singles</span>
+        <span class="pill">Dobles</span>
+        <span class="pill">Damas</span>
+        <span class="pill">Caballeros</span>
+        <span class="pill">Mixtos</span>
+        <span class="pill">Juniors</span>
+      </div>
+      <p class="body anim-up-3" style="margin-top:24px;max-width:580px;margin-left:auto;margin-right:auto;">
+        Cada categoría es su propia escalera. Mismo admin, mismo dashboard, mismo plan.
+      </p>
+    </div>
+  </section>
+
+  <!-- ════════ SCENE 14 — Outro CTA ════════ -->
+  <section class="scene scene-14">
+    <div class="inner">
+      <div class="anim-pop badge-large" style="margin-bottom:24px;">
+        <svg viewBox="0 0 400 400">
+          <g fill="#FAF7F2">
+            <rect x="101" y="240" width="42" height="70" rx="5"/>
+            <rect x="153" y="205" width="42" height="105" rx="5"/>
+            <rect x="205" y="165" width="42" height="145" rx="5"/>
+            <rect x="257" y="120" width="42" height="190" rx="5"/>
+          </g>
+          <circle cx="278" cy="92" r="22" fill="#FAF7F2"/>
+        </svg>
+      </div>
+      <h1 class="display anim-up">Tu primer desafío,<br><span class="terra">esta semana</span>.</h1>
+      <p class="body anim-up-2" style="margin-top:14px;max-width:560px;margin-left:auto;margin-right:auto;">
+        Setup en 24 horas. Sin App Store fees. Tus socios ya saben usarla.
+      </p>
+      <a href="https://www.challengersranking.online" target="_blank" class="anim-up-3" style="display:inline-block;margin-top:24px;background:var(--terracotta);color:white;text-decoration:none;border-radius:999px;padding:14px 36px;font-weight:800;font-size:16px;box-shadow:0 12px 40px rgba(200,69,28,0.4);">
+        challengersranking.online →
+      </a>
+    </div>
+  </section>
+
+  <!-- Captions overlay -->
+  <div id="captions"><span class="text"></span></div>
+
+  <!-- Controls -->
+  <div id="controls">
+    <button class="icon-btn" id="btn-play" aria-label="Play/pause">
+      <svg viewBox="0 0 24 24" id="icon-play"><path d="M8 5v14l11-7z"/></svg>
+      <svg viewBox="0 0 24 24" id="icon-pause" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </button>
+    <button class="icon-btn" id="btn-prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg></button>
+    <button class="icon-btn" id="btn-next" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></button>
+    <div class="progress-wrap" id="prog-wrap"><div class="progress" id="progress"></div></div>
+    <span class="scene-num" id="scene-num">1 / 14</span>
+    <div class="lang-toggle">
+      <button id="btn-es" class="active" data-lang="es">ES</button>
+      <button id="btn-en" data-lang="en">EN</button>
+    </div>
+  </div>
+
+  <!-- Initial play overlay -->
+  <div id="play-overlay" onclick="startPlayback()">
+    <div class="hero-badge">
+      <svg viewBox="0 0 400 400">
+        <g fill="#FAF7F2">
+          <rect x="101" y="240" width="42" height="70" rx="5"/>
+          <rect x="153" y="205" width="42" height="105" rx="5"/>
+          <rect x="205" y="165" width="42" height="145" rx="5"/>
+          <rect x="257" y="120" width="42" height="190" rx="5"/>
+        </g>
+        <circle cx="278" cy="92" r="22" fill="#FAF7F2"/>
+      </svg>
+    </div>
+    <div>
+      <h1 data-en="How Challengers Ranking works" data-es="Cómo funciona Challengers Ranking">Cómo funciona Challengers Ranking</h1>
+      <div class="sub" data-en="A 5-minute tour of the app" data-es="Tour de 5 minutos por la app" style="margin-top:8px;">Tour de 5 minutos por la app</div>
+    </div>
+    <button class="play-btn">
+      <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      <span data-en="Play" data-es="Reproducir">Reproducir</span>
+    </button>
+  </div>
+
+  <!-- Replay overlay (after end) -->
+  <div id="replay-overlay">
+    <h2 data-en="Want this for your club?" data-es="¿Lo querés para tu club?">¿Lo querés para tu club?</h2>
+    <div class="actions">
+      <a href="https://www.challengersranking.online" target="_blank">
+        <span data-en="Try it free" data-es="Probar gratis">Probar gratis</span> →
+      </a>
+      <a href="#" class="secondary" onclick="event.preventDefault();replay()">
+        <span data-en="Watch again" data-es="Ver otra vez">Ver otra vez</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Captions data — synced to audio scenes -->
+<script id="captions-data" type="application/json">
+{
+  "es": [
+    "Tu club tiene un ranking. Pero está en una pizarra del vestuario que nadie mira. O en un grupo de WhatsApp que se desordena en una semana.",
+    "Challengers Ranking convierte la escalera de tu club en una app. Listo en 24 horas.",
+    "Esto es un ranking de escalera. La espadita ⚔️ indica que ese jugador tiene un desafío activo.",
+    "Cada jugador nuevo recibe una wild card. Y si gana 3 partidos al hilo, se gana otra.",
+    "Tocás un jugador, ves su ficha, y tocás 'Desafiar'. Hasta 3 posiciones arriba — o 5 con wild card.",
+    "El desafiado tiene 48 horas para responder. Si no responde, se acepta automáticamente.",
+    "Cada desafío tiene su propio chat. Coordinás día, horario, cancha — sin salir de la app.",
+    "Uno carga el score. El otro confirma. El ranking se actualiza al instante.",
+    "Pero el ranking es solo la mitad. La Tribuna es la otra: el feed comunitario del club.",
+    "Fotos, encuestas, reacciones, comentarios, @menciones, share a redes. La vida del club online.",
+    "Cada jugador tiene su ficha: posición, win rate, racha, historial completo. ESPN del club.",
+    "Como admin, ves todo desde un dashboard: socios activos, partidos del mes, desafíos pendientes.",
+    "Tenis, pádel, pickleball, squash. Singles y dobles. Cada categoría es su propia escalera.",
+    "Tu primer desafío, esta semana. challengersranking.online"
+  ],
+  "en": [
+    "Your club has a ranking. But it lives on a locker-room whiteboard nobody checks. Or in a WhatsApp group that goes off the rails in a week.",
+    "Challengers Ranking turns your club's ladder into an app. Live in 24 hours.",
+    "This is a ladder ranking. The ⚔️ icon means that player has an active challenge.",
+    "Every new player gets a welcome wildcard. And 3 wins in a row earn another.",
+    "Tap a player, see their profile, tap 'Challenge'. Up to 3 positions above — or 5 with a wildcard.",
+    "The challenged player has 48 hours to respond. No reply? Auto-accepted.",
+    "Every challenge has its own chat. Coordinate day, time, court — without leaving the app.",
+    "One enters the score. The other confirms. Ranking updates instantly.",
+    "But the ranking is only half. The Tribuna — the stands — is the other: your club's feed.",
+    "Photos, polls, reactions, comments, @mentions, share to socials. Your club's life, online.",
+    "Every player has a profile: position, win rate, streak, full history. ESPN for your club.",
+    "As admin, you see everything: active members, matches this month, pending challenges.",
+    "Tennis, padel, pickleball, squash. Singles and doubles. Each category is its own ladder.",
+    "Your first challenge, this week. challengersranking.online"
+  ]
+}
+</script>
+
+<script>
+(function() {
+  const NUM_SCENES = 14;
+  const captionsData = JSON.parse(document.getElementById('captions-data').textContent);
+
+  // State
+  let currentScene = 1;
+  let lang = 'es';
+  let isPlaying = false;
+  let audioEl = null;
+
+  const stage = document.getElementById('stage');
+  const captions = document.getElementById('captions');
+  const captionsText = captions.querySelector('.text');
+  const progressBar = document.getElementById('progress');
+  const topProgressFill = document.querySelector('#top-progress .fill');
+  const sceneNum = document.getElementById('scene-num');
+  const playOverlay = document.getElementById('play-overlay');
+  const replayOverlay = document.getElementById('replay-overlay');
+  const iconPlay = document.getElementById('icon-play');
+  const iconPause = document.getElementById('icon-pause');
+
+  // Detect saved lang from landing localStorage if same origin
+  try {
+    const saved = localStorage.getItem('cr-lang');
+    if (saved === 'en' || saved === 'es') lang = saved;
+  } catch {}
+
+  function setLang(l) {
+    lang = l;
+    document.documentElement.lang = l;
+    try { localStorage.setItem('cr-lang', l); } catch {}
+    document.querySelectorAll('.lang-toggle button').forEach(b => {
+      b.classList.toggle('active', b.dataset.lang === l);
+    });
+    document.querySelectorAll('[data-en]').forEach(el => {
+      el.textContent = (l === 'en') ? el.dataset.en : el.dataset.es;
+    });
+    captionsText.textContent = captionsData[l][currentScene - 1] || '';
+    if (audioEl) {
+      const wasPlaying = isPlaying;
+      const t = audioEl.currentTime;
+      loadAudio();
+      if (wasPlaying) {
+        audioEl.currentTime = Math.min(t, audioEl.duration || 0);
+        audioEl.play().catch(() => {});
+      }
+    }
+  }
+
+  function loadAudio() {
+    if (audioEl) {
+      audioEl.pause();
+      audioEl.removeEventListener('ended', onEnded);
+      audioEl.removeEventListener('timeupdate', onTimeUpdate);
+    }
+    const sceneStr = String(currentScene).padStart(2, '0');
+    audioEl = new Audio(`explainer-audio/${lang}/scene-${sceneStr}.m4a`);
+    audioEl.preload = 'auto';
+    audioEl.addEventListener('ended', onEnded);
+    audioEl.addEventListener('timeupdate', onTimeUpdate);
+  }
+
+  function onTimeUpdate() {
+    if (!audioEl || !audioEl.duration) return;
+    const pct = (audioEl.currentTime / audioEl.duration) * 100;
+    progressBar.style.width = pct + '%';
+    const overall = ((currentScene - 1) + (audioEl.currentTime / audioEl.duration)) / NUM_SCENES * 100;
+    topProgressFill.style.width = overall + '%';
+  }
+
+  function onEnded() {
+    if (currentScene < NUM_SCENES) {
+      gotoScene(currentScene + 1, true);
+    } else {
+      isPlaying = false;
+      iconPlay.style.display = 'block';
+      iconPause.style.display = 'none';
+      replayOverlay.classList.add('show');
+      // Apply lang to overlay strings
+      replayOverlay.querySelectorAll('[data-en]').forEach(el => {
+        el.textContent = (lang === 'en') ? el.dataset.en : el.dataset.es;
+      });
+    }
+  }
+
+  function activateScene(n) {
+    document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+    const el = document.querySelector('.scene-' + n);
+    if (el) el.classList.add('active');
+    sceneNum.textContent = `${n} / ${NUM_SCENES}`;
+    captionsText.textContent = captionsData[lang][n - 1] || '';
+  }
+
+  function gotoScene(n, autoplay) {
+    if (n < 1) n = 1;
+    if (n > NUM_SCENES) n = NUM_SCENES;
+    currentScene = n;
+    activateScene(n);
+    loadAudio();
+    if (autoplay && isPlaying) {
+      audioEl.play().catch(() => {});
+    }
+    progressBar.style.width = '0%';
+    const overall = ((n - 1) / NUM_SCENES) * 100;
+    topProgressFill.style.width = overall + '%';
+  }
+
+  function play() {
+    if (!audioEl) loadAudio();
+    audioEl.play().then(() => {
+      isPlaying = true;
+      iconPlay.style.display = 'none';
+      iconPause.style.display = 'block';
+    }).catch(() => {});
+  }
+
+  function pause() {
+    if (audioEl) audioEl.pause();
+    isPlaying = false;
+    iconPlay.style.display = 'block';
+    iconPause.style.display = 'none';
+  }
+
+  window.startPlayback = function() {
+    playOverlay.classList.add('gone');
+    activateScene(1);
+    loadAudio();
+    play();
+  };
+
+  window.replay = function() {
+    replayOverlay.classList.remove('show');
+    gotoScene(1, true);
+    play();
+  };
+
+  // Wire up controls
+  document.getElementById('btn-play').addEventListener('click', () => isPlaying ? pause() : play());
+  document.getElementById('btn-prev').addEventListener('click', () => { gotoScene(currentScene - 1, isPlaying); });
+  document.getElementById('btn-next').addEventListener('click', () => { gotoScene(currentScene + 1, isPlaying); });
+  document.getElementById('prog-wrap').addEventListener('click', (e) => {
+    if (!audioEl || !audioEl.duration) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const pct = (e.clientX - rect.left) / rect.width;
+    audioEl.currentTime = audioEl.duration * pct;
+  });
+  document.querySelectorAll('.lang-toggle button').forEach(btn => {
+    btn.addEventListener('click', () => setLang(btn.dataset.lang));
+  });
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', (e) => {
+    if (e.key === ' ') { e.preventDefault(); isPlaying ? pause() : play(); }
+    if (e.key === 'ArrowRight') gotoScene(currentScene + 1, isPlaying);
+    if (e.key === 'ArrowLeft') gotoScene(currentScene - 1, isPlaying);
+  });
+
+  // Initial state
+  setLang(lang);
+  activateScene(1);
+})();
+</script>
+
+</body>
+</html>
