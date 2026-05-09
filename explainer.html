@@ -1467,17 +1467,27 @@
     setMusicMuted(!musicMuted);
   });
 
-  // Fullscreen toggle (con fallback a webkit prefix para iOS Safari).
-  // Algunos browsers de iOS no soportan Fullscreen API en elementos
-  // que no son <video> — en ese caso aplicamos pseudo-fullscreen via
-  // CSS (#stage con position:fixed inset:0).
+  // Fullscreen toggle.
+  //
+  // Caso A — standalone (explainer.html abierto directo): usamos Fullscreen API
+  //   sobre #stage; si falla (iOS Safari no permite FS en elementos arbitrarios),
+  //   caemos a pseudo-fullscreen (position:fixed inset:0).
+  //
+  // Caso B — embebido en iframe (desde la landing): position:fixed dentro del
+  //   iframe NO sale del iframe (solo llena su viewport interno, que ya es su
+  //   tamaño). Y requestFullscreen() en mobile a menudo es bloqueado o solo
+  //   afecta al elemento dentro del iframe. Solución: postMessage al parent
+  //   para que el parent fullscreene/pseudo-fullscreene el ELEMENTO IFRAME
+  //   (eso sí escala al device entero).
   const stageEl = document.getElementById('stage');
   const iconFs = document.getElementById('icon-fs');
   const iconFsExit = document.getElementById('icon-fs-exit');
+  const inIframe = (() => { try { return window.self !== window.top; } catch(e) { return true; } })();
   let pseudoFs = false;
+  let parentFs = false; // true cuando le pedimos al parent que esté en FS
 
   function isInFullscreen() {
-    return !!(document.fullscreenElement || document.webkitFullscreenElement) || pseudoFs;
+    return !!(document.fullscreenElement || document.webkitFullscreenElement) || pseudoFs || parentFs;
   }
   function updateFsIcon() {
     const fs = isInFullscreen();
@@ -1485,17 +1495,27 @@
     iconFsExit.style.display = fs ? 'block' : 'none';
   }
   function enterFullscreen() {
+    if (inIframe) {
+      // Pedirle al parent que ponga el iframe en fullscreen
+      try { window.parent.postMessage({ type: 'explainer-fs-enter' }, '*'); } catch(e) {}
+      parentFs = true;
+      updateFsIcon();
+      return;
+    }
     const req = stageEl.requestFullscreen || stageEl.webkitRequestFullscreen;
     if (req) {
-      req.call(stageEl).catch(() => {
-        // Fallback iOS: pseudo-fullscreen via fixed positioning
-        applyPseudoFullscreen(true);
-      });
+      req.call(stageEl).catch(() => applyPseudoFullscreen(true));
     } else {
       applyPseudoFullscreen(true);
     }
   }
   function exitFullscreen() {
+    if (inIframe) {
+      try { window.parent.postMessage({ type: 'explainer-fs-exit' }, '*'); } catch(e) {}
+      parentFs = false;
+      updateFsIcon();
+      return;
+    }
     if (pseudoFs) { applyPseudoFullscreen(false); return; }
     const exit = document.exitFullscreen || document.webkitExitFullscreen;
     if (exit) exit.call(document).catch(() => {});
@@ -1524,6 +1544,14 @@
   // Escuchar cambios de fullscreen state (puede salir con ESC)
   document.addEventListener('fullscreenchange', updateFsIcon);
   document.addEventListener('webkitfullscreenchange', updateFsIcon);
+  // Si estamos embebidos, el parent nos avisa cuando salió de FS (ej. ESC)
+  window.addEventListener('message', (e) => {
+    if (!e.data || typeof e.data !== 'object') return;
+    if (e.data.type === 'explainer-fs-state') {
+      parentFs = !!e.data.on;
+      updateFsIcon();
+    }
+  });
 
   // Tick on scene change — interceptar en activateScene
   const _origActivate = activateScene;

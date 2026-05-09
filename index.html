@@ -1677,6 +1677,81 @@
         // si es iOS o desktop, deja iOS visible (que es el default del HTML)
       } catch (e) {}
     })();
+
+    /* ─── Fullscreen relay para el iframe del explainer ────────────────────
+       El explainer.html (embebido) postMessages cuando el user toca el botón
+       de fullscreen. Acá lo manejamos: probamos requestFullscreen() sobre el
+       iframe; si falla (iOS Safari), pseudo-fullscreen con position:fixed
+       cubriendo toda la pantalla. Le respondemos al iframe el state actual
+       para que sincronice el ícono. */
+    (function setupExplainerFsRelay() {
+      var iframe = document.getElementById('promoFrame');
+      if (!iframe) return;
+      var pseudo = false;
+
+      function notifyIframe(on) {
+        try { iframe.contentWindow.postMessage({ type: 'explainer-fs-state', on: !!on }, '*'); } catch(e) {}
+      }
+      function applyPseudo(on) {
+        pseudo = on;
+        if (on) {
+          iframe.style.position = 'fixed';
+          iframe.style.top = '0';
+          iframe.style.left = '0';
+          iframe.style.right = '0';
+          iframe.style.bottom = '0';
+          iframe.style.width = '100vw';
+          iframe.style.height = '100vh';
+          iframe.style.maxWidth = '100vw';
+          iframe.style.maxHeight = '100vh';
+          iframe.style.zIndex = '99999';
+          iframe.style.borderRadius = '0';
+          iframe.style.border = 'none';
+          document.body.style.overflow = 'hidden';
+        } else {
+          // Restaurar al posicionamiento absolute original (dentro del wrapper .video-wrapper)
+          iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:none;';
+          document.body.style.overflow = '';
+        }
+        notifyIframe(on);
+      }
+
+      window.addEventListener('message', function(e) {
+        if (!e.data || typeof e.data !== 'object') return;
+        if (e.data.type === 'explainer-fs-enter') {
+          var req = iframe.requestFullscreen || iframe.webkitRequestFullscreen;
+          if (req) {
+            try {
+              var p = req.call(iframe);
+              if (p && p.catch) p.catch(function() { applyPseudo(true); });
+            } catch (err) { applyPseudo(true); }
+          } else {
+            applyPseudo(true);
+          }
+        } else if (e.data.type === 'explainer-fs-exit') {
+          if (pseudo) { applyPseudo(false); return; }
+          var fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+          if (fsEl) {
+            var ex = document.exitFullscreen || document.webkitExitFullscreen;
+            if (ex) try { ex.call(document); } catch(err) {}
+          }
+        }
+      });
+
+      // Cuando el usuario sale de FS real (ESC, gesto), avisar al iframe
+      function onFsChange() {
+        var inFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+        if (!inFs && !pseudo) notifyIframe(false);
+        else if (inFs) notifyIframe(true);
+      }
+      document.addEventListener('fullscreenchange', onFsChange);
+      document.addEventListener('webkitfullscreenchange', onFsChange);
+
+      // Al rotar/redimensionar, mantener el pseudo-fullscreen estable
+      window.addEventListener('orientationchange', function() {
+        if (pseudo) applyPseudo(true);
+      });
+    })();
   </script>
 
   <!-- ─── Enterprise contact modal ──────────────────────────────────────── -->
