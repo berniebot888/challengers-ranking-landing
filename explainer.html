@@ -27,6 +27,15 @@
 
 <meta name="theme-color" content="#C8451C" />
 
+<!-- Google Analytics (mismo GA del landing) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VV748MSRV4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-VV748MSRV4');
+</script>
+
 <link rel="icon" type="image/svg+xml" href="brand-kit/favicon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1093,10 +1102,11 @@
       Starter gratis · 30 días · hasta 50 jugadores · sin tarjeta
     </p>
     <div class="actions">
-      <a href="https://app.challengersranking.online/signup" target="_blank">
+      <a href="https://app.challengersranking.online/signup" target="_blank"
+         onclick="if(typeof gtag==='function'){gtag('event','explainer_cta_click',{event_category:'conversion',event_label:'replay_overlay_signup'});}">
         <span data-en="Start free" data-es="Empezá gratis">Empezá gratis</span> →
       </a>
-      <a href="#" class="secondary" onclick="event.preventDefault();replay()">
+      <a href="#" class="secondary" onclick="event.preventDefault();if(typeof gtag==='function'){gtag('event','explainer_replay',{event_category:'engagement'});}replay()">
         <span data-en="Watch again" data-es="Ver otra vez">Ver otra vez</span>
       </a>
     </div>
@@ -1228,6 +1238,10 @@
       });
       // Suspender música al terminar el video
       if (audioCtx && audioCtx.state === 'running') audioCtx.suspend();
+      // Track: el usuario miró todo el explainer (proxy = vio el overlay final)
+      if (typeof gtag === 'function') {
+        gtag('event', 'explainer_completed', { event_category: 'engagement', event_label: lang });
+      }
     }
   }
 
