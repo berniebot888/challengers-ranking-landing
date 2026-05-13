@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Challengers Ranking — Instagram Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --terracotta: #C8451C;
+    --terracotta-soft: #FCE8DC;
+    --navy: #1A1A2E;
+    --gold: #E8B04C;
+    --cream: #FAF7F2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #f0f0f0;
+    font-family: 'Inter', sans-serif;
+    padding: 40px;
+    color: #333;
+  }
+  h1 { font-size: 28px; margin-bottom: 8px; }
+  .lead { color: #666; margin-bottom: 32px; max-width: 720px; line-height: 1.5; }
+  .section { margin-bottom: 56px; }
+  .section h2 { font-size: 20px; margin-bottom: 16px; color: var(--navy); }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .card h3 { font-size: 13px; color: #666; margin-bottom: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+  .preview {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    background: #fafafa;
+  }
+  .preview svg { width: 100%; height: 100%; display: block; }
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: var(--terracotta);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn:hover { background: #A8381A; }
+  .highlight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 16px;
+  }
+  .highlight-grid .preview { border-radius: 50%; aspect-ratio: 1 / 1; }
+  .filename { font-size: 11px; color: #999; margin-top: 4px; font-family: monospace; word-break: break-all; }
+  .copy-block {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 12px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    margin-top: 12px;
+    color: #444;
+    font-family: 'Inter', sans-serif;
+  }
+  .copy-btn {
+    background: var(--navy);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    cursor: pointer;
+    margin-top: 8px;
+    font-weight: 600;
+  }
+  .copy-btn:hover { background: #2A2A4E; }
+
+  .svg-source { display: none; }
+</style>
+</head>
+<body>
+
+<h1>📦 Challengers Ranking · Instagram Kit</h1>
+<p class="lead">
+  Click <strong>"Download PNG"</strong> on each post to save it at 1080×1080 (Instagram square format).
+  Highlight covers are 1080×1920 with a centered safe area (Instagram uses the central circular zone for covers).
+  Then open Instagram → Create post → select the downloaded PNGs and paste the captions below.
+</p>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     FEED POSTS — 5 initial pieces
+     ════════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <h2>📱 Feed posts (5 initial pieces — post in this order)</h2>
+  <div class="grid">
+
+    <!-- POST 1: HERO -->
+    <div class="card">
+      <h3>1 · Hero · Welcome</h3>
+      <div class="preview" id="preview-post1"></div>
+      <button class="btn" onclick="downloadPng('post1', 'cr-post-1-hero.png')">Download PNG</button>
+      <p class="filename">cr-post-1-hero.png</p>
+      <details>
+        <summary style="font-size:12px;cursor:pointer;color:var(--terracotta);margin-top:8px;">View caption</summary>
+        <div class="copy-block" id="caption-1">Tired of running your club's ranking on a spreadsheet? 🎾
+
+Meet Challengers Ranking — the first app that turns your club's ranking into a dynamic ladder system.
+
+Challenges. Matches. Stats. All on every member's phone.
+
+👇 Try it free for 30 days. Link in bio.
+
+#tennis #ranking #tennisclub #padel #pickleball #squash</div>
+        <button class="copy-btn" onclick="copyCaption('caption-1')">Copy caption</button>
+      </details>
+    </div>
+
+    <!-- POST 2: THE PROBLEM -->
+    <div class="card">
+      <h3>2 · The problem</h3>
+      <div class="preview" id="preview-post2"></div>
+      <button class="btn" onclick="downloadPng('post2', 'cr-post-2-problem.png')">Download PNG</button>
+      <p class="filename">cr-post-2-problem.png</p>
+      <details>
+        <summary style="font-size:12px;cursor:pointer;color:var(--terracotta);margin-top:8px;">View caption</summary>
+        <div class="copy-block" id="caption-2">Sound familiar?
+
+📋 Outdated spreadsheet
+📱 200-message WhatsApp threads to coordinate ONE match
+🤷 No one knows who's playing whom this week
+😴 The club ranking hasn't moved in months
+
+There's a better way 👇
+
+#tennis #tennisclub #ranking</div>
+        <button class="copy-btn" onclick="copyCaption('caption-2')">Copy caption</button>
+      </details>
+    </div>
+
+    <!-- POST 3: THE SOLUTION -->
+    <div class="card">
+      <h3>3 · The solution</h3>
+      <div class="preview" id="preview-post3"></div>
+      <button class="btn" onclick="downloadPng('post3', 'cr-post-3-solution.png')">Download PNG</button>
+      <p class="filename">cr-post-3-solution.png</p>
+      <details>
+        <summary style="font-size:12px;cursor:pointer;color:var(--terracotta);margin-top:8px;">View caption</summary>
+        <div class="copy-block" id="caption-3">Here's how Challengers Ranking works 👇
+
+1️⃣ Every member sees the ranking on their phone
+2️⃣ Tap a player to challenge them (up to 5 positions above)
+3️⃣ Play, either player enters the score
+4️⃣ The ranking updates instantly
+
+No spreadsheets. No WhatsApp chaos. No mess.
+
+🎾 Try it free. Link in bio.</div>
+        <button class="copy-btn" onclick="copyCaption('caption-3')">Copy caption</button>
+      </details>
+    </div>
+
+    <!-- POST 4: WILD CARD -->
+    <div class="card">
+      <h3>4 · The Wild Card</h3>
+      <div class="preview" id="preview-post4"></div>
+      <button class="btn" onclick="downloadPng('post4', 'cr-post-4-wildcard.png')">Download PNG</button>
+      <p class="filename">cr-post-4-wildcard.png</p>
+      <details>
+        <summary style="font-size:12px;cursor:pointer;color:var(--terracotta);margin-top:8px;">View caption</summary>
+        <div class="copy-block" id="caption-4">🎫 The Wild Card
+
+The most coveted card in the club.
+
+It lets you challenge ANY position on the ranking — no limits. Even #1.
+
+✨ Every new player gets one as a welcome gift
+🏆 Earn another by winning 3 matches in a row
+
+When would you play yours? 👇
+
+#tennis #ranking #wildcard #tennisclub</div>
+        <button class="copy-btn" onclick="copyCaption('caption-4')">Copy caption</button>
+      </details>
+    </div>
+
+    <!-- POST 5: SOCIAL PROOF -->
+    <div class="card">
+      <h3>5 · Social proof (TCA)</h3>
+      <div class="preview" id="preview-post5"></div>
+      <button class="btn" onclick="downloadPng('post5', 'cr-post-5-social.png')">Download PNG</button>
+      <p class="filename">cr-post-5-social.png</p>
+      <details>
+        <summary style="font-size:12px;cursor:pointer;color:var(--terracotta);margin-top:8px;">View caption</summary>
+        <div class="copy-block" id="caption-5">68 members of @tortugascountryclub already play this way 🎾
+
+Active since May 2026.
+Dozens of challenges logged every week.
+Zero manual coordination.
+
+Is your club next?
+
+👉 Link in bio · Starter Plan Free · 30 days · no credit card
+
+#tortugascc #tennis #challengersranking</div>
+        <button class="copy-btn" onclick="copyCaption('caption-5')">Copy caption</button>
+      </details>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     HIGHLIGHT COVERS — 6 pieces (story format 1080×1920)
+     ════════════════════════════════════════════════════════════════════ -->
+<div class="section">
+  <h2>⭐ Highlight covers (6 pieces — story format 1080×1920)</h2>
+  <p style="font-size:13px;color:#666;margin-bottom:16px;">
+    Upload each as a story, then edit the highlight and select that story as cover. The icon is centered in the safe area.
+  </p>
+  <div class="highlight-grid">
+    <div class="card">
+      <h3>Rules</h3>
+      <div class="preview" id="preview-hl1"></div>
+      <button class="btn" onclick="downloadPng('hl1', 'cr-hl-rules.png')">Download</button>
+    </div>
+    <div class="card">
+      <h3>Demo</h3>
+      <div class="preview" id="preview-hl2"></div>
+      <button class="btn" onclick="downloadPng('hl2', 'cr-hl-demo.png')">Download</button>
+    </div>
+    <div class="card">
+      <h3>Features</h3>
+      <div class="preview" id="preview-hl3"></div>
+      <button class="btn" onclick="downloadPng('hl3', 'cr-hl-features.png')">Download</button>
+    </div>
+    <div class="card">
+      <h3>Pricing</h3>
+      <div class="preview" id="preview-hl4"></div>
+      <button class="btn" onclick="downloadPng('hl4', 'cr-hl-pricing.png')">Download</button>
+    </div>
+    <div class="card">
+      <h3>FAQ</h3>
+      <div class="preview" id="preview-hl5"></div>
+      <button class="btn" onclick="downloadPng('hl5', 'cr-hl-faq.png')">Download</button>
+    </div>
+    <div class="card">
+      <h3>Contact</h3>
+      <div class="preview" id="preview-hl6"></div>
+      <button class="btn" onclick="downloadPng('hl6', 'cr-hl-contact.png')">Download</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     SVG SOURCES
+     ════════════════════════════════════════════════════════════════════ -->
+
+<!-- POST 1: HERO -->
+<template id="svg-post1">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+  <defs>
+    <linearGradient id="bg1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#C8451C"/>
+      <stop offset="1" stop-color="#A8381A"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg1)"/>
+  <!-- Logo: ladder + person -->
+  <g transform="translate(390, 230) scale(1.0)" fill="#FAF7F2">
+    <rect x="0" y="170" width="42" height="80" rx="5"/>
+    <rect x="52" y="130" width="42" height="120" rx="5"/>
+    <rect x="104" y="85" width="42" height="165" rx="5"/>
+    <rect x="156" y="35" width="42" height="215" rx="5"/>
+  </g>
+  <circle cx="567" cy="232" r="22" fill="#FAF7F2"/>
+  <!-- Wordmark -->
+  <text x="540" y="640" font-family="Inter, sans-serif" font-weight="900" font-size="96" fill="#FAF7F2" text-anchor="middle" letter-spacing="-3">challengers</text>
+  <text x="540" y="700" font-family="Inter, sans-serif" font-weight="500" font-size="32" fill="#FAF7F2" text-anchor="middle" letter-spacing="18" opacity="0.9">RANKING</text>
+  <!-- Tagline -->
+  <text x="540" y="830" font-family="Inter, sans-serif" font-weight="600" font-size="38" fill="#FAF7F2" text-anchor="middle" opacity="0.85">Your club's ranking,</text>
+  <text x="540" y="880" font-family="Inter, sans-serif" font-weight="600" font-size="38" fill="#FAF7F2" text-anchor="middle" opacity="0.85">finally organized.</text>
+  <!-- URL -->
+  <text x="540" y="1010" font-family="Inter, sans-serif" font-weight="500" font-size="26" fill="#FAF7F2" text-anchor="middle" opacity="0.7">challengersranking.online</text>
+</svg>
+</template>
+
+<!-- POST 2: THE PROBLEM -->
+<template id="svg-post2">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+  <rect width="1080" height="1080" fill="#1A1A2E"/>
+  <text x="540" y="180" font-family="Inter, sans-serif" font-weight="900" font-size="64" fill="#E8B04C" text-anchor="middle">Sound familiar?</text>
+
+  <!-- Pain points -->
+  <g font-family="Inter, sans-serif" fill="#FAF7F2">
+    <text x="120" y="330" font-size="36" font-weight="600">📋 Outdated spreadsheet</text>
+    <text x="120" y="440" font-size="36" font-weight="600">📱 WhatsApp chaos</text>
+    <text x="120" y="550" font-size="36" font-weight="600">🤷 No one tracks matches</text>
+    <text x="120" y="660" font-size="36" font-weight="600">😴 Ranking never moves</text>
+    <text x="120" y="770" font-size="36" font-weight="600">⏰ 1 hour to coordinate</text>
+  </g>
+
+  <!-- Bottom CTA -->
+  <line x1="120" y1="850" x2="960" y2="850" stroke="#C8451C" stroke-width="2" opacity="0.4"/>
+  <text x="540" y="940" font-family="Inter, sans-serif" font-weight="700" font-size="42" fill="#C8451C" text-anchor="middle">There's a better way 👇</text>
+  <text x="540" y="1010" font-family="Inter, sans-serif" font-weight="500" font-size="24" fill="#FAF7F2" text-anchor="middle" opacity="0.6">challengersranking.online</text>
+</svg>
+</template>
+
+<!-- POST 3: THE SOLUTION -->
+<template id="svg-post3">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+  <rect width="1080" height="1080" fill="#FAF7F2"/>
+  <text x="540" y="120" font-family="Inter, sans-serif" font-weight="900" font-size="56" fill="#1A1A2E" text-anchor="middle">Here's how it works</text>
+
+  <!-- 4 steps -->
+  <g font-family="Inter, sans-serif">
+    <!-- Step 1 -->
+    <circle cx="160" cy="280" r="40" fill="#C8451C"/>
+    <text x="160" y="295" font-size="40" font-weight="900" fill="#FAF7F2" text-anchor="middle">1</text>
+    <text x="240" y="270" font-size="34" font-weight="700" fill="#1A1A2E">Ranking on every phone</text>
+    <text x="240" y="310" font-size="26" font-weight="400" fill="#1A1A2E" opacity="0.7">Members open it from their mobile</text>
+
+    <!-- Step 2 -->
+    <circle cx="160" cy="450" r="40" fill="#C8451C"/>
+    <text x="160" y="465" font-size="40" font-weight="900" fill="#FAF7F2" text-anchor="middle">2</text>
+    <text x="240" y="440" font-size="34" font-weight="700" fill="#1A1A2E">Challenge up to +5</text>
+    <text x="240" y="480" font-size="26" font-weight="400" fill="#1A1A2E" opacity="0.7">Up to 5 positions above you</text>
+
+    <!-- Step 3 -->
+    <circle cx="160" cy="620" r="40" fill="#C8451C"/>
+    <text x="160" y="635" font-size="40" font-weight="900" fill="#FAF7F2" text-anchor="middle">3</text>
+    <text x="240" y="610" font-size="34" font-weight="700" fill="#1A1A2E">Either player logs the score</text>
+    <text x="240" y="650" font-size="26" font-weight="400" fill="#1A1A2E" opacity="0.7">We trust them. Edits are easy.</text>
+
+    <!-- Step 4 -->
+    <circle cx="160" cy="790" r="40" fill="#C8451C"/>
+    <text x="160" y="805" font-size="40" font-weight="900" fill="#FAF7F2" text-anchor="middle">4</text>
+    <text x="240" y="780" font-size="34" font-weight="700" fill="#1A1A2E">Ranking updates instantly</text>
+    <text x="240" y="820" font-size="26" font-weight="400" fill="#1A1A2E" opacity="0.7">No spreadsheets. No delays.</text>
+  </g>
+
+  <text x="540" y="1010" font-family="Inter, sans-serif" font-weight="500" font-size="24" fill="#1A1A2E" text-anchor="middle" opacity="0.5">challengersranking.online</text>
+</svg>
+</template>
+
+<!-- POST 4: WILD CARD -->
+<template id="svg-post4">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+  <defs>
+    <linearGradient id="bg4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1A1A2E"/>
+      <stop offset="1" stop-color="#3A1A4E"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg4)"/>
+
+  <!-- Big card icon -->
+  <g transform="translate(390, 220) rotate(-8 150 220)">
+    <rect x="0" y="0" width="300" height="440" rx="20" fill="#E8B04C"/>
+    <rect x="20" y="20" width="260" height="400" rx="12" fill="none" stroke="#1A1A2E" stroke-width="3"/>
+    <text x="150" y="200" font-family="Inter, sans-serif" font-weight="900" font-size="120" fill="#1A1A2E" text-anchor="middle">★</text>
+    <text x="150" y="290" font-family="Inter, sans-serif" font-weight="900" font-size="48" fill="#1A1A2E" text-anchor="middle">WILD</text>
+    <text x="150" y="350" font-family="Inter, sans-serif" font-weight="900" font-size="48" fill="#1A1A2E" text-anchor="middle">CARD</text>
+  </g>
+
+  <text x="540" y="780" font-family="Inter, sans-serif" font-weight="900" font-size="56" fill="#FAF7F2" text-anchor="middle">Challenge anyone.</text>
+  <text x="540" y="850" font-family="Inter, sans-serif" font-weight="500" font-size="36" fill="#E8B04C" text-anchor="middle">Even #1.</text>
+  <text x="540" y="950" font-family="Inter, sans-serif" font-weight="500" font-size="26" fill="#FAF7F2" text-anchor="middle" opacity="0.6">1 welcome card · 1 more per 3-win streak</text>
+  <text x="540" y="1020" font-family="Inter, sans-serif" font-weight="500" font-size="22" fill="#FAF7F2" text-anchor="middle" opacity="0.5">challengersranking.online</text>
+</svg>
+</template>
+
+<!-- POST 5: SOCIAL PROOF -->
+<template id="svg-post5">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+  <rect width="1080" height="1080" fill="#C8451C"/>
+
+  <!-- Big number -->
+  <text x="540" y="380" font-family="Inter, sans-serif" font-weight="900" font-size="280" fill="#FAF7F2" text-anchor="middle">68</text>
+  <text x="540" y="460" font-family="Inter, sans-serif" font-weight="600" font-size="44" fill="#FAF7F2" text-anchor="middle">TCA members</text>
+  <text x="540" y="510" font-family="Inter, sans-serif" font-weight="600" font-size="44" fill="#FAF7F2" text-anchor="middle">already play this way 🎾</text>
+
+  <!-- Divider -->
+  <line x1="380" y1="600" x2="700" y2="600" stroke="#FAF7F2" stroke-width="2" opacity="0.4"/>
+
+  <!-- Stats -->
+  <g font-family="Inter, sans-serif" fill="#FAF7F2">
+    <text x="540" y="680" font-size="28" font-weight="500" text-anchor="middle" opacity="0.9">Active since May 2026</text>
+    <text x="540" y="730" font-size="28" font-weight="500" text-anchor="middle" opacity="0.9">Dozens of challenges each week</text>
+    <text x="540" y="780" font-size="28" font-weight="500" text-anchor="middle" opacity="0.9">Zero manual coordination</text>
+  </g>
+
+  <text x="540" y="900" font-family="Inter, sans-serif" font-weight="800" font-size="44" fill="#FAF7F2" text-anchor="middle">Is your club next?</text>
+  <text x="540" y="1010" font-family="Inter, sans-serif" font-weight="500" font-size="24" fill="#FAF7F2" text-anchor="middle" opacity="0.7">challengersranking.online</text>
+</svg>
+</template>
+
+<!-- ─────────── HIGHLIGHT COVERS (1080×1920 story format) ─────────── -->
+
+<template id="svg-hl1">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920">
+  <rect width="1080" height="1920" fill="#C8451C"/>
+  <circle cx="540" cy="960" r="280" fill="#FAF7F2"/>
+  <text x="540" y="900" font-family="Inter, sans-serif" font-size="180" text-anchor="middle">📋</text>
+  <text x="540" y="1030" font-family="Inter, sans-serif" font-weight="800" font-size="64" fill="#1A1A2E" text-anchor="middle">Rules</text>
+</svg>
+</template>
+
+<template id="svg-hl2">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920">
+  <rect width="1080" height="1920" fill="#1A1A2E"/>
+  <circle cx="540" cy="960" r="280" fill="#E8B04C"/>
+  <text x="540" y="900" font-family="Inter, sans-serif" font-size="180" text-anchor="middle">📱</text>
+  <text x="540" y="1030" font-family="Inter, sans-serif" font-weight="800" font-size="64" fill="#1A1A2E" text-anchor="middle">Demo</text>
+</svg>
+</template>
+
+<template id="svg-hl3">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920">
+  <rect width="1080" height="1920" fill="#FAF7F2"/>
+  <circle cx="540" cy="960" r="280" fill="#C8451C"/>
+  <text x="540" y="900" font-family="Inter, sans-serif" font-size="180" text-anchor="middle">⚡</text>
+  <text x="540" y="1030" font-family="Inter, sans-serif" font-weight="800" font-size="64" fill="#FAF7F2" text-anchor="middle">Features</text>
+</svg>
+</template>
+
+<template id="svg-hl4">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920">
+  <rect width="1080" height="1920" fill="#C8451C"/>
+  <circle cx="540" cy="960" r="280" fill="#1A1A2E"/>
+  <text x="540" y="900" font-family="Inter, sans-serif" font-size="180" text-anchor="middle">💰</text>
+  <text x="540" y="1030" font-family="Inter, sans-serif" font-weight="800" font-size="64" fill="#E8B04C" text-anchor="middle">Pricing</text>
+</svg>
+</template>
+
+<template id="svg-hl5">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920">
+  <rect width="1080" height="1920" fill="#1A1A2E"/>
+  <circle cx="540" cy="960" r="280" fill="#FAF7F2"/>
+  <text x="540" y="900" font-family="Inter, sans-serif" font-size="180" text-anchor="middle">❓</text>
+  <text x="540" y="1030" font-family="Inter, sans-serif" font-weight="800" font-size="64" fill="#1A1A2E" text-anchor="middle">FAQ</text>
+</svg>
+</template>
+
+<template id="svg-hl6">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="1080" height="1920">
+  <rect width="1080" height="1920" fill="#E8B04C"/>
+  <circle cx="540" cy="960" r="280" fill="#1A1A2E"/>
+  <text x="540" y="900" font-family="Inter, sans-serif" font-size="180" text-anchor="middle">📧</text>
+  <text x="540" y="1030" font-family="Inter, sans-serif" font-weight="800" font-size="64" fill="#FAF7F2" text-anchor="middle">Contact</text>
+</svg>
+</template>
+
+<script>
+  const IDS = ['post1','post2','post3','post4','post5','hl1','hl2','hl3','hl4','hl5','hl6'];
+  for (const id of IDS) {
+    const tpl = document.getElementById('svg-' + id);
+    const preview = document.getElementById('preview-' + id);
+    if (tpl && preview) {
+      preview.appendChild(tpl.content.cloneNode(true));
+    }
+  }
+
+  async function downloadPng(id, filename) {
+    const tpl = document.getElementById('svg-' + id);
+    const svgEl = tpl.content.firstElementChild.cloneNode(true);
+    const width = parseInt(svgEl.getAttribute('width') || '1080', 10);
+    const height = parseInt(svgEl.getAttribute('height') || '1080', 10);
+
+    const svgStr = new XMLSerializer().serializeToString(svgEl);
+    const svgBlob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(svgBlob);
+
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+
+    await new Promise((resolve, reject) => {
+      img.onload = resolve;
+      img.onerror = reject;
+      img.src = url;
+    });
+
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, width, height);
+
+    URL.revokeObjectURL(url);
+
+    canvas.toBlob((blob) => {
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+    }, 'image/png');
+  }
+
+  function copyCaption(id) {
+    const el = document.getElementById(id);
+    navigator.clipboard.writeText(el.textContent).then(() => {
+      event.target.textContent = '✓ Copied';
+      setTimeout(() => { event.target.textContent = 'Copy caption'; }, 1500);
+    });
+  }
+</script>
+
+</body>
+</html>
