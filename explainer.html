@@ -319,33 +319,35 @@
     height: 100%; background: var(--terracotta); border-radius: 2px; width: 0%;
     transition: width 0.1s linear;
   }
-  #controls .lang-toggle {
-    display: flex;
+  /* Lang toggle — single button design.
+     Muestra el idioma AL QUE VAS A CAMBIAR (no el actual). Si estás en
+     ES, el botón dice "EN" porque tappándolo te lleva a inglés. Más
+     intuitivo y compacto que el toggle de 2 botones (que se cortaba
+     en pantallas chicas porque "overflow: hidden" clipeaba el segundo). */
+  #controls .lang-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     border: 1px solid rgba(255,255,255,0.15);
     border-radius: 999px;
-    overflow: hidden;
-    /* Levantar el toggle por encima del play-overlay (z=100) y replay
-       overlay (z=100) para que se pueda cambiar idioma ANTES del primer
-       play, no solo después. */
-    position: relative;
-    z-index: 110;
-  }
-  #controls .lang-toggle button {
-    border: none;
-    background: transparent;
-    padding: 10px 16px;          /* +touch target: ~36px alto antes era ~24px */
+    background: rgba(255,255,255,0.06);
+    padding: 8px 14px;
+    color: var(--cream);
+    font-family: inherit;
     font-weight: 700;
     font-size: 12px;
     letter-spacing: 0.06em;
-    color: rgba(255,255,255,0.5);
-    border-radius: 0;
-    min-height: 36px;            /* explicit min para iOS */
-    min-width: 44px;
+    cursor: pointer;
+    min-height: 36px;
+    min-width: 56px;
+    transition: background 150ms ease;
     /* Quita el delay de 300ms en iOS y hace los taps instantáneos */
     touch-action: manipulation;
     -webkit-tap-highlight-color: rgba(232,176,76,0.25);
   }
-  #controls .lang-toggle button.active { color: var(--gold); background: rgba(232,176,76,0.10); }
+  #controls .lang-btn:hover { background: rgba(255,255,255,0.14); }
+  #controls .lang-btn:active { background: rgba(232,176,76,0.20); }
+  #controls .lang-btn .globe { font-size: 14px; line-height: 1; opacity: 0.7; }
   #controls .scene-num { color: rgba(255,255,255,0.45); font-size: 12px; font-variant-numeric: tabular-nums; min-width: 50px; text-align: right; }
 
   /* Scene-specific styles */
@@ -1095,10 +1097,12 @@
     </button>
     <div class="progress-wrap" id="prog-wrap"><div class="progress" id="progress"></div></div>
     <span class="scene-num" id="scene-num">1 / 14</span>
-    <div class="lang-toggle">
-      <button id="btn-es" class="active" data-lang="es">ES</button>
-      <button id="btn-en" data-lang="en">EN</button>
-    </div>
+    <!-- Single toggle button: muestra el idioma destino (no el actual).
+         Si estás en ES, dice "EN" — al tappar te lleva a inglés. -->
+    <button id="lang-btn" class="lang-btn" aria-label="Switch language" type="button">
+      <span class="globe">🌐</span>
+      <span id="lang-btn-text">EN</span>
+    </button>
   </div>
 
   <!-- Initial play overlay -->
@@ -1214,9 +1218,10 @@
     lang = l;
     document.documentElement.lang = l;
     try { localStorage.setItem('cr-lang', l); } catch {}
-    document.querySelectorAll('.lang-toggle button').forEach(b => {
-      b.classList.toggle('active', b.dataset.lang === l);
-    });
+    // Single-button toggle: el label muestra el idioma destino (al que vas
+    // a cambiar tappando). Si estás en ES, el botón dice "EN".
+    const langBtnText = document.getElementById('lang-btn-text');
+    if (langBtnText) langBtnText.textContent = (l === 'es') ? 'EN' : 'ES';
     document.querySelectorAll('[data-en]').forEach(el => {
       // innerHTML para que <span class="terra"> y similares se rendereen.
       // Trusted content — los strings vienen de data-en/es del propio HTML.
@@ -1347,9 +1352,13 @@
     const pct = (e.clientX - rect.left) / rect.width;
     audioEl.currentTime = audioEl.duration * pct;
   });
-  document.querySelectorAll('.lang-toggle button').forEach(btn => {
-    btn.addEventListener('click', () => setLang(btn.dataset.lang));
-  });
+  // Single-button toggle handler: invertir el idioma actual
+  const langBtn = document.getElementById('lang-btn');
+  if (langBtn) {
+    langBtn.addEventListener('click', () => {
+      setLang(lang === 'es' ? 'en' : 'es');
+    });
+  }
 
   // Keyboard shortcuts
   document.addEventListener('keydown', (e) => {
