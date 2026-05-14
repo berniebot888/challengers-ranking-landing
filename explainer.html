@@ -294,7 +294,9 @@
     border: 1px solid rgba(255,255,255,0.08);
     transition: opacity 0.4s ease;
   }
-  #captions.hidden .text { opacity: 0; }
+  /* Captions OFF: ocultamos el div completo para que no tape contenido de
+     las escenas. Toggle via botón CC en la barra. */
+  #captions.hidden { display: none; }
 
   /* Controls — z-index >100 para que sigan tappables AUNQUE el
      play-overlay (z=100) o el replay-overlay (z=100) estén cubriendo
@@ -324,6 +326,12 @@
   #controls button:hover { background: rgba(255,255,255,0.18); }
   #controls .icon-btn { padding: 8px; width: 36px; height: 36px; justify-content: center; }
   #controls .icon-btn svg { width: 16px; height: 16px; fill: currentColor; }
+  /* CC button activo: gold para indicar que captions están ON */
+  #controls #btn-cc.active {
+    color: var(--gold);
+    background: rgba(232,176,76,0.15);
+    border-color: rgba(232,176,76,0.35);
+  }
   #controls .progress-wrap {
     flex: 1; height: 4px; background: rgba(255,255,255,0.12); border-radius: 2px; cursor: pointer; position: relative;
   }
@@ -1095,8 +1103,8 @@
     </div>
   </section>
 
-  <!-- Captions overlay -->
-  <div id="captions"><span class="text"></span></div>
+  <!-- Captions overlay — default hidden. Se activan via botón CC en la barra. -->
+  <div id="captions" class="hidden"><span class="text"></span></div>
 
   <!-- Controls -->
   <div id="controls">
@@ -1113,6 +1121,10 @@
     <button class="icon-btn" id="btn-fullscreen" aria-label="Toggle fullscreen">
       <svg viewBox="0 0 24 24" id="icon-fs"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
       <svg viewBox="0 0 24 24" id="icon-fs-exit" style="display:none;"><path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
+    </button>
+    <!-- CC (closed captions) toggle. Default OFF — user can enable via tap. -->
+    <button class="icon-btn" id="btn-cc" aria-label="Toggle captions" aria-pressed="false">
+      <svg viewBox="0 0 24 24"><path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-8 7H9.5v-.5h-2v3h2V13H11v1c0 .55-.45 1-1 1H7c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h3c.55 0 1 .45 1 1v1zm7 0h-1.5v-.5h-2v3h2V13H18v1c0 .55-.45 1-1 1h-3c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h3c.55 0 1 .45 1 1v1z"/></svg>
     </button>
     <div class="progress-wrap" id="prog-wrap"><div class="progress" id="progress"></div></div>
     <span class="scene-num" id="scene-num">1 / 14</span>
@@ -1378,6 +1390,38 @@
       setLang(lang === 'es' ? 'en' : 'es');
     });
   }
+
+  // CC (captions) toggle — default OFF, persistido en localStorage.
+  // Cuando está OFF, el div #captions tiene .hidden (display:none) y no
+  // tapa contenido de las escenas. Cuando está ON, el botón se ilumina
+  // dorado y los captions se renderean encima de la escena, traducidos
+  // al idioma actual.
+  const btnCc = document.getElementById('btn-cc');
+  function setCaptionsEnabled(enabled, persist) {
+    if (enabled) {
+      captions.classList.remove('hidden');
+      btnCc.classList.add('active');
+      btnCc.setAttribute('aria-pressed', 'true');
+    } else {
+      captions.classList.add('hidden');
+      btnCc.classList.remove('active');
+      btnCc.setAttribute('aria-pressed', 'false');
+    }
+    if (persist) {
+      try { localStorage.setItem('cr-cc', enabled ? '1' : '0'); } catch {}
+    }
+  }
+  // Init: read user preference. Default = OFF (false).
+  try {
+    const stored = localStorage.getItem('cr-cc');
+    setCaptionsEnabled(stored === '1', false);
+  } catch {
+    setCaptionsEnabled(false, false);
+  }
+  btnCc.addEventListener('click', () => {
+    const currentlyOn = !captions.classList.contains('hidden');
+    setCaptionsEnabled(!currentlyOn, true);
+  });
 
   // Keyboard shortcuts
   document.addEventListener('keydown', (e) => {
