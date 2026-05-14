@@ -284,11 +284,14 @@
   }
   #captions.hidden .text { opacity: 0; }
 
-  /* Controls */
+  /* Controls — z-index >100 para que sigan tappables AUNQUE el
+     play-overlay (z=100) o el replay-overlay (z=100) estén cubriendo
+     el stage. Así el usuario puede cambiar idioma desde el primer
+     momento, no solo durante la reproducción. */
   #controls {
     position: absolute;
     bottom: 0; left: 0; right: 0;
-    z-index: 50;
+    z-index: 120;
     background: linear-gradient(to top, rgba(15,15,31,0.95), rgba(15,15,31,0.7) 70%, transparent);
     padding: 30px 24px 16px;
     display: flex; align-items: center; gap: 12px;
@@ -316,8 +319,32 @@
     height: 100%; background: var(--terracotta); border-radius: 2px; width: 0%;
     transition: width 0.1s linear;
   }
-  #controls .lang-toggle { display: flex; border: 1px solid rgba(255,255,255,0.15); border-radius: 999px; overflow: hidden; }
-  #controls .lang-toggle button { border: none; background: transparent; padding: 6px 12px; font-weight: 700; font-size: 11px; letter-spacing: 0.06em; color: rgba(255,255,255,0.5); border-radius: 0; }
+  #controls .lang-toggle {
+    display: flex;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 999px;
+    overflow: hidden;
+    /* Levantar el toggle por encima del play-overlay (z=100) y replay
+       overlay (z=100) para que se pueda cambiar idioma ANTES del primer
+       play, no solo después. */
+    position: relative;
+    z-index: 110;
+  }
+  #controls .lang-toggle button {
+    border: none;
+    background: transparent;
+    padding: 10px 16px;          /* +touch target: ~36px alto antes era ~24px */
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.5);
+    border-radius: 0;
+    min-height: 36px;            /* explicit min para iOS */
+    min-width: 44px;
+    /* Quita el delay de 300ms en iOS y hace los taps instantáneos */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(232,176,76,0.25);
+  }
   #controls .lang-toggle button.active { color: var(--gold); background: rgba(232,176,76,0.10); }
   #controls .scene-num { color: rgba(255,255,255,0.45); font-size: 12px; font-variant-numeric: tabular-nums; min-width: 50px; text-align: right; }
 
