@@ -105,15 +105,16 @@
     #captions { bottom: 100px; }
     #captions .text { font-size: clamp(12px, 3.4vw, 15px); padding: 8px 14px; }
 
-    /* En mobile, escondemos prev/next/mute para liberar espacio en la
-       barra de controles. Play + fullscreen + progress + lang-btn son
-       los críticos. Prev/next son redundantes con tap-to-seek en la
-       progress bar. */
-    #controls #btn-prev,
-    #controls #btn-next,
+    /* En mobile escondemos solo el botón de música (menos crítico — el
+       usuario tiene control de volumen del SO). Prev/next se mantienen
+       visibles porque facilitan la navegación escena por escena, que
+       en mobile es engorrosa via tap-to-seek en una progress bar chica. */
     #controls #btn-mute { display: none; }
-    /* Padding más chico en mobile para dar más respiro */
-    #controls { padding: 24px 12px 14px; gap: 8px; }
+    /* Padding y gap más chicos para dar respiro a 4 icon-btns + lang */
+    #controls { padding: 24px 10px 14px; gap: 6px; }
+    /* Icon-btns un poco más chicos en mobile para que entren cómodos */
+    #controls .icon-btn { width: 32px; height: 32px; padding: 6px; }
+    #controls .icon-btn svg { width: 14px; height: 14px; }
     #controls .scene-num { min-width: 0; font-size: 11px; }
   }
 
