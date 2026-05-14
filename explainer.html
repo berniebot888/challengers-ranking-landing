@@ -104,6 +104,17 @@
     /* Captions más cerca del fondo en mobile */
     #captions { bottom: 100px; }
     #captions .text { font-size: clamp(12px, 3.4vw, 15px); padding: 8px 14px; }
+
+    /* En mobile, escondemos prev/next/mute para liberar espacio en la
+       barra de controles. Play + fullscreen + progress + lang-btn son
+       los críticos. Prev/next son redundantes con tap-to-seek en la
+       progress bar. */
+    #controls #btn-prev,
+    #controls #btn-next,
+    #controls #btn-mute { display: none; }
+    /* Padding más chico en mobile para dar más respiro */
+    #controls { padding: 24px 12px 14px; gap: 8px; }
+    #controls .scene-num { min-width: 0; font-size: 11px; }
   }
 
   /* Fullscreen: stage ocupa toda la pantalla — sobreescribe aspect */
@@ -327,10 +338,11 @@
   #controls .lang-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
-    border: 1px solid rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.18);
     border-radius: 999px;
-    background: rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.08);
     padding: 8px 14px;
     color: var(--cream);
     font-family: inherit;
@@ -339,7 +351,13 @@
     letter-spacing: 0.06em;
     cursor: pointer;
     min-height: 36px;
-    min-width: 56px;
+    /* CRÍTICO: flex-shrink:0 + width:auto. Sin flex-shrink:0 el botón se
+       achicaba en pantallas chicas (otros children del flex bar empujaban)
+       y el contenido se desbordaba por afuera de la pill. */
+    flex-shrink: 0;
+    flex-grow: 0;
+    width: auto;
+    white-space: nowrap;
     transition: background 150ms ease;
     /* Quita el delay de 300ms en iOS y hace los taps instantáneos */
     touch-action: manipulation;
