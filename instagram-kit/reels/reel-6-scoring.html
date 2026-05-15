@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Reel 6 · Either player scores</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --terracotta: #C8451C;
+    --navy: #1A1A2E;
+    --gold: #E8B04C;
+    --cream: #FAF7F2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width:100%; height:100%; overflow:hidden; background:#000; font-family:'Inter',sans-serif; }
+  .stage {
+    width: 1080px; height: 1920px;
+    position: absolute; top: 50%; left: 50%;
+    transform-origin: center center;
+    background: linear-gradient(180deg, var(--navy) 0%, #1F1A2E 100%);
+    overflow: hidden;
+    color: var(--cream);
+  }
+
+  /* ─── SCENE 1 (0-2s): Hook ─── */
+  .scene-1 {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0;
+    animation: fadeIn 0.4s ease 0.2s forwards, fadeOut 0.4s ease 1.8s forwards;
+  }
+  .scene-1 .eyebrow {
+    font-size: 44px; font-weight: 700; letter-spacing: 10px;
+    color: var(--gold); margin-bottom: 50px;
+    opacity: 0;
+    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+  }
+  .scene-1 h1 {
+    font-size: 96px; font-weight: 900; text-align: center; line-height: 1.05;
+    opacity: 0;
+    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+  }
+  .scene-1 h1 span { color: var(--terracotta); }
+
+  /* ─── SCENE 2 (2-6s): Two phones, score entry → confirm ─── */
+  .scene-2 {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0;
+    animation: fadeIn 0.4s ease 2s forwards, fadeOut 0.4s ease 5.8s forwards;
+  }
+  .phones {
+    display: flex; gap: 50px;
+  }
+  .phone {
+    width: 320px; height: 680px;
+    background: var(--navy);
+    border-radius: 44px;
+    border: 6px solid #0A0A1A;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    position: relative;
+    overflow: hidden;
+  }
+  .phone-notch {
+    position: absolute; top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 88px; height: 22px;
+    background: #000;
+    border-radius: 0 0 12px 12px;
+    z-index: 10;
+  }
+  .phone-inner {
+    position: absolute; inset: 0;
+    background: var(--cream);
+    border-radius: 38px;
+    padding: 50px 20px 20px;
+    overflow: hidden;
+  }
+  .phone-label {
+    text-align: center;
+    font-size: 26px; font-weight: 800;
+    color: var(--gold);
+    margin-top: 18px;
+  }
+  .player-header {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .player-header .name {
+    font-size: 18px; font-weight: 800; color: var(--navy);
+  }
+  .player-header .vs {
+    font-size: 11px; color: rgba(26,26,46,0.5); margin-top: 2px;
+  }
+  .score-display {
+    background: var(--navy);
+    color: var(--cream);
+    padding: 20px;
+    border-radius: 14px;
+    margin-bottom: 14px;
+  }
+  .score-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 0;
+  }
+  .score-row.bordered { border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .score-row .pl {
+    font-size: 16px; font-weight: 600;
+  }
+  .score-row .sets {
+    display: flex; gap: 12px;
+  }
+  .score-row .set {
+    width: 32px; text-align: center;
+    font-size: 22px; font-weight: 900;
+    color: var(--gold);
+  }
+  .score-row .set.lost {
+    color: rgba(250,247,242,0.4);
+  }
+  .submit-btn {
+    background: var(--terracotta);
+    color: white;
+    text-align: center;
+    padding: 14px;
+    border-radius: 999px;
+    font-size: 17px; font-weight: 800;
+    margin-top: 14px;
+    box-shadow: 0 6px 20px rgba(200,69,28,0.35);
+    opacity: 0;
+    animation: fadeIn 0.3s ease 3s forwards, btnPulse 0.5s ease 3.6s forwards;
+  }
+  @keyframes btnPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(0.94); }
+  }
+
+  /* Notification on right phone (Tony's) */
+  .notif {
+    background: rgba(26,26,46,0.95);
+    backdrop-filter: blur(10px);
+    color: var(--cream);
+    padding: 14px;
+    border-radius: 16px;
+    margin-bottom: 14px;
+    border: 1px solid rgba(255,255,255,0.1);
+    opacity: 0;
+    transform: translateY(-30px);
+    animation: notifIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 3.8s forwards;
+  }
+  @keyframes notifIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .notif .app {
+    font-size: 11px; font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 1.2px;
+    margin-bottom: 6px;
+  }
+  .notif .title {
+    font-size: 16px; font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .notif .body {
+    font-size: 13px;
+    color: rgba(250,247,242,0.75);
+    line-height: 1.3;
+  }
+  .confirm-btn {
+    background: var(--gold);
+    color: var(--navy);
+    text-align: center;
+    padding: 14px;
+    border-radius: 999px;
+    font-size: 17px; font-weight: 800;
+    box-shadow: 0 6px 20px rgba(232,176,76,0.4);
+    opacity: 0;
+    animation: fadeIn 0.3s ease 4.4s forwards, btnPulse 0.5s ease 5s forwards;
+  }
+  /* Checkmark replaces confirm at 5.4s */
+  .check-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    pointer-events: none;
+    opacity: 0;
+    animation: fadeIn 0.4s ease 5.3s forwards;
+  }
+  .check-circle {
+    width: 120px; height: 120px;
+    background: #2A8A2A;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    font-size: 70px;
+    box-shadow: 0 20px 50px rgba(42,138,42,0.4);
+    transform: scale(0);
+    animation: checkPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 5.4s forwards;
+  }
+  @keyframes checkPop {
+    to { transform: scale(1); }
+  }
+
+  /* ─── SCENE 3 (6-9s): Ranking animation — positions swap ─── */
+  .scene-3 {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 0 80px;
+    opacity: 0;
+    animation: fadeIn 0.4s ease 6s forwards, fadeOut 0.4s ease 9.2s forwards;
+  }
+  .scene-3 h2 {
+    font-size: 56px; font-weight: 900;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: slideUp 0.4s ease 6.2s forwards;
+  }
+  .rank-list {
+    width: 100%; max-width: 600px;
+  }
+  .rank-card {
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: 18px;
+    padding: 24px 28px;
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 20px;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .rank-card .pos {
+    font-size: 40px; font-weight: 900;
+    color: var(--cream);
+    min-width: 70px;
+  }
+  .rank-card .avatar {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    color: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: 800;
+    flex-shrink: 0;
+  }
+  .rank-card .name {
+    font-size: 28px; font-weight: 700;
+    color: var(--cream);
+    flex: 1;
+  }
+  .rank-card .arrow {
+    font-size: 32px; font-weight: 800;
+    opacity: 0;
+  }
+  .rank-card .arrow.up { color: #2A8A2A; }
+  .rank-card .arrow.down { color: rgba(250,247,242,0.4); }
+
+  /* Animate swap of Tony (was #2) ↔ Bernie (was #3) at 7s */
+  .rank-card.tony {
+    animation: tonyDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) 7.2s forwards;
+  }
+  .rank-card.bernie {
+    animation: bernieUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 7.2s forwards;
+  }
+  @keyframes tonyDown {
+    0% { transform: translateY(0); background: rgba(255,255,255,0.06); }
+    50% { transform: translateY(110px); background: rgba(180,60,60,0.18); border-color: rgba(180,60,60,0.4); }
+    100% { transform: translateY(110px); background: rgba(255,255,255,0.06); }
+  }
+  @keyframes bernieUp {
+    0% { transform: translateY(0); background: rgba(255,255,255,0.06); }
+    50% { transform: translateY(-110px); background: rgba(42,138,42,0.18); border-color: rgba(42,138,42,0.4); }
+    100% { transform: translateY(-110px); background: rgba(255,255,255,0.06); }
+  }
+  .rank-card.bernie .arrow {
+    animation: arrowShow 0.3s ease 7.4s forwards;
+  }
+  .rank-card.tony .arrow {
+    animation: arrowShow 0.3s ease 7.4s forwards;
+  }
+  @keyframes arrowShow {
+    to { opacity: 1; }
+  }
+
+  /* ─── SCENE 4 (9-11s): End ─── */
+  .scene-4 {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 0 80px;
+    text-align: center;
+    opacity: 0;
+    animation: fadeIn 0.4s ease 9.4s forwards;
+  }
+  .scene-4 h2 {
+    font-size: 84px; font-weight: 900; color: var(--cream);
+    line-height: 1.1;
+    opacity: 0;
+    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 9.6s forwards;
+  }
+  .scene-4 h2 span { color: var(--gold); }
+  .scene-4 .sub {
+    font-size: 38px; font-weight: 600;
+    color: rgba(250,247,242,0.7);
+    margin-top: 30px;
+    opacity: 0;
+    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 9.9s forwards;
+  }
+  .scene-4 .url {
+    font-size: 26px; font-weight: 500;
+    color: rgba(250,247,242,0.5);
+    margin-top: 60px;
+    opacity: 0;
+    animation: fadeIn 0.4s ease 10.4s forwards;
+  }
+
+  @keyframes fadeIn { to { opacity: 1; } }
+  @keyframes fadeOut { to { opacity: 0; } }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+  .record-helper {
+    position: fixed; top: 20px; right: 20px;
+    background: rgba(0,0,0,0.85); color: white;
+    padding: 16px 20px; border-radius: 10px;
+    font-family: -apple-system, sans-serif; font-size: 13px;
+    z-index: 100; max-width: 280px; line-height: 1.5;
+  }
+  .record-helper button {
+    background: #C8451C; color: white; border: none;
+    padding: 8px 14px; border-radius: 6px;
+    font-weight: 700; cursor: pointer; margin-top: 8px; width: 100%;
+  }
+  .record-helper kbd { background: #333; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 11px; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+  <div class="scene-1">
+    <div class="eyebrow">AFTER THE MATCH</div>
+    <h1>Either player<br><span>logs the score.</span></h1>
+  </div>
+
+  <div class="scene-2">
+    <div class="phones">
+      <!-- Left phone: Bernie entering score -->
+      <div>
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-inner">
+            <div class="player-header">
+              <div class="name">Bernie's phone</div>
+              <div class="vs">vs Tony · Singles</div>
+            </div>
+            <div class="score-display">
+              <div class="score-row bordered">
+                <span class="pl">Bernie</span>
+                <div class="sets"><span class="set">6</span><span class="set">6</span></div>
+              </div>
+              <div class="score-row">
+                <span class="pl" style="color:rgba(250,247,242,0.6)">Tony</span>
+                <div class="sets"><span class="set lost">4</span><span class="set lost">3</span></div>
+              </div>
+            </div>
+            <div class="submit-btn">Submit score</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right phone: Tony getting notification + confirm -->
+      <div style="position:relative;">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-inner">
+            <div class="player-header">
+              <div class="name">Tony's phone</div>
+              <div class="vs">Notification incoming…</div>
+            </div>
+            <div class="notif">
+              <div class="app">🎾 CHALLENGERS RANKING</div>
+              <div class="title">Bernie reported a score</div>
+              <div class="body">6-4, 6-3 · Tap to review and confirm</div>
+            </div>
+            <div class="confirm-btn">Confirm score</div>
+          </div>
+          <div class="check-overlay">
+            <div class="check-circle">✓</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-3">
+    <h2>Ranking updates · instantly</h2>
+    <div class="rank-list">
+      <div class="rank-card">
+        <div class="pos">#1</div>
+        <div class="avatar">PS</div>
+        <div class="name">Pablo Solari</div>
+        <div class="arrow up">—</div>
+      </div>
+      <div class="rank-card tony">
+        <div class="pos">#2</div>
+        <div class="avatar" style="background:#5A5A6E">TC</div>
+        <div class="name">Tony Cornudet</div>
+        <div class="arrow down">↓</div>
+      </div>
+      <div class="rank-card bernie">
+        <div class="pos">#3</div>
+        <div class="avatar">BL</div>
+        <div class="name">Bernie Loitegui</div>
+        <div class="arrow up">↑</div>
+      </div>
+      <div class="rank-card">
+        <div class="pos">#4</div>
+        <div class="avatar" style="background:#5A5A6E">RC</div>
+        <div class="name">Romeo Cesar</div>
+        <div class="arrow up">—</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-4">
+    <h2>No spreadsheets.<br><span>No delay.</span></h2>
+    <p class="sub">The ranking moves with every match.</p>
+    <div class="url">challengersranking.online</div>
+  </div>
+</div>
+
+<div class="record-helper" id="helper">
+  <strong>🎬 Reel 6 · Scoring</strong>
+  <ol style="margin: 8px 0 0 18px; padding: 0;">
+    <li>Press <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>5</kbd></li>
+    <li>"Record Selected Portion"</li>
+    <li>Drag over the dark stage</li>
+    <li>Click <strong>Start</strong> → then Record</li>
+    <li>Animation lasts ~11s</li>
+  </ol>
+  <button onclick="startAnimation()">▶ Start animation</button>
+</div>
+
+<script>
+  function fitStage() {
+    const stage = document.getElementById('stage');
+    const scale = Math.min(window.innerWidth / 1080, window.innerHeight / 1920);
+    stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  }
+  fitStage();
+  window.addEventListener('resize', fitStage);
+
+  function startAnimation() {
+    document.getElementById('helper').classList.add('hidden');
+    const stage = document.getElementById('stage');
+    const clone = stage.cloneNode(true);
+    stage.parentNode.replaceChild(clone, stage);
+    clone.id = 'stage';
+    fitStage();
+    setTimeout(() => { document.getElementById('helper').classList.remove('hidden'); }, 11500);
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Reel 1 · 10 days · 68 players</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --terracotta: #C8451C;
+    --terracotta-dark: #A8381A;
+    --navy: #1A1A2E;
+    --gold: #E8B04C;
+    --cream: #FAF7F2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    font-family: 'Inter', sans-serif;
+  }
+  /* The stage is locked at 1080×1920 aspect. We scale it via CSS transform
+     so it fills the viewport while preserving aspect ratio. */
+  .stage {
+    width: 1080px;
+    height: 1920px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: center center;
+    background: linear-gradient(180deg, var(--terracotta) 0%, var(--terracotta-dark) 100%);
+    overflow: hidden;
+    color: var(--cream);
+  }
+
+  /* SCREEN 1 (0-2.5s): Eyebrow + setup */
+  .scene-1 {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeIn 0.4s ease 0.2s forwards, fadeOut 0.4s ease 2.2s forwards;
+  }
+  .scene-1 .eyebrow {
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: 12px;
+    color: var(--gold);
+    margin-bottom: 80px;
+    opacity: 0;
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+  }
+  .scene-1 .question {
+    font-size: 88px;
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.15;
+    max-width: 900px;
+    opacity: 0;
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+  }
+  .scene-1 .question .accent { color: var(--gold); }
+
+  /* SCREEN 2 (2.5-7s): BIG COUNTER animating 0 → 68 */
+  .scene-2 {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeIn 0.4s ease 2.6s forwards, fadeOut 0.4s ease 7s forwards;
+  }
+  .scene-2 .label-top {
+    font-size: 54px;
+    font-weight: 800;
+    letter-spacing: 10px;
+    color: var(--cream);
+    opacity: 0.85;
+    margin-bottom: 40px;
+  }
+  .scene-2 .counter {
+    font-size: 480px;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--cream);
+    font-variant-numeric: tabular-nums;
+    /* Animate from 0 to 68 via CSS counter trick using a JS-driven attribute */
+  }
+  .scene-2 .label-bottom {
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--cream);
+    opacity: 0.95;
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  /* SCREEN 3 (7-10s): Stats + closing */
+  .scene-3 {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 120px;
+    opacity: 0;
+    animation: fadeIn 0.4s ease 7.4s forwards;
+  }
+  .scene-3 .check-line {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    font-size: 48px;
+    font-weight: 600;
+    color: var(--cream);
+    margin: 12px 0;
+    opacity: 0;
+  }
+  .scene-3 .check-line .check {
+    color: var(--gold);
+    font-size: 60px;
+    font-weight: 900;
+  }
+  .scene-3 .check-line:nth-child(1) { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 7.6s forwards; }
+  .scene-3 .check-line:nth-child(2) { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 7.9s forwards; }
+  .scene-3 .check-line:nth-child(3) { animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 8.2s forwards; }
+
+  .scene-3 .closer {
+    font-size: 80px;
+    font-weight: 900;
+    color: var(--gold);
+    margin-top: 100px;
+    text-align: center;
+    line-height: 1.1;
+    opacity: 0;
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 8.8s forwards;
+  }
+  .scene-3 .url {
+    font-size: 36px;
+    font-weight: 500;
+    color: var(--cream);
+    opacity: 0;
+    margin-top: 60px;
+    animation: fadeIn 0.4s ease 9.4s forwards;
+  }
+
+  @keyframes fadeIn { to { opacity: 1; } }
+  @keyframes fadeOut { to { opacity: 0; } }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Recording helper UI — hidden during recording */
+  .record-helper {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0,0,0,0.85);
+    color: white;
+    padding: 16px 20px;
+    border-radius: 10px;
+    font-family: -apple-system, sans-serif;
+    font-size: 13px;
+    z-index: 100;
+    max-width: 280px;
+    line-height: 1.5;
+  }
+  .record-helper button {
+    background: #C8451C;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 8px;
+    width: 100%;
+  }
+  .record-helper kbd {
+    background: #333;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 11px;
+  }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+  <div class="scene-1">
+    <div class="eyebrow">IN 10 DAYS</div>
+    <div class="question">How many members<br>can <span class="accent">one tennis club</span><br>rank in 10 days?</div>
+  </div>
+
+  <div class="scene-2">
+    <div class="label-top">ANSWER:</div>
+    <div class="counter" id="counter">0</div>
+    <div class="label-bottom">active players 🎾</div>
+  </div>
+
+  <div class="scene-3">
+    <div class="check-line"><span class="check">✓</span> Live in production</div>
+    <div class="check-line"><span class="check">✓</span> Dozens of challenges logged</div>
+    <div class="check-line"><span class="check">✓</span> Zero spreadsheets</div>
+    <div class="closer">Is your club next?</div>
+    <div class="url">challengersranking.online</div>
+  </div>
+</div>
+
+<div class="record-helper" id="helper">
+  <strong>🎬 Record this reel</strong>
+  <ol style="margin: 8px 0 0 18px; padding: 0;">
+    <li>Press <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>5</kbd></li>
+    <li>Choose "Record Selected Portion"</li>
+    <li>Drag selection over the orange stage</li>
+    <li>Click <strong>Start</strong> below — wait 1s — then hit Record</li>
+    <li>Animation lasts ~10s</li>
+    <li>Stop, trim, upload as Reel</li>
+  </ol>
+  <button onclick="startAnimation()">▶ Start animation</button>
+  <p style="margin-top: 8px; font-size: 11px; opacity: 0.7;">
+    Tip: open this page in a separate window and resize to ~360×640 for cleaner recording.
+  </p>
+</div>
+
+<script>
+  // Scale the 1080×1920 stage to fit the viewport (preserving aspect ratio).
+  function fitStage() {
+    const stage = document.getElementById('stage');
+    const targetW = 1080;
+    const targetH = 1920;
+    const vpW = window.innerWidth;
+    const vpH = window.innerHeight;
+    const scale = Math.min(vpW / targetW, vpH / targetH);
+    stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  }
+  fitStage();
+  window.addEventListener('resize', fitStage);
+
+  // Counter animation: tick from 0 to 68 over 2.5 seconds (during scene 2)
+  function animateCounter(start, end, durationMs) {
+    const el = document.getElementById('counter');
+    const t0 = performance.now();
+    function tick(now) {
+      const t = Math.min((now - t0) / durationMs, 1);
+      // ease-out cubic
+      const eased = 1 - Math.pow(1 - t, 3);
+      const value = Math.round(start + (end - start) * eased);
+      el.textContent = value;
+      if (t < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // Restart animation: replay all scenes from time 0
+  function startAnimation() {
+    // Hide helper for the recording
+    document.getElementById('helper').classList.add('hidden');
+    // Re-trigger animations by cloning + replacing the stage
+    const stage = document.getElementById('stage');
+    const clone = stage.cloneNode(true);
+    stage.parentNode.replaceChild(clone, stage);
+    clone.id = 'stage';
+    fitStage();
+    // Start counter at scene 2 (2.6s after start)
+    setTimeout(() => animateCounter(0, 68, 2500), 2600);
+    // Show helper again after animation ends (~10s)
+    setTimeout(() => {
+      document.getElementById('helper').classList.remove('hidden');
+    }, 10500);
+  }
+
+  // Start counter on page load too (since scene 2 fades in via CSS)
+  setTimeout(() => animateCounter(0, 68, 2500), 2600);
+</script>
+
+</body>
+</html>

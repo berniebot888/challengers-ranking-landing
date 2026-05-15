@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Reel 2 · The Wild Card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --terracotta: #C8451C;
+    --navy: #1A1A2E;
+    --gold: #E8B04C;
+    --cream: #FAF7F2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    font-family: 'Inter', sans-serif;
+  }
+  .stage {
+    width: 1080px;
+    height: 1920px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: center center;
+    background: linear-gradient(135deg, var(--navy) 0%, #2A1A4E 50%, var(--navy) 100%);
+    overflow: hidden;
+    color: var(--cream);
+  }
+
+  /* ─── Floating sparkles in background for visual interest ─── */
+  .sparkle {
+    position: absolute;
+    background: var(--gold);
+    border-radius: 50%;
+    opacity: 0;
+    animation: sparkle 3s ease-in-out infinite;
+  }
+  .sparkle:nth-child(1) { top: 10%; left: 15%; width: 8px; height: 8px; animation-delay: 0s; }
+  .sparkle:nth-child(2) { top: 25%; right: 20%; width: 12px; height: 12px; animation-delay: 0.6s; }
+  .sparkle:nth-child(3) { bottom: 30%; left: 10%; width: 6px; height: 6px; animation-delay: 1.2s; }
+  .sparkle:nth-child(4) { bottom: 15%; right: 12%; width: 10px; height: 10px; animation-delay: 1.8s; }
+  .sparkle:nth-child(5) { top: 50%; left: 8%; width: 8px; height: 8px; animation-delay: 2.4s; }
+
+  @keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* ─── SCENE 1 (0-2s): Question opener ─── */
+  .scene-1 {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeIn 0.4s ease 0.2s forwards, fadeOut 0.4s ease 1.8s forwards;
+  }
+  .scene-1 .eyebrow {
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: 8px;
+    color: var(--gold);
+    margin-bottom: 60px;
+    opacity: 0;
+    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+  }
+  .scene-1 .question {
+    font-size: 96px;
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.1;
+    opacity: 0;
+    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+  }
+  .scene-1 .question span { color: var(--gold); }
+
+  /* ─── SCENE 2 (2-6s): Card flies in + rotates ─── */
+  .scene-2 {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeIn 0.4s ease 2s forwards, fadeOut 0.4s ease 5.6s forwards;
+  }
+  .card {
+    width: 400px;
+    height: 560px;
+    background: var(--gold);
+    border-radius: 24px;
+    border: 4px solid rgba(26, 26, 46, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+    opacity: 0;
+    transform: scale(0.5) rotate(-25deg);
+    animation: cardEnter 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 2.2s forwards,
+               cardFloat 2s ease-in-out 3.2s infinite alternate;
+  }
+  .card .star {
+    font-size: 220px;
+    color: var(--navy);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+  .card .label1 {
+    font-size: 72px;
+    font-weight: 900;
+    color: var(--navy);
+    letter-spacing: 2px;
+  }
+  .card .label2 {
+    font-size: 72px;
+    font-weight: 900;
+    color: var(--navy);
+    letter-spacing: 2px;
+    margin-top: -10px;
+  }
+
+  @keyframes cardEnter {
+    0% { opacity: 0; transform: scale(0.3) rotate(-180deg) translateY(800px); }
+    100% { opacity: 1; transform: scale(1) rotate(-6deg) translateY(0); }
+  }
+  @keyframes cardFloat {
+    from { transform: scale(1) rotate(-6deg) translateY(0); }
+    to { transform: scale(1) rotate(-3deg) translateY(-20px); }
+  }
+
+  /* ─── SCENE 3 (6-10s): Big text reveal ─── */
+  .scene-3 {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 80px;
+    text-align: center;
+    opacity: 0;
+    animation: fadeIn 0.4s ease 6s forwards;
+  }
+  .scene-3 .line-1 {
+    font-size: 92px;
+    font-weight: 900;
+    color: var(--cream);
+    line-height: 1.1;
+    opacity: 0;
+    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 6.2s forwards;
+  }
+  .scene-3 .line-2 {
+    font-size: 92px;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1.1;
+    margin-top: 20px;
+    opacity: 0;
+    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 6.6s forwards;
+  }
+  .scene-3 .sub {
+    font-size: 44px;
+    font-weight: 500;
+    color: var(--cream);
+    margin-top: 80px;
+    opacity: 0.85;
+    line-height: 1.4;
+    opacity: 0;
+    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 7.4s forwards;
+  }
+  .scene-3 .url {
+    font-size: 36px;
+    font-weight: 500;
+    color: var(--cream);
+    margin-top: 100px;
+    opacity: 0.6;
+    opacity: 0;
+    animation: fadeIn 0.4s ease 8.2s forwards;
+  }
+
+  @keyframes fadeIn { to { opacity: 1; } }
+  @keyframes fadeOut { to { opacity: 0; } }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Record helper */
+  .record-helper {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0,0,0,0.85);
+    color: white;
+    padding: 16px 20px;
+    border-radius: 10px;
+    font-family: -apple-system, sans-serif;
+    font-size: 13px;
+    z-index: 100;
+    max-width: 280px;
+    line-height: 1.5;
+  }
+  .record-helper button {
+    background: #C8451C;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 8px;
+    width: 100%;
+  }
+  .record-helper kbd {
+    background: #333;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 11px;
+  }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+  <div class="sparkle"></div>
+
+  <div class="scene-1">
+    <div class="eyebrow">YOUR CLUB · YOUR RULES</div>
+    <div class="question">What if you<br>could challenge<br><span>anyone?</span></div>
+  </div>
+
+  <div class="scene-2">
+    <div class="card">
+      <div class="star">★</div>
+      <div class="label1">WILD</div>
+      <div class="label2">CARD</div>
+    </div>
+  </div>
+
+  <div class="scene-3">
+    <div class="line-1">Challenge anyone.</div>
+    <div class="line-2">Even #1.</div>
+    <div class="sub">1 welcome card · 1 more per 3-win streak</div>
+    <div class="url">challengersranking.online</div>
+  </div>
+</div>
+
+<div class="record-helper" id="helper">
+  <strong>🎬 Record this reel</strong>
+  <ol style="margin: 8px 0 0 18px; padding: 0;">
+    <li>Press <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>5</kbd></li>
+    <li>Choose "Record Selected Portion"</li>
+    <li>Drag selection over the dark stage</li>
+    <li>Click <strong>Start</strong> — then hit Record</li>
+    <li>Animation lasts ~9s</li>
+    <li>Stop, trim, upload as Reel</li>
+  </ol>
+  <button onclick="startAnimation()">▶ Start animation</button>
+</div>
+
+<script>
+  function fitStage() {
+    const stage = document.getElementById('stage');
+    const vpW = window.innerWidth;
+    const vpH = window.innerHeight;
+    const scale = Math.min(vpW / 1080, vpH / 1920);
+    stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  }
+  fitStage();
+  window.addEventListener('resize', fitStage);
+
+  function startAnimation() {
+    document.getElementById('helper').classList.add('hidden');
+    const stage = document.getElementById('stage');
+    const clone = stage.cloneNode(true);
+    stage.parentNode.replaceChild(clone, stage);
+    clone.id = 'stage';
+    fitStage();
+    setTimeout(() => {
+      document.getElementById('helper').classList.remove('hidden');
+    }, 9500);
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Reel 5 · Install in 30 seconds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --terracotta: #C8451C;
+    --navy: #1A1A2E;
+    --gold: #E8B04C;
+    --cream: #FAF7F2;
+    --safari-bg: #F2F2F7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width:100%; height:100%; overflow:hidden; background:#000; font-family:'Inter',sans-serif; }
+  .stage {
+    width: 1080px; height: 1920px;
+    position: absolute; top: 50%; left: 50%;
+    transform-origin: center center;
+    background: linear-gradient(180deg, var(--navy) 0%, #2A1F3E 100%);
+    overflow: hidden;
+    color: var(--cream);
+  }
+
+  /* ─── Phone frame (used in scenes 2-5) ─── */
+  .phone {
+    width: 540px; height: 1140px;
+    background: var(--navy);
+    border-radius: 64px;
+    border: 8px solid #0A0A1A;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    position: relative;
+    overflow: hidden;
+  }
+  .phone-notch {
+    position: absolute; top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 140px; height: 30px;
+    background: #000;
+    border-radius: 0 0 18px 18px;
+    z-index: 10;
+  }
+  .phone-inner {
+    position: absolute; inset: 0;
+    background: var(--safari-bg);
+    border-radius: 56px;
+    padding-top: 60px;
+    overflow: hidden;
+  }
+
+  /* ─── SCENE 1 (0-2s): Title ─── */
+  .scene-1 {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0;
+    animation: fadeIn 0.4s ease 0.2s forwards, fadeOut 0.4s ease 1.8s forwards;
+  }
+  .scene-1 .eyebrow {
+    font-size: 44px; font-weight: 700; letter-spacing: 8px;
+    color: var(--gold); margin-bottom: 50px;
+    opacity: 0;
+    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+  }
+  .scene-1 h1 {
+    font-size: 96px; font-weight: 900; text-align: center; line-height: 1.05;
+    opacity: 0;
+    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+  }
+  .scene-1 h1 span { color: var(--terracotta); }
+  .scene-1 .sub {
+    font-size: 42px; font-weight: 600;
+    color: rgba(250,247,242,0.6);
+    margin-top: 30px;
+    opacity: 0;
+    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
+  }
+
+  /* ─── SCENE 2 (2-5s): Safari URL bar + share button ─── */
+  .scene-2 {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0;
+    animation: fadeIn 0.4s ease 2s forwards, fadeOut 0.4s ease 4.7s forwards;
+  }
+  .scene-2 .step-label {
+    font-size: 32px; font-weight: 800;
+    color: var(--gold);
+    letter-spacing: 4px;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: slideUp 0.4s ease 2.2s forwards;
+  }
+  .scene-2 .safari-screen {
+    width: 420px; padding: 36px 16px;
+  }
+  .safari-bar {
+    background: white;
+    border-radius: 14px;
+    padding: 14px 20px;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .safari-bar .lock { color: #888; font-size: 16px; }
+  .safari-bar .url {
+    flex: 1; font-size: 17px; font-weight: 500;
+    color: #1A1A2E;
+    text-align: center;
+    overflow: hidden; white-space: nowrap;
+  }
+  .safari-bar .url .typed {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid var(--terracotta);
+    width: 0;
+    animation: typing 1.2s steps(28) 2.5s forwards, blink 0.6s step-end 3.8s 3;
+  }
+  @keyframes typing { to { width: 100%; } }
+  @keyframes blink { 50% { border-color: transparent; } }
+  .safari-share {
+    display: inline-flex;
+    margin-top: 40px;
+    width: 64px; height: 64px;
+    background: white;
+    border-radius: 18px;
+    align-items: center; justify-content: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    position: relative;
+    opacity: 0;
+    animation: fadeIn 0.4s ease 3.8s forwards, sharePulse 0.6s ease 4.2s forwards;
+  }
+  @keyframes sharePulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+    50% { transform: scale(1.1); box-shadow: 0 8px 32px rgba(200,69,28,0.4); }
+  }
+  .safari-share-icon {
+    color: #007AFF;
+    font-size: 28px;
+  }
+  .safari-share .pulse-ring {
+    position: absolute; inset: -8px;
+    border-radius: 22px;
+    border: 3px solid var(--terracotta);
+    opacity: 0;
+    animation: pulseRing 0.9s ease 4.3s forwards;
+  }
+  @keyframes pulseRing {
+    0% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(1.4); }
+  }
+
+  /* ─── SCENE 3 (5-8s): "Add to Home Screen" menu ─── */
+  .scene-3 {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0;
+    animation: fadeIn 0.4s ease 5s forwards, fadeOut 0.4s ease 7.7s forwards;
+  }
+  .scene-3 .step-label {
+    font-size: 32px; font-weight: 800;
+    color: var(--gold);
+    letter-spacing: 4px;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: slideUp 0.4s ease 5.2s forwards;
+  }
+  .share-menu {
+    width: 460px;
+    background: white;
+    border-radius: 20px;
+    padding: 12px 0;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    opacity: 0;
+    transform: translateY(40px);
+    animation: slideUpMenu 0.5s cubic-bezier(0.16, 1, 0.3, 1) 5.3s forwards;
+  }
+  @keyframes slideUpMenu {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .menu-item {
+    padding: 18px 24px;
+    display: flex; align-items: center; gap: 16px;
+    border-bottom: 1px solid #e5e5e7;
+    color: #1A1A2E;
+  }
+  .menu-item:last-child { border-bottom: none; }
+  .menu-item.highlight {
+    background: rgba(200,69,28,0.06);
+  }
+  .menu-item .icon {
+    width: 36px; height: 36px;
+    background: #F2F2F7;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .menu-item.highlight .icon { background: var(--terracotta); color: white; }
+  .menu-item .label { font-size: 22px; font-weight: 600; }
+  .menu-item.highlight .label { color: var(--terracotta); font-weight: 800; }
+  .menu-item .arrow { margin-left: auto; color: #888; }
+
+  /* Pulse around the Add to Home Screen item */
+  .menu-item.highlight {
+    animation: highlightPulse 1s ease 6.3s infinite;
+  }
+  @keyframes highlightPulse {
+    0%, 100% { background: rgba(200,69,28,0.06); }
+    50% { background: rgba(200,69,28,0.18); }
+  }
+
+  /* ─── SCENE 4 (8-11s): Home screen with icon appearing ─── */
+  .scene-4 {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0;
+    animation: fadeIn 0.4s ease 8s forwards, fadeOut 0.4s ease 10.7s forwards;
+  }
+  .scene-4 .step-label {
+    font-size: 32px; font-weight: 800;
+    color: var(--gold);
+    letter-spacing: 4px;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: slideUp 0.4s ease 8.2s forwards;
+  }
+  .home-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    width: 540px;
+    padding: 40px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 32px;
+  }
+  .home-icon {
+    width: 100%; aspect-ratio: 1;
+    border-radius: 22px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 50px;
+    color: white;
+  }
+  .home-icon.placeholder {
+    background: rgba(255,255,255,0.08);
+  }
+  .home-icon.new {
+    background: var(--terracotta);
+    color: var(--cream);
+    transform: scale(0);
+    animation: iconPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 8.6s forwards;
+    position: relative;
+  }
+  @keyframes iconPop {
+    to { transform: scale(1); }
+  }
+  .home-icon.new .badge {
+    position: absolute;
+    top: -8px; right: -8px;
+    background: #FF3B30;
+    color: white;
+    font-size: 22px; font-weight: 800;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    animation: badgePop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 9.8s forwards;
+    box-shadow: 0 4px 12px rgba(255,59,48,0.5);
+  }
+  @keyframes badgePop {
+    from { opacity: 0; transform: scale(0); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* ─── SCENE 5 (11-13s): Notification permission ─── */
+  .scene-5 {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    opacity: 0;
+    animation: fadeIn 0.4s ease 10.9s forwards, fadeOut 0.4s ease 12.7s forwards;
+  }
+  .scene-5 .step-label {
+    font-size: 32px; font-weight: 800;
+    color: var(--gold);
+    letter-spacing: 4px;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: slideUp 0.4s ease 11.1s forwards;
+  }
+  .permission-dialog {
+    width: 460px;
+    background: white;
+    border-radius: 24px;
+    padding: 28px 24px 8px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    opacity: 0;
+    transform: scale(0.5);
+    animation: dialogIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 11.2s forwards;
+  }
+  @keyframes dialogIn {
+    to { opacity: 1; transform: scale(1); }
+  }
+  .permission-dialog h3 {
+    font-size: 24px; font-weight: 700; color: #1A1A2E; margin-bottom: 12px;
+  }
+  .permission-dialog p {
+    font-size: 18px; color: #555; margin-bottom: 20px; line-height: 1.4;
+  }
+  .perm-buttons {
+    display: flex; border-top: 1px solid #e5e5e7;
+  }
+  .perm-btn {
+    flex: 1; padding: 18px;
+    font-size: 20px;
+    color: #007AFF;
+    border-right: 1px solid #e5e5e7;
+  }
+  .perm-btn:last-child { border-right: none; font-weight: 700; }
+  .perm-btn.allow {
+    animation: btnPulse 0.6s ease 12s forwards;
+  }
+  @keyframes btnPulse {
+    0%, 100% { background: white; }
+    50% { background: rgba(0,122,255,0.15); }
+  }
+
+  /* ─── SCENE 6 (13-15s): End frame ─── */
+  .scene-6 {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 0 80px;
+    text-align: center;
+    opacity: 0;
+    animation: fadeIn 0.4s ease 12.9s forwards;
+  }
+  .scene-6 h2 {
+    font-size: 84px; font-weight: 900; color: var(--cream);
+    line-height: 1.1;
+    opacity: 0;
+    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 13.1s forwards;
+  }
+  .scene-6 h2 span { color: var(--gold); }
+  .scene-6 .sub {
+    font-size: 38px; font-weight: 600;
+    color: rgba(250,247,242,0.7);
+    margin-top: 30px;
+    opacity: 0;
+    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 13.4s forwards;
+  }
+  .scene-6 .url {
+    font-size: 26px; font-weight: 500;
+    color: rgba(250,247,242,0.5);
+    margin-top: 60px;
+    opacity: 0;
+    animation: fadeIn 0.4s ease 13.9s forwards;
+  }
+
+  @keyframes fadeIn { to { opacity: 1; } }
+  @keyframes fadeOut { to { opacity: 0; } }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+  .record-helper {
+    position: fixed; top: 20px; right: 20px;
+    background: rgba(0,0,0,0.85); color: white;
+    padding: 16px 20px; border-radius: 10px;
+    font-family: -apple-system, sans-serif; font-size: 13px;
+    z-index: 100; max-width: 280px; line-height: 1.5;
+  }
+  .record-helper button {
+    background: #C8451C; color: white; border: none;
+    padding: 8px 14px; border-radius: 6px;
+    font-weight: 700; cursor: pointer; margin-top: 8px; width: 100%;
+  }
+  .record-helper kbd { background: #333; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 11px; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+  <div class="scene-1">
+    <div class="eyebrow">INSTALL THE APP</div>
+    <h1>In <span>30 seconds.</span></h1>
+    <div class="sub">No App Store. No download.</div>
+  </div>
+
+  <div class="scene-2">
+    <div class="step-label">STEP 1 · OPEN SAFARI</div>
+    <div class="safari-screen">
+      <div class="safari-bar">
+        <span class="lock">🔒</span>
+        <div class="url"><span class="typed">tca.challengersranking.online</span></div>
+      </div>
+      <div style="text-align:center;">
+        <div class="safari-share">
+          <div class="pulse-ring"></div>
+          <span class="safari-share-icon">⤴︎</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-3">
+    <div class="step-label">STEP 2 · ADD TO HOME SCREEN</div>
+    <div class="share-menu">
+      <div class="menu-item">
+        <div class="icon">📋</div>
+        <div class="label">Copiar</div>
+        <span class="arrow">›</span>
+      </div>
+      <div class="menu-item">
+        <div class="icon">⭐</div>
+        <div class="label">Añadir a Favoritos</div>
+        <span class="arrow">›</span>
+      </div>
+      <div class="menu-item highlight">
+        <div class="icon">+</div>
+        <div class="label">Agregar a inicio</div>
+        <span class="arrow">›</span>
+      </div>
+      <div class="menu-item">
+        <div class="icon">🔖</div>
+        <div class="label">Añadir Marcador</div>
+        <span class="arrow">›</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-4">
+    <div class="step-label">STEP 3 · TAP THE NEW ICON</div>
+    <div class="home-grid">
+      <div class="home-icon placeholder">📷</div>
+      <div class="home-icon placeholder">💬</div>
+      <div class="home-icon placeholder">📧</div>
+      <div class="home-icon placeholder">🗓️</div>
+      <div class="home-icon new">
+        🎾
+        <div class="badge">1</div>
+      </div>
+      <div class="home-icon placeholder">📱</div>
+      <div class="home-icon placeholder">🎵</div>
+      <div class="home-icon placeholder">⚙️</div>
+    </div>
+  </div>
+
+  <div class="scene-5">
+    <div class="step-label">STEP 4 · ALLOW NOTIFICATIONS</div>
+    <div class="permission-dialog">
+      <h3>"Challengers Ranking"</h3>
+      <p>Would like to send you notifications</p>
+      <div class="perm-buttons">
+        <div class="perm-btn">Don't Allow</div>
+        <div class="perm-btn allow">Allow</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene-6">
+    <h2>Get challenged.<br><span>Get notified.</span></h2>
+    <p class="sub">Instantly. On any phone.</p>
+    <div class="url">challengersranking.online</div>
+  </div>
+</div>
+
+<div class="record-helper" id="helper">
+  <strong>🎬 Reel 5 · Install in 30s</strong>
+  <ol style="margin: 8px 0 0 18px; padding: 0;">
+    <li>Press <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>5</kbd></li>
+    <li>"Record Selected Portion"</li>
+    <li>Drag over the dark stage</li>
+    <li>Click <strong>Start</strong> → then Record</li>
+    <li>Animation lasts ~15s</li>
+  </ol>
+  <button onclick="startAnimation()">▶ Start animation</button>
+</div>
+
+<script>
+  function fitStage() {
+    const stage = document.getElementById('stage');
+    const scale = Math.min(window.innerWidth / 1080, window.innerHeight / 1920);
+    stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  }
+  fitStage();
+  window.addEventListener('resize', fitStage);
+
+  function startAnimation() {
+    document.getElementById('helper').classList.add('hidden');
+    const stage = document.getElementById('stage');
+    const clone = stage.cloneNode(true);
+    stage.parentNode.replaceChild(clone, stage);
+    clone.id = 'stage';
+    fitStage();
+    setTimeout(() => { document.getElementById('helper').classList.remove('hidden'); }, 15500);
+  }
+</script>
+
+</body>
+</html>
