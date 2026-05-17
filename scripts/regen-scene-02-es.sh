@@ -29,7 +29,7 @@ echo "→ Backing up current scene-02 to $BACKUP"
 [ -f "$OUTPUT" ] && cp "$OUTPUT" "$BACKUP"
 
 # Build JSON payload via python (safer escaping than bash sed)
-JSON=$(python3 -c "import json,sys; print(json.dumps({'text': sys.argv[1], 'model_id': sys.argv[2], 'voice_settings': {'stability': 0.30, 'similarity_boost': 0.80, 'style': 0.45, 'use_speaker_boost': True}}))" "$TEXT" "$MODEL")
+JSON=$(python3 -c "import json,sys; print(json.dumps({'text': sys.argv[1], 'model_id': sys.argv[2], 'voice_settings': {'stability': 0.20, 'similarity_boost': 0.80, 'style': 0.55, 'use_speaker_boost': True}}))" "$TEXT" "$MODEL")
 
 echo "→ Calling ElevenLabs TTS (voice=$VOICE_ID, model=$MODEL)"
 HTTP=$(curl -s -w "%{http_code}" -X POST \
