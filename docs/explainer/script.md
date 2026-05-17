@@ -25,7 +25,7 @@ Open: imagen sutil de pizarra del vestuario con nombres tachados a marker. Cut a
 Aparece el badge orange grande con animación scale-in. Wordmark "challengers RANKING" debajo. Línea: "El ranking de tu club. En vivo."
 
 ### ES
-> *"Challengers Ranking convierte la escalera de tu club en una app. Tus socios desafían, juegan, suben en el ranking. Vos ves todo en tiempo real desde un dashboard. Sin instalar nada del App Store. Listo en 24 horas."*
+> *"Challengers Ranking convierte la escalera de tu club en una aplicación. Tus socios desafían, juegan, suben en el ranking. Vos ves todo en tiempo real desde un dashboard. Sin instalar nada del App Store. Listo en 24 horas."*
 
 ### EN
 > *"Challengers Ranking turns your club's ladder into an app. Members challenge, play, climb the ranking. You see everything live from a dashboard. No App Store install. Live in 24 hours."*
@@ -51,7 +51,7 @@ Mockup del ranking en un phone. Lista de 8 jugadores con #1 al #8, badges de pos
 Tap en jugador del ranking → se abre su ficha. Botón "Desafiar" terracotta grande. Tap → modal "¿A qué jugás?" → confirmar → toast "Desafío enviado". Push notification animada bajando del top.
 
 ### ES
-> *"Para desafiar a alguien, tocás su nombre en el ranking, ves su ficha, y tocás 'Desafiar'. Podés desafiar a jugadores hasta cinco posiciones por encima tuyo. El sistema le manda al otro un push notification al instante. No tenés que mandar mensajes a tres grupos de WhatsApp para coordinar. Lo hacés desde la app, en cinco segundos."*
+> *"Para desafiar a alguien, tocás su nombre en el ranking, ves su ficha, y tocás 'Desafiar'. Podés desafiar a jugadores hasta cinco posiciones por encima tuyo. El sistema le manda al otro un push notification al instante. No tenés que mandar mensajes a tres grupos de WhatsApp para coordinar. Lo hacés desde la aplicación, en cinco segundos."*
 
 ### EN
 > *"To challenge someone, you tap their name in the ranking, see their profile, and tap 'Challenge'. You can challenge players up to five positions above you. The system sends them a push notification instantly. You don't have to message three WhatsApp groups to coordinate. You do it from the app, in five seconds."*
@@ -90,7 +90,7 @@ Phone notification "Bernie te desafió". Tap → pantalla con desafío + countdo
 Pantalla de chat dentro del desafío. Mensajes alternados: "Mañana 7pm cancha 3?" / "Dale" / "Llevo pelotas". Avatares chiquitos.
 
 ### ES
-> *"Cada desafío tiene su propio chat integrado. Coordinás día, horario, cancha — sin saltar a WhatsApp ni perder la conversación. Cuando juegan, ambos vuelven a la app a cargar el resultado."*
+> *"Cada desafío tiene su propio chat integrado. Coordinás día, horario, cancha — sin saltar a WhatsApp ni perder la conversación. Cuando juegan, ambos vuelven a la aplicación a cargar el resultado."*
 
 ### EN
 > *"Every challenge has its own built-in chat. You coordinate the day, time, and court — without jumping to WhatsApp or losing the conversation. When you finish playing, both players come back to the app to log the score."*
