@@ -14,7 +14,7 @@
 set -euo pipefail
 
 API_KEY="${ELEVENLABS_API_KEY:?Set ELEVENLABS_API_KEY env var}"
-VOICE_ID="${ELEVENLABS_VOICE_ID:-9i6XMlmO1WMqf71fI9E7}"      # Bernie clone
+VOICE_ID="${ELEVENLABS_VOICE_ID:-iP95p4xoKVk53GoZ742B}"      # Chris (premade — used in Voiceover v3 final)
 MODEL="${ELEVENLABS_MODEL:-eleven_multilingual_v2}"
 
 cd "$(dirname "$0")/.."
