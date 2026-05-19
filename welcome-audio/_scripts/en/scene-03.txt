@@ -1,0 +1,1 @@
+This is your club's ranking: a ladder from 1 to the last spot. To challenge someone, go to the "Challenges" section and tap "New challenge". You'll see the list of all players you can challenge: up to 5 positions above you. If you're at number 20, you can go to 15. That gives lower-ranked players a real shot at climbing fast, and pressures the top to defend.

@@ -1,0 +1,1 @@
+Once you've played, either player logs the score from their phone. The other gets a notification to confirm, and the ranking updates instantly. How do positions change? If the winner was behind, they take the loser's spot and the loser drops one position. If the winner was already ahead, no change. Rewards climbing, without punishing those already at the top.
