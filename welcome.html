@@ -12,7 +12,13 @@
 <meta property="og:site_name"   content="Challengers Ranking" />
 <meta property="og:title"       content="Bienvenido · Challengers Ranking" />
 <meta property="og:description" content="Las reglas del ranking de tu club. The rules of your club's ranking." />
-<meta property="og:image"       content="https://www.challengersranking.online/og-image.png" />
+<meta property="og:image"       content="https://www.challengersranking.online/og-welcome.png" />
+<meta property="og:image:width"  content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card"        content="summary_large_image" />
+<meta name="twitter:title"       content="¡Bienvenido a Challengers Ranking!" />
+<meta name="twitter:description" content="Tour rápido por las reglas del ranking de tu club." />
+<meta name="twitter:image"       content="https://www.challengersranking.online/og-welcome.png" />
 <meta property="og:locale"            content="es_AR" />
 <meta property="og:locale:alternate"  content="en_US" />
 
@@ -654,10 +660,13 @@
   #scene-8 .title { animation: slideUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.4s both; }
   #scene-8 .sub { animation: slideUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.7s both; }
 
-  /* ─── Captions ─── */
+  /* ─── Captions ─── (position: fixed → relative to viewport, NOT the
+     scaled stage. Antes el texto se renderizaba a ~22px CSS pero con el
+     stage scale 0.4 en mobile, terminaba en ~9px visible — ilegible.) */
   #captions {
-    position: absolute;
-    bottom: 130px; left: 5%; right: 5%;
+    position: fixed;
+    bottom: calc(70px + env(safe-area-inset-bottom, 0px));
+    left: 5%; right: 5%;
     text-align: center;
     z-index: 40;
     pointer-events: none;
@@ -665,24 +674,25 @@
   #captions.hidden { display: none; }
   #captions .text {
     display: inline-block;
-    background: rgba(15,15,31,0.88);
+    background: rgba(15,15,31,0.92);
     backdrop-filter: blur(10px);
     color: var(--cream);
-    padding: 14px 22px;
-    border-radius: 14px;
-    font-size: 22px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    font-size: 14px;
     line-height: 1.4;
     max-width: 92%;
     border: 1px solid rgba(255,255,255,0.08);
   }
 
-  /* ─── Controls ─── */
+  /* ─── Controls ─── (position: fixed, full-size buttons at viewport scale) */
   #controls {
-    position: absolute; left: 0; right: 0; bottom: 0;
+    position: fixed; left: 0; right: 0; bottom: 0;
     z-index: 120;
-    background: linear-gradient(to top, rgba(15,15,31,0.95), rgba(15,15,31,0.7) 70%, transparent);
-    padding: 30px 22px 18px;
-    display: flex; align-items: center; gap: 10px;
+    background: linear-gradient(to top, rgba(15,15,31,0.96), rgba(15,15,31,0.78) 70%, transparent);
+    padding: 18px 14px;
+    padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    display: flex; align-items: center; gap: 8px;
   }
   #controls button {
     background: rgba(255,255,255,0.10);
@@ -693,47 +703,47 @@
     font-family: inherit;
     cursor: pointer;
     transition: background 0.15s;
-    width: 38px; height: 38px;
+    width: 44px; height: 44px;
     display: inline-flex; align-items: center; justify-content: center;
     flex-shrink: 0;
     touch-action: manipulation;
     -webkit-tap-highlight-color: rgba(232,176,76,0.25);
   }
   #controls button:hover { background: rgba(255,255,255,0.18); }
-  #controls button svg { width: 16px; height: 16px; fill: currentColor; }
+  #controls button svg { width: 20px; height: 20px; fill: currentColor; }
   #controls #btn-cc.active {
     color: var(--gold);
     background: rgba(232,176,76,0.18);
     border-color: rgba(232,176,76,0.45);
   }
-  /* Lang toggle — single button, label = lang you'll switch TO */
   #controls .lang-btn {
     border-radius: 999px;
     background: rgba(255,255,255,0.08);
-    padding: 6px 12px;
+    padding: 6px 14px;
     color: var(--cream);
     font-weight: 700;
-    font-size: 12px;
+    font-size: 13px;
     letter-spacing: 0.06em;
     cursor: pointer;
-    min-height: 38px;
+    min-height: 44px;
     flex-shrink: 0;
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
     border: 1px solid rgba(255,255,255,0.18);
     touch-action: manipulation;
     white-space: nowrap;
     width: auto;
   }
-  #controls .lang-btn .globe { font-size: 13px; opacity: 0.7; }
+  #controls .lang-btn .globe { font-size: 14px; opacity: 0.8; }
   #controls .progress-wrap {
     flex: 1; height: 5px;
     background: rgba(255,255,255,0.12);
     border-radius: 3px;
     cursor: pointer;
     position: relative;
-    margin: 0 4px;
+    margin: 0 6px;
+    min-width: 50px;
   }
   #controls .progress {
     height: 100%; background: var(--terracotta);
@@ -741,12 +751,24 @@
     transition: width 0.1s linear;
   }
   #controls .scene-num {
-    color: rgba(255,255,255,0.6); font-size: 13px;
+    color: rgba(255,255,255,0.7); font-size: 13px;
     font-variant-numeric: tabular-nums;
-    min-width: 44px; text-align: right;
-    font-weight: 600;
+    min-width: 42px; text-align: right;
+    font-weight: 700;
   }
 
+  /* Mobile: more compact spacing + hide prev/next on the smallest screens
+     to give progress bar + lang toggle more room. */
+  @media (max-width: 480px) {
+    #controls { gap: 6px; padding: 14px 10px; padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px)); }
+    #controls button { width: 40px; height: 40px; }
+    #controls .lang-btn { min-height: 40px; padding: 6px 12px; }
+    #controls .scene-num { font-size: 12px; min-width: 38px; }
+    #captions { bottom: calc(74px + env(safe-area-inset-bottom, 0px)); }
+    #captions .text { font-size: 13px; padding: 9px 14px; }
+  }
+
+  /* Inside stage: top thin progress (stays inside, scales with stage) */
   #top-progress {
     position: absolute; top: 0; left: 0; right: 0;
     height: 4px; background: rgba(255,255,255,0.08);
@@ -757,15 +779,17 @@
     width: 0%;
   }
 
-  /* Play overlay (initial) — z=100, BELOW controls (z=120) so footer play
-     button is clickable. Footer play also hides the overlay. */
+  /* Play overlay (initial) — fixed to VIEWPORT, NOT the stage. Antes era
+     position:absolute inside the stage → covered solo el stage y se escalaba
+     en mobile (texto pequeño). Ahora cubre toda la pantalla. */
   #play-overlay {
-    position: absolute; inset: 0;
+    position: fixed; inset: 0;
     z-index: 100;
     background: linear-gradient(145deg, #0F0F1F 0%, var(--navy) 50%, #0F0F1F 100%);
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     cursor: pointer;
-    gap: 28px;
+    gap: 22px;
+    padding: 30px;
   }
   #play-overlay.gone { display: none; }
   #play-overlay .hero-badge {
@@ -801,9 +825,9 @@
   }
   #play-overlay .play-btn svg { width: 22px; height: 22px; fill: white; }
 
-  /* Replay overlay (final) */
+  /* Replay overlay (final) — fixed to viewport, same as play-overlay */
   #replay-overlay {
-    position: absolute; inset: 0; z-index: 100;
+    position: fixed; inset: 0; z-index: 100;
     background: linear-gradient(145deg, #0F0F1F 0%, var(--navy) 50%, #0F0F1F 100%);
     display: none; flex-direction: column; align-items: center; justify-content: center;
     gap: 28px;
@@ -1168,60 +1192,66 @@
     </div>
   </section>
 
-  <!-- Captions overlay -->
-  <div id="captions" class="hidden"><span class="text"></span></div>
+</div>
 
-  <!-- Controls -->
-  <div id="controls">
-    <button id="btn-play" aria-label="Play/pause">
-      <svg viewBox="0 0 24 24" id="icon-play"><path d="M8 5v14l11-7z"/></svg>
-      <svg viewBox="0 0 24 24" id="icon-pause" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-    </button>
-    <button id="btn-prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg></button>
-    <button id="btn-next" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></button>
-    <button id="btn-cc" aria-label="Captions" aria-pressed="false">
-      <svg viewBox="0 0 24 24"><path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-8 7H9.5v-.5h-2v3h2V13H11v1c0 .55-.45 1-1 1H7c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h3c.55 0 1 .45 1 1v1zm7 0h-1.5v-.5h-2v3h2V13H18v1c0 .55-.45 1-1 1h-3c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h3c.55 0 1 .45 1 1v1z"/></svg>
-    </button>
-    <div class="progress-wrap" id="prog-wrap"><div class="progress" id="progress"></div></div>
-    <span class="scene-num" id="scene-num">1 / 8</span>
-    <!-- Single toggle button (matches explainer pattern): label = lang you'll switch TO -->
-    <button id="lang-btn" class="lang-btn" type="button" aria-label="Switch language">
-      <span class="globe">🌐</span>
-      <span id="lang-btn-text">EN</span>
-    </button>
+<!-- ⚠ Captions + Controls + Overlays MOVED OUTSIDE the .stage so they
+     don't get scaled when the stage shrinks to fit small viewports.
+     Antes los botones del footer terminaban en ~15px visibles en mobile
+     (38px CSS × scale 0.4 del stage). Ahora son fixed al viewport,
+     siempre tamaño nativo. -->
+
+<!-- Captions overlay -->
+<div id="captions" class="hidden"><span class="text"></span></div>
+
+<!-- Controls -->
+<div id="controls">
+  <button id="btn-play" aria-label="Play/pause">
+    <svg viewBox="0 0 24 24" id="icon-play"><path d="M8 5v14l11-7z"/></svg>
+    <svg viewBox="0 0 24 24" id="icon-pause" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+  </button>
+  <button id="btn-prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg></button>
+  <button id="btn-next" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></button>
+  <button id="btn-cc" aria-label="Captions" aria-pressed="false">
+    <svg viewBox="0 0 24 24"><path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-8 7H9.5v-.5h-2v3h2V13H11v1c0 .55-.45 1-1 1H7c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h3c.55 0 1 .45 1 1v1zm7 0h-1.5v-.5h-2v3h2V13H18v1c0 .55-.45 1-1 1h-3c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h3c.55 0 1 .45 1 1v1z"/></svg>
+  </button>
+  <div class="progress-wrap" id="prog-wrap"><div class="progress" id="progress"></div></div>
+  <span class="scene-num" id="scene-num">1 / 8</span>
+  <button id="lang-btn" class="lang-btn" type="button" aria-label="Switch language">
+    <span class="globe">🌐</span>
+    <span id="lang-btn-text">EN</span>
+  </button>
+</div>
+
+<!-- Initial play overlay -->
+<div id="play-overlay">
+  <div class="pre">CHALLENGERS RANKING</div>
+  <div class="hero-badge">
+    <svg viewBox="0 0 400 400">
+      <g fill="#FAF7F2">
+        <rect x="101" y="240" width="42" height="70" rx="5"/>
+        <rect x="153" y="205" width="42" height="105" rx="5"/>
+        <rect x="205" y="165" width="42" height="145" rx="5"/>
+        <rect x="257" y="120" width="42" height="190" rx="5"/>
+      </g>
+      <circle cx="278" cy="92" r="22" fill="#FAF7F2"/>
+    </svg>
   </div>
-
-  <!-- Initial play overlay -->
-  <div id="play-overlay">
-    <div class="pre">CHALLENGERS RANKING</div>
-    <div class="hero-badge">
-      <svg viewBox="0 0 400 400">
-        <g fill="#FAF7F2">
-          <rect x="101" y="240" width="42" height="70" rx="5"/>
-          <rect x="153" y="205" width="42" height="105" rx="5"/>
-          <rect x="205" y="165" width="42" height="145" rx="5"/>
-          <rect x="257" y="120" width="42" height="190" rx="5"/>
-        </g>
-        <circle cx="278" cy="92" r="22" fill="#FAF7F2"/>
-      </svg>
-    </div>
-    <h1 data-es="Tour de bienvenida" data-en="Welcome tour">Tour de bienvenida</h1>
-    <div class="play-btn" id="play-overlay-btn">
-      <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-      <span data-es="Empezar" data-en="Start">Empezar</span>
-    </div>
+  <h1 data-es="Tour de bienvenida" data-en="Welcome tour">Tour de bienvenida</h1>
+  <div class="play-btn" id="play-overlay-btn">
+    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    <span data-es="Empezar" data-en="Start">Empezar</span>
   </div>
+</div>
 
-  <!-- Replay overlay (after end) -->
-  <div id="replay-overlay">
-    <h2 data-es="¡Listo! Tu Wild Card te espera." data-en="All set! Your Wild Card is waiting.">¡Listo! Tu Wild Card te espera.</h2>
-    <p data-es="Ya tenés todo lo que necesitás para arrancar a jugar. Volvé a tu club y mandá tu primer desafío."
-       data-en="You have everything you need to start playing. Go back to your club and send your first challenge.">Ya tenés todo lo que necesitás para arrancar a jugar. Volvé a tu club y mandá tu primer desafío.</p>
-    <div class="actions">
-      <a href="https://app.challengersranking.online/login" class="primary"
-         data-es="Ir a la app →" data-en="Open the app →">Ir a la app →</a>
-      <button onclick="replay()" data-es="Ver de nuevo" data-en="Watch again">Ver de nuevo</button>
-    </div>
+<!-- Replay overlay (after end) -->
+<div id="replay-overlay">
+  <h2 data-es="¡Listo! Tu Wild Card te espera." data-en="All set! Your Wild Card is waiting.">¡Listo! Tu Wild Card te espera.</h2>
+  <p data-es="Ya tenés todo lo que necesitás para arrancar a jugar. Volvé a tu club y mandá tu primer desafío."
+     data-en="You have everything you need to start playing. Go back to your club and send your first challenge.">Ya tenés todo lo que necesitás para arrancar a jugar. Volvé a tu club y mandá tu primer desafío.</p>
+  <div class="actions">
+    <a href="https://app.challengersranking.online/login" class="primary"
+       data-es="Ir a la app →" data-en="Open the app →">Ir a la app →</a>
+    <button onclick="replay()" data-es="Ver de nuevo" data-en="Watch again">Ver de nuevo</button>
   </div>
 </div>
 
