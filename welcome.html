@@ -317,6 +317,13 @@
     position: relative;
     animation: pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0s both;
   }
+  /* Brand mark used as the home-icon app glyph (instead of 🎾 emoji) —
+     scales to fit ~60% of the icon box, same proportions as iOS apps. */
+  .home-icon.app svg.brand-mark {
+    width: 64%; height: 64%;
+    display: block;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));
+  }
   .home-icon.app .badge-red {
     position: absolute; top: -10px; right: -10px;
     width: 38px; height: 38px;
@@ -906,7 +913,18 @@
         <div class="home-icon">💬</div>
         <div class="home-icon">📧</div>
         <div class="home-icon">🗓️</div>
-        <div class="home-icon app">🎾<div class="badge-red">1</div></div>
+        <div class="home-icon app">
+          <svg class="brand-mark" viewBox="0 0 400 400" aria-label="Challengers Ranking">
+            <g fill="#FAF7F2">
+              <rect x="101" y="240" width="42" height="70" rx="5"/>
+              <rect x="153" y="205" width="42" height="105" rx="5"/>
+              <rect x="205" y="165" width="42" height="145" rx="5"/>
+              <rect x="257" y="120" width="42" height="190" rx="5"/>
+            </g>
+            <circle cx="278" cy="92" r="22" fill="#FAF7F2"/>
+          </svg>
+          <div class="badge-red">1</div>
+        </div>
         <div class="home-icon">📱</div>
         <div class="home-icon">🎵</div>
         <div class="home-icon">⚙️</div>
