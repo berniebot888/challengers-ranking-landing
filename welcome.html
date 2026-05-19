@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Challengers Ranking — Bienvenido</title>
+<meta name="description" content="Bienvenida a Challengers Ranking — las reglas básicas en 2:30 para arrancar a jugar hoy mismo." />
+<link rel="canonical" href="https://www.challengersranking.online/welcome" />
+
+<meta property="og:type"        content="video.other" />
+<meta property="og:url"         content="https://www.challengersranking.online/welcome" />
+<meta property="og:site_name"   content="Challengers Ranking" />
+<meta property="og:title"       content="Bienvenido · Challengers Ranking" />
+<meta property="og:description" content="Las reglas del ranking de tu club, en 2:30." />
+<meta property="og:image"       content="https://www.challengersranking.online/og-image.png" />
+
+<meta name="theme-color" content="#C8451C" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VV748MSRV4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-VV748MSRV4', { page_title: 'Welcome video' });
+</script>
+
+<link rel="icon" type="image/svg+xml" href="brand-kit/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --terracotta: #C8451C;
+    --terracotta-dark: #A8381A;
+    --terracotta-soft: #FCE8DC;
+    --navy: #1A1A2E;
+    --navy-soft: #3A3A52;
+    --gold: #E8B04C;
+    --cream: #FAF7F2;
+    --safari-bg: #F2F2F7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: #000;
+    font-family: 'Inter', sans-serif;
+    color: var(--cream);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Stage at 1080×1920 portrait, scaled to fit viewport */
+  .stage {
+    width: 1080px;
+    height: 1920px;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform-origin: center center;
+    background: linear-gradient(180deg, var(--navy) 0%, #2A1F3E 100%);
+    overflow: hidden;
+  }
+
+  /* ─── Each scene fills the stage; default hidden ─── */
+  .scene {
+    position: absolute; inset: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .scene.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  /* ─── Phone frame (used in many scenes) ─── */
+  .phone {
+    width: 460px; height: 970px;
+    background: var(--navy);
+    border-radius: 56px;
+    border: 8px solid #0A0A1A;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+    position: relative;
+    overflow: hidden;
+  }
+  .phone-notch {
+    position: absolute; top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 130px; height: 28px;
+    background: #000;
+    border-radius: 0 0 16px 16px;
+    z-index: 20;
+  }
+  .phone-inner {
+    position: absolute; inset: 0;
+    background: var(--cream);
+    border-radius: 48px;
+    padding: 64px 22px 22px;
+    overflow: hidden;
+    color: var(--navy);
+  }
+  .phone-header {
+    background: var(--navy);
+    color: var(--cream);
+    padding: 14px 18px;
+    border-radius: 14px;
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .phone-header .logo {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    color: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 900;
+  }
+  .phone-header .title { flex: 1; }
+  .phone-header .club-name {
+    font-size: 14px; font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .phone-header .cat {
+    font-size: 9px; opacity: 0.6;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  /* ─── Reusable: ranking row ─── */
+  .rank-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 11px 14px; margin-bottom: 7px;
+    background: white;
+    border-radius: 11px;
+    border: 1.5px solid rgba(26,26,46,0.06);
+    transition: all 0.4s ease;
+  }
+  .rank-row .pos {
+    font-size: 17px; font-weight: 900; color: var(--navy);
+    min-width: 28px;
+  }
+  .rank-row .avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--terracotta); color: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 13px;
+    flex-shrink: 0;
+  }
+  .rank-row .name {
+    flex: 1; font-size: 14px; font-weight: 600;
+    color: var(--navy);
+  }
+  .rank-row .wr { font-size: 11px; color: rgba(26,26,46,0.55); font-weight: 600; }
+  .rank-row.highlight {
+    background: #FFF1E9; border-color: var(--terracotta);
+  }
+  .rank-row.me {
+    background: rgba(11, 37, 69, 0.06);
+    border-color: var(--navy);
+  }
+  .rank-row.me .pos { color: var(--terracotta); }
+
+  /* ─── Generic headings ─── */
+  .eyebrow {
+    font-size: 36px; font-weight: 700;
+    letter-spacing: 8px;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .h-display {
+    font-size: 96px; font-weight: 900;
+    text-align: center; line-height: 1.05;
+    color: var(--cream);
+  }
+  .h-display .terra { color: var(--terracotta); }
+  .h-display .gold  { color: var(--gold); }
+  .h-large {
+    font-size: 76px; font-weight: 900;
+    text-align: center; line-height: 1.1;
+  }
+  .h-mid {
+    font-size: 56px; font-weight: 900;
+    text-align: center; line-height: 1.15;
+  }
+  .sub {
+    font-size: 32px; font-weight: 500;
+    color: rgba(250,247,242,0.7);
+    text-align: center;
+    max-width: 900px;
+    line-height: 1.4;
+  }
+
+  /* ─── Animations ─── */
+  @keyframes fadeIn { to { opacity: 1; } }
+  @keyframes fadeOut { to { opacity: 0; } }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pop {
+    0%   { opacity: 0; transform: scale(0.5); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.06); }
+  }
+  @keyframes ringPulse {
+    0% { opacity: 1; transform: scale(1); }
+    100%{ opacity: 0; transform: scale(2.2); }
+  }
+
+  /* ─── SCENE 1: WELCOME ─── */
+  #scene-1 .badge-mark {
+    width: 240px; height: 240px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 60px;
+    box-shadow: 0 30px 80px rgba(200, 69, 28, 0.4);
+    animation: pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+  }
+  #scene-1 .badge-mark svg {
+    width: 130px; height: 130px;
+  }
+  #scene-1 .title {
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+  }
+  #scene-1 .tag {
+    margin-top: 30px;
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.9s both;
+  }
+
+  /* ─── SCENE 2: INSTALL + NOTIFICATIONS ─── */
+  #scene-2 { justify-content: flex-start; padding-top: 100px; }
+  #scene-2 .step-label {
+    font-size: 28px; font-weight: 700;
+    color: var(--gold); letter-spacing: 6px;
+    margin-bottom: 28px;
+  }
+  #scene-2 .step-title {
+    font-size: 56px; font-weight: 900;
+    color: var(--cream); margin-bottom: 60px;
+    text-align: center; line-height: 1.1;
+  }
+
+  /* Sub-scenes inside scene 2 — only one visible at a time via animation timing */
+  .substep {
+    position: absolute; left: 0; right: 0;
+    display: flex; flex-direction: column; align-items: center;
+    opacity: 0;
+  }
+
+  /* Safari URL + share mock */
+  .safari-mock {
+    width: 700px; padding: 30px;
+    background: var(--safari-bg);
+    border-radius: 28px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .safari-bar {
+    background: white;
+    border-radius: 16px;
+    padding: 18px 24px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .safari-bar .lock { color: #888; font-size: 20px; }
+  .safari-bar .url {
+    flex: 1; font-size: 19px; font-weight: 500; color: var(--navy);
+    text-align: center;
+  }
+  .safari-share-btn {
+    margin-top: 32px;
+    width: 84px; height: 84px;
+    border-radius: 22px;
+    background: white;
+    display: flex; align-items: center; justify-content: center;
+    color: #007AFF; font-size: 36px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    margin-left: auto; margin-right: auto;
+    position: relative;
+  }
+  .pulse-ring {
+    position: absolute; inset: -10px;
+    border-radius: 26px;
+    border: 4px solid var(--terracotta);
+    animation: ringPulse 1.4s ease infinite;
+  }
+
+  /* Share menu */
+  .share-menu {
+    width: 580px;
+    background: white;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+  }
+  .menu-row {
+    padding: 22px 28px;
+    display: flex; align-items: center; gap: 18px;
+    border-bottom: 1px solid #e5e5e7;
+    color: var(--navy);
+    font-size: 24px; font-weight: 600;
+  }
+  .menu-row:last-child { border-bottom: none; }
+  .menu-row.hi {
+    background: rgba(200,69,28,0.10);
+    color: var(--terracotta);
+    font-weight: 800;
+  }
+  .menu-row .ico {
+    width: 42px; height: 42px;
+    background: #F2F2F7; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+  }
+  .menu-row.hi .ico {
+    background: var(--terracotta); color: white;
+  }
+
+  /* Home screen grid */
+  .home-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 36px;
+    padding: 50px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 36px;
+    width: 700px;
+  }
+  .home-icon {
+    width: 100%; aspect-ratio: 1;
+    border-radius: 24px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 60px;
+    color: white;
+    background: rgba(255,255,255,0.08);
+  }
+  .home-icon.app {
+    background: var(--terracotta);
+    box-shadow: 0 12px 36px rgba(200,69,28,0.5);
+    position: relative;
+    animation: pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0s both;
+  }
+  .home-icon.app .badge-red {
+    position: absolute; top: -10px; right: -10px;
+    width: 38px; height: 38px;
+    background: #FF3B30; color: white;
+    border-radius: 50%;
+    font-size: 22px; font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 14px rgba(255,59,48,0.55);
+  }
+
+  /* Notification permission dialog */
+  .perm-dialog {
+    width: 540px;
+    background: white;
+    border-radius: 28px;
+    padding: 32px 28px 0;
+    color: var(--navy);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    text-align: center;
+  }
+  .perm-dialog h3 { font-size: 28px; font-weight: 800; margin-bottom: 10px; }
+  .perm-dialog p  { font-size: 20px; color: #555; margin-bottom: 22px; }
+  .perm-buttons {
+    display: flex; border-top: 1px solid #e5e5e7;
+  }
+  .perm-btn {
+    flex: 1; padding: 22px;
+    font-size: 22px; color: #007AFF;
+    border-right: 1px solid #e5e5e7;
+  }
+  .perm-btn:last-child { border-right: none; font-weight: 800; }
+  .perm-btn.allow-hi {
+    background: rgba(0,122,255,0.10);
+    animation: pulse 0.6s ease infinite;
+  }
+
+  /* Substep animation timings inside scene 2 (30.77s total).
+     We split: 0-9.5s safari URL + share (substep-a),
+               9.5-17s share menu (substep-b),
+               17-22s home grid (substep-c),
+               22-30s notif dialog (substep-d). */
+  #scene-2.active .substep-a { animation: fadeIn 0.4s ease 0.3s forwards, fadeOut 0.4s ease 9.0s forwards; }
+  #scene-2.active .substep-b { animation: fadeIn 0.4s ease 9.5s forwards, fadeOut 0.4s ease 16.5s forwards; }
+  #scene-2.active .substep-c { animation: fadeIn 0.4s ease 17.0s forwards, fadeOut 0.4s ease 21.5s forwards; }
+  #scene-2.active .substep-d { animation: fadeIn 0.4s ease 22.0s forwards; }
+
+  /* ─── SCENE 3: RANKING + FICHA + 5 POSITIONS ─── */
+  #scene-3 {
+    flex-direction: row; gap: 50px;
+    justify-content: center; padding: 60px 40px;
+  }
+  #scene-3 .right-panel {
+    display: flex; flex-direction: column;
+    align-items: flex-start;
+    max-width: 480px;
+  }
+  #scene-3 h2 {
+    font-size: 64px; font-weight: 900;
+    color: var(--cream); line-height: 1.05;
+    margin-bottom: 28px;
+  }
+  #scene-3 h2 .terra { color: var(--terracotta); }
+  #scene-3 p {
+    font-size: 26px; line-height: 1.5;
+    color: rgba(250,247,242,0.85);
+  }
+  #scene-3 .rule {
+    background: rgba(232,176,76,0.10);
+    border-left: 6px solid var(--gold);
+    padding: 22px 26px;
+    border-radius: 0 14px 14px 0;
+    margin-top: 28px;
+    font-size: 24px;
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  /* Ficha modal */
+  .ficha-modal {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: white;
+    border-radius: 28px 28px 0 0;
+    padding: 36px 30px 50px;
+    color: var(--navy);
+  }
+  .ficha-avatar {
+    width: 100px; height: 100px;
+    margin: 0 auto 14px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    color: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 36px;
+  }
+  .ficha-name { text-align: center; font-size: 28px; font-weight: 800; }
+  .ficha-stats {
+    text-align: center; font-size: 14px; margin: 8px 0 22px;
+    color: rgba(26,26,46,0.6);
+  }
+  .ficha-btn {
+    background: var(--terracotta);
+    color: white;
+    padding: 18px;
+    border-radius: 999px;
+    text-align: center;
+    font-size: 18px; font-weight: 800;
+    box-shadow: 0 8px 24px rgba(200,69,28,0.4);
+  }
+
+  /* ─── SCENE 4: WILD CARD ─── */
+  #scene-4 .wcard {
+    width: 360px; height: 500px;
+    background: var(--gold);
+    border-radius: 28px;
+    border: 5px solid rgba(26,26,46,0.25);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.55);
+    transform: rotate(-6deg);
+    margin-bottom: 60px;
+    animation: pop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both, floaty 3s ease 1.5s infinite alternate;
+  }
+  @keyframes floaty {
+    from { transform: rotate(-6deg) translateY(0); }
+    to   { transform: rotate(-3deg) translateY(-25px); }
+  }
+  #scene-4 .wcard .star { font-size: 200px; line-height: 1; color: var(--navy); font-weight: 900; }
+  #scene-4 .wcard .label { font-size: 56px; font-weight: 900; color: var(--navy); margin-top: -10px; }
+
+  /* Win streak boxes (3 trophies that fill in) */
+  .streak-row {
+    display: flex; gap: 22px;
+    margin: 24px 0;
+  }
+  .streak-box {
+    width: 100px; height: 100px;
+    border-radius: 18px;
+    background: rgba(232,176,76,0.15);
+    border: 3px solid rgba(232,176,76,0.4);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 70px;
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  #scene-4.active .streak-box.s1 { animation: streakPop 0.4s cubic-bezier(0.34,1.56,0.64,1) 14s forwards; }
+  #scene-4.active .streak-box.s2 { animation: streakPop 0.4s cubic-bezier(0.34,1.56,0.64,1) 14.6s forwards; }
+  #scene-4.active .streak-box.s3 { animation: streakPop 0.4s cubic-bezier(0.34,1.56,0.64,1) 15.2s forwards; }
+  @keyframes streakPop {
+    to { opacity: 1; transform: scale(1); background: var(--gold); border-color: var(--gold); color: var(--navy); }
+  }
+
+  /* ─── SCENE 5: CHALLENGE TIMING + CHAT ─── */
+  #scene-5 { justify-content: center; gap: 0; }
+  #scene-5 .timer-card {
+    background: white; color: var(--navy);
+    border-radius: 22px;
+    padding: 28px 34px;
+    margin-bottom: 22px;
+    width: 600px;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.3);
+  }
+  #scene-5 .timer-card .label {
+    font-size: 14px; font-weight: 700;
+    color: var(--terracotta);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  #scene-5 .timer-card .time {
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 64px; font-weight: 900;
+    color: var(--navy);
+    margin-top: 6px;
+  }
+  #scene-5 .timer-card .small {
+    font-size: 18px; color: rgba(26,26,46,0.6);
+    margin-top: 8px;
+  }
+  #scene-5 .chat-mock {
+    width: 600px;
+    background: white;
+    border-radius: 22px;
+    padding: 18px;
+    margin-top: 32px;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.3);
+  }
+  #scene-5 .chat-head {
+    padding: 4px 8px 16px;
+    border-bottom: 1.5px solid #eee;
+    margin-bottom: 14px;
+    font-size: 16px; font-weight: 800; color: var(--navy);
+    display: flex; align-items: center; gap: 10px;
+  }
+  #scene-5 .chat-head .swords { color: var(--terracotta); }
+  .msg {
+    display: inline-block; max-width: 70%;
+    padding: 10px 14px;
+    margin: 6px 0;
+    border-radius: 14px;
+    font-size: 16px; line-height: 1.3;
+    color: var(--navy);
+  }
+  .msg.them { background: #F2F2F7; }
+  .msg.me   { background: var(--terracotta); color: white; margin-left: auto; display: block; }
+  .msg-wrap { display: flex; flex-direction: column; gap: 4px; }
+
+  /* ─── SCENE 6: SCORE + RANKING CHANGE ─── */
+  #scene-6 { flex-direction: row; gap: 40px; align-items: center; }
+  #scene-6 .col {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; max-width: 480px;
+  }
+  #scene-6 .score-card {
+    background: white; color: var(--navy);
+    border-radius: 22px;
+    padding: 26px 30px;
+    width: 100%;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.3);
+  }
+  #scene-6 .score-card .row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(26,26,46,0.08);
+  }
+  #scene-6 .score-card .row:last-child { border-bottom: none; }
+  #scene-6 .score-card .pl { font-size: 22px; font-weight: 700; }
+  #scene-6 .score-card .sets {
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 32px; font-weight: 900;
+    color: var(--terracotta);
+    letter-spacing: 4px;
+  }
+  #scene-6 .swap-vis {
+    display: flex; flex-direction: column;
+    gap: 14px; margin-top: 24px; width: 100%;
+  }
+  #scene-6 .swap-row {
+    background: white; color: var(--navy);
+    padding: 18px 22px;
+    border-radius: 14px;
+    display: flex; align-items: center; gap: 14px;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  #scene-6 .swap-row .pos { font-size: 32px; font-weight: 900; color: var(--terracotta); min-width: 60px; }
+  #scene-6 .swap-row .name { flex: 1; font-size: 22px; font-weight: 700; }
+  #scene-6 .swap-row .arrow { font-size: 28px; font-weight: 900; opacity: 0; }
+  #scene-6.active .swap-row.winner { animation: winnerUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 14s forwards; }
+  #scene-6.active .swap-row.loser  { animation: loserDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) 14s forwards; }
+  @keyframes winnerUp {
+    0%   { transform: translateY(0); background: white; }
+    50%  { transform: translateY(-86px); background: #E0F2E0; }
+    100% { transform: translateY(-86px); background: white; }
+  }
+  @keyframes loserDown {
+    0%   { transform: translateY(0); background: white; }
+    50%  { transform: translateY(86px); background: #FCE0E0; }
+    100% { transform: translateY(86px); background: white; }
+  }
+  #scene-6.active .swap-row .arrow { animation: fadeIn 0.4s ease 14.6s forwards; }
+
+  /* ─── SCENE 7: TRIBUNA ─── */
+  #scene-7 .feed {
+    width: 740px;
+    background: var(--cream);
+    border-radius: 28px;
+    padding: 28px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+  }
+  #scene-7 .feed-head {
+    font-size: 28px; font-weight: 900; color: var(--navy);
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid rgba(26,26,46,0.08);
+  }
+  .post {
+    background: white;
+    border-radius: 16px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+    border: 1.5px solid rgba(26,26,46,0.06);
+  }
+  .post .head {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 12px;
+  }
+  .post .head .av {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--terracotta); color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 15px;
+  }
+  .post .head .meta { flex: 1; }
+  .post .head .name { font-size: 17px; font-weight: 800; color: var(--navy); }
+  .post .head .time { font-size: 12px; color: rgba(26,26,46,0.5); }
+  .post .body { font-size: 18px; line-height: 1.45; color: var(--navy); }
+  .post .pin { background: var(--gold); color: var(--navy); padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 800; }
+  .post.with-photo .photo {
+    background: linear-gradient(135deg, var(--terracotta) 0%, var(--gold) 100%);
+    height: 200px; border-radius: 12px;
+    margin-top: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 70px;
+  }
+
+  /* ─── SCENE 8: CTA CLOSE ─── */
+  #scene-8 .cta-card {
+    width: 360px; height: 500px;
+    background: var(--gold);
+    border-radius: 28px;
+    border: 5px solid rgba(26,26,46,0.25);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+    margin-bottom: 50px;
+    animation: pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+  }
+  #scene-8 .cta-card .star { font-size: 180px; color: var(--navy); font-weight: 900; line-height: 1; }
+  #scene-8 .cta-card .label { font-size: 50px; font-weight: 900; color: var(--navy); margin-top: -10px; }
+
+  #scene-8 .title { animation: slideUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.4s both; }
+  #scene-8 .sub { animation: slideUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.7s both; }
+
+  /* ─── Captions overlay ─── */
+  #captions {
+    position: absolute;
+    bottom: 130px; left: 5%; right: 5%;
+    text-align: center;
+    z-index: 40;
+    pointer-events: none;
+  }
+  #captions.hidden { display: none; }
+  #captions .text {
+    display: inline-block;
+    background: rgba(15,15,31,0.88);
+    backdrop-filter: blur(10px);
+    color: var(--cream);
+    padding: 14px 22px;
+    border-radius: 14px;
+    font-size: 22px;
+    line-height: 1.4;
+    max-width: 92%;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* ─── Controls ─── */
+  #controls {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    z-index: 120;
+    background: linear-gradient(to top, rgba(15,15,31,0.95), rgba(15,15,31,0.7) 70%, transparent);
+    padding: 30px 22px 18px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  #controls button {
+    background: rgba(255,255,255,0.10);
+    color: var(--cream);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 999px;
+    padding: 8px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.15s;
+    width: 38px; height: 38px;
+    display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(232,176,76,0.25);
+  }
+  #controls button:hover { background: rgba(255,255,255,0.18); }
+  #controls button svg { width: 16px; height: 16px; fill: currentColor; }
+  #controls #btn-cc.active {
+    color: var(--gold);
+    background: rgba(232,176,76,0.18);
+    border-color: rgba(232,176,76,0.45);
+  }
+  #controls .progress-wrap {
+    flex: 1; height: 5px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+    margin: 0 4px;
+  }
+  #controls .progress {
+    height: 100%; background: var(--terracotta);
+    border-radius: 3px; width: 0%;
+    transition: width 0.1s linear;
+  }
+  #controls .scene-num {
+    color: rgba(255,255,255,0.6); font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    min-width: 44px; text-align: right;
+    font-weight: 600;
+  }
+
+  /* ─── Top thin progress ─── */
+  #top-progress {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 4px; background: rgba(255,255,255,0.08);
+    z-index: 110;
+  }
+  #top-progress .fill {
+    height: 100%; background: var(--gold);
+    width: 0%;
+  }
+
+  /* ─── Play overlay (initial) ─── */
+  #play-overlay {
+    position: absolute; inset: 0;
+    z-index: 100;
+    background: linear-gradient(145deg, #0F0F1F 0%, var(--navy) 50%, #0F0F1F 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    cursor: pointer;
+    gap: 28px;
+  }
+  #play-overlay.gone { display: none; }
+  #play-overlay .hero-badge {
+    width: 200px; height: 200px;
+    background: var(--terracotta);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 30px 80px rgba(200,69,28,0.5);
+  }
+  #play-overlay .hero-badge svg { width: 110px; height: 110px; }
+  #play-overlay h1 {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 900;
+    color: var(--cream);
+    text-align: center;
+    letter-spacing: -0.02em;
+  }
+  #play-overlay .pre {
+    font-size: 24px; font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 6px; text-transform: uppercase;
+  }
+  #play-overlay .play-btn {
+    margin-top: 14px;
+    background: var(--terracotta);
+    color: white;
+    border-radius: 999px;
+    padding: 18px 44px;
+    font-weight: 800;
+    font-size: 22px;
+    display: inline-flex; align-items: center; gap: 12px;
+    box-shadow: 0 14px 40px rgba(200,69,28,0.5);
+  }
+  #play-overlay .play-btn svg { width: 22px; height: 22px; fill: white; }
+
+  /* ─── Replay overlay (final) ─── */
+  #replay-overlay {
+    position: absolute; inset: 0; z-index: 100;
+    background: linear-gradient(145deg, #0F0F1F 0%, var(--navy) 50%, #0F0F1F 100%);
+    display: none; flex-direction: column; align-items: center; justify-content: center;
+    gap: 28px;
+    padding: 50px;
+  }
+  #replay-overlay.show { display: flex; }
+  #replay-overlay h2 {
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 900;
+    color: var(--cream);
+    text-align: center;
+  }
+  #replay-overlay p {
+    font-size: 22px;
+    color: rgba(250,247,242,0.7);
+    text-align: center;
+    max-width: 700px;
+  }
+  #replay-overlay .actions {
+    display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+  }
+  #replay-overlay a, #replay-overlay button {
+    border: 1px solid rgba(255,255,255,0.20);
+    background: rgba(255,255,255,0.05);
+    color: var(--cream);
+    padding: 18px 32px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  #replay-overlay a.primary {
+    background: var(--terracotta);
+    border-color: var(--terracotta);
+  }
+  #replay-overlay a.primary:hover { background: #A8381A; }
+
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+  <div id="top-progress"><div class="fill" id="top-progress-fill"></div></div>
+
+  <!-- ───────── SCENE 1: WELCOME ───────── -->
+  <section class="scene" id="scene-1">
+    <div class="badge-mark">
+      <svg viewBox="0 0 400 400">
+        <g fill="#FAF7F2">
+          <rect x="101" y="240" width="42" height="70" rx="5"/>
+          <rect x="153" y="205" width="42" height="105" rx="5"/>
+          <rect x="205" y="165" width="42" height="145" rx="5"/>
+          <rect x="257" y="120" width="42" height="190" rx="5"/>
+        </g>
+        <circle cx="278" cy="92" r="22" fill="#FAF7F2"/>
+      </svg>
+    </div>
+    <div class="title">
+      <h1 class="h-display">Bienvenido a<br><span class="terra">Challengers Ranking</span></h1>
+    </div>
+    <p class="tag sub" style="margin-top:30px;">El ranking de tu club, en tu celu.</p>
+  </section>
+
+  <!-- ───────── SCENE 2: INSTALL + NOTIFICATIONS ───────── -->
+  <section class="scene" id="scene-2">
+    <div class="step-label">PASO 1</div>
+    <div class="step-title">Instalá la app +<br>activá las notificaciones</div>
+
+    <!-- substep a: Safari URL + share button -->
+    <div class="substep substep-a" style="top:340px;">
+      <div class="safari-mock">
+        <div class="safari-bar">
+          <span class="lock">🔒</span>
+          <div class="url">tuclub.challengersranking.online</div>
+        </div>
+        <div style="text-align:center;">
+          <div class="safari-share-btn">
+            <div class="pulse-ring"></div>
+            ⤴︎
+          </div>
+        </div>
+        <p style="text-align:center;font-size:18px;color:#666;margin-top:18px;">Tocá el botón de compartir</p>
+      </div>
+    </div>
+
+    <!-- substep b: Share menu with "Agregar a inicio" highlighted -->
+    <div class="substep substep-b" style="top:340px;">
+      <div class="share-menu">
+        <div class="menu-row"><div class="ico">📋</div><div>Copiar</div></div>
+        <div class="menu-row"><div class="ico">⭐</div><div>Añadir a Favoritos</div></div>
+        <div class="menu-row hi"><div class="ico">+</div><div>Agregar a inicio</div></div>
+        <div class="menu-row"><div class="ico">🔖</div><div>Añadir Marcador</div></div>
+      </div>
+    </div>
+
+    <!-- substep c: Home screen with new app icon -->
+    <div class="substep substep-c" style="top:340px;">
+      <div class="home-grid">
+        <div class="home-icon">📷</div>
+        <div class="home-icon">💬</div>
+        <div class="home-icon">📧</div>
+        <div class="home-icon">🗓️</div>
+        <div class="home-icon app">🎾<div class="badge-red">1</div></div>
+        <div class="home-icon">📱</div>
+        <div class="home-icon">🎵</div>
+        <div class="home-icon">⚙️</div>
+      </div>
+      <p style="margin-top:28px;color:rgba(250,247,242,0.75);font-size:22px;">¡Listo! La app vive en tu home screen.</p>
+    </div>
+
+    <!-- substep d: Notification permission dialog -->
+    <div class="substep substep-d" style="top:380px;">
+      <div class="perm-dialog">
+        <h3>"Challengers Ranking"</h3>
+        <p>Te quiere enviar notificaciones</p>
+        <div class="perm-buttons">
+          <div class="perm-btn">No permitir</div>
+          <div class="perm-btn allow-hi">Permitir</div>
+        </div>
+      </div>
+      <p style="margin-top:28px;color:rgba(250,247,242,0.75);font-size:22px;text-align:center;max-width:700px;">
+        Si no permitís notificaciones,<br>te podés perder un desafío.
+      </p>
+    </div>
+  </section>
+
+  <!-- ───────── SCENE 3: RANKING + FICHA + 5 POSITIONS ───────── -->
+  <section class="scene" id="scene-3">
+    <div class="phone">
+      <div class="phone-notch"></div>
+      <div class="phone-inner">
+        <div class="phone-header">
+          <div class="logo">🎾</div>
+          <div class="title">
+            <div class="club-name">Tu Club</div>
+            <div class="cat">Singles Caballeros</div>
+          </div>
+        </div>
+        <div class="rank-row"><span class="pos">15</span><div class="avatar">MV</div><span class="name">Maria V.</span><span class="wr">68%</span></div>
+        <div class="rank-row"><span class="pos">16</span><div class="avatar">RC</div><span class="name">Romeo C.</span><span class="wr">61%</span></div>
+        <div class="rank-row highlight"><span class="pos">17</span><div class="avatar">AG</div><span class="name">Agustín G.</span><span class="wr">55%</span></div>
+        <div class="rank-row"><span class="pos">18</span><div class="avatar">FC</div><span class="name">Felipe C.</span><span class="wr">50%</span></div>
+        <div class="rank-row"><span class="pos">19</span><div class="avatar">JS</div><span class="name">Juan S.</span><span class="wr">47%</span></div>
+        <div class="rank-row me"><span class="pos">20</span><div class="avatar">VOS</div><span class="name">Vos</span><span class="wr">—</span></div>
+
+        <!-- Ficha modal that slides up at ~9s -->
+        <div class="ficha-modal" style="opacity:0;transform:translateY(100%);animation:slideUp 0.5s cubic-bezier(0.16,1,0.3,1) 8s forwards;">
+          <div class="ficha-avatar">AG</div>
+          <div class="ficha-name">Agustín García</div>
+          <div class="ficha-stats">#17 · 55% win rate · 12 partidos · Racha: 2</div>
+          <div class="ficha-btn">⚔️ Desafiar</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <h2>Hasta <span class="terra">5 posiciones</span><br>por encima.</h2>
+      <p>Si estás en el #20, podés desafiar al #15, #16, #17, #18 o #19.</p>
+      <div class="rule">
+        Una sola regla principal:<br>desafiá <strong>hasta +5</strong> arriba.
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── SCENE 4: WILD CARD ───────── -->
+  <section class="scene" id="scene-4" style="background:linear-gradient(135deg, var(--navy) 0%, #2A1A4E 50%, var(--navy) 100%);">
+    <div class="wcard">
+      <div class="star">★</div>
+      <div class="label">WILD<br>CARD</div>
+    </div>
+
+    <h2 class="h-large" style="color:var(--cream);max-width:900px;">
+      Desafiá a <span style="color:var(--gold);">cualquiera</span>.<br>
+      Incluso al #1.
+    </h2>
+
+    <!-- 3-win streak unlocks another Wild Card -->
+    <div class="streak-row">
+      <div class="streak-box s1">🏆</div>
+      <div class="streak-box s2">🏆</div>
+      <div class="streak-box s3">🏆</div>
+    </div>
+
+    <p class="sub" style="font-size:28px;color:var(--gold);font-weight:700;opacity:0;animation:slideUp 0.5s ease 16s forwards;">
+      Ganás 3 al hilo → ganás otra. Forever.
+    </p>
+  </section>
+
+  <!-- ───────── SCENE 5: TIMING + CHAT ───────── -->
+  <section class="scene" id="scene-5">
+    <div style="display:flex;gap:30px;margin-bottom:30px;">
+      <div class="timer-card">
+        <div class="label">PARA RESPONDER</div>
+        <div class="time">2 días</div>
+        <div class="small">Si no contesta, cuenta como rechazo</div>
+      </div>
+      <div class="timer-card">
+        <div class="label">PARA JUGAR</div>
+        <div class="time">10 días</div>
+        <div class="small">Después de aceptar el desafío</div>
+      </div>
+    </div>
+
+    <div class="chat-mock">
+      <div class="chat-head">
+        <span class="swords">⚔️</span>
+        <span>Maria V. — Coordinar partido</span>
+      </div>
+      <div class="msg-wrap">
+        <span class="msg them">Hola! Cuándo te conviene jugar?</span>
+        <span class="msg me">El sábado a la mañana?</span>
+        <span class="msg them">Dale, 10hs en cancha 4 👍</span>
+        <span class="msg me">Perfecto, ahí estaré 🎾</span>
+      </div>
+    </div>
+
+    <p class="sub" style="margin-top:32px;font-size:24px;color:rgba(250,247,242,0.7);max-width:760px;">
+      Chat integrado en cada desafío.<br>No saltás a WhatsApp ni armás grupo.
+    </p>
+  </section>
+
+  <!-- ───────── SCENE 6: SCORE + RANKING CHANGE ───────── -->
+  <section class="scene" id="scene-6">
+    <div class="col">
+      <div style="font-size:28px;font-weight:800;color:var(--gold);margin-bottom:24px;letter-spacing:4px;">CARGAR RESULTADO</div>
+      <div class="score-card">
+        <div class="row">
+          <span class="pl">Vos</span>
+          <span class="sets">6 — 6</span>
+        </div>
+        <div class="row">
+          <span class="pl">Maria V.</span>
+          <span class="sets" style="color:rgba(26,26,46,0.4)">4 — 3</span>
+        </div>
+      </div>
+      <div style="background:var(--terracotta);color:white;padding:18px 32px;border-radius:999px;margin-top:24px;font-weight:800;font-size:20px;box-shadow:0 8px 24px rgba(200,69,28,0.4);">
+        Enviar score
+      </div>
+    </div>
+
+    <div class="col">
+      <div style="font-size:28px;font-weight:800;color:var(--gold);margin-bottom:24px;letter-spacing:4px;">RANKING ACTUALIZADO</div>
+      <div class="swap-vis">
+        <div class="swap-row">
+          <span class="pos">#16</span>
+          <span class="name">Maria V.</span>
+          <span class="arrow" style="color:#888;">↓</span>
+        </div>
+        <div class="swap-row winner">
+          <span class="pos">#17</span>
+          <span class="name">Vos</span>
+          <span class="arrow" style="color:#2A8A2A;">↑</span>
+        </div>
+        <div class="swap-row loser">
+          <span class="pos">#18</span>
+          <span class="name">Agustín G.</span>
+          <span class="arrow" style="color:#888;">—</span>
+        </div>
+      </div>
+      <p style="margin-top:22px;color:rgba(250,247,242,0.7);font-size:20px;text-align:center;">
+        Premia subir.<br>No castiga al que ya estaba arriba.
+      </p>
+    </div>
+  </section>
+
+  <!-- ───────── SCENE 7: TRIBUNA ───────── -->
+  <section class="scene" id="scene-7">
+    <div class="feed">
+      <div class="feed-head">🏟️ Tribuna · Tu Club</div>
+
+      <div class="post">
+        <div class="head">
+          <div class="av">AD</div>
+          <div class="meta">
+            <div class="name">Admin del Club</div>
+            <div class="time">Hace 2h</div>
+          </div>
+          <span class="pin">📌 ANUNCIO</span>
+        </div>
+        <div class="body">Recordá que este sábado tenemos el torneo interno de dobles. Inscripciones abiertas hasta el viernes 18hs.</div>
+      </div>
+
+      <div class="post with-photo">
+        <div class="head">
+          <div class="av">RC</div>
+          <div class="meta">
+            <div class="name">Romeo C.</div>
+            <div class="time">Hace 4h</div>
+          </div>
+        </div>
+        <div class="body">Hermosa tarde de tenis en el club 🎾</div>
+        <div class="photo">📸</div>
+      </div>
+
+      <div class="post">
+        <div class="head">
+          <div class="av">MV</div>
+          <div class="meta">
+            <div class="name">Maria V.</div>
+            <div class="time">Ayer</div>
+          </div>
+        </div>
+        <div class="body">¿Alguien para jugar singles este domingo a la mañana?</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── SCENE 8: CTA CLOSE ───────── -->
+  <section class="scene" id="scene-8">
+    <div class="cta-card">
+      <div class="star">★</div>
+      <div class="label">WILD<br>CARD</div>
+    </div>
+    <h2 class="title h-large" style="color:var(--cream);">Tu primera Wild Card<br><span style="color:var(--gold);">te espera.</span></h2>
+    <p class="sub" style="margin-top:24px;">¿A quién vas a desafiar primero?</p>
+  </section>
+
+  <!-- Captions overlay -->
+  <div id="captions" class="hidden"><span class="text"></span></div>
+
+  <!-- Controls -->
+  <div id="controls">
+    <button id="btn-play" aria-label="Play/pause">
+      <svg viewBox="0 0 24 24" id="icon-play"><path d="M8 5v14l11-7z"/></svg>
+      <svg viewBox="0 0 24 24" id="icon-pause" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </button>
+    <button id="btn-prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg></button>
+    <button id="btn-next" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></button>
+    <button id="btn-cc" aria-label="Captions" aria-pressed="false">
+      <svg viewBox="0 0 24 24"><path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-8 7H9.5v-.5h-2v3h2V13H11v1c0 .55-.45 1-1 1H7c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h3c.55 0 1 .45 1 1v1zm7 0h-1.5v-.5h-2v3h2V13H18v1c0 .55-.45 1-1 1h-3c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h3c.55 0 1 .45 1 1v1z"/></svg>
+    </button>
+    <div class="progress-wrap" id="prog-wrap"><div class="progress" id="progress"></div></div>
+    <span class="scene-num" id="scene-num">1 / 8</span>
+  </div>
+
+  <!-- Initial play overlay -->
+  <div id="play-overlay" onclick="startPlayback()">
+    <div class="pre">CHALLENGERS RANKING</div>
+    <div class="hero-badge">
+      <svg viewBox="0 0 400 400">
+        <g fill="#FAF7F2">
+          <rect x="101" y="240" width="42" height="70" rx="5"/>
+          <rect x="153" y="205" width="42" height="105" rx="5"/>
+          <rect x="205" y="165" width="42" height="145" rx="5"/>
+          <rect x="257" y="120" width="42" height="190" rx="5"/>
+        </g>
+        <circle cx="278" cy="92" r="22" fill="#FAF7F2"/>
+      </svg>
+    </div>
+    <h1>Tour de bienvenida<br>en 2:30</h1>
+    <div class="play-btn">
+      <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      <span>Empezar</span>
+    </div>
+  </div>
+
+  <!-- Replay overlay (after end) -->
+  <div id="replay-overlay">
+    <h2>¡Listo! Tu Wild Card te espera.</h2>
+    <p>Ya tenés todo lo que necesitás para arrancar a jugar. Volvé a tu club y mandá tu primer desafío.</p>
+    <div class="actions">
+      <a href="https://app.challengersranking.online/login" class="primary">Ir a la app →</a>
+      <button onclick="replay()">Ver de nuevo</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const NUM_SCENES = 8;
+  // Audio durations (seconds, measured from afinfo output).
+  // These drive auto-advance to next scene.
+  const SCENE_DUR = [6.45, 30.77, 25.86, 20.71, 28.37, 25.10, 12.77, 6.11];
+
+  // Captions text per scene — used for the optional CC overlay.
+  const CAPTIONS = [
+    "¡Bienvenido a Challengers Ranking! Te llevo en 4 minutos por las reglas.",
+    "Agregá la app al home screen. En iPhone: Safari → compartir → 'Agregar a inicio'. Después activá las notificaciones.",
+    "Tocás cualquier nombre del ranking, ves la ficha del jugador, y tocás 'Desafiar'. Hasta 5 posiciones por encima tuyo.",
+    "Cada jugador nuevo recibe UNA Wild Card. Te deja desafiar a cualquier posición. Si perdés, ganás 3 al hilo y te ganás otra.",
+    "Cuando mandás un desafío, el rival tiene 2 días para responder. Si acepta, 10 días para jugar. Chat integrado para coordinar.",
+    "Cualquiera de los dos carga el resultado. El otro confirma. El ranking se actualiza al instante.",
+    "La Tribuna: el feed comunitario del club. Anuncios, fotos, noticias, donde vive la cultura del club.",
+    "Tu primera Wild Card te espera. ¿A quién vas a desafiar?",
+  ];
+
+  let currentScene = 1;
+  let isPlaying = false;
+  let audioEl = null;
+  let totalProgress = 0; // 0-1 across the whole video
+
+  const stage = document.getElementById('stage');
+  const captions = document.getElementById('captions');
+  const captionsText = captions.querySelector('.text');
+  const progressBar = document.getElementById('progress');
+  const topProgressFill = document.getElementById('top-progress-fill');
+  const sceneNum = document.getElementById('scene-num');
+  const playOverlay = document.getElementById('play-overlay');
+  const replayOverlay = document.getElementById('replay-overlay');
+  const iconPlay = document.getElementById('icon-play');
+  const iconPause = document.getElementById('icon-pause');
+
+  // Total video duration for progress bar
+  const TOTAL_DUR = SCENE_DUR.reduce((a, b) => a + b, 0);
+
+  // ─── Stage scaling: fit 1080×1920 to viewport keeping aspect ─────
+  function fitStage() {
+    const vpW = window.innerWidth;
+    const vpH = window.innerHeight;
+    const scale = Math.min(vpW / 1080, vpH / 1920);
+    stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  }
+  fitStage();
+  window.addEventListener('resize', fitStage);
+
+  // ─── Activate scene (CSS class + load audio) ─────────────────────
+  function activateScene(n) {
+    document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+    const el = document.getElementById('scene-' + n);
+    if (el) el.classList.add('active');
+    sceneNum.textContent = `${n} / ${NUM_SCENES}`;
+    captionsText.innerHTML = CAPTIONS[n - 1] || '';
+  }
+
+  function loadAudio() {
+    if (audioEl) {
+      audioEl.pause();
+      audioEl.removeEventListener('ended', onEnded);
+      audioEl.removeEventListener('timeupdate', onTimeUpdate);
+    }
+    const sceneStr = String(currentScene).padStart(2, '0');
+    audioEl = new Audio(`welcome-audio/es/scene-${sceneStr}.m4a`);
+    audioEl.preload = 'auto';
+    audioEl.addEventListener('ended', onEnded);
+    audioEl.addEventListener('timeupdate', onTimeUpdate);
+  }
+
+  function onEnded() {
+    if (currentScene < NUM_SCENES) {
+      gotoScene(currentScene + 1, true);
+    } else {
+      // End of video
+      isPlaying = false;
+      iconPlay.style.display = 'block';
+      iconPause.style.display = 'none';
+      replayOverlay.classList.add('show');
+      if (typeof gtag === 'function') gtag('event', 'welcome_completed', { event_category: 'engagement' });
+    }
+  }
+
+  function onTimeUpdate() {
+    if (!audioEl || !audioEl.duration) return;
+    // Cumulative progress across all scenes
+    let cumBefore = 0;
+    for (let i = 0; i < currentScene - 1; i++) cumBefore += SCENE_DUR[i];
+    const elapsed = cumBefore + audioEl.currentTime;
+    const pct = (elapsed / TOTAL_DUR) * 100;
+    progressBar.style.width = pct + '%';
+    topProgressFill.style.width = pct + '%';
+  }
+
+  function gotoScene(n, andPlay) {
+    if (n < 1 || n > NUM_SCENES) return;
+    currentScene = n;
+    activateScene(n);
+    loadAudio();
+    if (andPlay) play();
+  }
+
+  function play() {
+    if (!audioEl) loadAudio();
+    audioEl.play().then(() => {
+      isPlaying = true;
+      iconPlay.style.display = 'none';
+      iconPause.style.display = 'block';
+    }).catch(err => {
+      console.warn('audio play failed', err);
+    });
+  }
+
+  function pause() {
+    if (audioEl) audioEl.pause();
+    isPlaying = false;
+    iconPlay.style.display = 'block';
+    iconPause.style.display = 'none';
+  }
+
+  // ─── Initial: activate scene 1 (no audio until user clicks) ──────
+  activateScene(1);
+
+  window.startPlayback = function() {
+    playOverlay.classList.add('gone');
+    activateScene(1);
+    loadAudio();
+    play();
+    if (typeof gtag === 'function') gtag('event', 'welcome_started', { event_category: 'engagement' });
+  };
+
+  window.replay = function() {
+    replayOverlay.classList.remove('show');
+    gotoScene(1, true);
+  };
+
+  // ─── Controls ────────────────────────────────────────────────────
+  document.getElementById('btn-play').addEventListener('click', () => isPlaying ? pause() : play());
+  document.getElementById('btn-prev').addEventListener('click', () => gotoScene(currentScene - 1, isPlaying));
+  document.getElementById('btn-next').addEventListener('click', () => gotoScene(currentScene + 1, isPlaying));
+
+  // Progress bar click — seek to scene at that proportion
+  document.getElementById('prog-wrap').addEventListener('click', (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const pct = (e.clientX - rect.left) / rect.width;
+    const target = pct * TOTAL_DUR;
+    let cum = 0;
+    for (let i = 0; i < NUM_SCENES; i++) {
+      if (cum + SCENE_DUR[i] >= target) {
+        gotoScene(i + 1, isPlaying);
+        // Optional: seek within scene to (target - cum)
+        if (audioEl) audioEl.currentTime = Math.min(target - cum, SCENE_DUR[i] - 0.1);
+        return;
+      }
+      cum += SCENE_DUR[i];
+    }
+  });
+
+  // CC toggle (default OFF, persisted in localStorage)
+  const btnCc = document.getElementById('btn-cc');
+  function setCC(enabled, persist) {
+    if (enabled) {
+      captions.classList.remove('hidden');
+      btnCc.classList.add('active');
+      btnCc.setAttribute('aria-pressed', 'true');
+    } else {
+      captions.classList.add('hidden');
+      btnCc.classList.remove('active');
+      btnCc.setAttribute('aria-pressed', 'false');
+    }
+    if (persist) try { localStorage.setItem('cr-welcome-cc', enabled ? '1' : '0'); } catch {}
+  }
+  try { setCC(localStorage.getItem('cr-welcome-cc') === '1', false); } catch { setCC(false, false); }
+  btnCc.addEventListener('click', () => setCC(captions.classList.contains('hidden'), true));
+
+  // Keyboard
+  document.addEventListener('keydown', (e) => {
+    if (e.key === ' ') { e.preventDefault(); isPlaying ? pause() : play(); }
+    if (e.key === 'ArrowRight') gotoScene(currentScene + 1, isPlaying);
+    if (e.key === 'ArrowLeft') gotoScene(currentScene - 1, isPlaying);
+  });
+})();
+</script>
+
+</body>
+</html>

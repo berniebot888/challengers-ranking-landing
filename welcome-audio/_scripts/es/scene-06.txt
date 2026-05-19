@@ -1,0 +1,1 @@
+Cuando jugaron, cualquiera de los dos carga el resultado desde el celular. El otro recibe una notificación para confirmar, y el ranking se actualiza al instante. ¿Cómo se mueven las posiciones? Si el ganador iba más atrás, toma la posición del vencido y el vencido baja un puesto. Si el ganador ya iba por delante, no hay cambio. Premia subir, sin castigar al que ya estaba arriba.
