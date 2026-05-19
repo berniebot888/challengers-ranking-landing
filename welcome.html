@@ -568,19 +568,23 @@
   #scene-6 .swap-row .pos { font-size: 32px; font-weight: 900; color: var(--terracotta); min-width: 60px; }
   #scene-6 .swap-row .name { flex: 1; font-size: 22px; font-weight: 700; }
   #scene-6 .swap-row .arrow { font-size: 28px; font-weight: 900; opacity: 0; }
-  #scene-6.active .swap-row.winner { animation: winnerUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 14s forwards; }
-  #scene-6.active .swap-row.loser  { animation: loserDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) 14s forwards; }
-  @keyframes winnerUp {
-    0%   { transform: translateY(0); background: white; }
-    50%  { transform: translateY(-86px); background: #E0F2E0; }
-    100% { transform: translateY(-86px); background: white; }
+  /* Flash highlight a los 14s para indicar el cambio de posición — el
+     número (#16, #17) ya está bien desde el primer frame, esto solo llama
+     la atención del usuario al momento que el VO habla del cambio. */
+  #scene-6 .swap-row .arrow { opacity: 0; }
+  #scene-6.active .swap-row.winner-final { animation: flashWinner 1.2s cubic-bezier(0.16,1,0.3,1) 14s both; }
+  #scene-6.active .swap-row.loser-final  { animation: flashLoser  1.2s cubic-bezier(0.16,1,0.3,1) 14s both; }
+  @keyframes flashWinner {
+    0%   { background: white; transform: scale(1); box-shadow: 0 0 0 rgba(42,138,42,0); }
+    40%  { background: #DEFADB; transform: scale(1.04); box-shadow: 0 10px 32px rgba(42,138,42,0.25); }
+    100% { background: white; transform: scale(1); box-shadow: 0 0 0 rgba(42,138,42,0); }
   }
-  @keyframes loserDown {
-    0%   { transform: translateY(0); background: white; }
-    50%  { transform: translateY(86px); background: #FCE0E0; }
-    100% { transform: translateY(86px); background: white; }
+  @keyframes flashLoser {
+    0%   { background: white; transform: scale(1); }
+    40%  { background: #FCE0E0; transform: scale(0.98); }
+    100% { background: white; transform: scale(1); }
   }
-  #scene-6.active .swap-row .arrow { animation: fadeIn 0.4s ease 14.6s forwards; }
+  #scene-6.active .swap-row .arrow { animation: fadeIn 0.4s ease 14.4s forwards; }
 
   /* ─── SCENE 7: TRIBUNA ─── */
   #scene-7 .feed {
@@ -970,7 +974,7 @@
            data-es="Hasta 5 posiciones por encima tuya"
            data-en="Up to 5 positions above you">Hasta 5 posiciones por encima tuya</p>
 
-        <div class="rank-row"><span class="pos">15</span><div class="avatar">MV</div><span class="name">Maria V.</span><span class="desafiar-btn" data-es="Desafiar" data-en="Challenge">Desafiar</span></div>
+        <div class="rank-row"><span class="pos">15</span><div class="avatar">MV</div><span class="name">Mario V.</span><span class="desafiar-btn" data-es="Desafiar" data-en="Challenge">Desafiar</span></div>
         <div class="rank-row"><span class="pos">16</span><div class="avatar">RC</div><span class="name">Romeo C.</span><span class="desafiar-btn" data-es="Desafiar" data-en="Challenge">Desafiar</span></div>
         <div class="rank-row"><span class="pos">17</span><div class="avatar">AG</div><span class="name">Agustín G.</span><span class="desafiar-btn" data-es="Desafiar" data-en="Challenge">Desafiar</span></div>
         <div class="rank-row"><span class="pos">18</span><div class="avatar">FC</div><span class="name">Felipe C.</span><span class="desafiar-btn" data-es="Desafiar" data-en="Challenge">Desafiar</span></div>
@@ -1034,7 +1038,7 @@
     <div class="chat-mock">
       <div class="chat-head">
         <span class="swords">⚔️</span>
-        <span data-es="Maria V. — Coordinar partido" data-en="Maria V. — Coordinate match">Maria V. — Coordinar partido</span>
+        <span data-es="Mario V. — Coordinar partido" data-en="Mario V. — Coordinate match">Mario V. — Coordinar partido</span>
       </div>
       <div class="msg-wrap">
         <span class="msg them" data-es="Hola! ¿Cuándo te conviene jugar?" data-en="Hi! When works for you?">Hola! ¿Cuándo te conviene jugar?</span>
@@ -1060,7 +1064,7 @@
           <span class="sets">6 — 6</span>
         </div>
         <div class="row">
-          <span class="pl">Maria V.</span>
+          <span class="pl">Mario V.</span>
           <span class="sets" style="color:rgba(26,26,46,0.4)">4 — 3</span>
         </div>
       </div>
@@ -1071,18 +1075,21 @@
     <div class="col">
       <div style="font-size:28px;font-weight:800;color:var(--gold);margin-bottom:24px;letter-spacing:4px;"
            data-es="RANKING ACTUALIZADO" data-en="RANKING UPDATED">RANKING ACTUALIZADO</div>
+      <!-- FINAL state después del partido: Vos pasó de #17 a #16, Mario bajó
+           de #16 a #17, Agustín se queda en #18. Los números están bien desde
+           el primer frame; el flash + arrows al 14s comunican el cambio. -->
       <div class="swap-vis">
-        <div class="swap-row">
+        <div class="swap-row winner-final">
           <span class="pos">#16</span>
-          <span class="name">Maria V.</span>
-          <span class="arrow" style="color:#888;">↓</span>
-        </div>
-        <div class="swap-row winner">
-          <span class="pos">#17</span>
           <span class="name" data-es="Vos" data-en="You">Vos</span>
           <span class="arrow" style="color:#2A8A2A;">↑</span>
         </div>
-        <div class="swap-row loser">
+        <div class="swap-row loser-final">
+          <span class="pos">#17</span>
+          <span class="name">Mario V.</span>
+          <span class="arrow" style="color:#B03030;">↓</span>
+        </div>
+        <div class="swap-row">
           <span class="pos">#18</span>
           <span class="name">Agustín G.</span>
           <span class="arrow" style="color:#888;">—</span>
@@ -1129,7 +1136,7 @@
         <div class="head">
           <div class="av">MV</div>
           <div class="meta">
-            <div class="name">Maria V.</div>
+            <div class="name">Mario V.</div>
             <div class="time" data-es="Ayer" data-en="Yesterday">Ayer</div>
           </div>
         </div>
@@ -1150,6 +1157,15 @@
     <p class="sub" style="margin-top:24px;"
        data-es="¿A quién vas a desafiar primero?"
        data-en="Who will you challenge first?">¿A quién vas a desafiar primero?</p>
+
+    <!-- Note pointing to in-app rules (responde a "si tenés dudas, mirá las
+         reglas"). Margin grande para separar del CTA principal. -->
+    <div style="margin-top:80px;padding:18px 28px;background:rgba(232,176,76,0.10);border:1px solid rgba(232,176,76,0.30);border-radius:18px;display:flex;align-items:center;gap:16px;max-width:780px;">
+      <span style="font-size:36px;">📖</span>
+      <span style="font-size:22px;font-weight:600;color:rgba(250,247,242,0.85);line-height:1.4;"
+            data-es='¿Más dudas? Las reglas completas están en el menú de tu app → <strong style="color:var(--gold);">Reglas</strong>.'
+            data-en='More questions? The full rules are in your app menu → <strong style="color:var(--gold);">Rules</strong>.'>¿Más dudas? Las reglas completas están en el menú de tu app → <strong style="color:var(--gold);">Reglas</strong>.</span>
+    </div>
   </section>
 
   <!-- Captions overlay -->
