@@ -1362,11 +1362,35 @@
   const NUM_SCENES = 14;
   const captionsData = JSON.parse(document.getElementById('captions-data').textContent);
 
+  // Duraciones REALES por escena (segundos, medido vía afinfo en los .m4a
+  // generados con ElevenLabs). Las usamos para 3 cosas que TIENEN que coincidir:
+  //   1. Posicionar las marcas de capítulo en la barra de progreso.
+  //   2. Calcular el % de avance overall (la barra de abajo se llena
+  //      proporcional a la duración total real, NO a (currentScene/14)).
+  //   3. Click-to-seek: convertir el click x a un (scene, offset) target.
+  // Si estos 3 cálculos usan los mismos números, las marcas y la barra
+  // están sincronizadas. Antes la barra usaba audioEl.currentTime / audioEl.duration
+  // (per-scene 0-100%) → cruzaba las marcas a destiempo.
+  const SCENE_DUR_REAL = [16.61, 17.79, 28.26, 21.63, 21.55, 20.79, 12.62, 20.30, 5.62, 26.15, 23.90, 15.46, 17.37, 21.55];
+  const TOTAL_DUR_REAL = SCENE_DUR_REAL.reduce((a, b) => a + b, 0);
+
   // State
   let currentScene = 1;
   let lang = 'es';
   let isPlaying = false;
   let audioEl = null;
+
+  // Helper: % de avance overall del video (0–100), considerando duraciones
+  // reales por escena (no 1/14 parejo). Si hay audioEl con duración cargada
+  // suma su currentTime al cumulativo del comienzo de la escena actual.
+  function computeOverallPct() {
+    let elapsed = 0;
+    for (let i = 0; i < currentScene - 1; i++) elapsed += SCENE_DUR_REAL[i];
+    if (audioEl && audioEl.duration && !isNaN(audioEl.duration)) {
+      elapsed = Math.min(elapsed + audioEl.currentTime, TOTAL_DUR_REAL);
+    }
+    return (elapsed / TOTAL_DUR_REAL) * 100;
+  }
 
   const stage = document.getElementById('stage');
   const captions = document.getElementById('captions');
@@ -1425,10 +1449,12 @@
 
   function onTimeUpdate() {
     if (!audioEl || !audioEl.duration) return;
-    const pct = (audioEl.currentTime / audioEl.duration) * 100;
+    // Ambas barras (la de #controls y la #top-progress) avanzan al mismo
+    // % overall calculado con duraciones reales por escena. Sincroniza
+    // exactamente con las marcas de capítulo.
+    const pct = computeOverallPct();
     progressBar.style.width = pct + '%';
-    const overall = ((currentScene - 1) + (audioEl.currentTime / audioEl.duration)) / NUM_SCENES * 100;
-    topProgressFill.style.width = overall + '%';
+    topProgressFill.style.width = pct + '%';
   }
 
   function onEnded() {
@@ -1469,9 +1495,11 @@
     if (autoplay && isPlaying) {
       audioEl.play().catch(() => {});
     }
-    progressBar.style.width = '0%';
-    const overall = ((n - 1) / NUM_SCENES) * 100;
-    topProgressFill.style.width = overall + '%';
+    // Reset al inicio de la escena: computeOverallPct() devuelve el
+    // cumulativo del comienzo de n (audioEl recién creado, sin duration aún).
+    const pct = computeOverallPct();
+    progressBar.style.width = pct + '%';
+    topProgressFill.style.width = pct + '%';
   }
 
   function play() {
@@ -1532,10 +1560,36 @@
   document.getElementById('btn-prev').addEventListener('click', () => { gotoScene(currentScene - 1, isPlaying); });
   document.getElementById('btn-next').addEventListener('click', () => { gotoScene(currentScene + 1, isPlaying); });
   document.getElementById('prog-wrap').addEventListener('click', (e) => {
-    if (!audioEl || !audioEl.duration) return;
+    // Click-to-seek across the FULL video (no solo dentro de la escena
+    // actual). El click x se traduce a tiempo overall, se busca en qué
+    // escena cae, y se salta + ajusta el currentTime dentro de esa escena.
     const rect = e.currentTarget.getBoundingClientRect();
-    const pct = (e.clientX - rect.left) / rect.width;
-    audioEl.currentTime = audioEl.duration * pct;
+    const clickPct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    const targetTime = clickPct * TOTAL_DUR_REAL;
+    let cum = 0;
+    let targetScene = NUM_SCENES;
+    let offsetInScene = 0;
+    for (let i = 0; i < NUM_SCENES; i++) {
+      if (targetTime < cum + SCENE_DUR_REAL[i]) {
+        targetScene = i + 1;
+        offsetInScene = targetTime - cum;
+        break;
+      }
+      cum += SCENE_DUR_REAL[i];
+    }
+    if (targetScene !== currentScene) {
+      gotoScene(targetScene, isPlaying);
+      // Esperar a que la metadata del nuevo audio cargue para hacer seek.
+      const seek = () => {
+        if (audioEl && audioEl.duration && !isNaN(audioEl.duration)) {
+          audioEl.currentTime = Math.min(offsetInScene, audioEl.duration);
+        }
+      };
+      if (audioEl && audioEl.duration) seek();
+      else if (audioEl) audioEl.addEventListener('loadedmetadata', seek, { once: true });
+    } else if (audioEl && audioEl.duration) {
+      audioEl.currentTime = Math.min(offsetInScene, audioEl.duration);
+    }
   });
   // Single-button toggle handler: invertir el idioma actual
   const langBtn = document.getElementById('lang-btn');
@@ -1578,10 +1632,10 @@
   });
 
   // ─── Chapter navigation ─────────────────────────────────────────────
-  // 14 chapters mapping to the 14 scenes. Bilingual titles. Durations
-  // are pre-measured from afinfo of each scene-NN.m4a — used both for
-  // the progress bar markers (proportional positions) AND the menu list.
-  const SCENE_DUR_REAL = [16.61, 17.79, 28.26, 21.63, 21.55, 20.79, 12.62, 20.30, 5.62, 26.15, 23.90, 15.46, 17.37, 21.55];
+  // 14 chapters mapping to the 14 scenes. Bilingual titles.
+  // SCENE_DUR_REAL y TOTAL_DUR_REAL ya están declarados arriba (única fuente
+  // de verdad) — los usan el helper computeOverallPct, los markers de
+  // chapter, y el menú de capítulos.
   const SCENE_TITLES = [
     { es: 'Intro',                 en: 'Intro' },
     { es: 'Solución',              en: 'Solution' },
@@ -1598,7 +1652,6 @@
     { es: 'Multi-deporte',         en: 'Multi-sport' },
     { es: 'Empezar gratis',        en: 'Start free' },
   ];
-  const TOTAL_DUR_REAL = SCENE_DUR_REAL.reduce((a, b) => a + b, 0);
 
   // Render chapter markers on the progress bar at the cumulative boundary
   // of each scene (proportional to duration, not just 1/14 evenly).
