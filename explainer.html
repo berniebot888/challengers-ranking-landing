@@ -321,7 +321,12 @@
   #controls {
     position: fixed;
     bottom: 0; left: 0; right: 0;
-    z-index: 120;
+    /* z-index 60: arriba del top-progress (60) pero DEBAJO de play-overlay y
+       replay-overlay (ambos 100). Antes era 120 → el ▶ chico de la barra
+       quedaba arriba del overlay y el usuario podía tappearlo antes de
+       "Empezar" → audio arrancaba pero overlay no se cerraba ni se
+       activaba la escena 1 → "los slides no corren". */
+    z-index: 60;
     background: linear-gradient(to top, rgba(15,15,31,0.96), rgba(15,15,31,0.78) 70%, transparent);
     padding: 18px 14px;
     padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
@@ -1509,7 +1514,21 @@
   };
 
   // Wire up controls
-  document.getElementById('btn-play').addEventListener('click', () => isPlaying ? pause() : play());
+  document.getElementById('btn-play').addEventListener('click', () => {
+    // Defensa contra el caso "el ▶ chico se presiona antes de Empezar".
+    // El z-index ya esconde la barra debajo del overlay, pero si por algún
+    // motivo el botón fuera accesible (keyboard tab, screen reader), routeamos
+    // al flow correcto.
+    if (!playOverlay.classList.contains('gone')) {
+      startPlayback();
+      return;
+    }
+    if (replayOverlay.classList.contains('show')) {
+      replay();
+      return;
+    }
+    isPlaying ? pause() : play();
+  });
   document.getElementById('btn-prev').addEventListener('click', () => { gotoScene(currentScene - 1, isPlaying); });
   document.getElementById('btn-next').addEventListener('click', () => { gotoScene(currentScene + 1, isPlaying); });
   document.getElementById('prog-wrap').addEventListener('click', (e) => {
