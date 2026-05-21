@@ -37,10 +37,15 @@
   }
   body { display: flex; align-items: center; justify-content: center; }
 
-  /* Stage 1080x1920 base, scale to fit viewport */
+  /* Stage 1080x1920 base, scale to fit viewport.
+     flex-shrink:0 CRÍTICO: body es display:flex, sin esto el stage se
+     achica del 1080px al ancho del viewport ANTES del transform: scale()
+     → en mobile quedaba visualmente como 130px de ancho (flex shrink
+     reduce a 375, después scale lo lleva a 375*0.347 = 130). */
   #stage {
     position: relative;
     width: 1080px; height: 1920px;
+    flex-shrink: 0;
     transform-origin: center center;
     background: linear-gradient(180deg, var(--granate-dark) 0%, var(--granate) 100%);
     overflow: hidden;
@@ -355,8 +360,8 @@
       <div class="phone-status"><span>📶 Newman</span><span>9:41</span></div>
       <div class="phone-content">
         <div class="phone-h">Tu nombre</div>
-        <div class="field focused">Bernardo</div>
-        <div class="field">Loitegui</div>
+        <div class="field focused">Jorge</div>
+        <div class="field">Oría</div>
         <div class="field placeholder">📱 Teléfono</div>
         <div class="field placeholder">🔒 Contraseña</div>
         <div class="btn-primary">Registrarme</div>
@@ -370,8 +375,8 @@
     <h2 class="heading anim-up">"¿Sos vos?"</h2>
     <p class="body anim-up" style="margin-bottom:24px">Como ya estás en la lista pre-cargada, el sistema te va a sugerir tu nombre. <strong style="color:var(--gold)">Tocalo</strong>.</p>
     <div class="candidate-card anim-pop" style="animation-delay: 0.5s">
-      <div class="cname">Bernie Loitegui</div>
-      <div class="cpos">Posición pre-cargada: #69</div>
+      <div class="cname">Jorge Oría</div>
+      <div class="cpos">Posición pre-cargada: #28</div>
     </div>
   </section>
 
