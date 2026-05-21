@@ -1,1 +1,1 @@
-Paso dos: tocá el botón Registrarse y escribí tu nombre y apellido.
+Paso dos: tocá el botón Registrarse y completá tu nombre, teléfono, email y contraseña.

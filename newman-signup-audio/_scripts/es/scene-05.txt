@@ -1,1 +1,1 @@
-Paso tres: como ya estás en el ranking pre-cargado, te va a sugerir tu nombre. Tocalo para confirmar que sos vos.
+Paso tres: cuando aprietes Registrarse, si estás en la lista pre-cargada, el sistema te va a sugerir tu nombre. Tocalo para confirmar que sos vos.
