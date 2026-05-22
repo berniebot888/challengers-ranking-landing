@@ -537,28 +537,45 @@
   /* Scene 5 — "balls" rule callout. Aparece con un pop al ~17s cuando
      el VO termina de explicar el detalle. Pulse sutil al inicio para
      llamar la atención. */
-  #scene-5 .balls-rule {
+  /* Reglas extra: formato del partido + las pelotas las pone quien desafía.
+     Aparecen pegadas al final del scene 5, animadas en sucesión con el VO. */
+  #scene-5 .match-rules {
     margin-top: 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+  }
+  #scene-5 .rule-pill {
     background: linear-gradient(135deg, rgba(232,176,76,0.18) 0%, rgba(232,176,76,0.10) 100%);
     border: 2px solid rgba(232,176,76,0.45);
     color: var(--gold);
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 800;
-    padding: 18px 32px;
+    padding: 14px 28px;
     border-radius: 999px;
     line-height: 1.2;
     text-align: center;
     opacity: 0;
   }
-  #scene-5 .balls-rule strong {
+  #scene-5 .rule-pill strong {
     color: var(--cream);
     background: var(--terracotta);
     padding: 2px 12px;
     border-radius: 8px;
     margin: 0 2px;
   }
-  #scene-5.active .balls-rule {
-    animation: ballsPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 17s forwards;
+  /* Audio ES scene 5: 33.6s total. Estimaciones:
+       0-22s: timers + chat (intro del flow de desafío)
+       22-25s: "Dos detalles importantes:"
+       25-28s: "el partido se juega al mejor de 3 sets..."
+       28-32s: "Y las pelotas las pone quien desafía."
+     Animar cada pill al inicio de su frase. */
+  #scene-5.active .rule-format {
+    animation: ballsPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 25s forwards;
+  }
+  #scene-5.active .rule-balls {
+    animation: ballsPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 28.5s forwards;
   }
   @keyframes ballsPop {
     0%   { opacity: 0; transform: scale(0.7) translateY(20px); }
@@ -1108,12 +1125,20 @@
        data-es="Chat integrado en cada desafío. No saltás a WhatsApp ni armás grupo."
        data-en="Chat built into every challenge. No jumping to WhatsApp or group chats.">Chat integrado en cada desafío. No saltás a WhatsApp ni armás grupo.</p>
 
-    <!-- Etiqueta importante del club: el desafiante pone las pelotas.
-         Aparece con un pop al ~17s del audio, justo cuando el VO menciona el detalle. -->
-    <div class="balls-rule"
-         data-es='🎾 Las pelotas las pone quien <strong>desafía</strong>.'
-         data-en='🎾 The <strong>challenger</strong> brings the balls.'>
-      🎾 Las pelotas las pone quien <strong>desafía</strong>.
+    <!-- Dos reglas extra del juego, animadas en cascada con el VO:
+         1. Formato del partido (best of 3, super tie-break en el tercero)
+         2. Quien desafía pone las pelotas -->
+    <div class="match-rules">
+      <div class="rule-pill rule-format"
+           data-es='🎾 <strong>Mejor de 3 sets</strong> · Super tie-break a 10 en el tercero'
+           data-en='🎾 <strong>Best of 3 sets</strong> · Super tie-break to 10 in the third'>
+        🎾 <strong>Mejor de 3 sets</strong> · Super tie-break a 10 en el tercero
+      </div>
+      <div class="rule-pill rule-balls"
+           data-es='🎾 Las pelotas las pone quien <strong>desafía</strong>.'
+           data-en='🎾 The <strong>challenger</strong> brings the balls.'>
+        🎾 Las pelotas las pone quien <strong>desafía</strong>.
+      </div>
     </div>
   </section>
 
@@ -1304,9 +1329,9 @@
   // own `ended` event, NOT these constants — they're only used for the cumulative
   // progress bar before audio is loaded.
   const SCENE_DUR = {
-    es: [4.5, 30.77, 26.5, 20.71, 28.37, 25.10, 12.77, 6.11],
+    es: [4.5, 30.77, 26.5, 20.71, 33.62, 25.10, 12.77, 6.11],
     // Will be auto-adjusted from real audio durations once loaded; rough placeholder
-    en: [5.0, 30.0, 27.0, 21.0, 28.0, 25.0, 13.0, 6.0],
+    en: [5.0, 30.0, 27.0, 21.0, 35.06, 25.0, 13.0, 6.0],
   };
 
   const CAPTIONS = {
@@ -1315,7 +1340,7 @@
       "Agregá la app al home screen. En iPhone: Safari → compartir → 'Agregar a inicio'. Después activá las notificaciones.",
       "Para desafiar, andá a la sección 'Desafíos' y tocá 'Nuevo desafío'. Vas a ver la lista de jugadores que podés desafiar: hasta 5 posiciones por encima tuyo.",
       "Cada jugador nuevo recibe UNA Wild Card. Te deja desafiar a cualquier posición. Si perdés, ganás 3 al hilo y te ganás otra.",
-      "Cuando mandás un desafío, el rival tiene 2 días para responder. Si acepta, 10 días para jugar. Chat integrado para coordinar. Las pelotas las pone quien desafía 🎾",
+      "Cuando mandás un desafío, el rival tiene 2 días para responder. Si acepta, 10 días para jugar. Chat integrado para coordinar. Partidos al mejor de 3 sets, super tie-break a 10 en el tercero. Las pelotas las pone quien desafía 🎾",
       "Cualquiera de los dos carga el resultado. El otro confirma. El ranking se actualiza al instante.",
       "La Tribuna: el feed comunitario del club. Anuncios, fotos, noticias, donde vive la cultura del club.",
       "Tu primera Wild Card te espera. ¿A quién vas a desafiar?",
@@ -1325,7 +1350,7 @@
       "Add the app to your home screen. On iPhone: Safari → share → 'Add to Home Screen'. Then activate notifications.",
       "To challenge someone, go to the 'Challenges' section and tap 'New challenge'. You'll see the list of players you can challenge — up to 5 positions above you.",
       "Every new player gets ONE Wild Card. It lets you challenge any position. If you lose, win 3 in a row and earn another.",
-      "When you send a challenge, your opponent has 2 days to respond. If they accept, 10 days to play. Built-in chat to coordinate. The challenger brings the balls 🎾",
+      "When you send a challenge, your opponent has 2 days to respond. If they accept, 10 days to play. Built-in chat to coordinate. Matches are best of 3 sets, super tie-break to 10 in the third. The challenger brings the balls 🎾",
       "Either player logs the score. The other confirms. The ranking updates instantly.",
       "The Tribuna: the club's community feed. Announcements, photos, news — where the club's culture lives.",
       "Your first Wild Card is waiting. Who will you challenge?",
