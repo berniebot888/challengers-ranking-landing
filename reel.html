@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Challengers Ranking — Más partidos, más comunidad</title>
+<meta name="description" content="Armar tu próximo partido en 3 taps. Reel Instagram." />
+
+<link rel="icon" type="image/svg+xml" href="brand-kit/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --terracotta: #C8451C;
+    --navy: #1A1A2E;
+    --gold: #E8B04C;
+    --cream: #FAF7F2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: #000;
+    font-family: 'Inter', sans-serif;
+    color: var(--cream);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .stage {
+    width: 1080px; height: 1920px;
+    position: absolute; top: 50%; left: 50%;
+    transform-origin: center center;
+    background: linear-gradient(180deg, var(--navy) 0%, #2A1F3E 100%);
+    overflow: hidden;
+  }
+
+  /* Sub-elementos del reel — todos ocupan el centro y aparecen secuenciales */
+  .step {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 80px 60px;
+    opacity: 0;
+  }
+
+  /* Timings derivados de silence-detection sobre el audio (16.44s).
+     CSS animations para playback normal del browser (con audio). */
+  body:not(.render-mode) .stage.playing .step-1 { animation: stepIn 0.25s 0.0s forwards, stepOut 0.25s 4.0s forwards; }
+  body:not(.render-mode) .stage.playing .step-2 { animation: stepIn 0.25s 4.0s forwards, stepOut 0.25s 5.7s forwards; }
+  body:not(.render-mode) .stage.playing .step-3 { animation: stepIn 0.25s 5.7s forwards, stepOut 0.25s 8.3s forwards; }
+  body:not(.render-mode) .stage.playing .step-4 { animation: stepIn 0.25s 8.3s forwards, stepOut 0.25s 9.8s forwards; }
+  body:not(.render-mode) .stage.playing .step-5 { animation: stepIn 0.25s 9.8s forwards, stepOut 0.25s 13.7s forwards; }
+  body:not(.render-mode) .stage.playing .step-6 { animation: stepIn 0.25s 13.7s forwards; }
+
+  @keyframes stepIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+  @keyframes stepOut { to { opacity: 0; transform: scale(1.02); } }
+
+  /* En render-mode el control de tiempo lo hace JS (frame-by-frame). */
+  body.render-mode .step { animation: none !important; }
+  body.render-mode #play-overlay { display: none !important; }
+
+  /* Branding logo */
+  .badge svg { width: 220px; height: 220px; display: block; margin: 0 auto; }
+  .pre {
+    font-size: 36px; font-weight: 800;
+    letter-spacing: 12px;
+    color: rgba(250,247,242,0.65);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .h-display {
+    font-size: 110px; font-weight: 900;
+    line-height: 1.0; letter-spacing: -3px;
+    text-align: center;
+    margin-top: 36px;
+  }
+  .h-display .terra { color: var(--terracotta); }
+  .h-display .gold { color: var(--gold); }
+  .sub {
+    font-size: 40px; font-weight: 500;
+    color: rgba(250,247,242,0.85);
+    text-align: center;
+    margin-top: 24px;
+    max-width: 880px;
+    line-height: 1.3;
+  }
+
+  /* Phone mockup */
+  .phone {
+    width: 720px; height: 1320px;
+    background: var(--navy);
+    border-radius: 80px;
+    border: 12px solid #0A0A1A;
+    box-shadow: 0 30px 100px rgba(0,0,0,0.65);
+    position: relative;
+    overflow: hidden;
+  }
+  .phone-notch {
+    position: absolute; top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 180px; height: 40px;
+    background: #000;
+    border-radius: 0 0 22px 22px;
+    z-index: 20;
+  }
+  .phone-inner {
+    position: absolute; inset: 0;
+    background: var(--cream);
+    border-radius: 68px;
+    padding: 100px 36px 36px;
+    overflow: hidden;
+    color: var(--navy);
+  }
+
+  /* CTA button highlighted in step 2 */
+  .desafio-btn-big {
+    background: var(--terracotta);
+    color: var(--cream);
+    font-size: 56px; font-weight: 900;
+    padding: 38px 54px;
+    border-radius: 24px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(200,69,28,0.55), inset 0 -8px 0 rgba(0,0,0,0.18);
+    letter-spacing: -0.5px;
+    position: relative;
+  }
+  .desafio-btn-big::before {
+    content: ''; position: absolute; inset: -6px;
+    border-radius: 28px; border: 4px solid var(--gold);
+    animation: pulse-ring 1.2s infinite;
+  }
+  @keyframes pulse-ring {
+    0%   { transform: scale(1); opacity: 0.9; }
+    100% { transform: scale(1.15); opacity: 0; }
+  }
+
+  /* Ranking list mock */
+  .rank-row {
+    display: flex; align-items: center; gap: 22px;
+    padding: 26px 24px; margin-bottom: 14px;
+    background: white;
+    border-radius: 18px;
+    border: 2px solid rgba(26,26,46,0.06);
+  }
+  .rank-row .pos {
+    width: 72px; height: 72px;
+    background: var(--navy); color: var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 32px;
+    flex-shrink: 0;
+  }
+  .rank-row .name {
+    flex: 1; font-size: 36px; font-weight: 700; color: var(--navy);
+  }
+  .rank-row.hi {
+    background: rgba(232,176,76,0.18);
+    border: 3px solid var(--gold);
+    box-shadow: 0 8px 24px rgba(232,176,76,0.30);
+  }
+
+  /* Tap finger animation in step 4 */
+  .tap-finger {
+    position: absolute;
+    font-size: 90px;
+    z-index: 30;
+    pointer-events: none;
+    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.5));
+  }
+  .stage.playing .step-4 .tap-finger {
+    animation: tap-bounce 1.0s ease-in-out infinite;
+  }
+  @keyframes tap-bounce {
+    0%, 100% { transform: scale(1) translate(0, 0); }
+    50%      { transform: scale(0.85) translate(-4px, 6px); }
+  }
+
+  /* Confirmation modal in step 5 */
+  .confirm-card {
+    background: var(--cream);
+    border-radius: 32px;
+    padding: 60px 50px;
+    text-align: center;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    max-width: 800px;
+  }
+  .confirm-card .ico {
+    width: 160px; height: 160px;
+    background: linear-gradient(135deg, #34D399 0%, #10B981 100%);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 36px;
+    font-size: 90px; color: white;
+    box-shadow: 0 14px 40px rgba(16,185,129,0.45);
+  }
+  .confirm-card h2 {
+    font-size: 70px; font-weight: 900;
+    color: var(--navy);
+    line-height: 1.05;
+    margin-bottom: 20px;
+  }
+  .confirm-card p {
+    font-size: 34px; color: rgba(26,26,46,0.65);
+    font-weight: 500;
+  }
+
+  /* Final tagline step 6 */
+  .tagline {
+    font-size: 130px; font-weight: 900;
+    line-height: 1.0; letter-spacing: -3px;
+    text-align: center;
+  }
+  .tagline .terra { color: var(--terracotta); }
+
+  /* Initial play overlay */
+  #play-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.85); backdrop-filter: blur(6px);
+    z-index: 100;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 32px;
+    cursor: pointer;
+  }
+  #play-overlay.hidden { display: none; }
+  #play-overlay .play-btn {
+    width: 140px; height: 140px;
+    background: var(--terracotta);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 14px 50px rgba(200,69,28,0.6);
+  }
+  #play-overlay .play-btn svg { width: 60px; height: 60px; fill: white; margin-left: 8px; }
+  #play-overlay .label {
+    font-size: 22px; color: var(--cream); font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+  }
+
+  /* Replay overlay */
+  #replay-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.75); backdrop-filter: blur(6px);
+    z-index: 100;
+    display: none;
+    flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 24px;
+  }
+  #replay-overlay.show { display: flex; }
+  #replay-overlay button {
+    background: var(--cream); color: var(--navy);
+    font-family: inherit; font-size: 20px; font-weight: 700;
+    padding: 16px 32px; border-radius: 999px;
+    border: none; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+
+  <!-- STEP 1: Hook (0-4s) -->
+  <div class="step step-1">
+    <div class="badge">
+      <svg viewBox="0 0 400 400">
+        <g fill="#FAF7F2">
+          <rect x="101" y="240" width="42" height="70" rx="5"/>
+          <rect x="153" y="205" width="42" height="105" rx="5"/>
+          <rect x="205" y="165" width="42" height="145" rx="5"/>
+          <rect x="257" y="120" width="42" height="190" rx="5"/>
+        </g>
+        <circle cx="278" cy="92" r="22" fill="#FAF7F2"/>
+      </svg>
+    </div>
+    <div class="pre">CHALLENGERS RANKING</div>
+    <h1 class="h-display">Tu próximo partido<br><span class="terra">en 3 taps.</span></h1>
+  </div>
+
+  <!-- STEP 2: Tap "Nuevo Desafío" (4-6s) -->
+  <div class="step step-2">
+    <div class="pre" style="margin-bottom:60px;">PASO 1</div>
+    <div class="desafio-btn-big">+ Nuevo Desafío</div>
+    <p class="sub" style="margin-top:80px;font-size:48px;font-weight:700;">Tocá el botón.</p>
+  </div>
+
+  <!-- STEP 3: List of nearby players (6-10s) -->
+  <div class="step step-3">
+    <div class="pre" style="margin-bottom:40px;">PASO 2</div>
+    <h2 style="font-size:60px;font-weight:900;text-align:center;line-height:1.05;margin-bottom:50px;">
+      Elegí un rival<br><span style="color:var(--gold);">cerca tuyo</span>.
+    </h2>
+    <div style="width:90%;max-width:820px;">
+      <div class="rank-row"><div class="pos">28</div><div class="name">Martín Pérez</div></div>
+      <div class="rank-row"><div class="pos">29</div><div class="name">Tomás García</div></div>
+      <div class="rank-row hi"><div class="pos">30</div><div class="name">Lautaro Méndez</div></div>
+      <div class="rank-row"><div class="pos">31</div><div class="name">Diego Romero</div></div>
+    </div>
+  </div>
+
+  <!-- STEP 4: Tap on a name (10-12.5s) -->
+  <div class="step step-4">
+    <div class="pre" style="margin-bottom:40px;">PASO 3</div>
+    <h2 style="font-size:64px;font-weight:900;text-align:center;line-height:1.05;margin-bottom:60px;">
+      Tap en su nombre.
+    </h2>
+    <div style="width:90%;max-width:820px;position:relative;">
+      <div class="rank-row hi" style="padding:36px 28px;">
+        <div class="pos" style="width:90px;height:90px;font-size:38px;">30</div>
+        <div class="name" style="font-size:42px;">Lautaro Méndez</div>
+      </div>
+      <div class="tap-finger" style="top:18px;right:60px;">👆</div>
+    </div>
+  </div>
+
+  <!-- STEP 5: Confirmation (12.5-14.5s) -->
+  <div class="step step-5">
+    <div class="confirm-card">
+      <div class="ico">✓</div>
+      <h2>¡Desafío enviado!</h2>
+      <p>Le llegó la notificación a Lautaro.</p>
+    </div>
+  </div>
+
+  <!-- STEP 6: Tagline (14.5s → end) -->
+  <div class="step step-6">
+    <div class="tagline">
+      Más partidos.<br>
+      <span class="terra">Más comunidad.</span>
+    </div>
+    <div class="badge" style="margin-top:60px;">
+      <svg viewBox="0 0 400 400" style="width:120px;height:120px;">
+        <g fill="#FAF7F2" opacity="0.5">
+          <rect x="101" y="240" width="42" height="70" rx="5"/>
+          <rect x="153" y="205" width="42" height="105" rx="5"/>
+          <rect x="205" y="165" width="42" height="145" rx="5"/>
+          <rect x="257" y="120" width="42" height="190" rx="5"/>
+        </g>
+        <circle cx="278" cy="92" r="22" fill="#FAF7F2" opacity="0.5"/>
+      </svg>
+    </div>
+  </div>
+
+</div>
+
+<div id="play-overlay">
+  <div class="play-btn">
+    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+  </div>
+  <div class="label">Tocá para ver</div>
+</div>
+
+<div id="replay-overlay">
+  <button onclick="play()">↻ Ver de nuevo</button>
+</div>
+
+<script>
+  // Timings de cada step (in/out en segundos), derivados del audio ES.
+  // Mantenidos en sync con las animaciones CSS de arriba.
+  const STEPS = [
+    { sel: '.step-1', tIn: 0.0,  tOut: 4.0  },
+    { sel: '.step-2', tIn: 4.0,  tOut: 5.7  },
+    { sel: '.step-3', tIn: 5.7,  tOut: 8.3  },
+    { sel: '.step-4', tIn: 8.3,  tOut: 9.8  },
+    { sel: '.step-5', tIn: 9.8,  tOut: 13.7 },
+    { sel: '.step-6', tIn: 13.7, tOut: 999  },
+  ];
+  const FADE = 0.25; // segundos de fade in/out (mismo que CSS animations)
+
+  const stage = document.getElementById('stage');
+  const playOverlay = document.getElementById('play-overlay');
+  const replayOverlay = document.getElementById('replay-overlay');
+  const audio = new Audio('reel-audio/es/voice.m4a');
+  audio.preload = 'auto';
+
+  function fitStage() {
+    const scale = Math.min(window.innerWidth / 1080, window.innerHeight / 1920);
+    stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  }
+  fitStage();
+  window.addEventListener('resize', fitStage);
+
+  function play() {
+    playOverlay.classList.add('hidden');
+    replayOverlay.classList.remove('show');
+    stage.classList.remove('playing');
+    void stage.offsetWidth;
+    stage.classList.add('playing');
+    audio.currentTime = 0;
+    audio.play();
+  }
+
+  audio.addEventListener('ended', () => {
+    replayOverlay.classList.add('show');
+  });
+
+  playOverlay.addEventListener('click', play);
+
+  // ── Render mode: control frame-by-frame desde Puppeteer.
+  // Si la URL tiene ?render=1, deshabilitamos animaciones CSS y exponemos
+  // window.__renderFrame(t) para que el renderer setee opacity/transform
+  // exactamente en cada frame. Determinístico, sin depender del timing real.
+  if (new URLSearchParams(location.search).has('render')) {
+    document.body.classList.add('render-mode');
+    window.__renderFrame = (t) => {
+      STEPS.forEach(({ sel, tIn, tOut }) => {
+        const el = document.querySelector(sel);
+        if (!el) return;
+        let opacity = 0, scale = 0.96;
+        if (t < tIn) {
+          opacity = 0; scale = 0.96;
+        } else if (t < tIn + FADE) {
+          const p = (t - tIn) / FADE;
+          opacity = p; scale = 0.96 + 0.04 * p;
+        } else if (t < tOut) {
+          opacity = 1; scale = 1;
+        } else if (t < tOut + FADE) {
+          const p = (t - tOut) / FADE;
+          opacity = 1 - p; scale = 1 + 0.02 * p;
+        } else {
+          opacity = 0; scale = 1.02;
+        }
+        el.style.opacity = opacity;
+        el.style.transform = `scale(${scale})`;
+      });
+    };
+    // Inicializar todos los steps en estado "antes de empezar"
+    window.__renderFrame(0);
+  }
+</script>
+
+</body>
+</html>

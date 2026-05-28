@@ -22,7 +22,7 @@ write_scene 01 'El ranking de tu club tiene un espacio destacado. Un banner publ
 
 write_scene 02 'Vendele ese espacio a una marca local. Tu raqueta sponsor, un banco, el comercio del barrio. El sponsor llega a tus socios, y el club se lleva el cien por ciento del revenue.'
 
-write_scene 03 'Sin instalar nada del App Store. Listo en veinticuatro horas. Convertí el ranking en una nueva fuente de ingresos para tu club. Challengers Ranking.'
+write_scene 03 'Generá comunidad. Generá valor para el club. Generá valor para tu sponsor. Listo en veinticuatro horas, free trial sin contratos. Challengers Ranking.'
 
 for SC in 01 02 03; do
   TEXT_FILE="$SCRIPT_DIR/scene-${SC}.txt"

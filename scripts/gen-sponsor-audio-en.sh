@@ -22,7 +22,7 @@ write_scene 01 "Your club's ranking has a featured space. A sponsor banner every
 
 write_scene 02 "Sell that space to a local brand. Your racquet sponsor, a bank, the shop next door. The sponsor reaches your members, and the club keeps one hundred percent of the revenue."
 
-write_scene 03 "No App Store install. Live in twenty-four hours. Turn the ranking into a new revenue stream for your club. Challengers Ranking."
+write_scene 03 "Generate community. Generate value for the club. Generate value for your sponsor. Live in twenty-four hours, free trial with no contracts. Challengers Ranking."
 
 for SC in 01 02 03; do
   TEXT_FILE="$SCRIPT_DIR/scene-${SC}.txt"
