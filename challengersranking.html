@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Challengers Ranking — Más socios, más partidos, más club</title>
 <meta name="description" content="Más socios jugando, más partidos, canchas en movimiento y una nueva fuente de ingresos para tu club. More members playing, more matches, courts in motion and a new revenue stream for your club." />
-<link rel="canonical" href="https://www.challengersranking.online/sales" />
+<link rel="canonical" href="https://www.challengersranking.online/challengersranking" />
 
 <meta property="og:type"        content="video.other" />
-<meta property="og:url"         content="https://www.challengersranking.online/sales" />
+<meta property="og:url"         content="https://www.challengersranking.online/challengersranking" />
 <meta property="og:site_name"   content="Challengers Ranking" />
 <meta property="og:title"       content="Más socios, más partidos, más club · Challengers Ranking" />
 <meta property="og:description" content="Un tap para desafiar. Ranking vivo. Y una nueva fuente de ingresos para el club. One tap to challenge. Live ranking. And a new revenue stream for the club." />
@@ -703,7 +703,7 @@
   let audioEl = null;
   let lang = 'es';
   try {
-    const saved = localStorage.getItem('cr-sales-lang');
+    const saved = localStorage.getItem('cr-cr-video-lang');
     if (saved === 'es' || saved === 'en') lang = saved;
   } catch {}
 
@@ -747,7 +747,7 @@
     const wasPlaying = isPlaying;
     const prevTime = audioEl ? audioEl.currentTime : 0;
     lang = l;
-    try { localStorage.setItem('cr-sales-lang', lang); } catch {}
+    try { localStorage.setItem('cr-cr-video-lang', lang); } catch {}
     applyLang();
     // Reload audio for the same scene in the new lang. Try to preserve current
     // position (may not match exactly since EN/ES durations differ).
@@ -777,7 +777,7 @@
       audioEl.removeEventListener('loadedmetadata', onLoadedMetadata);
     }
     const sceneStr = String(currentScene).padStart(2, '0');
-    audioEl = new Audio(`sales-audio/${lang}/scene-${sceneStr}.m4a`);
+    audioEl = new Audio(`challengersranking-audio/${lang}/scene-${sceneStr}.m4a`);
     audioEl.preload = 'auto';
     audioEl.addEventListener('ended', onEnded);
     audioEl.addEventListener('timeupdate', onTimeUpdate);
@@ -800,7 +800,7 @@
       iconPlay.style.display = 'block';
       iconPause.style.display = 'none';
       replayOverlay.classList.add('show');
-      if (typeof gtag === 'function') gtag('event', 'sales_completed', { event_category: 'engagement', event_label: lang });
+      if (typeof gtag === 'function') gtag('event', 'crvideo_completed', { event_category: 'engagement', event_label: lang });
     }
   }
 

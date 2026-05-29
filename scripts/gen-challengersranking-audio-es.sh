@@ -10,8 +10,8 @@ VOICE_ID="${ELEVENLABS_VOICE_ID:-iP95p4xoKVk53GoZ742B}"
 MODEL="${ELEVENLABS_MODEL:-eleven_multilingual_v2}"
 
 cd "$(dirname "$0")/.."
-OUT_DIR="sales-audio/es"
-SCRIPT_DIR="sales-audio/_scripts/es"
+OUT_DIR="challengersranking-audio/es"
+SCRIPT_DIR="challengersranking-audio/_scripts/es"
 mkdir -p "$OUT_DIR" "$SCRIPT_DIR"
 
 write_scene() { printf '%s' "$2" > "$SCRIPT_DIR/scene-$1.txt"; }
@@ -29,7 +29,7 @@ write_scene 05 'Más socios jugando. Más vida en el club. Una nueva fuente de i
 for SC in 01 02 03 04 05; do
   TEXT_FILE="$SCRIPT_DIR/scene-${SC}.txt"
   OUTPUT="$OUT_DIR/scene-${SC}.m4a"
-  TMP_MP3="$(mktemp -t sales-es-${SC}-XXXX).mp3"
+  TMP_MP3="$(mktemp -t cr-es-${SC}-XXXX).mp3"
   TEXT=$(cat "$TEXT_FILE")
   echo "→ ES scene ${SC}… (${#TEXT} chars)"
 
