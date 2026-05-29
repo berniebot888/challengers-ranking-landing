@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Challengers Ranking — Más socios, más partidos, más club</title>
+<meta name="description" content="Más socios jugando, más partidos, canchas en movimiento y una nueva fuente de ingresos para tu club. More members playing, more matches, courts in motion and a new revenue stream for your club." />
+<link rel="canonical" href="https://www.challengersranking.online/sales" />
+
+<meta property="og:type"        content="video.other" />
+<meta property="og:url"         content="https://www.challengersranking.online/sales" />
+<meta property="og:site_name"   content="Challengers Ranking" />
+<meta property="og:title"       content="Más socios, más partidos, más club · Challengers Ranking" />
+<meta property="og:description" content="Un tap para desafiar. Ranking vivo. Y una nueva fuente de ingresos para el club. One tap to challenge. Live ranking. And a new revenue stream for the club." />
+<meta property="og:image"       content="https://www.challengersranking.online/og-welcome.png" />
+<meta property="og:image:width"  content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card"        content="summary_large_image" />
+<meta name="twitter:title"       content="Más socios, más partidos, más club" />
+<meta name="twitter:description" content="Lo que Challengers Ranking le da a tu club." />
+<meta name="twitter:image"       content="https://www.challengersranking.online/og-welcome.png" />
+<meta property="og:locale"            content="es_AR" />
+<meta property="og:locale:alternate"  content="en_US" />
+
+<meta name="theme-color" content="#C8451C" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VV748MSRV4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-VV748MSRV4', { page_title: 'Welcome video' });
+</script>
+
+<link rel="icon" type="image/svg+xml" href="brand-kit/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --terracotta: #C8451C;
+    --terracotta-dark: #A8381A;
+    --terracotta-soft: #FCE8DC;
+    --navy: #1A1A2E;
+    --navy-soft: #3A3A52;
+    --gold: #E8B04C;
+    --cream: #FAF7F2;
+    --safari-bg: #F2F2F7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: #000;
+    font-family: 'Inter', sans-serif;
+    color: var(--cream);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .stage {
+    width: 1080px; height: 1920px;
+    position: absolute; top: 50%; left: 50%;
+    transform-origin: center center;
+    background: linear-gradient(180deg, var(--navy) 0%, #2A1F3E 100%);
+    overflow: hidden;
+  }
+
+  .scene {
+    position: absolute; inset: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .scene.active { display: flex; opacity: 1; }
+
+  /* Phone frame */
+  .phone {
+    width: 460px; height: 970px;
+    background: var(--navy);
+    border-radius: 56px;
+    border: 8px solid #0A0A1A;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+    position: relative;
+    overflow: hidden;
+  }
+  .phone-notch {
+    position: absolute; top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 130px; height: 28px;
+    background: #000;
+    border-radius: 0 0 16px 16px;
+    z-index: 20;
+  }
+  .phone-inner {
+    position: absolute; inset: 0;
+    background: var(--cream);
+    border-radius: 48px;
+    padding: 64px 22px 22px;
+    overflow: hidden;
+    color: var(--navy);
+  }
+  .phone-header {
+    background: var(--navy);
+    color: var(--cream);
+    padding: 14px 18px;
+    border-radius: 14px;
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .phone-header .logo {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    color: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 900;
+  }
+  .phone-header .title { flex: 1; }
+  .phone-header .club-name {
+    font-size: 14px; font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .phone-header .cat {
+    font-size: 9px; opacity: 0.6;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  /* Ranking row (reusable) */
+  .rank-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 11px 14px; margin-bottom: 7px;
+    background: white;
+    border-radius: 11px;
+    border: 1.5px solid rgba(26,26,46,0.06);
+  }
+  .rank-row .pos { font-size: 17px; font-weight: 900; color: var(--navy); min-width: 28px; }
+  .rank-row .avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--terracotta); color: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 13px;
+    flex-shrink: 0;
+  }
+  .rank-row .name { flex: 1; font-size: 14px; font-weight: 600; color: var(--navy); }
+  .rank-row .wr { font-size: 11px; color: rgba(26,26,46,0.55); font-weight: 600; }
+  .rank-row .desafiar-btn {
+    background: var(--terracotta);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  .eyebrow {
+    font-size: 36px; font-weight: 700;
+    letter-spacing: 8px;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .h-display {
+    font-size: 96px; font-weight: 900;
+    text-align: center; line-height: 1.05;
+    color: var(--cream);
+  }
+  .h-display .terra { color: var(--terracotta); }
+  .h-display .gold  { color: var(--gold); }
+  .h-large {
+    font-size: 76px; font-weight: 900;
+    text-align: center; line-height: 1.1;
+  }
+  .h-mid {
+    font-size: 56px; font-weight: 900;
+    text-align: center; line-height: 1.15;
+  }
+  .sub {
+    font-size: 32px; font-weight: 500;
+    color: rgba(250,247,242,0.7);
+    text-align: center;
+    max-width: 900px;
+    line-height: 1.4;
+  }
+
+  @keyframes fadeIn { to { opacity: 1; } }
+  @keyframes fadeOut { to { opacity: 0; } }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pop {
+    0%   { opacity: 0; transform: scale(0.5); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes ringPulse {
+    0% { opacity: 1; transform: scale(1); }
+    100%{ opacity: 0; transform: scale(2.2); }
+  }
+
+
+  /* ─── Captions ─── (position: fixed → relative to viewport, NOT the
+     scaled stage. Antes el texto se renderizaba a ~22px CSS pero con el
+     stage scale 0.4 en mobile, terminaba en ~9px visible — ilegible.) */
+  #captions {
+    position: fixed;
+    bottom: calc(70px + env(safe-area-inset-bottom, 0px));
+    left: 5%; right: 5%;
+    text-align: center;
+    z-index: 40;
+    pointer-events: none;
+  }
+  #captions.hidden { display: none; }
+  #captions .text {
+    display: inline-block;
+    background: rgba(15,15,31,0.92);
+    backdrop-filter: blur(10px);
+    color: var(--cream);
+    padding: 10px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.4;
+    max-width: 92%;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* ─── Controls ─── (position: fixed, full-size buttons at viewport scale) */
+  #controls {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    z-index: 120;
+    background: linear-gradient(to top, rgba(15,15,31,0.96), rgba(15,15,31,0.78) 70%, transparent);
+    padding: 18px 14px;
+    padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    display: flex; align-items: center; gap: 8px;
+  }
+  #controls button {
+    background: rgba(255,255,255,0.10);
+    color: var(--cream);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 999px;
+    padding: 8px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.15s;
+    width: 44px; height: 44px;
+    display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(232,176,76,0.25);
+  }
+  #controls button:hover { background: rgba(255,255,255,0.18); }
+  #controls button svg { width: 20px; height: 20px; fill: currentColor; }
+  #controls #btn-cc.active {
+    color: var(--gold);
+    background: rgba(232,176,76,0.18);
+    border-color: rgba(232,176,76,0.45);
+  }
+  #controls .lang-btn {
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    padding: 6px 14px;
+    color: var(--cream);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    min-height: 44px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid rgba(255,255,255,0.18);
+    touch-action: manipulation;
+    white-space: nowrap;
+    width: auto;
+  }
+  #controls .lang-btn .globe { font-size: 14px; opacity: 0.8; }
+  #controls .progress-wrap {
+    flex: 1; height: 5px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+    margin: 0 6px;
+    min-width: 50px;
+  }
+  #controls .progress {
+    height: 100%; background: var(--terracotta);
+    border-radius: 3px; width: 0%;
+    transition: width 0.1s linear;
+  }
+  #controls .scene-num {
+    color: rgba(255,255,255,0.7); font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    min-width: 42px; text-align: right;
+    font-weight: 700;
+  }
+
+  /* Mobile: more compact spacing + hide prev/next on the smallest screens
+     to give progress bar + lang toggle more room. */
+  @media (max-width: 480px) {
+    #controls { gap: 6px; padding: 14px 10px; padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px)); }
+    #controls button { width: 40px; height: 40px; }
+    #controls .lang-btn { min-height: 40px; padding: 6px 12px; }
+    #controls .scene-num { font-size: 12px; min-width: 38px; }
+    #captions { bottom: calc(74px + env(safe-area-inset-bottom, 0px)); }
+    #captions .text { font-size: 13px; padding: 9px 14px; }
+  }
+
+  /* Inside stage: top thin progress (stays inside, scales with stage) */
+  #top-progress {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 4px; background: rgba(255,255,255,0.08);
+    z-index: 110;
+  }
+  #top-progress .fill {
+    height: 100%; background: var(--gold);
+    width: 0%;
+  }
+
+  /* Play overlay (initial) — fixed to VIEWPORT, NOT the stage. Antes era
+     position:absolute inside the stage → covered solo el stage y se escalaba
+     en mobile (texto pequeño). Ahora cubre toda la pantalla. */
+  #play-overlay {
+    position: fixed; inset: 0;
+    z-index: 100;
+    background: linear-gradient(145deg, #0F0F1F 0%, var(--navy) 50%, #0F0F1F 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    cursor: pointer;
+    gap: 22px;
+    padding: 30px;
+  }
+  #play-overlay.gone { display: none; }
+  #play-overlay .hero-badge {
+    width: 200px; height: 200px;
+    background: var(--terracotta);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 30px 80px rgba(200,69,28,0.5);
+  }
+  #play-overlay .hero-badge svg { width: 110px; height: 110px; }
+  #play-overlay h1 {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 900;
+    color: var(--cream);
+    text-align: center;
+    letter-spacing: -0.02em;
+  }
+  #play-overlay .pre {
+    font-size: 24px; font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 6px; text-transform: uppercase;
+  }
+  #play-overlay .play-btn {
+    margin-top: 14px;
+    background: var(--terracotta);
+    color: white;
+    border-radius: 999px;
+    padding: 18px 44px;
+    font-weight: 800;
+    font-size: 22px;
+    display: inline-flex; align-items: center; gap: 12px;
+    box-shadow: 0 14px 40px rgba(200,69,28,0.5);
+  }
+  #play-overlay .play-btn svg { width: 22px; height: 22px; fill: white; }
+
+  /* Replay overlay (final) — fixed to viewport, same as play-overlay */
+  #replay-overlay {
+    position: fixed; inset: 0; z-index: 100;
+    background: linear-gradient(145deg, #0F0F1F 0%, var(--navy) 50%, #0F0F1F 100%);
+    display: none; flex-direction: column; align-items: center; justify-content: center;
+    gap: 28px;
+    padding: 50px;
+  }
+  #replay-overlay.show { display: flex; }
+  #replay-overlay h2 {
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 900;
+    color: var(--cream);
+    text-align: center;
+  }
+  #replay-overlay p {
+    font-size: 22px;
+    color: rgba(250,247,242,0.7);
+    text-align: center;
+    max-width: 700px;
+  }
+  #replay-overlay .actions {
+    display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+  }
+  #replay-overlay a, #replay-overlay button {
+    border: 1px solid rgba(255,255,255,0.20);
+    background: rgba(255,255,255,0.05);
+    color: var(--cream);
+    padding: 18px 32px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  #replay-overlay a.primary {
+    background: var(--terracotta);
+    border-color: var(--terracotta);
+  }
+  #replay-overlay a.primary:hover { background: #A8381A; }
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+  <div id="top-progress"><div class="fill" id="top-progress-fill"></div></div>
+
+  <section class="scene" id="scene-1">
+    <div class="step-label" style="font-size:32px;letter-spacing:6px;" data-es="MÁS PARTIDOS" data-en="MORE MATCHES">MÁS PARTIDOS</div>
+    <div class="step-title" style="margin-bottom:48px;font-size:84px;line-height:1.02;text-align:center;"
+         data-es='Un tap.<br><span class="terra">Ya tenés partido.</span>'
+         data-en='One tap.<br><span class="terra">You have a match.</span>'>Un tap.<br><span class="terra">Ya tenés partido.</span></div>
+
+    <!-- Card del rival con botón Desafiar (1 tap) -->
+    <div style="background:var(--cream);border-radius:28px;padding:36px;width:90%;max-width:760px;box-shadow:0 30px 80px rgba(0,0,0,0.45);">
+      <div style="font-size:22px;font-weight:700;color:var(--navy);opacity:0.55;letter-spacing:1px;margin-bottom:20px;" data-es="UN RIVAL DE TU NIVEL" data-en="AN OPPONENT AT YOUR LEVEL">UN RIVAL DE TU NIVEL</div>
+      <div style="display:flex;align-items:center;gap:22px;margin-bottom:30px;">
+        <span style="width:96px;height:96px;background:var(--navy);color:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:40px;flex-shrink:0;">#12</span>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:40px;font-weight:800;color:var(--navy);line-height:1.1;">Martín Pérez</div>
+          <div style="font-size:24px;color:var(--navy);opacity:0.6;margin-top:4px;" data-es="A 1 puesto tuyo" data-en="1 spot above you">A 1 puesto tuyo</div>
+        </div>
+      </div>
+      <!-- Botón Desafiar con cursor de tap -->
+      <div style="position:relative;">
+        <div style="display:flex;align-items:center;justify-content:center;gap:14px;background:var(--terracotta);color:var(--cream);font-size:38px;font-weight:900;padding:24px;border-radius:18px;box-shadow:0 10px 28px rgba(200,69,28,0.45);">
+          <span style="font-size:42px;">⚔</span>
+          <span data-es="Desafiar" data-en="Challenge">Desafiar</span>
+        </div>
+        <div style="position:absolute;right:60px;bottom:-18px;font-size:64px;filter:drop-shadow(0 6px 10px rgba(0,0,0,0.4));">👆</div>
+      </div>
+      <div style="margin-top:30px;font-size:24px;color:var(--navy);opacity:0.75;text-align:center;font-weight:600;" data-es="Sin coordinar por WhatsApp. Sin esperar." data-en="No WhatsApp coordination. No waiting.">Sin coordinar por WhatsApp. Sin esperar.</div>
+    </div>
+  </section>
+
+  <!-- ───────── SCENE 2: EL RANKING SE MUEVE ───────── -->
+  <section class="scene" id="scene-2">
+    <div class="step-label" style="font-size:32px;letter-spacing:6px;" data-es="ENGANCHA" data-en="IT HOOKS">ENGANCHA</div>
+    <div class="step-title" style="margin-bottom:44px;font-size:72px;line-height:1.04;text-align:center;"
+         data-es='El ranking se mueve<br><span class="terra">todos los días.</span>'
+         data-en='The ranking moves<br><span class="terra">every single day.</span>'>El ranking se mueve<br><span class="terra">todos los días.</span></div>
+
+    <!-- Ranking con un jugador subiendo de #13 a #11 -->
+    <div style="background:var(--cream);border-radius:28px;padding:30px;width:100%;max-width:780px;box-shadow:0 30px 80px rgba(0,0,0,0.45);">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:18px;border-bottom:2px solid rgba(26,26,46,0.08);margin-bottom:14px;">
+        <div style="font-size:28px;font-weight:900;color:var(--navy);" data-es="Ranking — Singles" data-en="Ranking — Singles">Ranking — Singles</div>
+        <div style="font-size:20px;font-weight:800;color:var(--terracotta);letter-spacing:2px;">● LIVE</div>
+      </div>
+
+      <!-- #11 -->
+      <div style="display:flex;align-items:center;gap:18px;padding:14px 8px;opacity:0.5;">
+        <span style="width:52px;height:52px;background:#e5e0d4;color:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:24px;">11</span>
+        <span style="flex:1;font-size:26px;font-weight:600;color:var(--navy);">Sofía Ramos</span>
+      </div>
+      <!-- Jugador destacado subiendo a #11 (antes 13) -->
+      <div style="display:flex;align-items:center;gap:18px;padding:22px 14px;background:rgba(232,176,76,0.20);border:3px solid var(--gold);border-radius:16px;margin:6px 0;box-shadow:0 6px 20px rgba(232,176,76,0.20);">
+        <span style="width:72px;height:72px;background:var(--terracotta);color:var(--cream);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:30px;flex-shrink:0;">11</span>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:30px;font-weight:800;color:var(--navy);">Vos</div>
+          <div style="font-size:20px;color:#2A8A2A;font-weight:800;margin-top:2px;">▲ +2 <span style="opacity:0.7;font-weight:600;" data-es="hoy ganaste" data-en="you won today">hoy ganaste</span></div>
+        </div>
+        <span style="font-size:30px;font-weight:800;color:var(--navy);opacity:0.4;text-decoration:line-through;">13</span>
+      </div>
+      <!-- #12 desplazado -->
+      <div style="display:flex;align-items:center;gap:18px;padding:14px 8px;opacity:0.5;">
+        <span style="width:52px;height:52px;background:#e5e0d4;color:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:24px;">12</span>
+        <span style="flex:1;font-size:26px;font-weight:600;color:var(--navy);">Martín Pérez</span>
+      </div>
+    </div>
+
+    <p style="margin-top:38px;text-align:center;max-width:780px;line-height:1.3;font-size:32px;font-weight:500;color:rgba(250,247,242,0.85);"
+       data-es='Cada partido lo cambia. <span style="color:var(--gold);font-weight:900;">El club entero, en movimiento.</span>'
+       data-en='Every match changes it. <span style="color:var(--gold);font-weight:900;">The whole club, in motion.</span>'>Cada partido lo cambia. <span style="color:var(--gold);font-weight:900;">El club entero, en movimiento.</span></p>
+  </section>
+
+  <!-- ───────── SCENE 3: CONOCÉ A TU RIVAL ───────── -->
+  <section class="scene" id="scene-3" style="padding:70px 60px;">
+    <div class="step-label" style="font-size:32px;letter-spacing:6px;" data-es="DIVERTIDO" data-en="FUN">DIVERTIDO</div>
+    <div class="step-title" style="font-size:64px;line-height:1.06;text-align:center;margin-bottom:36px;"
+         data-es='¿No lo conocés?<br><span class="terra">Conocé a tu rival.</span>'
+         data-en='Never met them?<br><span class="terra">Know your opponent.</span>'>¿No lo conocés?<br><span class="terra">Conocé a tu rival.</span></div>
+
+    <!-- Perfil del rival con stats -->
+    <div style="background:var(--cream);border-radius:28px;padding:34px;width:100%;max-width:780px;box-shadow:0 30px 80px rgba(0,0,0,0.45);">
+      <div style="display:flex;align-items:center;gap:22px;padding-bottom:24px;border-bottom:2px solid rgba(26,26,46,0.08);">
+        <span style="width:88px;height:88px;background:var(--navy);color:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:36px;flex-shrink:0;">#12</span>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:38px;font-weight:800;color:var(--navy);line-height:1.05;">Martín Pérez</div>
+          <div style="font-size:22px;color:var(--navy);opacity:0.55;margin-top:2px;" data-es="Singles Caballeros" data-en="Men's Singles">Singles Caballeros</div>
+        </div>
+      </div>
+
+      <!-- Stats grid -->
+      <div style="display:flex;justify-content:space-between;gap:14px;padding:26px 0;">
+        <div style="text-align:center;flex:1;">
+          <div style="font-size:46px;font-weight:900;color:var(--navy);line-height:1;">24-9</div>
+          <div style="font-size:17px;color:var(--navy);opacity:0.55;margin-top:6px;letter-spacing:1px;" data-es="G - P" data-en="W - L">G - P</div>
+        </div>
+        <div style="width:2px;background:rgba(26,26,46,0.08);"></div>
+        <div style="text-align:center;flex:1;">
+          <div style="font-size:46px;font-weight:900;color:#2A8A2A;line-height:1;">🔥 5</div>
+          <div style="font-size:17px;color:var(--navy);opacity:0.55;margin-top:6px;letter-spacing:1px;" data-es="RACHA" data-en="STREAK">RACHA</div>
+        </div>
+        <div style="width:2px;background:rgba(26,26,46,0.08);"></div>
+        <div style="text-align:center;flex:1;">
+          <div style="font-size:46px;font-weight:900;color:var(--navy);line-height:1;">73%</div>
+          <div style="font-size:17px;color:var(--navy);opacity:0.55;margin-top:6px;letter-spacing:1px;" data-es="VICTORIAS" data-en="WIN RATE">VICTORIAS</div>
+        </div>
+      </div>
+
+      <!-- Últimos 5 -->
+      <div style="display:flex;align-items:center;gap:12px;padding-top:20px;border-top:2px solid rgba(26,26,46,0.08);">
+        <span style="font-size:18px;color:var(--navy);opacity:0.55;letter-spacing:1px;margin-right:6px;" data-es="ÚLTIMOS 5" data-en="LAST 5">ÚLTIMOS 5</span>
+        <span style="width:44px;height:44px;background:#2A8A2A;color:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px;">G</span>
+        <span style="width:44px;height:44px;background:#2A8A2A;color:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px;">G</span>
+        <span style="width:44px;height:44px;background:#B23E3E;color:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px;">P</span>
+        <span style="width:44px;height:44px;background:#2A8A2A;color:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px;">G</span>
+        <span style="width:44px;height:44px;background:#2A8A2A;color:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px;">G</span>
+      </div>
+    </div>
+
+    <p style="margin-top:36px;text-align:center;max-width:780px;line-height:1.3;font-size:30px;font-weight:500;color:rgba(250,247,242,0.85);"
+       data-es='Sabés contra quién jugás <span style="color:var(--gold);font-weight:900;">antes de salir a la cancha.</span>'
+       data-en='You know who you are playing <span style="color:var(--gold);font-weight:900;">before you step on court.</span>'>Sabés contra quién jugás <span style="color:var(--gold);font-weight:900;">antes de salir a la cancha.</span></p>
+  </section>
+
+  <!-- ───────── SCENE 4: PARA EL CLUB ───────── -->
+  <section class="scene" id="scene-4" style="background:linear-gradient(135deg, var(--navy) 0%, #2A1A4E 50%, var(--navy) 100%);padding:70px 60px;">
+    <div class="step-label" style="font-size:32px;letter-spacing:6px;" data-es="PARA EL CLUB" data-en="FOR THE CLUB">PARA EL CLUB</div>
+    <div class="step-title" style="font-size:62px;line-height:1.04;text-align:center;margin-bottom:48px;"
+         data-es='Canchas llenas.<br><span class="terra">Ingresos nuevos.</span>'
+         data-en='Full courts.<br><span class="terra">New revenue.</span>'>Canchas llenas.<br><span class="terra">Ingresos nuevos.</span></div>
+
+    <!-- Dos beneficios apilados -->
+    <div style="display:flex;flex-direction:column;gap:22px;width:100%;max-width:840px;">
+      <!-- Vida del club -->
+      <div style="display:flex;align-items:center;gap:26px;background:rgba(250,247,242,0.07);border-radius:20px;padding:30px 34px;">
+        <div style="font-size:64px;line-height:1;flex-shrink:0;">🎾</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:36px;font-weight:800;color:var(--cream);line-height:1.1;" data-es="Más vida en el club" data-en="More life at the club">Más vida en el club</div>
+          <div style="font-size:24px;color:rgba(250,247,242,0.7);margin-top:4px;" data-es="Canchas en movimiento, socios conectados." data-en="Courts in motion, members connected.">Canchas en movimiento, socios conectados.</div>
+        </div>
+      </div>
+
+      <!-- Revenue del sponsor -->
+      <div style="display:flex;align-items:center;gap:26px;background:rgba(232,176,76,0.16);border:3px solid var(--gold);border-radius:20px;padding:30px 34px;box-shadow:0 8px 24px rgba(232,176,76,0.20);">
+        <div style="font-size:64px;line-height:1;flex-shrink:0;">💰</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-size:36px;font-weight:800;color:var(--cream);line-height:1.1;" data-es="Una nueva fuente de ingresos" data-en="A new revenue stream">Una nueva fuente de ingresos</div>
+          <div style="font-size:24px;color:rgba(250,247,242,0.78);margin-top:4px;" data-es="Vendé el espacio del sponsor en la app." data-en="Sell the in-app sponsor space.">Vendé el espacio del sponsor en la app.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 100% callout -->
+    <div style="margin-top:44px;display:flex;align-items:center;gap:22px;">
+      <div style="font-size:120px;font-weight:900;color:var(--gold);line-height:0.9;text-shadow:0 0 60px rgba(232,176,76,0.45);">100%</div>
+      <div style="font-size:34px;font-weight:800;color:var(--cream);line-height:1.15;text-align:left;" data-es="del revenue<br>es del club" data-en="of the revenue<br>goes to the club">del revenue<br>es del club</div>
+    </div>
+  </section>
+
+  <!-- ───────── SCENE 5: CTA + TAGLINE ───────── -->
+  <section class="scene" id="scene-5">
+    <div class="badge-mark" style="margin-bottom:40px;">
+      <svg viewBox="0 0 400 400" style="width:160px;height:160px;">
+        <g fill="#FAF7F2">
+          <rect x="101" y="240" width="42" height="70" rx="5"/>
+          <rect x="153" y="205" width="42" height="105" rx="5"/>
+          <rect x="205" y="165" width="42" height="145" rx="5"/>
+          <rect x="257" y="120" width="42" height="190" rx="5"/>
+        </g>
+        <circle cx="278" cy="92" r="22" fill="#FAF7F2"/>
+      </svg>
+    </div>
+
+    <h2 class="h-display" style="font-size:104px;line-height:1.0;text-align:center;letter-spacing:-3px;font-weight:900;"
+        data-es='Más socios.<br>Más partidos.<br><span class="terra">Más club.</span>'
+        data-en='More members.<br>More matches.<br><span class="terra">More club.</span>'>Más socios.<br>Más partidos.<br><span class="terra">Más club.</span></h2>
+
+    <div style="display:flex;flex-direction:column;gap:20px;margin-top:64px;max-width:820px;width:100%;">
+      <div style="display:flex;align-items:center;gap:26px;background:rgba(250,247,242,0.08);border-radius:18px;padding:26px 36px;">
+        <span style="font-size:44px;color:var(--gold);font-weight:900;flex-shrink:0;">✓</span>
+        <span style="font-size:38px;font-weight:600;" data-es="Listo en 24 horas" data-en="Live in 24 hours">Listo en 24 horas</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:26px;background:rgba(250,247,242,0.08);border-radius:18px;padding:26px 36px;">
+        <span style="font-size:44px;color:var(--gold);font-weight:900;flex-shrink:0;">✓</span>
+        <span style="font-size:38px;font-weight:600;" data-es="Free trial, sin contratos" data-en="Free trial, no contracts">Free trial, sin contratos</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:26px;background:rgba(250,247,242,0.08);border-radius:18px;padding:26px 36px;">
+        <span style="font-size:44px;color:var(--gold);font-weight:900;flex-shrink:0;">✓</span>
+        <span style="font-size:38px;font-weight:600;" data-es="challengersranking.online" data-en="challengersranking.online">challengersranking.online</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ⚠ Captions + Controls + Overlays MOVED OUTSIDE the .stage so they
+     don't get scaled when the stage shrinks to fit small viewports.
+     Antes los botones del footer terminaban en ~15px visibles en mobile
+     (38px CSS × scale 0.4 del stage). Ahora son fixed al viewport,
+     siempre tamaño nativo. -->
+
+<!-- Captions overlay -->
+<div id="captions" class="hidden"><span class="text"></span></div>
+
+<!-- Controls -->
+<div id="controls">
+  <button id="btn-play" aria-label="Play/pause">
+    <svg viewBox="0 0 24 24" id="icon-play"><path d="M8 5v14l11-7z"/></svg>
+    <svg viewBox="0 0 24 24" id="icon-pause" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+  </button>
+  <button id="btn-prev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg></button>
+  <button id="btn-next" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></button>
+  <button id="btn-cc" aria-label="Captions" aria-pressed="false">
+    <svg viewBox="0 0 24 24"><path d="M19 4H5c-1.11 0-2 .9-2 2v12c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-8 7H9.5v-.5h-2v3h2V13H11v1c0 .55-.45 1-1 1H7c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h3c.55 0 1 .45 1 1v1zm7 0h-1.5v-.5h-2v3h2V13H18v1c0 .55-.45 1-1 1h-3c-.55 0-1-.45-1-1v-4c0-.55.45-1 1-1h3c.55 0 1 .45 1 1v1z"/></svg>
+  </button>
+  <div class="progress-wrap" id="prog-wrap"><div class="progress" id="progress"></div></div>
+  <span class="scene-num" id="scene-num">1 / 5</span>
+  <button id="lang-btn" class="lang-btn" type="button" aria-label="Switch language">
+    <span class="globe">🌐</span>
+    <span id="lang-btn-text">EN</span>
+  </button>
+</div>
+
+<!-- Initial play overlay -->
+<div id="play-overlay">
+  <div class="pre">CHALLENGERS RANKING</div>
+  <div class="hero-badge">
+    <svg viewBox="0 0 400 400">
+      <g fill="#FAF7F2">
+        <rect x="101" y="240" width="42" height="70" rx="5"/>
+        <rect x="153" y="205" width="42" height="105" rx="5"/>
+        <rect x="205" y="165" width="42" height="145" rx="5"/>
+        <rect x="257" y="120" width="42" height="190" rx="5"/>
+      </g>
+      <circle cx="278" cy="92" r="22" fill="#FAF7F2"/>
+    </svg>
+  </div>
+  <h1 data-es="Más partidos, más club" data-en="More matches, more club">Más partidos, más club</h1>
+  <div class="play-btn" id="play-overlay-btn">
+    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    <span data-es="Ver el video" data-en="Watch the video">Ver el video</span>
+  </div>
+</div>
+
+<!-- Replay overlay (after end) -->
+<div id="replay-overlay">
+  <h2 data-es="Listo en 24 horas." data-en="Live in 24 hours.">Listo en 24 horas.</h2>
+  <p data-es="Probalo gratis con tu club, sin compromiso. Te ayudamos a montar el ranking, importar la lista de socios y arrancar."
+     data-en="Try it free with your club, no strings attached. We help you set up the ranking, import your members list, and get going.">Probalo gratis con tu club, sin compromiso. Te ayudamos a montar el ranking, importar la lista de socios y arrancar.</p>
+  <div class="actions">
+    <a href="https://app.challengersranking.online/signup?utm_source=community-video" class="primary"
+       data-es="Quiero probarlo →" data-en="I want to try it →">Quiero probarlo →</a>
+    <button onclick="replay()" data-es="Ver de nuevo" data-en="Watch again">Ver de nuevo</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  const NUM_SCENES = 5;
+
+  // Durations medidas al generar el audio con ElevenLabs (Chris voice).
+  // El auto-advance lo dispara el evento 'ended' del audio. Estos números
+  // solo se usan para la progress bar antes de que el audio cargue.
+  const SCENE_DUR = {
+    es: [11.73, 11.52, 11.18, 14.65, 10.03],
+    en: [12.43, 11.55, 9.46, 11.96, 10.40],
+  };
+
+  const CAPTIONS = {
+    es: [
+      "En tu club hay socios que quieren jugar más. Con Challengers Ranking, desafiar a alguien de tu nivel es un solo tap. Sin coordinar por WhatsApp, sin esperar. Tocás, y ya tenés partido.",
+      "Y engancha. Porque el ranking se mueve todos los días. Cada partido que se juega lo cambia. Hoy estás 13, ganás, y mañana estás 11. El club entero, en movimiento.",
+      "Te toca un rival que no conocés. Antes de salir a la cancha, mirás su historial, sus estadísticas, su racha. Sabés contra quién jugás. Eso lo hace divertido.",
+      "Para el club, son las canchas llenas, más vida entre los socios. Y algo nuevo: una fuente de ingresos. Vendele el espacio publicitario de la app a un sponsor. El 100% del revenue es del club.",
+      "Más socios jugando. Más vida en el club. Una nueva fuente de ingresos. Listo en 24 horas, con free trial y sin contratos. Challengers Ranking.",
+    ],
+    en: [
+      "Your club has members who want to play more. With Challengers Ranking, challenging someone at your level is a single tap. No WhatsApp coordination, no waiting. You tap, and you have a match.",
+      "And it hooks them. Because the ranking moves every single day. Every match played changes it. Today you're 13, you win, tomorrow you're 11. The whole club, in motion.",
+      "You draw an opponent you've never met. Before you step on court, you check their history, their stats, their streak. You know who you're playing. That makes it fun.",
+      "For the club, it means full courts and more life among members. And something new: a revenue stream. Sell the in-app ad space to a sponsor. 100% of the revenue goes to the club.",
+      "More members playing. More life at the club. A brand new revenue stream. Live in 24 hours, with a free trial and no contracts. Challengers Ranking.",
+    ],
+  };
+
+  // ─── State ────────────────────────────────────────────────────────
+  let currentScene = 1;
+  let isPlaying = false;
+  let audioEl = null;
+  let lang = 'es';
+  try {
+    const saved = localStorage.getItem('cr-sales-lang');
+    if (saved === 'es' || saved === 'en') lang = saved;
+  } catch {}
+
+  const stage = document.getElementById('stage');
+  const captions = document.getElementById('captions');
+  const captionsText = captions.querySelector('.text');
+  const progressBar = document.getElementById('progress');
+  const topProgressFill = document.getElementById('top-progress-fill');
+  const sceneNum = document.getElementById('scene-num');
+  const playOverlay = document.getElementById('play-overlay');
+  const replayOverlay = document.getElementById('replay-overlay');
+  const iconPlay = document.getElementById('icon-play');
+  const iconPause = document.getElementById('icon-pause');
+
+  const totalDur = () => SCENE_DUR[lang].reduce((a, b) => a + b, 0);
+
+  // ─── Stage scaling ────────────────────────────────────────────────
+  function fitStage() {
+    const vpW = window.innerWidth;
+    const vpH = window.innerHeight;
+    const scale = Math.min(vpW / 1080, vpH / 1920);
+    stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  }
+  fitStage();
+  window.addEventListener('resize', fitStage);
+
+  // ─── Apply language ──────────────────────────────────────────────
+  function applyLang() {
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-es][data-en]').forEach(el => {
+      el.innerHTML = lang === 'en' ? el.dataset.en : el.dataset.es;
+    });
+    captionsText.innerHTML = (CAPTIONS[lang] && CAPTIONS[lang][currentScene - 1]) || '';
+    const langBtnText = document.getElementById('lang-btn-text');
+    if (langBtnText) langBtnText.textContent = (lang === 'es') ? 'EN' : 'ES';
+  }
+
+  function setLang(l) {
+    if (l !== 'es' && l !== 'en') return;
+    if (l === lang) return;
+    const wasPlaying = isPlaying;
+    const prevTime = audioEl ? audioEl.currentTime : 0;
+    lang = l;
+    try { localStorage.setItem('cr-sales-lang', lang); } catch {}
+    applyLang();
+    // Reload audio for the same scene in the new lang. Try to preserve current
+    // position (may not match exactly since EN/ES durations differ).
+    if (audioEl) {
+      loadAudio();
+      audioEl.addEventListener('loadedmetadata', () => {
+        audioEl.currentTime = Math.min(prevTime, (audioEl.duration || 0) - 0.1);
+        if (wasPlaying) play();
+      }, { once: true });
+    }
+  }
+
+  // ─── Scene management ────────────────────────────────────────────
+  function activateScene(n) {
+    document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+    const el = document.getElementById('scene-' + n);
+    if (el) el.classList.add('active');
+    sceneNum.textContent = `${n} / ${NUM_SCENES}`;
+    captionsText.innerHTML = (CAPTIONS[lang] && CAPTIONS[lang][n - 1]) || '';
+  }
+
+  function loadAudio() {
+    if (audioEl) {
+      audioEl.pause();
+      audioEl.removeEventListener('ended', onEnded);
+      audioEl.removeEventListener('timeupdate', onTimeUpdate);
+      audioEl.removeEventListener('loadedmetadata', onLoadedMetadata);
+    }
+    const sceneStr = String(currentScene).padStart(2, '0');
+    audioEl = new Audio(`sales-audio/${lang}/scene-${sceneStr}.m4a`);
+    audioEl.preload = 'auto';
+    audioEl.addEventListener('ended', onEnded);
+    audioEl.addEventListener('timeupdate', onTimeUpdate);
+    audioEl.addEventListener('loadedmetadata', onLoadedMetadata);
+  }
+
+  function onLoadedMetadata() {
+    // Sync SCENE_DUR[lang][currentScene-1] with the actual loaded audio duration
+    // so the progress bar is accurate.
+    if (audioEl && audioEl.duration && !Number.isNaN(audioEl.duration)) {
+      SCENE_DUR[lang][currentScene - 1] = audioEl.duration;
+    }
+  }
+
+  function onEnded() {
+    if (currentScene < NUM_SCENES) {
+      gotoScene(currentScene + 1, true);
+    } else {
+      isPlaying = false;
+      iconPlay.style.display = 'block';
+      iconPause.style.display = 'none';
+      replayOverlay.classList.add('show');
+      if (typeof gtag === 'function') gtag('event', 'sales_completed', { event_category: 'engagement', event_label: lang });
+    }
+  }
+
+  function onTimeUpdate() {
+    if (!audioEl || !audioEl.duration) return;
+    const durs = SCENE_DUR[lang];
+    let cumBefore = 0;
+    for (let i = 0; i < currentScene - 1; i++) cumBefore += durs[i];
+    const elapsed = cumBefore + audioEl.currentTime;
+    const total = totalDur();
+    const pct = (elapsed / total) * 100;
+    progressBar.style.width = pct + '%';
+    topProgressFill.style.width = pct + '%';
+  }
+
+  function gotoScene(n, andPlay) {
+    if (n < 1 || n > NUM_SCENES) return;
+    currentScene = n;
+    activateScene(n);
+    loadAudio();
+    if (andPlay) play();
+  }
+
+  function play() {
+    // Hide the initial play overlay if it's still visible.
+    // FIX BUG: clicking footer play while overlay was up would start the audio
+    // but the overlay still covered the slides, so they appeared "stuck".
+    if (!playOverlay.classList.contains('gone')) {
+      playOverlay.classList.add('gone');
+      activateScene(currentScene);
+    }
+    if (!audioEl) loadAudio();
+    audioEl.play().then(() => {
+      isPlaying = true;
+      iconPlay.style.display = 'none';
+      iconPause.style.display = 'block';
+    }).catch(err => { console.warn('audio play failed', err); });
+  }
+
+  function pause() {
+    if (audioEl) audioEl.pause();
+    isPlaying = false;
+    iconPlay.style.display = 'block';
+    iconPause.style.display = 'none';
+  }
+
+  // ─── Init ─────────────────────────────────────────────────────────
+  applyLang();
+  activateScene(1);
+
+  // Play overlay click anywhere on it
+  playOverlay.addEventListener('click', () => {
+    playOverlay.classList.add('gone');
+    activateScene(1);
+    loadAudio();
+    play();
+    if (typeof gtag === 'function') gtag('event', 'community_started', { event_category: 'engagement', event_label: lang });
+  });
+
+  window.replay = function() {
+    replayOverlay.classList.remove('show');
+    gotoScene(1, true);
+  };
+
+  // ─── Controls ────────────────────────────────────────────────────
+  document.getElementById('btn-play').addEventListener('click', () => isPlaying ? pause() : play());
+  document.getElementById('btn-prev').addEventListener('click', () => gotoScene(currentScene - 1, isPlaying));
+  document.getElementById('btn-next').addEventListener('click', () => gotoScene(currentScene + 1, isPlaying));
+
+  document.getElementById('prog-wrap').addEventListener('click', (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const pct = (e.clientX - rect.left) / rect.width;
+    const target = pct * totalDur();
+    let cum = 0;
+    const durs = SCENE_DUR[lang];
+    for (let i = 0; i < NUM_SCENES; i++) {
+      if (cum + durs[i] >= target) {
+        gotoScene(i + 1, isPlaying);
+        if (audioEl) audioEl.currentTime = Math.min(target - cum, (durs[i] || 1) - 0.1);
+        return;
+      }
+      cum += durs[i];
+    }
+  });
+
+  // CC toggle
+  const btnCc = document.getElementById('btn-cc');
+  function setCC(enabled, persist) {
+    if (enabled) {
+      captions.classList.remove('hidden');
+      btnCc.classList.add('active');
+      btnCc.setAttribute('aria-pressed', 'true');
+    } else {
+      captions.classList.add('hidden');
+      btnCc.classList.remove('active');
+      btnCc.setAttribute('aria-pressed', 'false');
+    }
+    if (persist) try { localStorage.setItem('cr-community-cc', enabled ? '1' : '0'); } catch {}
+  }
+  try { setCC(localStorage.getItem('cr-community-cc') === '1', false); } catch { setCC(false, false); }
+  btnCc.addEventListener('click', () => setCC(captions.classList.contains('hidden'), true));
+
+  // Lang toggle
+  document.getElementById('lang-btn').addEventListener('click', () => {
+    setLang(lang === 'es' ? 'en' : 'es');
+  });
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', (e) => {
+    if (e.key === ' ') { e.preventDefault(); isPlaying ? pause() : play(); }
+    if (e.key === 'ArrowRight') gotoScene(currentScene + 1, isPlaying);
+    if (e.key === 'ArrowLeft')  gotoScene(currentScene - 1, isPlaying);
+  });
+})();
+</script>
+
+</body>
+</html>
