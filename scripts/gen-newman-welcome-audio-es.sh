@@ -17,12 +17,13 @@ mkdir -p "$OUT_DIR" "$SCRIPT_DIR"
 
 write_scene() { printf '%s' "$2" > "$SCRIPT_DIR/scene-$1.txt"; }
 
-# "Clúb" (con acento) fuerza la pronunciación española /klub/ en ElevenLabs
-# (sin el acento lo decía "clab" como en inglés). El texto en pantalla es "Club".
-write_scene 01 '¡Bienvenido al ranking de Clúb Newman! Te llevo en unos minutos por las reglas, para que arranques a jugar hoy mismo.'
+# "Cloob" fuerza la pronunciación española /klub/: el modelo lee "Newman"
+# en modo inglés y arrastra "Club" a /klʌb/ ("clab"). En ese modo, "Cloob"
+# se lee /klub/, que es lo correcto. El texto en pantalla sigue siendo "Club".
+write_scene 01 '¡Bienvenido al ranking de Cloob Newman! Te llevo en unos minutos por las reglas, para que arranques a jugar hoy mismo.'
 write_scene 02 'Primero lo primero: agregá la app al home screen de tu celular. En iPhone, abrí Safari; en Android, Chrome. Entrá a la URL de tu club, tocá el botón de compartir y elegí "Agregar a inicio". Listo, ahora la app vive en tu celular como cualquier otra. Después, activá las notificaciones. Cuando alguien te desafíe, te va a llegar al toque al celular. Sin notificaciones, te podés perder un partido.'
 write_scene 03 'Esto es el ranking de tu club: una escalera del 1 al último. Tocás cualquier nombre y entrás a la ficha del jugador, con su posición, win rate, racha. Para desafiar, tocás "Desafiar" y listo. La regla principal: podés desafiar hasta 5 posiciones por encima tuyo. Si estás en el 20, podés ir al 15. Eso le da chance a los de abajo de subir rápido, y a los de arriba les exige defender.'
-write_scene 04 'Acá viene lo bueno. Los que ya estaban en el ranking arrancan en su puesto del seed. Pero si no estabas, y entrás desde el fondo, te llevás una Wild Card de regalo. La Wild Card te deja desafiar a CUALQUIER posición, sin la restricción de los cinco puestos. Sí, podés ir al número uno desde tu primer día. Y si ganás tres partidos al hilo, te ganás otra.'
+write_scene 04 'Acá viene lo bueno. Los que ya estaban en el ranking arrancan en su puesto del seed. Pero si no estabas, y entrás desde el fondo, te llevás una Wild Card de bienvenida. La Wild Card te deja desafiar a CUALQUIER posición, sin la restricción de los cinco puestos. Sí, podés ir al número uno desde tu primer día. Y si ganás tres partidos al hilo, te ganás otra.'
 write_scene 05 'Cuando mandás un desafío, el rival tiene 2 días para responder. Si no contesta, cuenta como rechazo y podés ir a desafiar a otro. Si acepta, los dos tienen 10 días para jugar. Cada desafío tiene su chat integrado para coordinar día, hora y cancha, sin saltar a WhatsApp. ¿El formato? Un set largo a nueve games. Si llegan ocho iguales, lo define un tiebreak. Y las pelotas las pone quien desafía.'
 write_scene 06 'Cuando jugaron, cualquiera de los dos carga el resultado desde el celular. El otro recibe una notificación para confirmar, y el ranking se actualiza al instante. ¿Cómo se mueven las posiciones? Si el ganador iba más atrás, toma la posición del vencido y el vencido baja un puesto. Si el ganador ya iba por delante, no hay cambio. Premia subir, sin castigar al que ya estaba arriba.'
 write_scene 07 'Tu club tiene también la Tribuna: un feed donde los socios pueden compartir noticias, fotos del club, anuncios o lo que se les ocurra. Es el lugar donde vive la cultura del club, más allá del ranking.'
