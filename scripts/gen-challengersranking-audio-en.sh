@@ -16,7 +16,7 @@ mkdir -p "$OUT_DIR" "$SCRIPT_DIR"
 
 write_scene() { printf '%s' "$2" > "$SCRIPT_DIR/scene-$1.txt"; }
 
-write_scene 01 'Your club has members who want to play more. With Challengers Ranking, challenging someone at your level is a single tap. No WhatsApp coordination, no waiting. You tap, and you have a match.'
+write_scene 01 'With Challengers Ranking, setting up your next match is much easier and more fun. You challenge a rival at your level with a single tap, with no WhatsApp coordination and no waiting. You tap, and you have a match.'
 
 write_scene 02 'And it hooks them. Because the ranking moves every single day. Every match played changes it. Today you are thirteen, you win, tomorrow you are eleven. The whole club, in motion.'
 
