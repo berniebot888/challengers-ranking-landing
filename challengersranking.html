@@ -633,6 +633,10 @@
     <span class="globe">🌐</span>
     <span id="lang-btn-text">EN</span>
   </button>
+  <button id="btn-fs" type="button" aria-label="Pantalla completa">
+    <svg viewBox="0 0 24 24" id="icon-fs-enter"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+    <svg viewBox="0 0 24 24" id="icon-fs-exit" style="display:none;"><path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/></svg>
+  </button>
 </div>
 
 <!-- Initial play overlay -->
@@ -869,6 +873,43 @@
   document.getElementById('btn-play').addEventListener('click', () => isPlaying ? pause() : play());
   document.getElementById('btn-prev').addEventListener('click', () => gotoScene(currentScene - 1, isPlaying));
   document.getElementById('btn-next').addEventListener('click', () => gotoScene(currentScene + 1, isPlaying));
+
+  // ─── Fullscreen ──────────────────────────────────────────────────
+  // Embebido en la landing: usamos el relay de postMessage que ya maneja el
+  // padre (explainer-fs-enter/exit → fullscreen real o pseudo, y nos avisa el
+  // estado con explainer-fs-state). Standalone (/challengersranking abierto
+  // directo): pedimos fullscreen sobre el documento.
+  const embedded = window.parent && window.parent !== window;
+  let isFs = false;
+  const iconFsEnter = document.getElementById('icon-fs-enter');
+  const iconFsExit = document.getElementById('icon-fs-exit');
+  function setFsIcon(on) {
+    isFs = on;
+    iconFsEnter.style.display = on ? 'none' : 'block';
+    iconFsExit.style.display = on ? 'block' : 'none';
+  }
+  document.getElementById('btn-fs').addEventListener('click', () => {
+    if (embedded) {
+      window.parent.postMessage({ type: isFs ? 'explainer-fs-exit' : 'explainer-fs-enter' }, '*');
+      return;
+    }
+    // Standalone
+    if (document.fullscreenElement || document.webkitFullscreenElement) {
+      (document.exitFullscreen || document.webkitExitFullscreen)?.call(document);
+    } else {
+      const el = document.documentElement;
+      (el.requestFullscreen || el.webkitRequestFullscreen)?.call(el);
+    }
+  });
+  // Standalone: sincronizar ícono con el estado real de fullscreen.
+  ['fullscreenchange', 'webkitfullscreenchange'].forEach(ev =>
+    document.addEventListener(ev, () => {
+      if (!embedded) setFsIcon(!!(document.fullscreenElement || document.webkitFullscreenElement));
+    }));
+  // Embebido: el padre nos avisa el estado para sincronizar el ícono.
+  window.addEventListener('message', (e) => {
+    if (e.data && e.data.type === 'explainer-fs-state') setFsIcon(!!e.data.on);
+  });
 
   document.getElementById('prog-wrap').addEventListener('click', (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
