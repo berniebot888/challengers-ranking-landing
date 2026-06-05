@@ -3,6 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- LCP: el hero usa una imagen de fondo remota (Unsplash) vía CSS background-image,
+       que el browser recién descubre al parsear el CSS. Preconnect + preload para
+       arrancar la descarga de inmediato — es el elemento LCP de la página. -->
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+  <link rel="preload" as="image" fetchpriority="high"
+        href="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&amp;fit=crop&amp;w=1800&amp;q=80" />
+
   <title>Challengers Ranking — Tennis, Padel, Pickleball &amp; Squash Ladder App for Clubs</title>
   <meta name="description" content="The ladder ranking app for racket sports clubs. Tennis, padel, pickleball and squash. Live rankings, automated challenges, match history, and a community feed — more matches, more participation, happier members. App de ranking de escalera para clubes de tenis, pádel, pickleball y squash." />
   <meta name="keywords" content="tennis ladder app, padel ladder app, pickleball ladder app, squash ladder app, app ranking tenis, app ranking padel, ranking pádel club, ranking pickleball, ranking squash, club tennis app, club padel app, escalera tenis, escalera pádel, racket sports ladder software" />
@@ -18,8 +26,8 @@
   <meta property="og:type"              content="website" />
   <meta property="og:url"               content="https://challengersranking.online/" />
   <meta property="og:site_name"         content="Challengers Ranking" />
-  <meta property="og:title"             content="Challengers Ranking — Tennis Ladder App for Clubs" />
-  <meta property="og:description"       content="The tennis ladder app that drives real member engagement. Live rankings, automated challenges, and a community feed that keeps members coming back." />
+  <meta property="og:title"             content="Challengers Ranking — Ladder App for Racket Sports Clubs" />
+  <meta property="og:description"       content="The ladder app for racket sports clubs that drives real member engagement. Live rankings, automated challenges, and a community feed that keeps members coming back." />
   <meta property="og:image"             content="https://challengersranking.online/og-image.png?v=3" />
   <meta property="og:image:width"       content="1200" />
   <meta property="og:image:height"      content="630" />
@@ -28,8 +36,8 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:title"       content="Challengers Ranking — Tennis Ladder App for Clubs" />
-  <meta name="twitter:description" content="The tennis ladder app that drives real member engagement. Live rankings, automated challenges, and a community feed that keeps members coming back." />
+  <meta name="twitter:title"       content="Challengers Ranking — Ladder App for Racket Sports Clubs" />
+  <meta name="twitter:description" content="The ladder app for racket sports clubs that drives real member engagement. Live rankings, automated challenges, and a community feed that keeps members coming back." />
   <meta name="twitter:image"       content="https://challengersranking.online/og-image.png?v=3" />
 
   <!-- JSON-LD: SoftwareApplication -->
@@ -204,6 +212,8 @@
             'gold-light': '#F2C46E',
             // Sand alias para compat con HTML existente
             sand: '#FAF7F2',
+            // Border sutil cálido para cards blancas sobre fondo cream
+            'brand-border': '#E7E0D4',
           },
           fontFamily: {
             serif: ['Playfair Display', 'serif'],
@@ -318,7 +328,8 @@
     <div class="max-w-4xl mx-auto">
       <!-- Brand v2: badge orange del nuevo brand kit (reemplaza logo2.png) -->
       <img src="brand-kit/png/badge-orange-1024.png"
-           alt="Challengers Ranking — Tennis Ladder App"
+           alt="Challengers Ranking — Racket Sports Ladder App"
+           width="112" height="112"
            class="h-28 w-28 mx-auto mb-8 fade-up drop-shadow-[0_8px_24px_rgba(200,69,28,0.4)]" />
 
       <!-- Social proof badge — del nuevo one-pager: muestra crecimiento
@@ -870,11 +881,11 @@
            data-en="In one minute" data-es="En un minuto">In one minute</p>
         <h2 class="font-serif text-4xl sm:text-5xl text-white font-bold"
             data-en="More members. More matches. <span class='text-gold'>More club.</span>"
-            data-es="Más socios. Más partidos. <span class='text-gold'>Más club.</span>">More members. More matches. <span class="text-gold">More club.</span></h2>
+            data-es="Más socios. Más partidos. <span class='text-gold'>Más club.</span>">Más socios. Más partidos. <span class="text-gold">Más club.</span></h2>
         <p class="text-white/40 mt-3 text-sm"
            data-en="One tap to challenge · Live ranking · Know your opponent · New revenue"
            data-es="Un tap para desafiar · Ranking en vivo · Conocé a tu rival · Nuevos ingresos">
-          One tap to challenge · Live ranking · Know your opponent · New revenue
+          Un tap para desafiar · Ranking en vivo · Conocé a tu rival · Nuevos ingresos
         </p>
       </div>
 
@@ -969,7 +980,7 @@
 
       <!-- Link al setup explainer video -->
       <div class="text-center mt-12">
-        <a href="setup.html" class="inline-flex items-center gap-2 bg-navy text-white hover:bg-terracotta border border-navy hover:border-terracotta rounded-full px-6 py-3 font-semibold text-sm transition-base shadow-md"
+        <a href="setup.html" class="inline-flex items-center gap-2 bg-navy text-white hover:bg-terracotta border border-navy hover:border-terracotta rounded-full px-6 py-3 font-semibold text-sm transition-colors shadow-md"
            data-en="Watch the full setup tour →" data-es="Ver el tour completo del setup →">
           Watch the full setup tour →
         </a>
