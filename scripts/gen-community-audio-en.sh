@@ -24,7 +24,7 @@ write_scene 02 'With Challengers Ranking, a member taps New Challenge, picks an 
 
 write_scene 03 "Suddenly, members play with people they would have never faced. Number thirty-three challenges twenty-eight. The new guy goes up against the veteran. The live ranking is the excuse your club needed to keep the courts moving non-stop."
 
-write_scene 04 "Clubs already using it are seeing three, four, five times more matches per month. Matches that wouldn't have happened otherwise. Community that didn't exist before. All from a phone, live."
+write_scene 04 "Clubs already using it see many more matches per month. Matches that wouldn't have happened otherwise. Community that didn't exist before. All from a phone, live."
 
 write_scene 05 "No App Store install. Live in twenty-four hours. Try it free with your club, no strings attached. Challengers Ranking: more matches, more club."
 

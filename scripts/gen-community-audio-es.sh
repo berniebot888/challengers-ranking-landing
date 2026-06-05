@@ -26,7 +26,7 @@ write_scene 02 'Con Challengers Ranking, un socio toca Nuevo Desafío, elige a u
 
 write_scene 03 'De golpe, los socios juegan con gente que nunca hubieran enfrentado. El número treinta y tres desafía al veintiocho. El nuevo se mide con el veterano. El ranking en vivo es la excusa que al club le faltaba para que la cancha no pare nunca.'
 
-write_scene 04 'Los clubes que ya lo usan están viendo tres, cuatro, cinco veces más partidos por mes. Partidos que antes no se hubieran jugado. Comunidad que antes no existía. Todo desde el celular, en vivo.'
+write_scene 04 'Los clubes que ya lo usan ven muchos más partidos por mes. Partidos que antes no se hubieran jugado. Comunidad que antes no existía. Todo desde el celular, en vivo.'
 
 write_scene 05 'Sin instalar nada del App Store. Listo en veinticuatro horas. Probalo gratis con tu club, sin compromiso. Challengers Ranking: más partidos, más club.'
 
