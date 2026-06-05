@@ -244,6 +244,14 @@
     .fade-up-delay-1 { animation-delay: 0.15s; }
     .fade-up-delay-2 { animation-delay: 0.3s; }
     .fade-up-delay-3 { animation-delay: 0.45s; }
+    /* Respeta a usuarios con "reducir movimiento" (WCAG 2.3.3): sin animación,
+       contenido visible de una. */
+    @media (prefers-reduced-motion: reduce) {
+      .fade-up, .fade-up-delay-1, .fade-up-delay-2, .fade-up-delay-3 {
+        animation: none;
+        opacity: 1;
+      }
+    }
 
     /* Lang toggle */
     .lang-btn { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; }
@@ -1409,6 +1417,7 @@
         <input
           type="text"
           name="name"
+          aria-label="Your name"
           data-en-ph="Your name"
           data-es-ph="Tu nombre"
           placeholder="Your name"
@@ -1418,6 +1427,7 @@
         <input
           type="email"
           name="email"
+          aria-label="Club email address"
           data-en-ph="Club email address"
           data-es-ph="Email del club"
           placeholder="Club email address"
@@ -1427,6 +1437,7 @@
         <input
           type="text"
           name="club_name"
+          aria-label="Club name"
           data-en-ph="Club name"
           data-es-ph="Nombre del club"
           placeholder="Club name"
@@ -1435,6 +1446,7 @@
         />
         <select
           name="players"
+          aria-label="Approximate number of players"
           required
           class="w-full bg-white/10 border border-white/20 text-white/70 rounded-xl px-5 py-3.5 text-sm focus:outline-none focus:border-gold transition"
         >
