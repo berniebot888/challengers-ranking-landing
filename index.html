@@ -171,7 +171,10 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+  <!-- F5: fonts CSS sin bloquear el render (media=print → all al cargar).
+       display=swap ya estaba: texto visible con fallback desde el primer paint. -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" /></noscript>
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV748MSRV4"></script>
@@ -183,46 +186,10 @@
   </script>
 
   <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    /* Brand v2 — paleta nueva (terracotta + navy + cream + gold). Mantenemos
-       los nombres de tokens de la v1 (navy, gold, sand) con los HEX nuevos
-       para que el HTML existente herede el rebrand sin reescribir clases.
-       Agregamos `terracotta` y `cream` para uso explícito en CTAs y backgrounds. */
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            // Navy v2 (más oscuro, casi azul-negro)
-            navy: '#1A1A2E',
-            'navy-light': '#3A3A52',
-            'navy-dark': '#0F0F1F',
-            // Terracotta — primary CTA color del brand v2
-            terracotta: '#C8451C',
-            'terracotta-hover': '#A8381A',
-            'terracotta-soft': '#FCE8DC',
-            // Cream — background warm del brand v2
-            cream: '#FAF7F2',
-            'cream-warm': '#F2EBE0',
-            // Gold v2 (un poco más cálido)
-            gold: '#E8B04C',
-            'gold-light': '#F2C46E',
-            // Sand alias para compat con HTML existente
-            sand: '#FAF7F2',
-            // Border sutil cálido para cards blancas sobre fondo cream
-            'brand-border': '#E7E0D4',
-          },
-          fontFamily: {
-            serif: ['Playfair Display', 'serif'],
-            sans: ['Inter', 'sans-serif'],
-          },
-          borderRadius: {
-            pill: '999px',
-          },
-        },
-      },
-    }
-  </script>
+  <link rel="stylesheet" href="assets/tw.css">
+  <!-- F5: la config de Tailwind vive ahora en tailwind.config.js (build estático
+       en assets/tw.css). El Play CDN (124KB de JS render-blocking) ya no se usa
+       en esta página; las demás páginas del sitio siguen en CDN. -->
 
   <style>
     html { scroll-behavior: smooth; }
@@ -482,7 +449,7 @@
       <!-- Social proof badge — número actual del piloto (122 jugadores a jun
            2026, actualizar a mano cuando crezca). El 15→65-en-una-semana
            quedó como historia en la sección case study. -->
-      <div class="inline-block bg-white/8 border border-gold/30 rounded-full px-4 py-1.5 mb-6 fade-up text-gold text-xs font-semibold tracking-wide"
+      <div class="inline-block bg-white/10 border border-gold/30 rounded-full px-4 py-1.5 mb-6 fade-up text-gold text-xs font-semibold tracking-wide"
            data-en="🎾 From 15 players in a WhatsApp group to 122 competing in the app"
            data-es="🎾 De 15 jugadores en un grupo de WhatsApp a 122 compitiendo en la app">
         🎾 From 15 players in a WhatsApp group to 122 competing in the app
@@ -1389,6 +1356,33 @@
            data-es="Cómo se ve el espacio del sponsor dentro de la app">
           Cómo se ve el espacio del sponsor dentro de la app
         </p>
+      </div>
+
+      <!-- F4 · Calculadora del sponsor: hace tangible "el plan se paga solo".
+           Slider → cuánto cobra el club al sponsor local → ganancia anual. -->
+      <div class="max-w-xl mx-auto mb-16 bg-white rounded-2xl border border-gray-100 shadow-md p-6 sm:p-8 rv-auto">
+        <p class="text-center text-navy font-bold text-lg mb-1"
+           data-en="Do the math for your club" data-es="Hacé la cuenta para tu club">Hacé la cuenta para tu club</p>
+        <p class="text-center text-gray-400 text-xs mb-6"
+           data-en="What would a local sponsor pay for the banner?"
+           data-es="¿Cuánto pagaría un sponsor local por el banner?">¿Cuánto pagaría un sponsor local por el banner?</p>
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-gray-400 text-xs" data-en="Local sponsor" data-es="Sponsor local">Sponsor local</span>
+          <span class="text-navy font-extrabold text-xl"><span id="sp-x">$150</span><span class="text-gray-400 text-sm font-medium" data-en="/mo" data-es="/mes">/mes</span></span>
+        </div>
+        <input id="sp-range" type="range" min="50" max="500" step="10" value="150" class="w-full accent-terracotta cursor-pointer"
+               aria-label="Cuánto paga el sponsor por mes" />
+        <div class="flex justify-between text-[10px] text-gray-300 mt-1 mb-6"><span>$50</span><span>$500</span></div>
+        <div class="bg-cream rounded-xl p-5 text-center">
+          <p class="text-navy text-sm mb-1">
+            <span data-en="Your Starter plan ($49/mo):" data-es="Tu plan Starter ($49/mes):">Tu plan Starter ($49/mes):</span>
+            <b class="text-terracotta" data-en="free" data-es="gratis">gratis</b>
+          </p>
+          <p class="font-serif text-3xl font-bold text-navy"><span id="sp-y">$1,212</span></p>
+          <p class="text-gray-500 text-xs mt-1"
+             data-en="extra per year for the club — you keep 100%"
+             data-es="extra por año para el club — se quedan con el 100%">extra por año para el club — se quedan con el 100%</p>
+        </div>
       </div>
 
       <!-- 3 pasos -->
@@ -2517,6 +2511,23 @@
       window.addEventListener('scroll', function () {
         if (!ticking) { ticking = true; requestAnimationFrame(update); }
       }, { passive: true });
+      update();
+    })();
+
+    /* ─── F4 · Calculadora del sponsor: slider → ganancia anual del club ── */
+    (function () {
+      var range = document.getElementById('sp-range');
+      var x = document.getElementById('sp-x');
+      var y = document.getElementById('sp-y');
+      if (!range || !x || !y) return;
+      var PLAN = 49;
+      function fmt(n) { return '$' + n.toLocaleString('en-US'); }
+      function update() {
+        var v = parseInt(range.value, 10) || 0;
+        x.textContent = fmt(v);
+        y.textContent = fmt(Math.max(0, v - PLAN) * 12);
+      }
+      range.addEventListener('input', update, { passive: true });
       update();
     })();
 
