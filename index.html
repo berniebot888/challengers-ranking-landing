@@ -177,7 +177,26 @@
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" /></noscript>
 
   <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VV748MSRV4"></script>
+  <!-- F5c: GA en carga diferida (primera interacción o 3.5s) — 161KB de JS
+       fuera de la ventana crítica. dataLayer ya existe, los eventos se encolan. -->
+  <script>
+    (function () {
+      var loaded = false;
+      function loadGA() {
+        if (loaded) return; loaded = true;
+        var s = document.createElement('script');
+        s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=G-VV748MSRV4';
+        document.head.appendChild(s);
+        ['scroll','pointerdown','keydown','touchstart'].forEach(function (e) {
+          removeEventListener(e, loadGA, { passive: true });
+        });
+      }
+      ['scroll','pointerdown','keydown','touchstart'].forEach(function (e) {
+        addEventListener(e, loadGA, { passive: true, once: true });
+      });
+      setTimeout(loadGA, 3500);
+    })();
+  </script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -2456,7 +2475,11 @@
       }
       function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
       (async function loop() {
-        await wait(1800);
+        await new Promise(function (r) {
+          if (document.readyState === 'complete') r();
+          else window.addEventListener('load', r, { once: true });
+        });
+        await wait(1200);
         for (;;) {
           await showToast('a', 2400);          // desafío
           await showToast('b', 2300);          // resultado 6-4, 3-6, 10-7
