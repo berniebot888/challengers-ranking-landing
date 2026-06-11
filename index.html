@@ -4,12 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- LCP: el hero usa una imagen de fondo remota (Unsplash) vía CSS background-image,
-       que el browser recién descubre al parsear el CSS. Preconnect + preload para
-       arrancar la descarga de inmediato — es el elemento LCP de la página. -->
-  <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
-  <link rel="preload" as="image" fetchpriority="high"
-        href="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&amp;fit=crop&amp;w=1800&amp;q=80" />
+  <!-- F2: el hero ya no usa foto remota — es un "ranking vivo" en DOM puro
+       (gradientes CSS + card animada). El LCP pasa a ser el H1: instantáneo. -->
+  <script>document.documentElement.classList.add('js-rv')</script>
 
   <title>Challengers Ranking — Tennis, Padel, Pickleball &amp; Squash Ladder App for Clubs</title>
   <meta name="description" content="The ladder ranking app for racket sports clubs. Tennis, padel, pickleball and squash. Live rankings, automated challenges, match history, and a community feed — more matches, more participation, happier members. App de ranking de escalera para clubes de tenis, pádel, pickleball y squash." />
@@ -229,12 +226,13 @@
 
   <style>
     html { scroll-behavior: smooth; }
+    /* F2: hero sin foto — gradiente navy + acentos radiales de marca (DOM puro,
+       cero requests). El LCP pasa a ser el H1. */
     .hero-bg {
-      background-image:
-        linear-gradient(to bottom, rgba(15,15,31,0.85) 0%, rgba(26,26,46,0.75) 60%, rgba(15,15,31,0.95) 100%),
-        url('https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=1800&q=80');
-      background-size: cover;
-      background-position: center 30%;
+      background:
+        radial-gradient(900px 480px at 82% 8%, rgba(200,69,28,0.20), transparent 60%),
+        radial-gradient(700px 420px at 10% 88%, rgba(232,176,76,0.10), transparent 60%),
+        linear-gradient(to bottom, #0F0F1F 0%, #1A1A2E 55%, #0F0F1F 100%);
     }
     .feature-card:hover { transform: translateY(-4px); }
     .step-line::after {
@@ -271,6 +269,73 @@
     .video-wrapper { position: relative; padding-bottom: 56.25%; /* 16:9 */ }
     @media (max-width: 768px) and (orientation: portrait) {
       .video-wrapper { padding-bottom: 150%; /* ~2:3 portrait, lets explainer detect mobile */ }
+    }
+
+    /* ─── F2 · Hero "ranking vivo" ─────────────────────────────────────────
+       Card de ladder en DOM puro. Las filas viven en un contenedor de altura
+       fija y se posicionan por --i (índice): intercambiar dos filas = swapear
+       sus --i y la transición anima el movimiento (solo transform). */
+    .lad-rows { position: relative; height: 280px; }
+    .lad-row {
+      position: absolute; left: 0; right: 0; height: 56px;
+      display: flex; align-items: center; gap: 12px; padding: 0 16px;
+      transform: translateY(calc(var(--i) * 56px));
+      transition: transform .9s cubic-bezier(.22,1,.36,1), background .4s ease;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .lad-row.is-hero { background: rgba(232,176,76,0.08); }
+    .lad-row.lad-flash { background: rgba(232,176,76,0.28); }
+    .lad-rank { width: 1.4rem; text-align: center; font-weight: 800; color: rgba(255,255,255,0.45); font-size: .95rem; }
+    .is-hero .lad-rank { color: #E8B04C; }
+    .lad-avatar {
+      width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800; color: #fff; background: rgba(255,255,255,0.12);
+    }
+    .is-hero .lad-avatar { background: rgba(232,176,76,0.35); color: #0F0F1F; }
+    .lad-live { animation: ladpulse 1.6s ease-in-out infinite; }
+    @keyframes ladpulse { 0%,100% { opacity: 1 } 50% { opacity: .25 } }
+    .lad-toast {
+      position: absolute; top: 60px; left: 50%; z-index: 10;
+      transform: translate(-50%, -10px); opacity: 0; pointer-events: none;
+      transition: opacity .45s ease, transform .45s cubic-bezier(.22,1,.36,1);
+      background: #0F0F1F; border: 1px solid rgba(232,176,76,0.4); color: #fff;
+      font-size: 12px; font-weight: 600; padding: 8px 14px; border-radius: 999px;
+      white-space: nowrap; box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+    }
+    .lad-toast.show { opacity: 1; transform: translate(-50%, 0); }
+    .lad-msg { display: none; }
+    .lad-msg.on { display: inline; }
+
+    /* ─── F2 · Reveals on-scroll ───────────────────────────────────────────
+       Solo cuando html.js-rv (seteado por script inline en <head>): sin JS la
+       página queda 100% visible. IO agrega .rv-in al entrar al viewport. */
+    .js-rv section h2, .js-rv .rv-auto {
+      opacity: 0; transform: translateY(26px);
+      transition: opacity .7s ease, transform .7s cubic-bezier(.22,1,.36,1);
+    }
+    .js-rv section h2.rv-in, .js-rv .rv-auto.rv-in { opacity: 1; transform: none; }
+
+    /* ─── F2 · Rail "La Escalada" (desktop) ────────────────────────────────
+       Chip del jugador que trepa #14→#1 con el progreso de scroll. */
+    #rail { display: none; position: fixed; right: 22px; top: 50%; transform: translateY(-50%); height: 42vh; width: 2px; z-index: 40; }
+    @media (min-width: 1024px) { .js-rv #rail { display: block; } }
+    #rail .rail-track { position: absolute; inset: 0; background: rgba(13,27,42,0.15); border-radius: 2px; }
+    #rail .rail-chip {
+      position: absolute; left: auto; right: 8px; top: 100%; transform: translateY(-50%);
+      background: #1A1A2E; color: #fff; border: 1px solid rgba(232,176,76,0.55);
+      border-radius: 999px; padding: 4px 11px; font-size: 11px; font-weight: 700;
+      white-space: nowrap; box-shadow: 0 6px 18px rgba(26,26,46,0.35);
+    }
+    #rail .rail-chip b { color: #E8B04C; font-weight: 800; }
+
+    /* Reduced motion: experiencia completa, estática */
+    @media (prefers-reduced-motion: reduce) {
+      .lad-row { transition: none; }
+      .lad-toast { display: none; }
+      .lad-live { animation: none; }
+      #rail { display: none !important; }
+      .js-rv section h2, .js-rv .rv-auto { opacity: 1; transform: none; transition: none; }
     }
   </style>
 </head>
@@ -324,13 +389,14 @@
   </nav>
 
   <!-- ─── HERO ─────────────────────────────────────────────────────────────── -->
-  <section class="hero-bg min-h-screen flex items-start sm:items-center justify-center text-center px-6 pt-32 sm:pt-24">
-    <div class="max-w-4xl mx-auto">
+  <section class="hero-bg min-h-screen flex items-start sm:items-center justify-center px-6 pt-28 sm:pt-24 pb-14">
+    <div class="max-w-6xl mx-auto w-full grid lg:grid-cols-[1.05fr,0.95fr] gap-12 lg:gap-16 items-center">
+    <div class="text-center lg:text-left">
       <!-- Brand v2: badge orange del nuevo brand kit (reemplaza logo2.png) -->
       <img src="brand-kit/png/badge-orange-1024.png"
            alt="Challengers Ranking — Racket Sports Ladder App"
            width="112" height="112"
-           class="h-28 w-28 mx-auto mb-8 fade-up drop-shadow-[0_8px_24px_rgba(200,69,28,0.4)]" />
+           class="h-24 w-24 lg:h-28 lg:w-28 mx-auto lg:mx-0 mb-8 fade-up drop-shadow-[0_8px_24px_rgba(200,69,28,0.4)]" />
 
       <!-- Social proof badge — número actual del piloto (122 jugadores a jun
            2026, actualizar a mano cuando crezca). El 15→65-en-una-semana
@@ -347,12 +413,12 @@
           data-es="Más partidos.<br />Más comunidad.<br /><span class='text-gold'>Ranking en vivo.</span>">
         More matches.<br />More community.<br /><span class="text-gold">Live ranking.</span>
       </h1>
-      <p class="text-white/80 text-lg sm:text-xl max-w-2xl mx-auto mb-4 fade-up fade-up-delay-2"
+      <p class="text-white/80 text-lg sm:text-xl max-w-2xl mx-auto lg:mx-0 mb-4 fade-up fade-up-delay-2"
          data-en="One tap to challenge a rival at your level — full courts with zero work for your staff. Tennis, padel, pickleball, squash."
          data-es="Un tap para desafiar a un rival de tu nivel — canchas llenas sin que tu staff haga nada. Tenis, pádel, pickleball y squash.">
         One tap to challenge a rival at your level — full courts with zero work for your staff. Tennis, padel, pickleball, squash.
       </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center fade-up fade-up-delay-3">
+      <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start fade-up fade-up-delay-3">
         <a href="https://app.challengersranking.online/signup?plan=starter&utm_source=landing&utm_medium=web&utm_content=hero"
            class="bg-terracotta hover:bg-terracotta-hover text-white font-bold text-base px-8 py-4 rounded-full transition shadow-lg shadow-terracotta/30"
            data-en="Starter Plan Free · 30 days →" data-es="Plan Starter Gratis · 30 días →">
@@ -368,6 +434,65 @@
          data-es="Plan Starter Gratis · 30 días · hasta 50 jugadores · sin tarjeta">
         Starter Plan Free · 30 days · up to 50 players · no credit card
       </p>
+    </div>
+
+    <!-- F2 · El ranking vivo: el producto es el héroe. Card de ladder DOM puro
+         con desafío → resultado → swap de posiciones en loop (decorativo para
+         lectores de pantalla: aria-hidden). -->
+    <div class="relative max-w-sm w-full mx-auto lg:max-w-md fade-up fade-up-delay-2" aria-hidden="true">
+      <div class="absolute -inset-8 bg-terracotta/15 blur-3xl rounded-full pointer-events-none"></div>
+      <div class="relative bg-navy-light/80 backdrop-blur border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
+        <div class="flex items-center justify-between px-4 py-3 border-b border-white/10">
+          <div class="flex items-center gap-2">
+            <img src="brand-kit/png/badge-orange-1024.png" alt="" width="20" height="20" class="h-5 w-5" />
+            <span class="text-white font-bold text-sm" data-en="Men's Singles" data-es="Singles Caballeros">Singles Caballeros</span>
+          </div>
+          <span class="flex items-center gap-1.5 text-[10px] font-bold tracking-widest text-gold uppercase">
+            <span class="lad-live h-1.5 w-1.5 rounded-full bg-gold"></span>
+            <span data-en="LIVE" data-es="EN VIVO">EN VIVO</span>
+          </span>
+        </div>
+        <div class="lad-rows">
+          <div class="lad-row" style="--i:0" id="lad-r4">
+            <span class="lad-rank">4</span><span class="lad-avatar">LF</span>
+            <span class="text-white/90 text-sm font-semibold flex-1 truncate">L. Fernández</span>
+            <span class="text-white/35 text-xs font-medium">12-3</span>
+          </div>
+          <div class="lad-row" style="--i:1" id="lad-costa">
+            <span class="lad-rank">5</span><span class="lad-avatar">SC</span>
+            <span class="text-white/90 text-sm font-semibold flex-1 truncate">S. Costa</span>
+            <span class="text-white/35 text-xs font-medium">10-5</span>
+          </div>
+          <div class="lad-row is-hero" style="--i:2" id="lad-martin">
+            <span class="lad-rank">6</span><span class="lad-avatar">MR</span>
+            <span class="text-white text-sm font-bold flex-1 truncate">M. Rodríguez</span>
+            <span class="text-gold/80 text-xs font-bold">11-6</span>
+          </div>
+          <div class="lad-row" style="--i:3">
+            <span class="lad-rank">7</span><span class="lad-avatar">JP</span>
+            <span class="text-white/90 text-sm font-semibold flex-1 truncate">J. Pereyra</span>
+            <span class="text-white/35 text-xs font-medium">8-7</span>
+          </div>
+          <div class="lad-row" style="--i:4">
+            <span class="lad-rank">8</span><span class="lad-avatar">AB</span>
+            <span class="text-white/90 text-sm font-semibold flex-1 truncate">A. Bianchi</span>
+            <span class="text-white/35 text-xs font-medium">7-8</span>
+          </div>
+        </div>
+        <div class="lad-toast" id="lad-toast">
+          <span class="lad-msg on" data-msg="a">⚔️ <span data-en="New challenge — M. Rodríguez → S. Costa" data-es="Nuevo desafío — M. Rodríguez → S. Costa">Nuevo desafío — M. Rodríguez → S. Costa</span></span>
+          <span class="lad-msg" data-msg="b">🎾 <span data-en="Result: 6-4, 3-6, 10-7" data-es="Resultado: 6-4, 3-6, 10-7">Resultado: 6-4, 3-6, 10-7</span></span>
+          <span class="lad-msg" data-msg="c">⚔️ <span data-en="Rematch — S. Costa → M. Rodríguez" data-es="Revancha — S. Costa → M. Rodríguez">Revancha — S. Costa → M. Rodríguez</span></span>
+          <span class="lad-msg" data-msg="d">🎾 <span data-en="Result: 7-5, 6-4" data-es="Resultado: 7-5, 6-4">Resultado: 7-5, 6-4</span></span>
+        </div>
+        <div class="px-4 py-2.5 border-t border-white/10 text-center text-[11px] text-white/35"
+             data-en="Live ranking · one-tap challenges · zero admin work"
+             data-es="Ranking en vivo · desafíos de un tap · cero trabajo del admin">
+          Ranking en vivo · desafíos de un tap · cero trabajo del admin
+        </div>
+      </div>
+    </div>
+
     </div>
   </section>
 
@@ -2027,6 +2152,13 @@
     </div>
   </div>
 
+  <!-- ─── Rail "La Escalada" (F2, desktop): el chip del jugador trepa #14→#1
+       con el progreso de scroll. Decorativo: aria-hidden. ─────────────────── -->
+  <div id="rail" aria-hidden="true">
+    <div class="rail-track"></div>
+    <div class="rail-chip">M. Rodríguez <b class="rail-num">#14</b></div>
+  </div>
+
   <!-- ─── Sticky CTA mobile (F1 conversión) ──────────────────────────────────
        Aparece tras scrollear más allá del hero. Solo mobile (sm:hidden). -->
   <div id="sticky-cta"
@@ -2082,6 +2214,89 @@
           if (depth >= t && !fired[t]) { fired[t] = 1; track('scroll_' + t); }
         });
       }, { passive: true });
+    })();
+
+    /* ─── F2 · Ranking vivo del hero: loop desafío → resultado → swap ────── */
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var martin = document.getElementById('lad-martin');
+      var costa = document.getElementById('lad-costa');
+      var toast = document.getElementById('lad-toast');
+      if (!martin || !costa || !toast) return;
+
+      function msg(key) {
+        toast.querySelectorAll('.lad-msg').forEach(function (m) {
+          m.classList.toggle('on', m.getAttribute('data-msg') === key);
+        });
+      }
+      function showToast(key, ms) {
+        return new Promise(function (res) {
+          msg(key);
+          toast.classList.add('show');
+          setTimeout(function () { toast.classList.remove('show'); setTimeout(res, 350); }, ms);
+        });
+      }
+      function swap(up) {
+        // up=true: Martín sube a #5 y Costa baja a #6; up=false: revancha.
+        martin.style.setProperty('--i', up ? '1' : '2');
+        costa.style.setProperty('--i', up ? '2' : '1');
+        martin.querySelector('.lad-rank').textContent = up ? '5' : '6';
+        costa.querySelector('.lad-rank').textContent = up ? '6' : '5';
+        var win = up ? martin : costa;
+        setTimeout(function () { win.classList.add('lad-flash'); }, 500);
+        setTimeout(function () { win.classList.remove('lad-flash'); }, 1700);
+      }
+      function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+      (async function loop() {
+        await wait(1800);
+        for (;;) {
+          await showToast('a', 2400);          // desafío
+          await showToast('b', 2300);          // resultado 6-4, 3-6, 10-7
+          swap(true);                          // Martín sube
+          await wait(3000);
+          await showToast('c', 2400);          // revancha
+          await showToast('d', 2300);          // resultado 7-5, 6-4
+          swap(false);                         // Costa recupera
+          await wait(3200);
+        }
+      })();
+    })();
+
+    /* ─── F2 · Reveals on-scroll (IO) ────────────────────────────────────── */
+    (function () {
+      var els = document.querySelectorAll('section h2, .rv-auto');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function (e) { e.classList.add('rv-in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add('rv-in'); io.unobserve(en.target); }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+      els.forEach(function (e) { io.observe(e); });
+    })();
+
+    /* ─── F2 · Rail La Escalada: chip #14→#1 según progreso de scroll ────── */
+    (function () {
+      var rail = document.getElementById('rail');
+      if (!rail || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var chip = rail.querySelector('.rail-chip');
+      var num = rail.querySelector('.rail-num');
+      var ticking = false;
+      function update() {
+        ticking = false;
+        var h = document.documentElement;
+        var max = h.scrollHeight - window.innerHeight;
+        var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+        chip.style.top = (100 - p * 100) + '%';
+        var rank = Math.max(1, Math.round(14 - 13 * p));
+        num.textContent = '#' + rank + (rank === 1 ? ' 🏆' : '');
+      }
+      window.addEventListener('scroll', function () {
+        if (!ticking) { ticking = true; requestAnimationFrame(update); }
+      }, { passive: true });
+      update();
     })();
   </script>
 
