@@ -257,24 +257,24 @@
   .rank-card .arrow.up { color: #2A8A2A; }
   .rank-card .arrow.down { color: rgba(250,247,242,0.4); }
 
-  /* Animate swap of Tony (was #2) ↔ Bernie (was #3) at 7s */
+  /* Animate swap of Tony (was #2) ↔ Martín (was #3) at 7s */
   .rank-card.tony {
     animation: tonyDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) 7.2s forwards;
   }
-  .rank-card.bernie {
-    animation: bernieUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 7.2s forwards;
+  .rank-card.martin {
+    animation: martinUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 7.2s forwards;
   }
   @keyframes tonyDown {
     0% { transform: translateY(0); background: rgba(255,255,255,0.06); }
     50% { transform: translateY(110px); background: rgba(180,60,60,0.18); border-color: rgba(180,60,60,0.4); }
     100% { transform: translateY(110px); background: rgba(255,255,255,0.06); }
   }
-  @keyframes bernieUp {
+  @keyframes martinUp {
     0% { transform: translateY(0); background: rgba(255,255,255,0.06); }
     50% { transform: translateY(-110px); background: rgba(42,138,42,0.18); border-color: rgba(42,138,42,0.4); }
     100% { transform: translateY(-110px); background: rgba(255,255,255,0.06); }
   }
-  .rank-card.bernie .arrow {
+  .rank-card.martin .arrow {
     animation: arrowShow 0.3s ease 7.4s forwards;
   }
   .rank-card.tony .arrow {
@@ -345,18 +345,18 @@
 
   <div class="scene-2">
     <div class="phones">
-      <!-- Left phone: Bernie entering score -->
+      <!-- Left phone: Martín entering score -->
       <div>
         <div class="phone">
           <div class="phone-notch"></div>
           <div class="phone-inner">
             <div class="player-header">
-              <div class="name">Bernie's phone</div>
+              <div class="name">Martín's phone</div>
               <div class="vs">vs Tony · Singles</div>
             </div>
             <div class="score-display">
               <div class="score-row bordered">
-                <span class="pl">Bernie</span>
+                <span class="pl">Martín</span>
                 <div class="sets"><span class="set">6</span><span class="set">6</span></div>
               </div>
               <div class="score-row">
@@ -380,7 +380,7 @@
             </div>
             <div class="notif">
               <div class="app">🎾 CHALLENGERS RANKING</div>
-              <div class="title">Bernie reported a score</div>
+              <div class="title">Martín reported a score</div>
               <div class="body">6-4, 6-3 · Tap to review and confirm</div>
             </div>
             <div class="confirm-btn">Confirm score</div>
@@ -408,10 +408,10 @@
         <div class="name">Tony Cornudet</div>
         <div class="arrow down">↓</div>
       </div>
-      <div class="rank-card bernie">
+      <div class="rank-card martin">
         <div class="pos">#3</div>
         <div class="avatar">BL</div>
-        <div class="name">Bernie Loitegui</div>
+        <div class="name">Martín Rodríguez</div>
         <div class="arrow up">↑</div>
       </div>
       <div class="rank-card">
