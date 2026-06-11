@@ -329,6 +329,79 @@
     }
     #rail .rail-chip b { color: #E8B04C; font-weight: 800; }
 
+    /* ─── F3 · La Escalada (pinned scrollytelling) ─────────────────────────
+       Por defecto (sin JS) la sección es estática y apilada: 100% legible.
+       Con JS (html.js-rv) se vuelve pinned de 480vh y data-beat controla qué
+       beat/pantalla se ve. prefers-reduced-motion vuelve al modo estático. */
+    .js-rv .esc { height: 480vh; }
+    .js-rv .esc-beats { min-height: 240px; }
+    .js-rv .esc-beat {
+      position: absolute; inset: 0; opacity: 0; transform: translateY(18px);
+      transition: opacity .5s ease, transform .5s cubic-bezier(.22,1,.36,1);
+      pointer-events: none;
+    }
+    .js-rv .esc[data-beat="0"] .esc-beat[data-b="0"], .js-rv .esc[data-beat="1"] .esc-beat[data-b="1"],
+    .js-rv .esc[data-beat="2"] .esc-beat[data-b="2"], .js-rv .esc[data-beat="3"] .esc-beat[data-b="3"],
+    .js-rv .esc[data-beat="4"] .esc-beat[data-b="4"] { opacity: 1; transform: none; pointer-events: auto; }
+    .js-rv .esc-screen {
+      position: absolute; inset: 0; padding: 16px; opacity: 0; transform: translateX(26px);
+      transition: opacity .45s ease, transform .45s cubic-bezier(.22,1,.36,1);
+    }
+    .js-rv .esc[data-beat="0"] .esc-screen[data-s="0"], .js-rv .esc[data-beat="1"] .esc-screen[data-s="1"],
+    .js-rv .esc[data-beat="2"] .esc-screen[data-s="2"], .js-rv .esc[data-beat="3"] .esc-screen[data-s="3"],
+    .js-rv .esc[data-beat="4"] .esc-screen[data-s="4"] { opacity: 1; transform: none; }
+    /* fallback estático (no-JS): todo apilado y visible */
+    .esc-beat { margin-bottom: 1.5rem; }
+    .esc-screen { padding: 16px; }
+    .esc-screens { height: auto; }
+    .js-rv .esc-screens { height: 340px; }
+    .esc-dot { width: 8px; height: 8px; border-radius: 999px; background: rgba(255,255,255,0.15); transition: background .3s, transform .3s; }
+    .esc[data-beat="0"] .esc-dot[data-d="0"], .esc[data-beat="1"] .esc-dot[data-d="1"],
+    .esc[data-beat="2"] .esc-dot[data-d="2"], .esc[data-beat="3"] .esc-dot[data-d="3"],
+    .esc[data-beat="4"] .esc-dot[data-d="4"] { background: #E8B04C; transform: scale(1.3); }
+    .esc-stitle { color: #fff; font-weight: 800; font-size: 13px; margin-bottom: 12px; }
+    .esc-rival {
+      display: flex; align-items: center; gap: 8px; position: relative;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 10px; margin-bottom: 8px;
+    }
+    .esc-rival-hot { border-color: rgba(232,176,76,0.45); background: rgba(232,176,76,0.08); }
+    .esc-rname { flex: 1; color: #fff; font-size: 12px; font-weight: 600; }
+    .esc-rname i { font-style: normal; color: rgba(255,255,255,0.35); font-size: 10px; }
+    .esc-btn { background: rgba(255,255,255,0.1); color: #fff; font-size: 10px; font-weight: 700; padding: 6px 10px; border-radius: 999px; }
+    .esc-btn-hot { background: #C8451C; }
+    .esc-tap {
+      position: absolute; right: 12px; top: 50%; margin-top: -17px; width: 34px; height: 34px;
+      border: 2px solid rgba(232,176,76,0.7); border-radius: 999px; pointer-events: none;
+      animation: esctap 1.6s ease-out infinite;
+    }
+    @keyframes esctap { 0% { transform: scale(.6); opacity: .9 } 80% { transform: scale(1.5); opacity: 0 } 100% { opacity: 0 } }
+    .esc-notif {
+      background: #0F0F1F; border: 1px solid rgba(255,255,255,0.12); border-radius: 14px;
+      padding: 14px; margin-top: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    .esc-score { display: flex; flex-direction: column; gap: 10px; margin: 6px 0 14px; }
+    .esc-set {
+      display: flex; gap: 10px; justify-content: center; align-items: center;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px; padding: 10px; color: #fff; font-weight: 800; font-size: 18px;
+    }
+    .esc-sep { color: rgba(255,255,255,0.3); }
+    .esc-set-tb { border-color: rgba(232,176,76,0.4); }
+    .esc-confirm { display: block; text-align: center; }
+    .esc-mini { position: relative; height: 168px; }
+    .esc-mrow {
+      position: absolute; left: 0; right: 0; height: 42px; display: flex; align-items: center; gap: 8px;
+      color: #fff; font-size: 12px; font-weight: 600; padding: 0 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transform: translateY(calc(var(--i) * 42px));
+      transition: transform .8s cubic-bezier(.22,1,.36,1);
+    }
+    .esc-mrow b { width: 16px; color: rgba(255,255,255,0.4); font-weight: 800; }
+    .esc-mrow.is-hero { background: rgba(232,176,76,0.1); }
+    .esc-mrow.is-hero b { color: #E8B04C; }
+    .esc-post { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 12px; margin-bottom: 8px; }
+
     /* Reduced motion: experiencia completa, estática */
     @media (prefers-reduced-motion: reduce) {
       .lad-row { transition: none; }
@@ -336,6 +409,14 @@
       .lad-live { animation: none; }
       #rail { display: none !important; }
       .js-rv section h2, .js-rv .rv-auto { opacity: 1; transform: none; transition: none; }
+      .js-rv .esc { height: auto; }
+      .js-rv .esc-pin { position: static; height: auto; padding-top: 5rem; padding-bottom: 5rem; }
+      .js-rv .esc-beat { position: static; opacity: 1; transform: none; pointer-events: auto; }
+      .js-rv .esc-screen { position: static; opacity: 1; transform: none; }
+      .js-rv .esc-screens { height: auto; }
+      .esc-tap { display: none; }
+      .esc-dots { display: none; }
+      .esc-mrow { transition: none; }
     }
   </style>
 </head>
@@ -493,6 +574,136 @@
       </div>
     </div>
 
+    </div>
+  </section>
+
+  <!-- ─── F3 · LA ESCALADA (scrollytelling pinned) ──────────────────────────
+       El ciclo completo de un desafío contado en 5 beats mientras el visitante
+       scrollea, con el teléfono fijo al centro. data-beat en la sección
+       controla qué copy y qué pantalla se ven (CSS); el JS solo mapea
+       progreso de scroll → beat. -->
+  <section id="escalada" class="esc bg-navy-dark relative" data-beat="0" aria-label="La vida de un desafío">
+    <div class="esc-pin sticky top-0 h-screen overflow-hidden flex items-center px-6">
+      <div class="max-w-6xl mx-auto w-full grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
+
+        <div class="esc-copy relative text-center lg:text-left order-2 lg:order-1">
+          <p class="text-gold font-semibold tracking-widest uppercase text-xs mb-4"
+             data-en="The life of a challenge" data-es="La vida de un desafío">La vida de un desafío</p>
+          <div class="esc-beats relative">
+            <div class="esc-beat" data-b="0">
+              <h3 class="font-serif text-3xl sm:text-4xl text-white font-bold mb-3"
+                  data-en="Challenge in one tap" data-es="Desafiá con un tap">Desafiá con un tap</h3>
+              <p class="text-white/60 text-base sm:text-lg max-w-md mx-auto lg:mx-0"
+                 data-en="Pick a rival at your level. No group chats, no back-and-forth."
+                 data-es="Elegís un rival de tu nivel. Sin grupos de WhatsApp, sin coordinar a tres bandas.">
+                Elegís un rival de tu nivel. Sin grupos de WhatsApp, sin coordinar a tres bandas.
+              </p>
+            </div>
+            <div class="esc-beat" data-b="1">
+              <h3 class="font-serif text-3xl sm:text-4xl text-white font-bold mb-3"
+                  data-en="They know instantly" data-es="El rival se entera al instante">El rival se entera al instante</h3>
+              <p class="text-white/60 text-base sm:text-lg max-w-md mx-auto lg:mx-0"
+                 data-en="Push notification. Two days to respond — the app does the chasing, not you."
+                 data-es="Notificación push. Dos días para responder — la app persigue, no vos.">
+                Notificación push. Dos días para responder — la app persigue, no vos.
+              </p>
+            </div>
+            <div class="esc-beat" data-b="2">
+              <h3 class="font-serif text-3xl sm:text-4xl text-white font-bold mb-3"
+                  data-en="Score loaded in seconds" data-es="El resultado, en segundos">El resultado, en segundos</h3>
+              <p class="text-white/60 text-base sm:text-lg max-w-md mx-auto lg:mx-0"
+                 data-en="6-4, 3-6, 10-7. One player reports, the other confirms. Done."
+                 data-es="6-4, 3-6, 10-7. Uno carga, el otro confirma. Listo.">
+                6-4, 3-6, 10-7. Uno carga, el otro confirma. Listo.
+              </p>
+            </div>
+            <div class="esc-beat" data-b="3">
+              <h3 class="font-serif text-3xl sm:text-4xl text-white font-bold mb-3"
+                  data-en="The ranking moves — live" data-es="El ranking se mueve solo, en vivo">El ranking se mueve solo, en vivo</h3>
+              <p class="text-white/60 text-base sm:text-lg max-w-md mx-auto lg:mx-0"
+                 data-en="The whole club sees it instantly. That's the adrenaline that fills courts."
+                 data-es="Todo el club lo ve al instante. Esa es la adrenalina que llena canchas.">
+                Todo el club lo ve al instante. Esa es la adrenalina que llena canchas.
+              </p>
+            </div>
+            <div class="esc-beat" data-b="4">
+              <h3 class="font-serif text-3xl sm:text-4xl text-white font-bold mb-3"
+                  data-en="And your staff did nothing" data-es="Y tu staff no tocó nada">Y tu staff no tocó nada</h3>
+              <p class="text-white/60 text-base sm:text-lg max-w-md mx-auto lg:mx-0 mb-6"
+                 data-en="No spreadsheets, no arguments. The clubhouse feed celebrates for you."
+                 data-es="Cero planillas, cero discusiones. La Tribuna celebra por vos.">
+                Cero planillas, cero discusiones. La Tribuna celebra por vos.
+              </p>
+              <a href="https://app.challengersranking.online/signup?plan=starter&utm_source=landing&utm_medium=web&utm_content=escalada"
+                 class="inline-block bg-terracotta hover:bg-terracotta-hover text-white font-bold text-sm px-7 py-3.5 rounded-full transition shadow-lg shadow-terracotta/30"
+                 data-en="Start your free ranking →" data-es="Creá tu ranking gratis →">Creá tu ranking gratis →</a>
+            </div>
+          </div>
+          <div class="esc-dots flex gap-2 justify-center lg:justify-start mt-8" aria-hidden="true">
+            <span class="esc-dot" data-d="0"></span><span class="esc-dot" data-d="1"></span><span class="esc-dot" data-d="2"></span><span class="esc-dot" data-d="3"></span><span class="esc-dot" data-d="4"></span>
+          </div>
+        </div>
+
+        <div class="order-1 lg:order-2 flex justify-center" aria-hidden="true">
+          <div class="esc-frame relative w-[270px] sm:w-[290px] bg-navy-light/80 backdrop-blur border border-white/10 rounded-[2rem] shadow-2xl overflow-hidden">
+            <div class="flex items-center justify-between px-4 py-2.5 border-b border-white/10">
+              <div class="flex items-center gap-1.5">
+                <img src="brand-kit/png/badge-orange-256.png" alt="" width="16" height="16" class="h-4 w-4" />
+                <span class="text-white/80 font-bold text-[11px]" data-en="Your Club" data-es="Tu Club">Tu Club</span>
+              </div>
+              <span class="text-[9px] text-white/30 uppercase tracking-widest">Ranking</span>
+            </div>
+            <div class="esc-screens relative" style="height:340px">
+              <div class="esc-screen" data-s="0">
+                <p class="esc-stitle" data-en="New challenge" data-es="Nuevo desafío">Nuevo desafío</p>
+                <div class="esc-rival"><span class="lad-avatar">LF</span><span class="esc-rname">L. Fernández <i>#4</i></span><span class="esc-btn" data-en="Challenge" data-es="Desafiar">Desafiar</span></div>
+                <div class="esc-rival esc-rival-hot"><span class="lad-avatar">SC</span><span class="esc-rname">S. Costa <i>#5</i></span><span class="esc-btn esc-btn-hot" data-en="Challenge" data-es="Desafiar">Desafiar</span><span class="esc-tap"></span></div>
+                <div class="esc-rival"><span class="lad-avatar">JP</span><span class="esc-rname">J. Pereyra <i>#7</i></span><span class="esc-btn" data-en="Challenge" data-es="Desafiar">Desafiar</span></div>
+              </div>
+              <div class="esc-screen" data-s="1">
+                <div class="esc-notif">
+                  <p class="text-[10px] text-white/40 uppercase tracking-widest mb-1">Challengers Ranking</p>
+                  <p class="text-white text-sm font-bold mb-0.5">⚔️ <span data-en="M. Rodríguez challenged you!" data-es="¡M. Rodríguez te desafió!">¡M. Rodríguez te desafió!</span></p>
+                  <p class="text-white/50 text-xs" data-en="You have 2 days to respond" data-es="Tenés 2 días para responder">Tenés 2 días para responder</p>
+                  <div class="flex gap-2 mt-3">
+                    <span class="esc-btn esc-btn-hot flex-1 text-center" data-en="Accept" data-es="Aceptar">Aceptar</span>
+                    <span class="esc-btn flex-1 text-center" data-en="Propose date" data-es="Proponer fecha">Proponer fecha</span>
+                  </div>
+                </div>
+              </div>
+              <div class="esc-screen" data-s="2">
+                <p class="esc-stitle" data-en="Report score" data-es="Cargar resultado">Cargar resultado</p>
+                <div class="esc-score">
+                  <div class="esc-set"><span>6</span><span class="esc-sep">-</span><span>4</span></div>
+                  <div class="esc-set"><span>3</span><span class="esc-sep">-</span><span>6</span></div>
+                  <div class="esc-set esc-set-tb"><span>10</span><span class="esc-sep">-</span><span>7</span></div>
+                </div>
+                <span class="esc-btn esc-btn-hot esc-confirm" data-en="Confirm ✓" data-es="Confirmar ✓">Confirmar ✓</span>
+              </div>
+              <div class="esc-screen" data-s="3">
+                <p class="esc-stitle" data-en="Live ranking" data-es="Ranking en vivo">Ranking en vivo</p>
+                <div class="esc-mini">
+                  <div class="esc-mrow" style="--i:0"><b>4</b> L. Fernández</div>
+                  <div class="esc-mrow esc-m-costa" style="--i:1"><b>5</b> S. Costa</div>
+                  <div class="esc-mrow esc-m-martin is-hero" style="--i:2"><b>6</b> M. Rodríguez</div>
+                  <div class="esc-mrow" style="--i:3"><b>7</b> J. Pereyra</div>
+                </div>
+              </div>
+              <div class="esc-screen" data-s="4">
+                <p class="esc-stitle">Tribuna</p>
+                <div class="esc-post">
+                  <p class="text-white text-xs font-bold mb-1">🏆 <span data-en="M. Rodríguez beat S. Costa 6-4, 3-6, 10-7" data-es="M. Rodríguez le ganó a S. Costa 6-4, 3-6, 10-7">M. Rodríguez le ganó a S. Costa 6-4, 3-6, 10-7</span></p>
+                  <p class="text-white/40 text-[11px]" data-en="climbs to #5 · 12 likes · 4 comments" data-es="sube al #5 · 12 me gusta · 4 comentarios">sube al #5 · 12 me gusta · 4 comentarios</p>
+                </div>
+                <div class="esc-post esc-post-2">
+                  <p class="text-white/80 text-xs">💬 <span data-en="J. Pereyra: 'rematch on saturday?'" data-es="J. Pereyra: «¿revancha el sábado?»">J. Pereyra: «¿revancha el sábado?»</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
@@ -1059,11 +1270,11 @@
           <div class="inline-block bg-navy text-white text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full mb-4"
                data-en="Day 0" data-es="Día 0">Day 0</div>
           <h3 class="font-bold text-navy text-lg mb-2"
-              data-en="Demo" data-es="Demo">Demo</h3>
+              data-en="Create your club" data-es="Creá tu club">Create your club</h3>
           <p class="text-gray-500 text-sm leading-relaxed"
-             data-en="15-min video call. We walk through a live pilot club case."
-             data-es="15 min por video. Vemos juntos el caso real de un club piloto.">
-            15-min video call. We walk through a live pilot club case.
+             data-en="2 minutes, self-serve. Name, sport, logo — no calls, no waiting on anyone."
+             data-es="2 minutos, self-serve. Nombre, deporte, logo — sin llamadas, sin esperar a nadie.">
+            2 minutes, self-serve. Name, sport, logo — no calls, no waiting on anyone.
           </p>
         </div>
         <!-- DÍA 1 — Setup -->
@@ -2275,6 +2486,38 @@
         });
       }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
       els.forEach(function (e) { io.observe(e); });
+    })();
+
+    /* ─── F3 · La Escalada: progreso de scroll → beat activo ─────────────── */
+    (function () {
+      var sec = document.getElementById('escalada');
+      if (!sec || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var martin = sec.querySelector('.esc-m-martin');
+      var costa = sec.querySelector('.esc-m-costa');
+      var cur = -1, ticking = false;
+      function update() {
+        ticking = false;
+        var r = sec.getBoundingClientRect();
+        var total = r.height - window.innerHeight;
+        var p = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 0;
+        var beat = Math.min(4, Math.floor(p * 5));
+        if (beat === cur) return;
+        cur = beat;
+        sec.setAttribute('data-beat', String(beat));
+        // El mini-ladder de la pantalla 4 hace el swap al entrar al beat 3
+        // (y lo revierte si el visitante scrollea para atrás).
+        if (martin && costa) {
+          var up = beat >= 3;
+          martin.style.setProperty('--i', up ? '1' : '2');
+          costa.style.setProperty('--i', up ? '2' : '1');
+          martin.querySelector('b').textContent = up ? '5' : '6';
+          costa.querySelector('b').textContent = up ? '6' : '5';
+        }
+      }
+      window.addEventListener('scroll', function () {
+        if (!ticking) { ticking = true; requestAnimationFrame(update); }
+      }, { passive: true });
+      update();
     })();
 
     /* ─── F2 · Rail La Escalada: chip #14→#1 según progreso de scroll ────── */
