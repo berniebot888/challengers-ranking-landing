@@ -2,12 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://challengersranking.online/</loc>
+    <loc>https://challengersranking.com/</loc>
     <lastmod>2026-04-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="en"      href="https://challengersranking.online/"/>
-    <xhtml:link rel="alternate" hreflang="es"      href="https://challengersranking.online/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://challengersranking.online/"/>
+    <xhtml:link rel="alternate" hreflang="en"      href="https://challengersranking.com/"/>
+    <xhtml:link rel="alternate" hreflang="es"      href="https://challengersranking.com/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://challengersranking.com/"/>
   </url>
 </urlset>

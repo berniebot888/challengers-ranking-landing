@@ -12,7 +12,7 @@ const path = require('path');
 const fs = require('fs');
 
 const OUT_DIR = path.join(__dirname, '..', 'explainer-screens');
-const BASE_URL = 'https://demo.challengersranking.online';
+const BASE_URL = 'https://demo.challengersranking.com';
 const PHONE = '+15551234002';
 const PIN = '1234';
 
